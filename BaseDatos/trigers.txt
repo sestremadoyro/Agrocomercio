@@ -1,0 +1,267 @@
+CREATE TRIGGER [dbo].[ins_letra_Pago] ON [dbo].[letra]
+WITH EXECUTE AS CALLER
+FOR INSERT
+AS
+BEGIN
+DECLARE @icodletra as int 
+declare @nmontocuota as numeric(12,2)
+declare @porcentaje as numeric(12,2)
+declare @nmntnota as numeric(12,2)
+declare @total as numeric(12,2)
+declare @cadena as int
+
+SELECT @icodletra = icodigo
+FROM inserted 
+SELECT @nmontocuota = nmontocuota
+FROM inserted 
+
+SELECT @nmntnota = nmntnota
+FROM inserted 
+
+SELECT @total=1.0
+
+DECLARE miCursor CURSOR FOR 
+SELECT opecod FROM documenoperacion
+where icodletra =@icodletra
+ORDER BY opecod
+	open miCursor
+		fetch next from miCursor into @cadena
+		while @@fetch_status = 0
+			begin
+				select @total=@cadena
+				update operaciones set 
+				@porcentaje= npordesc = (((select opetotal from inserted) *100)/(@nmontocuota-@nmntnota))
+				where opecod =@cadena;
+				fetch next from miCursor into @cadena
+			end 
+	close miCursor
+deallocate miCursor
+
+end
+GO
+
+CREATE TRIGGER [dbo].[tgr_INSTFactura] ON [dbo].[Operaciones]
+WITH EXECUTE AS CALLER
+FOR INSERT
+AS
+BEGIN
+
+DECLARE @opetotal as numeric(18,2)
+SELECT @opetotal = opetotal
+FROM inserted 
+  /* Trigger body */
+	begin 
+		update Operaciones set opetotpagpen = (SELECT opetotal FROM inserted)
+		,opetotpagar = (SELECT opetotal FROM inserted)
+		where opecod = 
+		(SELECT opecod FROM inserted )
+	end    
+END
+GO
+
+CREATE TRIGGER [dbo].[tgr_letra_Pago] ON [dbo].[letra]
+WITH EXECUTE AS CALLER
+FOR INSERT, UPDATE
+AS
+BEGIN
+DECLARE @icodletra as int 
+declare @nmontocuota as numeric(12,2)
+declare @porcentaje as numeric(12,2)
+declare @nmntnota as numeric(12,2)
+declare @total as numeric(12,2)
+declare @cadena as int
+
+SELECT @icodletra = icodigo
+FROM inserted 
+SELECT @nmontocuota = nmontocuota
+FROM inserted 
+
+SELECT @nmntnota = nmntnota
+FROM inserted 
+
+SELECT @total=1.0
+
+DECLARE miCursor CURSOR FOR 
+SELECT opecod FROM documenoperacion
+where icodletra =@icodletra
+ORDER BY opecod
+	open miCursor
+		fetch next from miCursor into @cadena
+		while @@fetch_status = 0
+			begin
+				select @total=@cadena
+				update operaciones set 
+				@porcentaje= npordesc = (((select opetotal from inserted) *100)/(@nmontocuota-@nmntnota))
+				where opecod =@cadena;
+				fetch next from miCursor into @cadena
+			end 
+	close miCursor
+deallocate miCursor
+
+
+DECLARE miCursor CURSOR FOR 
+SELECT opecod FROM documenoperacion
+where icodletra =@icodletra
+ORDER BY opecod
+	open miCursor
+		fetch next from miCursor into @cadena
+		while @@fetch_status = 0
+			begin
+				select @total=@cadena
+				update operaciones set 
+				opetotpagar= ((@nmontocuota *npordesc)/100)
+				where opecod =@cadena;
+				fetch next from miCursor into @cadena
+			end 
+	close miCursor
+deallocate miCursor  
+
+
+DECLARE miCursor CURSOR FOR 
+SELECT opecod FROM documenoperacion
+where icodletra =@icodletra
+ORDER BY opecod
+	open miCursor
+		fetch next from miCursor into @cadena
+		while @@fetch_status = 0
+			begin
+				select @total=@cadena
+				update operaciones set 
+				opetotpagpen= opetotpagar -
+				(case when  opetipo='C' 
+				then 
+					(select coalesce (sum (nmonto),0) from det_letra where icodletra = @icodletra and cestado=2)*npordesc/100
+				else 
+					(select coalesce (SUM(nmonto) ,0)from Pag_letras where idetletra in(select idetletra from det_letra where icodletra = @icodletra))*npordesc/100
+				end)
+				
+				where opecod =@cadena;
+				
+				fetch next from miCursor into @cadena
+			end 
+	close miCursor
+deallocate miCursor 
+
+DECLARE miCursor CURSOR FOR 
+SELECT opecod FROM documenoperacion
+where icodletra =@icodletra
+ORDER BY opecod
+	open miCursor
+		fetch next from miCursor into @cadena
+		while @@fetch_status = 0
+			begin
+				if((select iestado from letra where icodigo=@icodletra)='2')
+				update operaciones set 
+				opeestado= 'C' 				
+				where opecod =@cadena;			
+				fetch next from miCursor into @cadena				
+			end 
+	close miCursor
+deallocate miCursor  
+END
+GO
+
+----------------------------------------
+---------------------------------------
+CREATE TRIGGER [dbo].[tgr_tcm] ON [dbo].[TipoCambios]
+WITH EXECUTE AS CALLER
+FOR INSERT
+AS
+BEGIN
+
+DECLARE @tcmCambio as numeric(12,2)
+DECLARE @tcmFecha as date
+DECLARE @tcmMoneda as varchar(3)
+
+SELECT @tcmCambio = tcmCambio
+FROM inserted 
+SELECT @tcmFecha = tcmFecha
+FROM inserted 
+SELECT @tcmMoneda = tcmMoneda
+FROM inserted 
+  /* Trigger body */
+  if (@tcmMoneda = 'USD' )   
+  begin  
+  if(@tcmFecha >= (select max(tcmfecha) from tipoCambios))
+   update atributos  set atrdescripcion = cast( @tcmCambio as  varchar(80)) 
+   where atrtipocod = 8;
+  end       
+END
+GO
+
+CREATE TRIGGER [dbo].[tgr_upddetPago] ON [dbo].[det_letra]
+WITH EXECUTE AS CALLER
+FOR UPDATE
+AS
+BEGIN
+
+DECLARE @cod_alm as char(1)
+SELECT @cod_alm = cestado
+FROM inserted 
+/* Trigger body */
+if (@cod_alm = '1')   
+	begin  
+		update [det_letra] set dfecpago = null where idetletra = 
+		(SELECT idetletra FROM inserted );
+		update letra set iestado = 1 where icodigo= 
+		(SELECT icodletra FROM inserted );
+	end
+else
+	begin
+	if((SELECT inumletra FROM inserted )=(select itotcuota 
+		from letra where icodigo =(SELECT icodletra FROM inserted ) ))
+		 update letra set iestado = 2 where icodigo= 
+		(SELECT icodletra FROM inserted );
+	ELSE
+		update letra set iestado = 1 where icodigo= 
+		(SELECT icodletra FROM inserted );
+	end
+END
+GO
+
+CREATE TRIGGER [dbo].[tgr_updFactura] ON [dbo].[Operaciones]
+WITH EXECUTE AS CALLER
+FOR UPDATE
+AS
+BEGIN
+
+DECLARE @opetotal as numeric(18,2)
+SELECT @opetotal = opetotal
+FROM inserted 
+  /* Trigger body */
+	if ((select count(*) from fac_pnd_let where 
+	dopcod in (select dopcod from documenoperacion where opecod =
+	(SELECT opecod FROM inserted )))>0)
+	begin 
+		update Operaciones set opetotpagpen = (SELECT opetotal FROM inserted)
+		,opetotpagar = (SELECT opetotal FROM inserted)
+		where opecod = 
+		(SELECT opecod FROM inserted )
+	end    
+END
+GO
+
+CREATE TRIGGER [dbo].[tgr_updpag_letra] ON [dbo].[Pag_letras]
+WITH EXECUTE AS CALLER
+FOR INSERT, UPDATE
+AS
+BEGIN
+
+DECLARE @idetletra as int
+SELECT @idetletra = idetletra 
+FROM inserted 
+  /* Trigger body */
+	if ((select sum(nmonto) from Pag_letras where idetletra= @idetletra )>= 
+	(select nmonto from det_letra where idetletra =@idetletra))   
+		begin  
+			update [det_letra] set dfecpago = (select dfecpago FROM inserted ) , 
+			cestado=2 
+			where idetletra = (SELECT idetletra FROM inserted );			
+		end
+	else
+		begin
+			update [det_letra] set cestado=1 
+			where idetletra = (SELECT idetletra FROM inserted );	
+		end
+END
+GO
