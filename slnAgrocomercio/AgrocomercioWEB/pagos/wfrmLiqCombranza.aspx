@@ -1,4 +1,5 @@
-﻿<%@ Page Title=".:Liquidacion Cobranza:." Language="C#" MasterPageFile="~/Site.Master"
+﻿<%--prueba de cambio 06042013--%>
+<%@ Page Title=".:Liquidacion Cobranza:." Language="C#" MasterPageFile="~/Site.Master"
     AutoEventWireup="true" CodeBehind="wfrmLiqCombranza.aspx.cs" Inherits="AgrocomercioWEB.pagos.wfrmLiqCombranza" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
