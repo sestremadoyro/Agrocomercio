@@ -1,0 +1,900 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4A9F8709-2C36-474A-9A67-D4A936DAC837}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AgrocomercioWEB</RootNamespace>
+    <AssemblyName>AgrocomercioWEB</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\..\..\..\..\CASERIO HUAJE\SISTEMA2\CaserioWEB\Bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="obout_EasyMenu_Pro, Version=3.11.3.1, Culture=neutral, PublicKeyToken=b76d93635057b0c1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="obout_Grid_NET, Version=7.0.9.0, Culture=neutral, PublicKeyToken=5ddc49d3b53e3f98, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\obout_Grid_NET.dll</HintPath>
+    </Reference>
+    <Reference Include="obout_Interface, Version=4.0.10.0, Culture=neutral, PublicKeyToken=d5dff6913a9d6649, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\obout_Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="obout_ListBox, Version=1.0.8.0, Culture=neutral, PublicKeyToken=5a727501b20f450d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\obout_ListBox.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\margin.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\mid.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\mid_over.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\submenu_parent.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\submenu_white.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\s_bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal2\diagonal_bw.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal2\diagonal_wb.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal2\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal2\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal2\submenu_white.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal3\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal3\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal3\submenu_white.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal4\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal4\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal5\bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal5\bg_a.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal5\gag.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal5\sep.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal5\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal5\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal5\submenu_white.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal5\s_bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\arrow.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\arrow_a.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\bg_a.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\gag.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\gagf.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\gagl.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\gagl_a.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\il.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\ir.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\sep.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\submenu_white.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal6\s_bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\bg_a.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\gagf.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\gagl.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\il.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\sep.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\submenu_white.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal7\s_bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\bg_a.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\gagf.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\gagl.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\sep.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\submenu_white.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\s_bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal8\s_bg_a.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_1\bg_em_1.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_1\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_1\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_2\bg_em_2.JPG" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_2\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_2\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_3\bg_em_3.JPG" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_3\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_3\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_4\bg_em_4.JPG" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_4\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_4\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_5\bg_em_5.JPG" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_5\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\le_5\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal9\submenu_white.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontalrtl\margin.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontalrtl\mid.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontalrtl\mid_over.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontalrtl\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontalrtl\submenu.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontalrtl\submenu_parent.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontalrtl\submenu_white.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontalrtl\s_bg.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\FormStyleSheet.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\localization\en.xml" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\localization\es.xml" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\localization\Schema.xml" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\asc.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\desc.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\details_btn_close.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\details_btn_open.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\filter_criterias.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\first.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\first_disabled.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\first_disabled_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\first_normal.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\first_normal_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\first_over.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\first_over_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\first_pressed.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\first_pressed_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\footer.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\grouping_area.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\group_arrow_bottom.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\group_arrow_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\group_btn_close.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\group_btn_open.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\header.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\header_placeholder.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\drop-down-horizontal.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\drop-down-horizontal.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\drop-down-vertical.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\drop-down-vertical.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\horizontal.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\horizontal.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\lighted.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\lighted.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\vertical.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\images\vertical.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutDropDownList\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutTextBox\images\textarea-horizontal.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutTextBox\images\textarea-horizontal.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutTextBox\images\textarea-vertical.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutTextBox\images\textarea-vertical.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutTextBox\images\textbox.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutTextBox\images\textbox.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutTextBox\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\interface\OboutTextBox\style_multiline.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\last.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\last_disabled.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\last_disabled_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\last_normal.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\last_normal_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\last_over.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\last_over_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\last_pressed.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\last_pressed_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\minus.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\next.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\next_disabled.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\next_disabled_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\next_normal.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\next_normal_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\next_over.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\next_over_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\next_pressed.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\next_pressed_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\placeholder.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\placeholder_empty.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\plus.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\previous.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\previous_disabled.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\previous_disabled_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\previous_normal.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\previous_normal_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\previous_over.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\previous_over_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\previous_pressed.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\previous_pressed_top.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\record_group_header.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\Grid\style_6\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\agregar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\agroco.JPG" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\agroklinge.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\Agrovetmarket.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\Agrovetmarket.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\anular.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\BASF.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\biomont.GIF" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\aceptar-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\aceptar-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\aceptar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\agregar-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\agregar-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\agregar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\cancelar-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\cancelar-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\cancelar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\editar-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\editar-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\editar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\eliminar-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\eliminar-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\eliminar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\guardar-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\guardar-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\guardar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\imprimir-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\imprimir-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\imprimir.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\nuevo-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\nuevo-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\nuevo.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\nuevodoc-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\nuevodoc-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\nuevodoc.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\recibir-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\recibir-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\recibir.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\regresar-disabled.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\regresar-over.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\botones\regresar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\cambiar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\cancelar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\cobrar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\cuenta.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\descuento.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\edit.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\efectivo.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\grd_alt.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\grd_head.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\grd_pgr.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\guardar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\img01.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\img02.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\img03.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\img04.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\img05.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\img06.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\img07.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\img08.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\img09.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\INTEROC.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\mastercard.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\montana.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\nuevo.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\pedir.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\propac.jpg" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\quitar.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\TQC agro.gif" />
+    <Content Include="App_Themes\TemaAgrocomercio\images\visa.png" />
+    <Content Include="App_Themes\TemaAgrocomercio\jquery\jquery-1.4.2.min.js" />
+    <Content Include="App_Themes\TemaAgrocomercio\jquery\jquery.gallerax-0.2.js" />
+    <Content Include="App_Themes\TemaAgrocomercio\style.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\gallery.css" />
+    <Content Include="App_Themes\TemaAgrocomercio\ventas.css" />
+    <Content Include="bin\AgrocomercioWEB.dll" />
+    <Content Include="bin\AgrocomercioWEB.pdb" />
+    <Content Include="bin\AjaxControlToolkit.dll" />
+    <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="bin\pryAgrocomercioBLL.dll" />
+    <Content Include="bin\pryAgrocomercioBLL.pdb" />
+    <Content Include="bin\pryAgrocomercioDAL.dll" />
+    <Content Include="bin\pryAgrocomercioDAL.pdb" />
+    <Content Include="Compras\Reportes\wfrmVistaRepProveedoresGeneral.aspx" />
+    <Content Include="Compras\Reportes\wfrmVistaRepProveedoresMes.aspx" />
+    <Content Include="Compras\wfrmCompras.aspx" />
+    <Content Include="Compras\wfrmReportesCompras.aspx" />
+    <Content Include="iconos\25-1.gif" />
+    <Content Include="iconos\add_48.png" />
+    <Content Include="iconos\buscar_cuenta_16.png" />
+    <Content Include="iconos\img_adicionar8.png" />
+    <Content Include="iconos\img_Adobe11.png" />
+    <Content Include="iconos\img_Adobe_desactivo16.png" />
+    <Content Include="iconos\img_buscar16.png" />
+    <Content Include="iconos\img_cancel.png" />
+    <Content Include="iconos\img_edit.png" />
+    <Content Include="iconos\img_editar2.png" />
+    <Content Include="iconos\img_Excel12.png" />
+    <Content Include="iconos\img_Excel_desactivo15.png" />
+    <Content Include="iconos\img_grabar7.png" />
+    <Content Include="iconos\img_logout.png" />
+    <Content Include="iconos\img_new.png" />
+    <Content Include="iconos\img_nuevo1.png" />
+    <Content Include="iconos\img_nuevo2.png" />
+    <Content Include="iconos\img_printer_48.png" />
+    <Content Include="iconos\img_Regresar2.png" />
+    <Content Include="iconos\img_save3.png" />
+    <Content Include="iconos\img_search.png" />
+    <Content Include="iconos\img_signOut4.png" />
+    <Content Include="iconos\img_trash2.png" />
+    <Content Include="iconos\img_undo.png" />
+    <Content Include="iconos\img_Word13.png" />
+    <Content Include="iconos\img_Word_Desactivo14.png" />
+    <Content Include="iconos\loading2.gif" />
+    <Content Include="images\agroco.JPG" />
+    <Content Include="images\agroklinge.jpg" />
+    <Content Include="images\Agrovetmarket.jpg" />
+    <Content Include="images\Agrovetmarket.png" />
+    <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\BASF.jpg" />
+    <Content Include="images\biomont.GIF" />
+    <Content Include="images\img01.jpg" />
+    <Content Include="images\img02.jpg" />
+    <Content Include="images\img03.jpg" />
+    <Content Include="images\img04.jpg" />
+    <Content Include="images\img05.jpg" />
+    <Content Include="images\img06.jpg" />
+    <Content Include="images\img07.jpg" />
+    <Content Include="images\img08.jpg" />
+    <Content Include="images\img09.jpg" />
+    <Content Include="images\INTEROC.jpg" />
+    <Content Include="images\montana.jpg" />
+    <Content Include="images\propac.jpg" />
+    <Content Include="images\TQCagro.gif" />
+    <Content Include="index.html" />
+    <Content Include="Maestros\Reportes\wfrmReporteArticulos.aspx" />
+    <Content Include="Maestros\Reportes\wfrmVistaReportes.aspx" />
+    <Content Include="Maestros\WebForms\wfrmArticulos.aspx" />
+    <Content Include="Maestros\WebForms\wfrmClientes.aspx" />
+    <Content Include="Maestros\WebForms\wfrmPersonal.aspx" />
+    <Content Include="Maestros\WebForms\wfrmProveedores.aspx" />
+    <Content Include="Maestros\WebForms\wfrmRoles.aspx" />
+    <Content Include="Maestros\WebForms\wfrmTipoCambio.aspx" />
+    <Content Include="Maestros\WebForms\wfrmTipoNotas.aspx" />
+    <Content Include="Maestros\WebForms\wfrmTipoPersonal.aspx" />
+    <Content Include="Maestros\WebForms\wfrmTransportista.aspx" />
+    <Content Include="Maestros\WebForms\wfrmUsuarios.aspx" />
+    <Content Include="pagos\wfrmcntrPagVentas.aspx" />
+    <Content Include="pagos\wfrmComprasProveedores.aspx" />
+    <Content Include="pagos\wfrmLetraCompra.aspx" />
+    <Content Include="pagos\wfrmLetraVenta.aspx" />
+    <Content Include="pagos\wfrmLiqCombranza.aspx" />
+    <Content Include="pagos\wfrmListaPago.aspx" />
+    <Content Include="pagos\wfrmLstPagReal.aspx" />
+    <Content Include="pagos\wfrmNotasCompras.aspx" />
+    <Content Include="pagos\wfrmNotasVentas.aspx" />
+    <Content Include="pagos\wfrmPagoLetras.aspx" />
+    <Content Include="pagos\wfrmPagxLetra.aspx" />
+    <Content Include="pagos\wfrmRepNotasCompras.aspx" />
+    <Content Include="pagos\wfrmRepNotasVentas.aspx" />
+    <Content Include="Reportes\ImpresionBoleta.aspx" />
+    <Content Include="Reportes\ImpresionNotaPedido.aspx" />
+    <Content Include="Reportes\ImpresionFactura.aspx" />
+    <Content Include="Reportes\ImpresionGuiaRemision.aspx" />
+    <Content Include="style.css" />
+    <Content Include="Styles\Site.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Ventas\wfrmRepResumenCliente.aspx" />
+    <Content Include="Ventas\wfrmRepVentasXCobrar.aspx" />
+    <Content Include="Ventas\wfrmVentas.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="wfrmInicio.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Content Include="App_Code\clsDocumento.cs" />
+    <Content Include="App_Code\clsLibFun.cs" />
+    <Compile Include="Compras\Reportes\wfrmVistaRepProveedoresGeneral.aspx.cs">
+      <DependentUpon>wfrmVistaRepProveedoresGeneral.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Compras\Reportes\wfrmVistaRepProveedoresGeneral.aspx.designer.cs">
+      <DependentUpon>wfrmVistaRepProveedoresGeneral.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\Reportes\crRepProveedoresGeneral.cs">
+      <DependentUpon>crRepProveedoresGeneral.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Compras\Reportes\wfrmVistaRepProveedoresMes.aspx.cs">
+      <DependentUpon>wfrmVistaRepProveedoresMes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Compras\Reportes\wfrmVistaRepProveedoresMes.aspx.designer.cs">
+      <DependentUpon>wfrmVistaRepProveedoresMes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\wfrmCompras.aspx.cs">
+      <DependentUpon>wfrmCompras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Compras\wfrmCompras.aspx.designer.cs">
+      <DependentUpon>wfrmCompras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\wfrmReportesCompras.aspx.cs">
+      <DependentUpon>wfrmReportesCompras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Compras\wfrmReportesCompras.aspx.designer.cs">
+      <DependentUpon>wfrmReportesCompras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\Reportes\wfrmReporteArticulos.aspx.cs">
+      <DependentUpon>wfrmReporteArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\Reportes\wfrmReporteArticulos.aspx.designer.cs">
+      <DependentUpon>wfrmReporteArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\Reportes\wfrmVistaReportes.aspx.cs">
+      <DependentUpon>wfrmVistaReportes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\Reportes\wfrmVistaReportes.aspx.designer.cs">
+      <DependentUpon>wfrmVistaReportes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmArticulos.aspx.cs">
+      <DependentUpon>wfrmArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmArticulos.aspx.designer.cs">
+      <DependentUpon>wfrmArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmClientes.aspx.cs">
+      <DependentUpon>wfrmClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmClientes.aspx.designer.cs">
+      <DependentUpon>wfrmClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmPersonal.aspx.cs">
+      <DependentUpon>wfrmPersonal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmPersonal.aspx.designer.cs">
+      <DependentUpon>wfrmPersonal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmProveedores.aspx.cs">
+      <DependentUpon>wfrmProveedores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmProveedores.aspx.designer.cs">
+      <DependentUpon>wfrmProveedores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmRoles.aspx.cs">
+      <DependentUpon>wfrmRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmRoles.aspx.designer.cs">
+      <DependentUpon>wfrmRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmTipoCambio.aspx.cs">
+      <DependentUpon>wfrmTipoCambio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmTipoCambio.aspx.designer.cs">
+      <DependentUpon>wfrmTipoCambio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmTipoNotas.aspx.cs">
+      <DependentUpon>wfrmTipoNotas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmTipoNotas.aspx.designer.cs">
+      <DependentUpon>wfrmTipoNotas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmTipoPersonal.aspx.cs">
+      <DependentUpon>wfrmTipoPersonal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmTipoPersonal.aspx.designer.cs">
+      <DependentUpon>wfrmTipoPersonal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmTransportista.aspx.cs">
+      <DependentUpon>wfrmTransportista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmTransportista.aspx.designer.cs">
+      <DependentUpon>wfrmTransportista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmUsuarios.aspx.cs">
+      <DependentUpon>wfrmUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmUsuarios.aspx.designer.cs">
+      <DependentUpon>wfrmUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmcntrPagVentas.aspx.cs">
+      <DependentUpon>wfrmcntrPagVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmcntrPagVentas.aspx.designer.cs">
+      <DependentUpon>wfrmcntrPagVentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmComprasProveedores.aspx.cs">
+      <DependentUpon>wfrmComprasProveedores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmComprasProveedores.aspx.designer.cs">
+      <DependentUpon>wfrmComprasProveedores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmLetraCompra.aspx.cs">
+      <DependentUpon>wfrmLetraCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmLetraCompra.aspx.designer.cs">
+      <DependentUpon>wfrmLetraCompra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmLetraVenta.aspx.cs">
+      <DependentUpon>wfrmLetraVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmLetraVenta.aspx.designer.cs">
+      <DependentUpon>wfrmLetraVenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmLiqCombranza.aspx.cs">
+      <DependentUpon>wfrmLiqCombranza.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmLiqCombranza.aspx.designer.cs">
+      <DependentUpon>wfrmLiqCombranza.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmListaPago.aspx.cs">
+      <DependentUpon>wfrmListaPago.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmListaPago.aspx.designer.cs">
+      <DependentUpon>wfrmListaPago.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmLstPagReal.aspx.cs">
+      <DependentUpon>wfrmLstPagReal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmLstPagReal.aspx.designer.cs">
+      <DependentUpon>wfrmLstPagReal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmNotasCompras.aspx.cs">
+      <DependentUpon>wfrmNotasCompras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmNotasCompras.aspx.designer.cs">
+      <DependentUpon>wfrmNotasCompras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmNotasVentas.aspx.cs">
+      <DependentUpon>wfrmNotasVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmNotasVentas.aspx.designer.cs">
+      <DependentUpon>wfrmNotasVentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmPagoLetras.aspx.cs">
+      <DependentUpon>wfrmPagoLetras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmPagoLetras.aspx.designer.cs">
+      <DependentUpon>wfrmPagoLetras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmPagxLetra.aspx.cs">
+      <DependentUpon>wfrmPagxLetra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmPagxLetra.aspx.designer.cs">
+      <DependentUpon>wfrmPagxLetra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmRepNotasCompras.aspx.cs">
+      <DependentUpon>wfrmRepNotasCompras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmRepNotasCompras.aspx.designer.cs">
+      <DependentUpon>wfrmRepNotasCompras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmRepNotasVentas.aspx.cs">
+      <DependentUpon>wfrmRepNotasVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmRepNotasVentas.aspx.designer.cs">
+      <DependentUpon>wfrmRepNotasVentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Clases\clsRepCabeceraDoc.cs" />
+    <Compile Include="Reportes\Clases\clsRepDetalleFactura.cs" />
+    <Compile Include="Reportes\Clases\clsRepCompras.cs" />
+    <Compile Include="Reportes\ImpresionBoleta.aspx.cs">
+      <DependentUpon>ImpresionBoleta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ImpresionBoleta.aspx.designer.cs">
+      <DependentUpon>ImpresionBoleta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ImpresionNotaPedido.aspx.cs">
+      <DependentUpon>ImpresionNotaPedido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ImpresionNotaPedido.aspx.designer.cs">
+      <DependentUpon>ImpresionNotaPedido.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\Reportes\crRepProveedoresMes.cs">
+      <DependentUpon>crRepProveedoresMes.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\rpt\crNotaPedido.cs">
+      <DependentUpon>crNotaPedido.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\rpt\crDetalleNota.cs">
+      <DependentUpon>crDetalleNota.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\rpt\crDetalleBoleta.cs">
+      <DependentUpon>crDetalleBoleta.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\rpt\crGuiaRemision.cs">
+      <DependentUpon>crGuiaRemision.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\rpt\crBoleta.cs">
+      <DependentUpon>crBoleta.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\rpt\crDetalleGuia.cs">
+      <DependentUpon>crDetalleGuia.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\rpt\crDetalleFactura.cs">
+      <DependentUpon>crDetalleFactura.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\ImpresionFactura.aspx.cs">
+      <DependentUpon>ImpresionFactura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ImpresionFactura.aspx.designer.cs">
+      <DependentUpon>ImpresionFactura.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\rpt\crFactura.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crFactura.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\ImpresionGuiaRemision.aspx.cs">
+      <DependentUpon>ImpresionGuiaRemision.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ImpresionGuiaRemision.aspx.designer.cs">
+      <DependentUpon>ImpresionGuiaRemision.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas\wfrmRepResumenCliente.aspx.cs">
+      <DependentUpon>wfrmRepResumenCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ventas\wfrmRepResumenCliente.aspx.designer.cs">
+      <DependentUpon>wfrmRepResumenCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas\wfrmRepVentasXCobrar.aspx.cs">
+      <DependentUpon>wfrmRepVentasXCobrar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ventas\wfrmRepVentasXCobrar.aspx.designer.cs">
+      <DependentUpon>wfrmRepVentasXCobrar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas\wfrmVentas.aspx.cs">
+      <DependentUpon>wfrmVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ventas\wfrmVentas.aspx.designer.cs">
+      <DependentUpon>wfrmVentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="wfrmInicio.aspx.cs">
+      <DependentUpon>wfrmInicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wfrmInicio.aspx.designer.cs">
+      <DependentUpon>wfrmInicio.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="bin\ar\" />
+    <Folder Include="bin\cs\" />
+    <Folder Include="bin\de\" />
+    <Folder Include="bin\es\" />
+    <Folder Include="bin\fr\" />
+    <Folder Include="bin\he\" />
+    <Folder Include="bin\hi\" />
+    <Folder Include="bin\it\" />
+    <Folder Include="bin\ja\" />
+    <Folder Include="bin\ko\" />
+    <Folder Include="bin\nl\" />
+    <Folder Include="bin\pt\" />
+    <Folder Include="bin\ru\" />
+    <Folder Include="bin\tr-TR\" />
+    <Folder Include="bin\zh-CHS\" />
+    <Folder Include="bin\zh-CHT\" />
+    <Folder Include="Maestros\DataSet\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Site.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\pryAgrocomercioBLL\pryAgrocomercioBLL.csproj">
+      <Project>{F7BA0454-3761-47A5-A83F-A95291B35EAC}</Project>
+      <Name>pryAgrocomercioBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\pryAgrocomercioDAL\pryAgrocomercioDAL.csproj">
+      <Project>{AAB45868-05E5-4560-9268-6092CB425E8B}</Project>
+      <Name>pryAgrocomercioDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Compras\Reportes\crRepProveedoresGeneral.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crRepProveedoresGeneral.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compras\Reportes\crRepProveedoresMes.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crRepProveedoresMes.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rpt\crNotaPedido.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crNotaPedido.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rpt\crDetalleNota.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crDetalleNota.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rpt\crDetalleBoleta.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crDetalleBoleta.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rpt\crGuiaRemision.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crGuiaRemision.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rpt\crBoleta.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crBoleta.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rpt\crDetalleGuia.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crDetalleGuia.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rpt\crDetalleFactura.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crDetalleFactura.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rpt\crFactura.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crFactura.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.sitemap">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WebAlmacen.sitemap" />
+    <Content Include="WebInvitado.sitemap" />
+    <Content Include="WebVendedor.sitemap" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_Themes\TemaAgrocomercio\Grid\style_6\Thumbs.db" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2359</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

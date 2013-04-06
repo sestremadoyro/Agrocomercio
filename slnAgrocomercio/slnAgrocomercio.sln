@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pryAgrocomercioBLL", "pryAgrocomercioBLL\pryAgrocomercioBLL.csproj", "{F7BA0454-3761-47A5-A83F-A95291B35EAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pryAgrocomercioDAL", "pryAgrocomercioDAL\pryAgrocomercioDAL.csproj", "{AAB45868-05E5-4560-9268-6092CB425E8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgrocomercioWEB", "AgrocomercioWEB\AgrocomercioWEB.csproj", "{4A9F8709-2C36-474A-9A67-D4A936DAC837}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7BA0454-3761-47A5-A83F-A95291B35EAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7BA0454-3761-47A5-A83F-A95291B35EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7BA0454-3761-47A5-A83F-A95291B35EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7BA0454-3761-47A5-A83F-A95291B35EAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB45868-05E5-4560-9268-6092CB425E8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB45868-05E5-4560-9268-6092CB425E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB45868-05E5-4560-9268-6092CB425E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB45868-05E5-4560-9268-6092CB425E8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A9F8709-2C36-474A-9A67-D4A936DAC837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A9F8709-2C36-474A-9A67-D4A936DAC837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A9F8709-2C36-474A-9A67-D4A936DAC837}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A9F8709-2C36-474A-9A67-D4A936DAC837}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

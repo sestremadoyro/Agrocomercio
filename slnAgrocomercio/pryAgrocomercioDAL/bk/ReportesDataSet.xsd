@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ReportesDataSet" targetNamespace="http://tempuri.org/ReportesDataSet.xsd" xmlns:mstns="http://tempuri.org/ReportesDataSet.xsd" xmlns="http://tempuri.org/ReportesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="AgrocomercioConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="AgrocomercioConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.pryAgrocomercioDAL.Properties.Settings.GlobalReference.Default.AgrocomercioConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ArticulosRepTableAdapter" GeneratorDataComponentClassName="ArticulosRepTableAdapter" Name="ArticulosRepDataTable" UserDataComponentName="ArticulosRepTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Articulos.ArtCod, Articulos.ArtDescripcion, Articulos.ArtStock, Articulos.ArtCostoProm, Articulos.UniCod, Articulos.ArtFecRegis, Proveedores.PrvCod, 
+                         Proveedores.PrvNumDoc, Proveedores.PrvRazon, Articulos.ArtFecVen
+FROM            Articulos INNER JOIN
+                         ListaPrecios ON Articulos.ArtCod = ListaPrecios.ArtCod INNER JOIN
+                         Proveedores ON ListaPrecios.PrvCod = Proveedores.PrvCod
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ArtCod" DataSetColumn="ArtCod" />
+              <Mapping SourceColumn="ArtDescripcion" DataSetColumn="ArtDescripcion" />
+              <Mapping SourceColumn="ArtStock" DataSetColumn="ArtStock" />
+              <Mapping SourceColumn="ArtCostoProm" DataSetColumn="ArtCostoProm" />
+              <Mapping SourceColumn="UniCod" DataSetColumn="UniCod" />
+              <Mapping SourceColumn="ArtFecRegis" DataSetColumn="ArtFecRegis" />
+              <Mapping SourceColumn="PrvCod" DataSetColumn="PrvCod" />
+              <Mapping SourceColumn="PrvNumDoc" DataSetColumn="PrvNumDoc" />
+              <Mapping SourceColumn="PrvRazon" DataSetColumn="PrvRazon" />
+              <Mapping SourceColumn="ArtFecVen" DataSetColumn="ArtFecVen" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ReportesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ReportesDataSet" msprop:Generator_UserDSName="ReportesDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ArticulosRepDataTable" msprop:Generator_TableClassName="ArticulosRepDataTableDataTable" msprop:Generator_TableVarName="tableArticulosRepDataTable" msprop:Generator_TablePropName="ArticulosRepDataTable" msprop:Generator_RowDeletingName="ArticulosRepDataTableRowDeleting" msprop:Generator_UserTableName="ArticulosRepDataTable" msprop:Generator_RowChangingName="ArticulosRepDataTableRowChanging" msprop:Generator_RowEvHandlerName="ArticulosRepDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="ArticulosRepDataTableRowDeleted" msprop:Generator_RowEvArgName="ArticulosRepDataTableRowChangeEvent" msprop:Generator_RowChangedName="ArticulosRepDataTableRowChanged" msprop:Generator_RowClassName="ArticulosRepDataTableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ArtCod" msprop:Generator_ColumnVarNameInTable="columnArtCod" msprop:Generator_ColumnPropNameInRow="ArtCod" msprop:Generator_ColumnPropNameInTable="ArtCodColumn" msprop:Generator_UserColumnName="ArtCod" type="xs:int" />
+              <xs:element name="ArtDescripcion" msprop:Generator_ColumnVarNameInTable="columnArtDescripcion" msprop:Generator_ColumnPropNameInRow="ArtDescripcion" msprop:Generator_ColumnPropNameInTable="ArtDescripcionColumn" msprop:Generator_UserColumnName="ArtDescripcion">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="80" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ArtStock" msprop:Generator_ColumnVarNameInTable="columnArtStock" msprop:Generator_ColumnPropNameInRow="ArtStock" msprop:Generator_ColumnPropNameInTable="ArtStockColumn" msprop:Generator_UserColumnName="ArtStock" type="xs:decimal" />
+              <xs:element name="ArtCostoProm" msprop:Generator_ColumnVarNameInTable="columnArtCostoProm" msprop:Generator_ColumnPropNameInRow="ArtCostoProm" msprop:Generator_ColumnPropNameInTable="ArtCostoPromColumn" msprop:Generator_UserColumnName="ArtCostoProm" type="xs:decimal" minOccurs="0" />
+              <xs:element name="UniCod" msprop:Generator_ColumnVarNameInTable="columnUniCod" msprop:Generator_ColumnPropNameInRow="UniCod" msprop:Generator_ColumnPropNameInTable="UniCodColumn" msprop:Generator_UserColumnName="UniCod" type="xs:int" minOccurs="0" />
+              <xs:element name="ArtFecRegis" msprop:Generator_ColumnVarNameInTable="columnArtFecRegis" msprop:Generator_ColumnPropNameInRow="ArtFecRegis" msprop:Generator_ColumnPropNameInTable="ArtFecRegisColumn" msprop:Generator_UserColumnName="ArtFecRegis" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PrvCod" msprop:Generator_ColumnVarNameInTable="columnPrvCod" msprop:Generator_ColumnPropNameInRow="PrvCod" msprop:Generator_ColumnPropNameInTable="PrvCodColumn" msprop:Generator_UserColumnName="PrvCod" type="xs:int" />
+              <xs:element name="PrvNumDoc" msprop:Generator_ColumnVarNameInTable="columnPrvNumDoc" msprop:Generator_ColumnPropNameInRow="PrvNumDoc" msprop:Generator_ColumnPropNameInTable="PrvNumDocColumn" msprop:Generator_UserColumnName="PrvNumDoc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PrvRazon" msprop:Generator_ColumnVarNameInTable="columnPrvRazon" msprop:Generator_ColumnPropNameInRow="PrvRazon" msprop:Generator_ColumnPropNameInTable="PrvRazonColumn" msprop:Generator_UserColumnName="PrvRazon">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="80" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ArtFecVen" msprop:Generator_ColumnVarNameInTable="columnArtFecVen" msprop:Generator_ColumnPropNameInRow="ArtFecVen" msprop:Generator_ColumnPropNameInTable="ArtFecVenColumn" msprop:Generator_UserColumnName="ArtFecVen" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
