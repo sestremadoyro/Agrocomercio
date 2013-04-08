@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AgrocomercioWEB.Compras.Reportes {
+namespace AgrocomercioWEB.Reportes.Reportes {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;

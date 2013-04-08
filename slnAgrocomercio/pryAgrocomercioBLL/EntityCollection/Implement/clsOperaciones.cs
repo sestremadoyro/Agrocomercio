@@ -516,6 +516,63 @@ namespace pryAgrocomercioBLL.EntityCollection
             }
         }
 
+        
+        public DataTable ReporteKardex(Boolean _bPorFecha, DateTime _dFecIni, DateTime _dFecFin)
+        {
+            clsDocumenOperacion colDocumentos = new clsDocumenOperacion();
+            clsdetletra colDetLetras = new clsdetletra();
+            clsDetOperacion colDetOpera = new clsDetOperacion();
+            int nNumCor = 0;
+            try
+            {
+                var lstDetOperaciones = colDetOpera.Find(Det => (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C") &&
+                    ((_bPorFecha && Det.Operaciones.OpeFecEmision >= _dFecIni && Det.Operaciones.OpeFecEmision <= _dFecFin) || (!_bPorFecha))).ToList();
+
+                var lstTemporal = from Det in lstDetOperaciones
+                                orderby Det.ArtCod, Det.Operaciones.OpeFecEmision, Det.dtpCod
+                                select new
+                                {
+                                    nCorrela = ++nNumCor,
+                                    Det.ArtCod,
+                                    Det.Articulos.ArtDescripcion,
+                                    Det.Articulos.ArtStockIni,
+                                    Det.Operaciones.OpeFecEmision,
+                                    Documento = Det.Operaciones.DocumenOperacion.OrderByDescending(Doc => Doc.dopCod).Select(Doc => new { Document = Doc.dopNroSerie.ToString() + "-"+ Doc.dopNumero.ToString() } ).First().Document,
+                                    Decripcion = (Det.Operaciones.OpeTipo == "C" ? "Compra " : "Venta ") + Det.Articulos.ArtDescripcion,
+                                    nCom_Cantidad = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpCantidad),
+                                    nCom_Unidad = (Det.Operaciones.OpeTipo == "V" ? "" : Det.Articulos.Unidades.UniDescripcion),
+                                    nCom_PreUnitario = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpPrecioVen),
+                                    nCom_Costo = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpSubTotal),
+                                    nVen_Cantidad = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpCantidad),
+                                    nVen_Unidad = (Det.Operaciones.OpeTipo == "C" ? "" : Det.Articulos.Unidades.UniDescripcion),
+                                    nVen_PreUnitario = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpPrecioVen),
+                                    nVen_Costo = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpSubTotal)
+                                };
+
+                var lstKardex = from Kar in lstTemporal
+                                select new
+                                {
+                                    Kar.ArtCod, Kar.ArtDescripcion, Kar.ArtStockIni, Kar.OpeFecEmision, Kar.Documento, Kar.Decripcion,
+                                    Kar.nCom_Cantidad, Kar.nCom_Unidad, Kar.nCom_PreUnitario, Kar.nCom_Costo, Kar.nVen_Cantidad,
+                                    Kar.nVen_Unidad, Kar.nVen_PreUnitario, Kar.nVen_Costo,
+                                    nSal_Cantidad = (decimal)Kar.ArtStockIni +
+                                                    (lstTemporal.Where(De => De.nCorrela <= Kar.nCorrela)
+                                                                     .Select(De => (De.nCom_Cantidad == null ? 0 : De.nCom_Cantidad) - (De.nVen_Cantidad == null ? 0 : De.nVen_Cantidad)).Sum()),
+                                    nSal_Unidad = Kar.nCom_Unidad,
+                                    nSal_CostoTotal = 0
+                                };
+
+
+
+
+                return ToDataTable<object>(lstKardex.AsQueryable());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 #endregion
 
           

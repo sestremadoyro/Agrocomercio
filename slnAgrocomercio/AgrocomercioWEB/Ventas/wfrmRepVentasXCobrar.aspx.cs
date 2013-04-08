@@ -19,8 +19,9 @@ using System.Configuration;
 using AgrocomercioWEB;
 using System.Threading;
 using Obout.Grid;
+using Obout.ComboBox;
 
-namespace AgrocomercioWEB.Compras
+namespace AgrocomercioWEB.Reportes
 {
 
     public partial class wfrmRepVentasXCobrar : BasePage
@@ -29,80 +30,42 @@ namespace AgrocomercioWEB.Compras
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            String _selectedValue = "";
             SetEstado("INI");
             if (Page.IsPostBack)
             {
-                if (lblEstado.Value != "")
-                {
-                    switch (lblEstado.Value)
-                    {
-                        case ("CLI_SELECT"):
-                            _selectedValue = Request.Params["__EVENTARGUMENT"].ToString();
-                            ddlClientes.SelectedValue = _selectedValue;
-                            ddlClientes_SelectedIndexChanged(sender, e);
-                            break;
-                    }
-                    lblEstado.Value = "";
-                }
-            }
-            else
-            {
-                ddlClientes.SelectedValue = "9999";
-                ddlClientes_SelectedIndexChanged(sender, e);
+               
             }
             
         }
 
 #region FUNCIONES DEL FORMULARIO
 
-        protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int nPrvCod = 0;
-            nPrvCod = int.Parse(ddlClientes.SelectedValue);            
-        }
+     
         
         protected void btnProcesar_Click(object sender, EventArgs e)
         {
             string cMensaje = "";
             DataTable dtResultado = null;
-            clsOperaciones lstOperaciones = new clsOperaciones();
+            clsOperaciones colOperaciones = new clsOperaciones();
             DateTime dFecIni = DateTime.Today;
             DateTime dFecFin = DateTime.Today;
             int prvCod = 0;
             try
             {
-                if (ValidarDatos(ref cMensaje))
+                dtResultado = colOperaciones.RepVentasXComprar(prvCod, false, dFecIni, dFecFin);
+
+                if (dtResultado.Rows.Count > 0)
                 {
-                    if (txtCliente.Text  != "")
-                        prvCod = int.Parse(ddlClientes.SelectedValue);
-                    else
-                        prvCod = 9999;
+                    SetEstado("PRO");
 
-                    if (chkPorFecha.Checked)
-                    {
-                        dFecIni = DateTime.Parse(txtFecIni.Text);
-                        dFecFin = DateTime.Parse(txtFecFin.Text);
-                    }
-                    dtResultado = lstOperaciones.RepVentasXComprar(prvCod, chkPorFecha.Checked, dFecIni, dFecFin);
-                    
-                    if (dtResultado.Rows.Count > 0)
-                    {
-                        SetEstado("PRO");
+                    gridVentasxCobrar.DataSource = dtResultado;
+                    gridVentasxCobrar.DataBind();
 
-                        gridVentasxCobrar.DataSource = dtResultado;
-                        gridVentasxCobrar.DataBind();
-
-                        AgregarVariableSession("dtRepClientes", dtResultado);
-                        AgregarVariableSession("nTipCam", txtTipCam.Text);                        
-                    }
-                    else
-                        SetEstado("ERR");
+                    AgregarVariableSession("dtRepClientes", dtResultado);
+                    AgregarVariableSession("nTipCam", txtTipCam.Text);
                 }
                 else
-                {
-                    MessageBox(cMensaje);
-                }
+                    SetEstado("ERR");
             }
             catch (Exception ex)
             {
@@ -113,16 +76,7 @@ namespace AgrocomercioWEB.Compras
         {
             SetEstado("PRO");
         }
-        protected void chkPorFecha_CheckedChanged(object sender, EventArgs e)
-        {
-            txtFecIni.Enabled = chkPorFecha.Checked;
-            txtFecFin.Enabled = chkPorFecha.Checked;
-            if (!chkPorFecha.Checked)
-            {
-                txtFecIni.Text = "";
-                txtFecFin.Text = "";
-            }
-        }
+      
 
         
 
@@ -130,17 +84,20 @@ namespace AgrocomercioWEB.Compras
 
 #region FUNCIONES DE CARGA DE LISTAS DE DATOS
 
-        public void CargarClientes()
-        {
-            clsClientes lstClientes = new clsClientes();
+        //public void CargarCombos()
+        //{
+        //    clsAtributos Atributos = new clsAtributos();
 
-            ddlClientes.DataSource = lstClientes.GetAll();
-            ddlClientes.DataBind();
-            ddlClientes.Items.Add(new ListItem("[TODOS]", "9999"));
-            ddlClientes.Items.Add(new ListItem("<< SIN RESULTADOS >>", "8888"));
+        //   //Cargamos combo de Zonas
+            
+        //    ddlZonas.DataSource = Atributos.ListAtributos(4);
+        //    ddlZonas.DataBind();
 
-            lstClientes = null;
-        }
+        //    lblTasIGV.Value = ((List<Atributos>)Atributos.ListAtributos(7)).FirstOrDefault().AtrDescripcion;
+
+        //    CargarTipoCambio();
+        //    Atributos = null;
+        //}
         
 #endregion
 
@@ -152,15 +109,8 @@ namespace AgrocomercioWEB.Compras
                 case ("INI"):
                     HabilitarBtn(btnProcesar, true);
                     HabilitarBtn(btnImprimir, false);
-            
-                    txtFecIni.Text = "";
-                    txtFecFin.Text = "";
-                    txtFecIni.Enabled = false;
-                    txtFecFin.Enabled = false;
-        
-                    lblExito.Visible = false;
+                                lblExito.Visible = false;
                     lblError.Visible = false;
-                    CargarClientes();
 
                     clsAtributos Atributos = new clsAtributos();
                     var oTip = ((List<Atributos>)Atributos.ListAtributos(8)).FirstOrDefault();
@@ -188,25 +138,6 @@ namespace AgrocomercioWEB.Compras
             
         }
         
-        private Boolean ValidarDatos(ref string cMensaje)
-        {
-            Boolean bRes = true;
-
-            if (chkPorFecha.Checked && (txtFecFin.Text == "" || txtFecIni.Text == ""))
-            {
-                cMensaje = "Debe Escoger una Fecha de Inicio y Fin";
-                txtFecIni.Focus();
-                return false;
-            }
-            if (ddlClientes.SelectedValue == "8888")
-            {
-                cMensaje = "Debe Escoger un Cliente";
-                txtCliente.Focus();
-                return false;
-            }
-            return bRes;
-        }
-
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
         public static String[] BuscarClientes(string prefixText)
@@ -273,9 +204,62 @@ namespace AgrocomercioWEB.Compras
             //}
         }
 
+        protected void gridVentasxCobrar_Filtering(object sender, EventArgs e)
+        {
+            // filter for OrderDate
+            Column orderDateColumn = gridVentasxCobrar.Columns[1];
+
+            if (orderDateColumn.FilterCriteria.Option is CustomFilterOption)
+            {
+                CustomFilterOption filterOption = orderDateColumn.FilterCriteria.Option as CustomFilterOption;
+
+                switch (filterOption.ID)
+                {
+                    case "Between_OpeFecEmision":
+                        string startDate = orderDateColumn.FilterCriteria.Values["StartDate_OpeFecEmision"].ToString();
+                        string endDate = orderDateColumn.FilterCriteria.Values["EndDate_OpeFecEmision"].ToString();
+
+                        if (startDate != "" && endDate != "")
+                        {
+                            DateTime startDate2 = DateTime.Parse(startDate);
+                            DateTime endDate2 = DateTime.Parse(endDate);
+
+                            if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
+                            {
+                                // we filter between start date at 12:00AM and end date at 11:59PM
+                                //orderDateColumn.FilterCriteria.FilterExpression = "(" + orderDateColumn.DataField + " >= #" + startDate + " 00:00:01 # AND " + orderDateColumn.DataField + " <= #" + endDate + " 24:59:59 #)";
+                                orderDateColumn.FilterCriteria.FilterExpression = "(" + orderDateColumn.DataField + " >= '" + startDate2.ToString("yyyy-MM-dd") + "' AND " + orderDateColumn.DataField + " <= '" + endDate2.ToString("yyyy-MM-dd") + "' )";
+                            }
+                        }
+                       
+                        break;                   
+                }
+            }
+
+        }
+
+        //protected void ddlZonas_LoadingItems(object sender, ComboBoxLoadingItemsEventArgs e)
+        //{
+        //    clsAtributos Atributos = new clsAtributos();
+
+        //    //Cargamos Zonas
+        //    var lstZonas = Atributos.ListAtributos(4);
+        //    (sender as ComboBox).DataSource = lstZonas;
+        //    (sender as ComboBox).DataBind();
+        //    // Looping through the items and adding them to the "Items" collection of the ComboBox
+        //    //foreach (object Row in lstZonas)
+        //    //{
+        //    //    (sender as ComboBox).Items.Add(new ComboBoxItem(Row.["CountryName"].ToString(), data.Rows[i]["CountryName"].ToString()));
+        //    //}
+            
+        //    //e.ItemsLoadedCount = data.Rows.Count;
+        //    //e.ItemsCount = data.Rows.Count;
+        //    Atributos = null;
+        //}
        
 
         
     }
 }
+
 

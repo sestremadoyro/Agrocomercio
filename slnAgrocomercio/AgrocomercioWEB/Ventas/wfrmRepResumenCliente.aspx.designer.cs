@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace AgrocomercioWEB.Compras {
+namespace AgrocomercioWEB.Reportes {
     
     
     public partial class wfrmRepResumenCliente {

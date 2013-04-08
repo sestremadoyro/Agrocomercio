@@ -1139,6 +1139,7 @@ namespace AgrocomercioWEB.Ventas
             int OpeCod = int.Parse(lblNroPedido.Text);
             string NroGuia = "";
             string NroPedido = "";
+            string moneda = "";
 
             DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 2);
             if (DocumenOpe != null)
@@ -1150,7 +1151,10 @@ namespace AgrocomercioWEB.Ventas
             {
                 NroPedido = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
             }
-
+            if (ddlMoneda.SelectedValue == "PEN")
+                moneda = " Nuevos Soles";
+            else
+                moneda = " Dolares";
 
             DataRow newRow = dtCabeceraOperacion.NewRow();
             newRow["cRazonSocial"] = ddlClientes.SelectedItem.Text;
@@ -1168,7 +1172,7 @@ namespace AgrocomercioWEB.Ventas
             newRow["cIGV"] = txtIgv.Text;
             newRow["cTotal"] = txtTotal.Text;
             newRow["cTotalSinFlete"] = SetFormatNum(GetNumero(newRow["cValorVenta"].ToString()) * (nTasIGV + 1));
-            newRow["cTotalLetras"] = ConvertiraLetras(decimal.Parse((txtTotal.Text.Replace("S/.", "").Trim()).Replace("$", "").Trim()));
+            newRow["cTotalLetras"] = ConvertiraLetras(decimal.Parse((txtTotal.Text.Replace("S/.", "").Trim()).Replace("$", "").Trim())) + moneda;
             newRow["Destinatario"] = ddlClientes.SelectedItem.Text;
             newRow["PLlegada"] = txtDireccion.Text;
             newRow["NroFactura"] = "";

@@ -5,9 +5,11 @@ using System.Text;
 using System.Data;
 using pryAgrocomercioDAL;
 using pryAgrocomercioBLL.EntityCollection.Interfaces;
+using System.ComponentModel;
 
 namespace pryAgrocomercioBLL.EntityCollection
 {
+    [DataObject]
     public class clsPersonal : clsAbstractBase<Personal>, IPersonal
     {
         public DataTable GetList()
@@ -91,6 +93,12 @@ namespace pryAgrocomercioBLL.EntityCollection
             {
                 throw ex;
             }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, true)]
+        public List<Personal> GetDataPersonalPorTipo(int pnTpecod)
+        {
+            return this.Find(Per => Per.tpecod == pnTpecod).ToList() ;
         }
        
     }

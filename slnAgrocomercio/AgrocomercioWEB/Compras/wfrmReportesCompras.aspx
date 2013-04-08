@@ -131,12 +131,12 @@
                             <td class="clsCellDatos2" >
                                 <div id="divFechas" runat="server">
                                     <asp:Label ID="Label2" runat="server" Text="Desde "></asp:Label>
-                                    <asp:TextBox ID="txtFecIni" runat="server"  Width="120px" ></asp:TextBox>
+                                    <asp:TextBox ID="txtFecIni" runat="server"  Width="120px" AutoPostBack="True"></asp:TextBox>
                                     <asp:CalendarExtender ID="CalendarExtender_txtFecIni" runat="server" 
                                         TargetControlID="txtFecIni" Format="yyyy-MM-dd"
                                         PopupButtonID="Image2" Enabled="True" ></asp:CalendarExtender>
                                     <asp:Label ID="Label3" runat="server" Text=" Hasta "></asp:Label>
-                                    <asp:TextBox ID="txtFecFin" runat="server"  Width="120px" ></asp:TextBox>
+                                    <asp:TextBox ID="txtFecFin" runat="server"  Width="120px" AutoPostBack="True"></asp:TextBox>
                                     <asp:CalendarExtender ID="CalendarExtender_txtFecFin" runat="server" 
                                         TargetControlID="txtFecFin" Format="yyyy-MM-dd"
                                         PopupButtonID="Image2" Enabled="True" ></asp:CalendarExtender>

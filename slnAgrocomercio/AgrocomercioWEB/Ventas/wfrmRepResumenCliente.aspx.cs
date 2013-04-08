@@ -20,7 +20,7 @@ using AgrocomercioWEB;
 using System.Threading;
 using Obout.Grid;
 
-namespace AgrocomercioWEB.Compras
+namespace AgrocomercioWEB.Reportes
 {
 
     public partial class wfrmRepResumenCliente : BasePage

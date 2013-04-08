@@ -44,12 +44,19 @@ namespace AgrocomercioWEB.Compras
                     }
                     lblEstado.Value = "";
                 }
+                
+
             }
             else
             {
                 ddlReportes_SelectedIndexChanged(sender, e);
                 ddlProveedor.SelectedValue = "9999";
                 ddlProveedor_SelectedIndexChanged(sender, e);
+                txtFecIni.Text = "";
+                txtFecFin.Text = "";
+                txtFecIni.Enabled = false;
+                txtFecFin.Enabled = false;
+                ddlMeses.Enabled = false;
             }
             
         }
@@ -204,19 +211,13 @@ namespace AgrocomercioWEB.Compras
                     HabilitarBtn(btnProcesar, true);
                     HabilitarBtn(btnImprimir, false);
             
-                    txtFecIni.Text = "";
-                    txtFecFin.Text = "";
-                    txtFecIni.Enabled = false;
-                    txtFecFin.Enabled = false;
-                    ddlMeses.Enabled = false;
-
                     lblExito.Visible = false;
                     lblError.Visible = false;
                     CargarProveedores();
                     CargarMeses();
 
                     clsAtributos Atributos = new clsAtributos();
-                    var oTip = ((List<Atributos>)Atributos.ListAtributos(8)).FirstOrDefault();
+                    Atributos oTip = Atributos.ListAtributos(8).FirstOrDefault();
                     if (oTip == null) 
                         txtTipCam.Text = "2.56";
                     else
@@ -245,17 +246,24 @@ namespace AgrocomercioWEB.Compras
         {
             Boolean bRes = true;
 
+            if (ddlProveedor.SelectedValue == "8888")
+            {
+                cMensaje = "Debe Escoger un Proveedor";
+                txtProveedor.Focus();
+                return false;
+            }
+
             switch (ddlReportes.SelectedValue)
             {
-                case "PG":                    
-                    break;
-                case "CPM":
+                case "PG":
                     if (chkPorFecha.Checked && (txtFecFin.Text == "" || txtFecIni.Text == ""))
                     {
                         cMensaje = "Debe Escoger una Fecha de Inicio y Fin";
                         txtFecIni.Focus();
                         return false;
                     }
+                    break;
+                case "CPM":
                     if (ddlProveedor.SelectedValue == "8888")
                     {
                         cMensaje = "Debe Escoger un Proveedor";
