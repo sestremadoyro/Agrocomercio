@@ -23,7 +23,8 @@
         __doPostBack('MainUpdatePanel', rowindex);
     }
 
-    function AbrirVentanaFactura() {
+    function AbrirVentanaFactura(vari) {
+        
         window.open('../Reportes/ImpresionFactura.aspx', '_blank', 'width=880px,height=600px,scrollbars=si,menubar=no,resizable=no,left=200px, top=70px');
     }
     function AbrirVentanaGuia() {
@@ -103,6 +104,7 @@
             <asp:HiddenField ID="lblEstado" runat="server" ClientIDMode="Static" />   
             <asp:HiddenField ID="lblProceso" runat="server" />
             <asp:HiddenField ID="lblOpeEstado" runat="server" />
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -918,7 +920,7 @@
 	                targetcontrolid="btnNuevoDocumentoTMP" popupcontrolid="pnPopNuevoDocumento" 
 	                backgroundcssclass="ModalPopupBG" Enabled="True" DynamicServicePath="" >
             </asp:modalpopupextender>
-            <asp:panel id="pnPopNuevoDocumento" style="display: none" runat="server" 
+            <asp:panel id="pnPopNuevoDocumento" style="display: block" runat="server" 
                 DefaultButton="btnAceptarNuevoDoc">
 	            <div class="clsModalPopup">
 	                <div class="PopupHeader" id="Div5">NUEVO DOCUMENTO</div>

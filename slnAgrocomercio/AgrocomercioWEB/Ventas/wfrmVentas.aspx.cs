@@ -390,6 +390,9 @@ namespace AgrocomercioWEB.Ventas
                     nMainTipo = 2;
                     lblProceso.Value = "NEW";
                     ddlTipoDocu.Enabled = true;
+                    
+                    //LIMPIA LA CAJA DE BUSQUEDA AL PRESIONAR NUEVO
+                    txtCliente.Text = string.Empty;
                 }
                 else
                 {
@@ -586,6 +589,9 @@ namespace AgrocomercioWEB.Ventas
 
                     GuardarDtCabeceraDocumento();
                     MessageBox("La Operacion fue Procesada con Exito, Ahora puede imprimir.");
+                    //NUEVO:  asigna funcion a botón IMPRIMIR
+                    AsignarFuncionBotonImprimir();
+
                     lblProceso.Value = "EDIT";
                     SetBotones(lblProceso.Value);
 
@@ -691,6 +697,10 @@ namespace AgrocomercioWEB.Ventas
                 if (txtNroDocu.Text != "")
                 {
                     lblTipoDoc.Value = ddlTipoDocu.SelectedValue;
+                    
+                    //GUARDA EL TIPO DE DOC EN VARIABLE SESSION
+                    this.AgregarVariableSession("lblTipoDoc", lblTipoDoc.Value );
+
                     lblDescriDocumento.Text = ddlTipoDocu.SelectedItem.Text;
                     lblNroDocumento.Text = txtNroSerie.Text + " - " + txtNroDocu.Text;
 
@@ -974,6 +984,39 @@ namespace AgrocomercioWEB.Ventas
             txtCliente.Enabled = Value;
             ddlListaVendedores.Enabled = Value;
         }
+
+        private void AsignarFuncionBotonImprimir()
+        {
+            //FUNCION PARA ASIGNAR LA FUNCION JAVASCRIPT QUE VA A EJECUTAR EL BOTON IMPRIMIR
+            //DEPENDE DEL TIPO DE DOCUMENTO SELECCIONADO (FACTURA, BOLETA, GUIA,...)
+            try
+            {
+               
+                lblTipoDoc.Value = this.LeerVariableSesion("lblTipoDoc").ToString();
+
+                switch (lblTipoDoc.Value)
+                {
+                    case "2":
+                        btnImprimir.OnClientClick = "AbrirVentanaGuia()";
+                        break;
+                    case "4":
+                        btnImprimir.OnClientClick = "AbrirVentanaNota()";
+                        break;
+                    case "5":
+                        btnImprimir.OnClientClick = "AbrirVentanaBoleta()";
+                        break;
+                    default:
+                        btnImprimir.OnClientClick = "AbrirVentanaFactura()";
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox("Error Interno: " + ex.Message);
+            }
+        }
+
+
         private void SetBotones(string pcTipo)
         {
             switch (pcTipo)
