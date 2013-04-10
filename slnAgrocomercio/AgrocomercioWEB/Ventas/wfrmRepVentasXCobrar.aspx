@@ -1,5 +1,8 @@
-﻿<%@ Page Title=".:Reportes de Compras:." Language="C#" MasterPageFile="~/Site.Master"
-    AutoEventWireup="true" CodeBehind="wfrmRepVentasXCobrar.aspx.cs" Inherits="AgrocomercioWEB.Compras.wfrmRepVentasXCobrar" %>
+﻿<%@ Page Title=".:Reportes de Compras:." Language="C#" 
+    MasterPageFile="~/Site.Master"
+    AutoEventWireup="true" 
+    CodeBehind="wfrmRepVentasXCobrar.aspx.cs" 
+    Inherits="AgrocomercioWEB.Reportes.wfrmRepVentasXCobrar" %>
 
 <%@ Register Assembly="obout_ComboBox" Namespace="Obout.ComboBox" TagPrefix="cc4" %>
 <%@ Register Assembly="obout_Calendar2_Net" Namespace="OboutInc.Calendar2" TagPrefix="obout" %>

@@ -1,4 +1,8 @@
-﻿<%@ Page Title=".:Registro de Compras:." Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="wfrmCompras.aspx.cs" Inherits="AgrocomercioWEB.Compras.wfrmCompras" 
+﻿<%@ Page Title=".:Registro de Compras:." Language="C#" 
+MasterPageFile="~/Site.Master" 
+AutoEventWireup="true" 
+CodeBehind="wfrmCompras.aspx.cs" 
+Inherits="AgrocomercioWEB.Compras.wfrmCompras" 
 %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>

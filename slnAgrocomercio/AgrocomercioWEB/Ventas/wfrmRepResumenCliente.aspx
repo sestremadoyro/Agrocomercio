@@ -1,4 +1,9 @@
-﻿<%@ Page Title=".:Reportes de Compras:." Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="wfrmRepResumenCliente.aspx.cs" Inherits="AgrocomercioWEB.Compras.wfrmRepResumenCliente" 
+﻿<%@ Page Title=".:Reportes de Compras:." 
+Language="C#" 
+MasterPageFile="~/Site.Master" 
+AutoEventWireup="true" 
+CodeBehind="wfrmRepResumenCliente.aspx.cs" 
+Inherits="AgrocomercioWEB.Reportes.wfrmRepResumenCliente" 
 %>
 
 <%@ Register Assembly="obout_ListBox" Namespace="Obout.ListBox" TagPrefix="cc2" %>
