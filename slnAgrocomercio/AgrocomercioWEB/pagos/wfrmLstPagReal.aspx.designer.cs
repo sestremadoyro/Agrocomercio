@@ -310,15 +310,6 @@ namespace AgrocomercioWEB.pagos {
         protected global::System.Web.UI.WebControls.Button btnProcesar;
         
         /// <summary>
-        /// btnprint control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton btnprint;
-        
-        /// <summary>
         /// btnImprimir control.
         /// </summary>
         /// <remarks>
