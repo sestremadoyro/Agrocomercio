@@ -310,35 +310,35 @@
                                                 <tr>
                                                     <td valign="top" class="style1">
                                                         <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="clsBtnNuevo" OnClick="btnNuevo_Click"
-                                                            CausesValidation="False" Height="41px" Width="106px" />
+                                                            CausesValidation="False" Height="41px" Width="106px"  ToolTip="Nuevo" />
                                                         <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="clsBtnGuardar"
-                                                            OnClick="btnGuardar_Click" Height="41px" Width="110px" />
+                                                            OnClick="btnGuardar_Click" Height="41px" Width="110px"  ToolTip="Guardar" />
                                                     </td>
                                                     <td valign="top" class="style1">
                                                         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="clsBtnCancelar"
-                                                            OnClick="btnCancelar_Click" CausesValidation="False" Height="41px" />
+                                                            OnClick="btnCancelar_Click" CausesValidation="False" Height="41px"  ToolTip="Cancelar" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td valign="top" class="style2">
                                                         <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="clsBtnEditar" OnClick="btnEditar_Click"
-                                                            Height="41px" Width="99px" />
+                                                            Height="41px" Width="99px"  ToolTip="Editar" />
                                                     </td>
                                                     <td valign="top" class="style2">
                                                         <asp:Button ID="btnAnular" runat="server" Text="Anular" CssClass="clsBtnAnular" Height="41px"
-                                                            OnClick="btnAnular_Click" Width="101px" />
+                                                            OnClick="btnAnular_Click" Width="101px"  ToolTip="Anular" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td valign="top" class="style1">
                                                         <asp:Button ID="btnProcesar" runat="server" Text="Procesar" CssClass="clsBtnProcesar"
-                                                            OnClick="btnProcesar_Click" Height="41px" />
+                                                            OnClick="btnProcesar_Click" Height="41px" ToolTip="Procesar"  />
                                                     </td>
                                                     <td valign="top" class="style1">
                                                     <input type="button" ID="btnprint" runat="server" value="Imprimir " onclick="Imprimir_Contenido()" 
-                                                    Height="38px" Width="102px" />
+                                                    Height="38px" Width="102px"  ToolTip="Imprimir" />
                                                         <asp:Button ID="btnImprimir" runat="server" Text="Imprimir" CssClass="clsBtnImprimir" onclick="btnImprimir_Click" 
-                                                            Height="38px" Width="102px" />
+                                                            Height="38px" Width="102px"  ToolTip="Imprimir" />
                                                     </td>
                                                 </tr>
                                             </table>
