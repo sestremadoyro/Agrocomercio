@@ -1,0 +1,4 @@
+ALTER TABLE [dbo].[Operaciones]
+ADD [OpeTipCiclo] [char](1) NULL,
+ADD [OpeCiclo][int] NULL
+GO
