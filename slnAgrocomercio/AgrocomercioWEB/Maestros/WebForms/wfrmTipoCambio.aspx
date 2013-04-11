@@ -121,7 +121,8 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmTipoCambio"  Theme="TemaAgrocome
                         </td>
                         <td>
                             <asp:DropDownList ID="ddlMoneda" runat="server">
-                                <asp:ListItem Value="1">Dolares</asp:ListItem>
+                                <asp:ListItem Value="USD">Dolares</asp:ListItem>
+                                <asp:ListItem Value="EUR">Euros</asp:ListItem>
                             </asp:DropDownList>
                         </td>
                     </tr>
