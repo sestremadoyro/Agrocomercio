@@ -1925,6 +1925,8 @@ namespace pryAgrocomercioDAL {
             
             private global::System.Data.DataColumn columnArtPeso;
             
+            private global::System.Data.DataColumn columnArtStockIni;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ArticulosDataTable() {
@@ -2080,6 +2082,14 @@ namespace pryAgrocomercioDAL {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ArtStockIniColumn {
+                get {
+                    return this.columnArtStockIni;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2115,7 +2125,23 @@ namespace pryAgrocomercioDAL {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ArticulosRow AddArticulosRow(int ArtCod, ProveedoresRow parentProveedoresRowByFK_Articulos_Proveedores, decimal ArtCostoProm, string ArtDescripcion, System.DateTime ArtFecModi, System.DateTime ArtFecRegis, System.DateTime ArtFecVen, decimal ArtStock, decimal ArtStockFac, decimal ArtStockMax, decimal ArtStockMin, bool Artestado, string CodAnt, UNIDADESRow parentUNIDADESRowByFK_ARTICULOS_UNIDADES, decimal ArtPeso) {
+            public ArticulosRow AddArticulosRow(
+                        int ArtCod, 
+                        ProveedoresRow parentProveedoresRowByFK_Articulos_Proveedores, 
+                        decimal ArtCostoProm, 
+                        string ArtDescripcion, 
+                        System.DateTime ArtFecModi, 
+                        System.DateTime ArtFecRegis, 
+                        System.DateTime ArtFecVen, 
+                        decimal ArtStock, 
+                        decimal ArtStockFac, 
+                        decimal ArtStockMax, 
+                        decimal ArtStockMin, 
+                        bool Artestado, 
+                        string CodAnt, 
+                        UNIDADESRow parentUNIDADESRowByFK_ARTICULOS_UNIDADES, 
+                        decimal ArtPeso, 
+                        decimal ArtStockIni) {
                 ArticulosRow rowArticulosRow = ((ArticulosRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ArtCod,
@@ -2132,7 +2158,8 @@ namespace pryAgrocomercioDAL {
                         Artestado,
                         CodAnt,
                         null,
-                        ArtPeso};
+                        ArtPeso,
+                        ArtStockIni};
                 if ((parentProveedoresRowByFK_Articulos_Proveedores != null)) {
                     columnValuesArray[1] = parentProveedoresRowByFK_Articulos_Proveedores[0];
                 }
@@ -2183,6 +2210,7 @@ namespace pryAgrocomercioDAL {
                 this.columnCodAnt = base.Columns["CodAnt"];
                 this.columnUniCod = base.Columns["UniCod"];
                 this.columnArtPeso = base.Columns["ArtPeso"];
+                this.columnArtStockIni = base.Columns["ArtStockIni"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2218,6 +2246,8 @@ namespace pryAgrocomercioDAL {
                 base.Columns.Add(this.columnUniCod);
                 this.columnArtPeso = new global::System.Data.DataColumn("ArtPeso", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnArtPeso);
+                this.columnArtStockIni = new global::System.Data.DataColumn("ArtStockIni", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnArtStockIni);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnArtCod}, true));
                 this.columnArtCod.AllowDBNull = false;
@@ -3421,6 +3451,22 @@ namespace pryAgrocomercioDAL {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal ArtStockIni {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableArticulos.ArtStockIniColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ArtStockIni\' de la tabla \'Articulos\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableArticulos.ArtStockIniColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ProveedoresRow ProveedoresRow {
                 get {
                     return ((ProveedoresRow)(this.GetParentRow(this.Table.ParentRelations["FK_Articulos_Proveedores"])));
@@ -3559,6 +3605,18 @@ namespace pryAgrocomercioDAL {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetArtPesoNull() {
                 this[this.tableArticulos.ArtPesoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsArtStockIniNull() {
+                return this.IsNull(this.tableArticulos.ArtStockIniColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetArtStockIniNull() {
+                this[this.tableArticulos.ArtStockIniColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -6131,6 +6189,7 @@ SELECT usrCod, perCod, usrLogin, usrClave, RolCod FROM Usuarios WHERE (usrCod = 
             tableMapping.ColumnMappings.Add("CodAnt", "CodAnt");
             tableMapping.ColumnMappings.Add("UniCod", "UniCod");
             tableMapping.ColumnMappings.Add("ArtPeso", "ArtPeso");
+            tableMapping.ColumnMappings.Add("ArtStockIni", "ArtStockIni");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -6139,8 +6198,8 @@ SELECT usrCod, perCod, usrLogin, usrClave, RolCod FROM Usuarios WHERE (usrCod = 
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ArtCod", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ArtCod", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Articulos] ([ArtCod], [PrvCod], [ArtCostoProm], [ArtDescripcion], [ArtFecModi], [ArtFecRegis], [ArtFecVen], [ArtStock], [ArtStockFac], [ArtStockMax], [ArtStockMin], [Artestado], [CodAnt], [UniCod], [ArtPeso]) VALUES (@ArtCod, @PrvCod, @ArtCostoProm, @ArtDescripcion, @ArtFecModi, @ArtFecRegis, @ArtFecVen, @ArtStock, @ArtStockFac, @ArtStockMax, @ArtStockMin, @Artestado, @CodAnt, @UniCod, @ArtPeso);
-SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, ArtPeso FROM Articulos WHERE (ArtCod = @ArtCod)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Articulos] ([ArtCod], [PrvCod], [ArtCostoProm], [ArtDescripcion], [ArtFecModi], [ArtFecRegis], [ArtFecVen], [ArtStock], [ArtStockFac], [ArtStockMax], [ArtStockMin], [Artestado], [CodAnt], [UniCod], [ArtPeso], [ArtStockIni]) VALUES (@ArtCod, @PrvCod, @ArtCostoProm, @ArtDescripcion, @ArtFecModi, @ArtFecRegis, @ArtFecVen, @ArtStock, @ArtStockFac, @ArtStockMax, @ArtStockMin, @Artestado, @CodAnt, @UniCod, @ArtPeso, @ArtStockIni);
+SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, ArtPeso, ArtStockIni FROM Articulos WHERE (ArtCod = @ArtCod)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtCod", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrvCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrvCod", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -6157,6 +6216,7 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CodAnt", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CodAnt", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UniCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UniCod", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtPeso", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "ArtPeso", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtStockIni", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "ArtStockIni", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [Articulos] SET [ArtCod] = @ArtCod, [PrvCod] = @PrvCod, [ArtCostoProm] = @" +
@@ -6164,24 +6224,25 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
                 "rtFecRegis] = @ArtFecRegis, [ArtFecVen] = @ArtFecVen, [ArtStock] = @ArtStock, [A" +
                 "rtStockFac] = @ArtStockFac, [ArtStockMax] = @ArtStockMax, [ArtStockMin] = @ArtSt" +
                 "ockMin, [Artestado] = @Artestado, [CodAnt] = @CodAnt, [UniCod] = @UniCod, [ArtPe" +
-                "so] = @ArtPeso WHERE (([ArtCod] = @Original_ArtCod) AND ((@IsNull_PrvCod = 1 AND" +
-                " [PrvCod] IS NULL) OR ([PrvCod] = @Original_PrvCod)) AND ((@IsNull_ArtCostoProm " +
-                "= 1 AND [ArtCostoProm] IS NULL) OR ([ArtCostoProm] = @Original_ArtCostoProm)) AN" +
-                "D ([ArtDescripcion] = @Original_ArtDescripcion) AND ((@IsNull_ArtFecModi = 1 AND" +
-                " [ArtFecModi] IS NULL) OR ([ArtFecModi] = @Original_ArtFecModi)) AND ((@IsNull_A" +
-                "rtFecRegis = 1 AND [ArtFecRegis] IS NULL) OR ([ArtFecRegis] = @Original_ArtFecRe" +
-                "gis)) AND ((@IsNull_ArtFecVen = 1 AND [ArtFecVen] IS NULL) OR ([ArtFecVen] = @Or" +
-                "iginal_ArtFecVen)) AND ([ArtStock] = @Original_ArtStock) AND ([ArtStockFac] = @O" +
-                "riginal_ArtStockFac) AND ((@IsNull_ArtStockMax = 1 AND [ArtStockMax] IS NULL) OR" +
-                " ([ArtStockMax] = @Original_ArtStockMax)) AND ((@IsNull_ArtStockMin = 1 AND [Art" +
-                "StockMin] IS NULL) OR ([ArtStockMin] = @Original_ArtStockMin)) AND ([Artestado] " +
-                "= @Original_Artestado) AND ((@IsNull_CodAnt = 1 AND [CodAnt] IS NULL) OR ([CodAn" +
-                "t] = @Original_CodAnt)) AND ((@IsNull_UniCod = 1 AND [UniCod] IS NULL) OR ([UniC" +
-                "od] = @Original_UniCod)) AND ((@IsNull_ArtPeso = 1 AND [ArtPeso] IS NULL) OR ([A" +
-                "rtPeso] = @Original_ArtPeso)));\r\nSELECT ArtCod, PrvCod, ArtCostoProm, ArtDescrip" +
-                "cion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, Ar" +
-                "tStockMin, Artestado, CodAnt, UniCod, ArtPeso FROM Articulos WHERE (ArtCod = @Ar" +
-                "tCod)";
+                "so] = @ArtPeso, [ArtStockIni] = @ArtStockIni WHERE (([ArtCod] = @Original_ArtCod" +
+                ") AND ((@IsNull_PrvCod = 1 AND [PrvCod] IS NULL) OR ([PrvCod] = @Original_PrvCod" +
+                ")) AND ((@IsNull_ArtCostoProm = 1 AND [ArtCostoProm] IS NULL) OR ([ArtCostoProm]" +
+                " = @Original_ArtCostoProm)) AND ([ArtDescripcion] = @Original_ArtDescripcion) AN" +
+                "D ((@IsNull_ArtFecModi = 1 AND [ArtFecModi] IS NULL) OR ([ArtFecModi] = @Origina" +
+                "l_ArtFecModi)) AND ((@IsNull_ArtFecRegis = 1 AND [ArtFecRegis] IS NULL) OR ([Art" +
+                "FecRegis] = @Original_ArtFecRegis)) AND ((@IsNull_ArtFecVen = 1 AND [ArtFecVen] " +
+                "IS NULL) OR ([ArtFecVen] = @Original_ArtFecVen)) AND ([ArtStock] = @Original_Art" +
+                "Stock) AND ([ArtStockFac] = @Original_ArtStockFac) AND ((@IsNull_ArtStockMax = 1" +
+                " AND [ArtStockMax] IS NULL) OR ([ArtStockMax] = @Original_ArtStockMax)) AND ((@I" +
+                "sNull_ArtStockMin = 1 AND [ArtStockMin] IS NULL) OR ([ArtStockMin] = @Original_A" +
+                "rtStockMin)) AND ([Artestado] = @Original_Artestado) AND ((@IsNull_CodAnt = 1 AN" +
+                "D [CodAnt] IS NULL) OR ([CodAnt] = @Original_CodAnt)) AND ((@IsNull_UniCod = 1 A" +
+                "ND [UniCod] IS NULL) OR ([UniCod] = @Original_UniCod)) AND ((@IsNull_ArtPeso = 1" +
+                " AND [ArtPeso] IS NULL) OR ([ArtPeso] = @Original_ArtPeso)) AND ((@IsNull_ArtSto" +
+                "ckIni = 1 AND [ArtStockIni] IS NULL) OR ([ArtStockIni] = @Original_ArtStockIni))" +
+                ");\r\nSELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis" +
+                ", ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt," +
+                " UniCod, ArtPeso, ArtStockIni FROM Articulos WHERE (ArtCod = @ArtCod)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtCod", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrvCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrvCod", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -6198,6 +6259,7 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CodAnt", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CodAnt", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UniCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UniCod", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtPeso", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "ArtPeso", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtStockIni", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "ArtStockIni", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ArtCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtCod", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PrvCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrvCod", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrvCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrvCod", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -6223,13 +6285,15 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UniCod", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UniCod", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ArtPeso", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtPeso", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ArtPeso", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "ArtPeso", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ArtStockIni", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtStockIni", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ArtStockIni", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "ArtStockIni", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::pryAgrocomercioDAL.Properties.Settings.Default.AgrocomercioConnectionString;
+            this._connection.ConnectionString = global::pryAgrocomercioDAL.Properties.Settings.Default.agrocomercioConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6240,31 +6304,31 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecReg" +
                 "is, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAn" +
-                "t, UniCod, \r\n                         ArtPeso\r\nFROM            Articulos";
+                "t, UniCod, \r\n                         ArtPeso, ArtStockIni\r\nFROM            Arti" +
+                "culos";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::pryAgrocomercioDAL.Properties.Settings.Default.AgrocomercioConnectionString);
             this._commandCollection[1].CommandText = "UPDATE       dbo.Articulos\r\nSET                Artestado = @Artestado\r\nWHERE     " +
                 "   (ArtCod = @Original_ArtCod)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ArtCod", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ArtCod", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Artestado", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "Artestado", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = @"SELECT        ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, 
-                         ArtPeso
-FROM            dbo.Articulos
-WHERE        (Artestado = 1)";
+            this._commandCollection[2].Connection = new global::System.Data.SqlClient.SqlConnection(global::pryAgrocomercioDAL.Properties.Settings.Default.AgrocomercioConnectionString);
+            this._commandCollection[2].CommandText = "SELECT ArtCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, " +
+                "ArtPeso, ArtStock, ArtStockFac, ArtStockIni, ArtStockMax, ArtStockMin, Artestado" +
+                ", CodAnt, PrvCod, UniCod FROM Articulos WHERE (Artestado = 1)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].Connection = new global::System.Data.SqlClient.SqlConnection(global::pryAgrocomercioDAL.Properties.Settings.Default.AgrocomercioConnectionString);
             this._commandCollection[3].CommandText = "SELECT ArtCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, " +
-                "ArtPeso, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, Prv" +
-                "Cod, UniCod FROM Articulos WHERE (ArtCod = @artCod)";
+                "ArtPeso, ArtStock, ArtStockFac, ArtStockIni, ArtStockMax, ArtStockMin, Artestado" +
+                ", CodAnt, PrvCod, UniCod FROM Articulos WHERE (ArtCod = @artCod)";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@artCod", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ArtCod", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].Connection = new global::System.Data.SqlClient.SqlConnection(global::pryAgrocomercioDAL.Properties.Settings.Default.AgrocomercioConnectionString);
             this._commandCollection[4].CommandText = "SELECT ISNULL(MAX(ArtCod),0) as ArtCod FROM ARTICULOS";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
         }
@@ -6398,7 +6462,23 @@ WHERE        (Artestado = 1)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ArtCod, global::System.Nullable<int> PrvCod, global::System.Nullable<decimal> ArtCostoProm, string ArtDescripcion, global::System.Nullable<global::System.DateTime> ArtFecModi, global::System.Nullable<global::System.DateTime> ArtFecRegis, global::System.Nullable<global::System.DateTime> ArtFecVen, decimal ArtStock, decimal ArtStockFac, global::System.Nullable<decimal> ArtStockMax, global::System.Nullable<decimal> ArtStockMin, bool Artestado, string CodAnt, global::System.Nullable<int> UniCod, global::System.Nullable<decimal> ArtPeso) {
+        public virtual int Insert(
+                    int ArtCod, 
+                    global::System.Nullable<int> PrvCod, 
+                    global::System.Nullable<decimal> ArtCostoProm, 
+                    string ArtDescripcion, 
+                    global::System.Nullable<global::System.DateTime> ArtFecModi, 
+                    global::System.Nullable<global::System.DateTime> ArtFecRegis, 
+                    global::System.Nullable<global::System.DateTime> ArtFecVen, 
+                    decimal ArtStock, 
+                    decimal ArtStockFac, 
+                    global::System.Nullable<decimal> ArtStockMax, 
+                    global::System.Nullable<decimal> ArtStockMin, 
+                    bool Artestado, 
+                    string CodAnt, 
+                    global::System.Nullable<int> UniCod, 
+                    global::System.Nullable<decimal> ArtPeso, 
+                    global::System.Nullable<decimal> ArtStockIni) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ArtCod));
             if ((PrvCod.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((int)(PrvCod.Value));
@@ -6469,6 +6549,12 @@ WHERE        (Artestado = 1)";
             else {
                 this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
+            if ((ArtStockIni.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[15].Value = ((decimal)(ArtStockIni.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6505,6 +6591,7 @@ WHERE        (Artestado = 1)";
                     string CodAnt, 
                     global::System.Nullable<int> UniCod, 
                     global::System.Nullable<decimal> ArtPeso, 
+                    global::System.Nullable<decimal> ArtStockIni, 
                     int Original_ArtCod, 
                     global::System.Nullable<int> Original_PrvCod, 
                     global::System.Nullable<decimal> Original_ArtCostoProm, 
@@ -6519,7 +6606,8 @@ WHERE        (Artestado = 1)";
                     bool Original_Artestado, 
                     string Original_CodAnt, 
                     global::System.Nullable<int> Original_UniCod, 
-                    global::System.Nullable<decimal> Original_ArtPeso) {
+                    global::System.Nullable<decimal> Original_ArtPeso, 
+                    global::System.Nullable<decimal> Original_ArtStockIni) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ArtCod));
             if ((PrvCod.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(PrvCod.Value));
@@ -6590,95 +6678,109 @@ WHERE        (Artestado = 1)";
             else {
                 this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_ArtCod));
-            if ((Original_PrvCod.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Original_PrvCod.Value));
+            if ((ArtStockIni.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((decimal)(ArtStockIni.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Original_ArtCod));
+            if ((Original_PrvCod.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(Original_PrvCod.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
             if ((Original_ArtCostoProm.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((decimal)(Original_ArtCostoProm.Value));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((decimal)(Original_ArtCostoProm.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
             }
             if ((Original_ArtDescripcion == null)) {
                 throw new global::System.ArgumentNullException("Original_ArtDescripcion");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((string)(Original_ArtDescripcion));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((string)(Original_ArtDescripcion));
             }
             if ((Original_ArtFecModi.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((System.DateTime)(Original_ArtFecModi.Value));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((System.DateTime)(Original_ArtFecModi.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
             }
             if ((Original_ArtFecRegis.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((System.DateTime)(Original_ArtFecRegis.Value));
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((System.DateTime)(Original_ArtFecRegis.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
             }
             if ((Original_ArtFecVen.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((System.DateTime)(Original_ArtFecVen.Value));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((System.DateTime)(Original_ArtFecVen.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[27].Value = ((decimal)(Original_ArtStock));
-            this.Adapter.UpdateCommand.Parameters[28].Value = ((decimal)(Original_ArtStockFac));
+            this.Adapter.UpdateCommand.Parameters[28].Value = ((decimal)(Original_ArtStock));
+            this.Adapter.UpdateCommand.Parameters[29].Value = ((decimal)(Original_ArtStockFac));
             if ((Original_ArtStockMax.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((decimal)(Original_ArtStockMax.Value));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((decimal)(Original_ArtStockMax.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
             }
             if ((Original_ArtStockMin.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((decimal)(Original_ArtStockMin.Value));
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((decimal)(Original_ArtStockMin.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[32].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[33].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[33].Value = ((bool)(Original_Artestado));
+            this.Adapter.UpdateCommand.Parameters[34].Value = ((bool)(Original_Artestado));
             if ((Original_CodAnt == null)) {
-                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[35].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[36].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((string)(Original_CodAnt));
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((string)(Original_CodAnt));
             }
             if ((Original_UniCod.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((int)(Original_UniCod.Value));
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[38].Value = ((int)(Original_UniCod.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[38].Value = global::System.DBNull.Value;
             }
             if ((Original_ArtPeso.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[39].Value = ((decimal)(Original_ArtPeso.Value));
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[40].Value = ((decimal)(Original_ArtPeso.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[39].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[40].Value = global::System.DBNull.Value;
+            }
+            if ((Original_ArtStockIni.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((decimal)(Original_ArtStockIni.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[42].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -6715,6 +6817,7 @@ WHERE        (Artestado = 1)";
                     string CodAnt, 
                     global::System.Nullable<int> UniCod, 
                     global::System.Nullable<decimal> ArtPeso, 
+                    global::System.Nullable<decimal> ArtStockIni, 
                     int Original_ArtCod, 
                     global::System.Nullable<int> Original_PrvCod, 
                     global::System.Nullable<decimal> Original_ArtCostoProm, 
@@ -6729,8 +6832,9 @@ WHERE        (Artestado = 1)";
                     bool Original_Artestado, 
                     string Original_CodAnt, 
                     global::System.Nullable<int> Original_UniCod, 
-                    global::System.Nullable<decimal> Original_ArtPeso) {
-            return this.Update(Original_ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, ArtPeso, Original_ArtCod, Original_PrvCod, Original_ArtCostoProm, Original_ArtDescripcion, Original_ArtFecModi, Original_ArtFecRegis, Original_ArtFecVen, Original_ArtStock, Original_ArtStockFac, Original_ArtStockMax, Original_ArtStockMin, Original_Artestado, Original_CodAnt, Original_UniCod, Original_ArtPeso);
+                    global::System.Nullable<decimal> Original_ArtPeso, 
+                    global::System.Nullable<decimal> Original_ArtStockIni) {
+            return this.Update(Original_ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, ArtPeso, ArtStockIni, Original_ArtCod, Original_PrvCod, Original_ArtCostoProm, Original_ArtDescripcion, Original_ArtFecModi, Original_ArtFecRegis, Original_ArtFecVen, Original_ArtStock, Original_ArtStockFac, Original_ArtStockMax, Original_ArtStockMin, Original_Artestado, Original_CodAnt, Original_UniCod, Original_ArtPeso, Original_ArtStockIni);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

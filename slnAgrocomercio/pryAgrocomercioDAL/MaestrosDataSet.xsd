@@ -2,10 +2,11 @@
 <xs:schema id="MaestrosDataSet" targetNamespace="http://tempuri.org/MaestrosDataSet.xsd" xmlns:mstns="http://tempuri.org/MaestrosDataSet.xsd" xmlns="http://tempuri.org/MaestrosDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="2" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="AgrocomercioConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Public" Name="AgrocomercioConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.pryAgrocomercioDAL.Properties.Settings.GlobalReference.Default.AgrocomercioConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="AGROCOMERCIOConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="AGROCOMERCIOConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.pryAgrocomercioDAL.Properties.Settings.GlobalReference.Default.AGROCOMERCIOConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="agrocomercioConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Public" Name="agrocomercioConnectionString1 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.pryAgrocomercioDAL.Properties.Settings.GlobalReference.Default.agrocomercioConnectionString1" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProveedoresTableAdapter" GeneratorDataComponentClassName="ProveedoresTableAdapter" Name="Proveedores" UserDataComponentName="ProveedoresTableAdapter">
@@ -100,7 +101,7 @@ SELECT PrvCod, PrvNumDoc, PrvRazon, PrvDireccion, PrvTelefono, PrvContacto, PrvF
               <Mapping SourceColumn="PrvDscto" DataSetColumn="PrvDscto" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteLogical" Modifier="Public" Name="DeleteLogical" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="DeleteLogical">
+              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteLogical" Modifier="Public" Name="DeleteLogical" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="DeleteLogical">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE [Proveedores] SET  [PrvEstado] = @PrvEstado WHERE ([PrvCod] = @Original_PrvCod) </CommandText>
@@ -132,7 +133,7 @@ ORDER BY PrvRazon</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="MaxPrvCodigo" Modifier="Public" Name="MaxPrvCodigo" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="MaxPrvCodigo">
+              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="MaxPrvCodigo" Modifier="Public" Name="MaxPrvCodigo" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="MaxPrvCodigo">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        MAX(PrvCod) AS prvCod
@@ -323,7 +324,7 @@ SELECT CliCod, CliTipoPer, CliTipoDoc, CliNumDoc, CliNombre, CliDireccion, CliTe
               <Mapping SourceColumn="CodAnt" DataSetColumn="CodAnt" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteLogical" Modifier="Public" Name="DeleteLogical" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="DeleteLogical">
+              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteLogical" Modifier="Public" Name="DeleteLogical" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="DeleteLogical">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE [Clientes] SET [CliEstado] = @CliEstado WHERE ([CliCod] = @Original_CliCod) </CommandText>
@@ -354,7 +355,7 @@ WHERE        (CliEstado = 1)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="MaxCliCod" Modifier="Public" Name="MaxCliCod" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="MaxCliCod">
+              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="MaxCliCod" Modifier="Public" Name="MaxCliCod" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="MaxCliCod">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT MAX(cliCod) as cliCodigo FROM Clientes</CommandText>
@@ -451,7 +452,7 @@ SELECT usrCod, perCod, usrLogin, usrClave, RolCod FROM Usuarios WHERE (usrCod = 
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ArticulosTableAdapter" GeneratorDataComponentClassName="ArticulosTableAdapter" Name="Articulos" UserDataComponentName="ArticulosTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectName="agrocomercio.dbo.Articulos" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="agrocomercioConnectionString1 (Settings)" DbObjectName="agrocomercio.dbo.Articulos" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>DELETE FROM Articulos
@@ -463,8 +464,8 @@ WHERE        (ArtCod = @Original_ArtCod)</CommandText>
                 </DeleteCommand>
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>INSERT INTO [Articulos] ([ArtCod], [PrvCod], [ArtCostoProm], [ArtDescripcion], [ArtFecModi], [ArtFecRegis], [ArtFecVen], [ArtStock], [ArtStockFac], [ArtStockMax], [ArtStockMin], [Artestado], [CodAnt], [UniCod], [ArtPeso]) VALUES (@ArtCod, @PrvCod, @ArtCostoProm, @ArtDescripcion, @ArtFecModi, @ArtFecRegis, @ArtFecVen, @ArtStock, @ArtStockFac, @ArtStockMax, @ArtStockMin, @Artestado, @CodAnt, @UniCod, @ArtPeso);
-SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, ArtPeso FROM Articulos WHERE (ArtCod = @ArtCod)</CommandText>
+                    <CommandText>INSERT INTO [Articulos] ([ArtCod], [PrvCod], [ArtCostoProm], [ArtDescripcion], [ArtFecModi], [ArtFecRegis], [ArtFecVen], [ArtStock], [ArtStockFac], [ArtStockMax], [ArtStockMin], [Artestado], [CodAnt], [UniCod], [ArtPeso], [ArtStockIni]) VALUES (@ArtCod, @PrvCod, @ArtCostoProm, @ArtDescripcion, @ArtFecModi, @ArtFecRegis, @ArtFecVen, @ArtStock, @ArtStockFac, @ArtStockMax, @ArtStockMin, @Artestado, @CodAnt, @UniCod, @ArtPeso, @ArtStockIni);
+SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, ArtPeso, ArtStockIni FROM Articulos WHERE (ArtCod = @ArtCod)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ArtCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ArtCod" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@PrvCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PrvCod" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -481,21 +482,22 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@CodAnt" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CodAnt" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@UniCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="UniCod" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@ArtPeso" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="ArtPeso" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@ArtStockIni" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="ArtStockIni" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </InsertCommand>
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, 
-                         ArtPeso
+                         ArtPeso, ArtStockIni
 FROM            Articulos</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE [Articulos] SET [ArtCod] = @ArtCod, [PrvCod] = @PrvCod, [ArtCostoProm] = @ArtCostoProm, [ArtDescripcion] = @ArtDescripcion, [ArtFecModi] = @ArtFecModi, [ArtFecRegis] = @ArtFecRegis, [ArtFecVen] = @ArtFecVen, [ArtStock] = @ArtStock, [ArtStockFac] = @ArtStockFac, [ArtStockMax] = @ArtStockMax, [ArtStockMin] = @ArtStockMin, [Artestado] = @Artestado, [CodAnt] = @CodAnt, [UniCod] = @UniCod, [ArtPeso] = @ArtPeso WHERE (([ArtCod] = @Original_ArtCod) AND ((@IsNull_PrvCod = 1 AND [PrvCod] IS NULL) OR ([PrvCod] = @Original_PrvCod)) AND ((@IsNull_ArtCostoProm = 1 AND [ArtCostoProm] IS NULL) OR ([ArtCostoProm] = @Original_ArtCostoProm)) AND ([ArtDescripcion] = @Original_ArtDescripcion) AND ((@IsNull_ArtFecModi = 1 AND [ArtFecModi] IS NULL) OR ([ArtFecModi] = @Original_ArtFecModi)) AND ((@IsNull_ArtFecRegis = 1 AND [ArtFecRegis] IS NULL) OR ([ArtFecRegis] = @Original_ArtFecRegis)) AND ((@IsNull_ArtFecVen = 1 AND [ArtFecVen] IS NULL) OR ([ArtFecVen] = @Original_ArtFecVen)) AND ([ArtStock] = @Original_ArtStock) AND ([ArtStockFac] = @Original_ArtStockFac) AND ((@IsNull_ArtStockMax = 1 AND [ArtStockMax] IS NULL) OR ([ArtStockMax] = @Original_ArtStockMax)) AND ((@IsNull_ArtStockMin = 1 AND [ArtStockMin] IS NULL) OR ([ArtStockMin] = @Original_ArtStockMin)) AND ([Artestado] = @Original_Artestado) AND ((@IsNull_CodAnt = 1 AND [CodAnt] IS NULL) OR ([CodAnt] = @Original_CodAnt)) AND ((@IsNull_UniCod = 1 AND [UniCod] IS NULL) OR ([UniCod] = @Original_UniCod)) AND ((@IsNull_ArtPeso = 1 AND [ArtPeso] IS NULL) OR ([ArtPeso] = @Original_ArtPeso)));
-SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, ArtPeso FROM Articulos WHERE (ArtCod = @ArtCod)</CommandText>
+                    <CommandText>UPDATE [Articulos] SET [ArtCod] = @ArtCod, [PrvCod] = @PrvCod, [ArtCostoProm] = @ArtCostoProm, [ArtDescripcion] = @ArtDescripcion, [ArtFecModi] = @ArtFecModi, [ArtFecRegis] = @ArtFecRegis, [ArtFecVen] = @ArtFecVen, [ArtStock] = @ArtStock, [ArtStockFac] = @ArtStockFac, [ArtStockMax] = @ArtStockMax, [ArtStockMin] = @ArtStockMin, [Artestado] = @Artestado, [CodAnt] = @CodAnt, [UniCod] = @UniCod, [ArtPeso] = @ArtPeso, [ArtStockIni] = @ArtStockIni WHERE (([ArtCod] = @Original_ArtCod) AND ((@IsNull_PrvCod = 1 AND [PrvCod] IS NULL) OR ([PrvCod] = @Original_PrvCod)) AND ((@IsNull_ArtCostoProm = 1 AND [ArtCostoProm] IS NULL) OR ([ArtCostoProm] = @Original_ArtCostoProm)) AND ([ArtDescripcion] = @Original_ArtDescripcion) AND ((@IsNull_ArtFecModi = 1 AND [ArtFecModi] IS NULL) OR ([ArtFecModi] = @Original_ArtFecModi)) AND ((@IsNull_ArtFecRegis = 1 AND [ArtFecRegis] IS NULL) OR ([ArtFecRegis] = @Original_ArtFecRegis)) AND ((@IsNull_ArtFecVen = 1 AND [ArtFecVen] IS NULL) OR ([ArtFecVen] = @Original_ArtFecVen)) AND ([ArtStock] = @Original_ArtStock) AND ([ArtStockFac] = @Original_ArtStockFac) AND ((@IsNull_ArtStockMax = 1 AND [ArtStockMax] IS NULL) OR ([ArtStockMax] = @Original_ArtStockMax)) AND ((@IsNull_ArtStockMin = 1 AND [ArtStockMin] IS NULL) OR ([ArtStockMin] = @Original_ArtStockMin)) AND ([Artestado] = @Original_Artestado) AND ((@IsNull_CodAnt = 1 AND [CodAnt] IS NULL) OR ([CodAnt] = @Original_CodAnt)) AND ((@IsNull_UniCod = 1 AND [UniCod] IS NULL) OR ([UniCod] = @Original_UniCod)) AND ((@IsNull_ArtPeso = 1 AND [ArtPeso] IS NULL) OR ([ArtPeso] = @Original_ArtPeso)) AND ((@IsNull_ArtStockIni = 1 AND [ArtStockIni] IS NULL) OR ([ArtStockIni] = @Original_ArtStockIni)));
+SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, ArtPeso, ArtStockIni FROM Articulos WHERE (ArtCod = @ArtCod)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ArtCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ArtCod" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@PrvCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PrvCod" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -512,6 +514,7 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@CodAnt" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="CodAnt" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@UniCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="UniCod" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@ArtPeso" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="ArtPeso" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@ArtStockIni" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="ArtStockIni" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ArtCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ArtCod" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_PrvCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PrvCod" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_PrvCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PrvCod" SourceColumnNullMapping="false" SourceVersion="Original" />
@@ -537,6 +540,8 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_UniCod" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="UniCod" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ArtPeso" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ArtPeso" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_ArtPeso" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="ArtPeso" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ArtStockIni" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ArtStockIni" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_ArtStockIni" Precision="18" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="ArtStockIni" SourceColumnNullMapping="false" SourceVersion="Original" />
                     </Parameters>
                   </DbCommand>
                 </UpdateCommand>
@@ -558,6 +563,7 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
               <Mapping SourceColumn="CodAnt" DataSetColumn="CodAnt" />
               <Mapping SourceColumn="UniCod" DataSetColumn="UniCod" />
               <Mapping SourceColumn="ArtPeso" DataSetColumn="ArtPeso" />
+              <Mapping SourceColumn="ArtStockIni" DataSetColumn="ArtStockIni" />
             </Mappings>
             <Sources>
               <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectName="agrocomercio.dbo.Articulos" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="DeleteLogical" Modifier="Public" Name="DeleteLogical" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="DeleteLogical">
@@ -586,10 +592,7 @@ SELECT ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, Ar
               <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectName="agrocomercio.dbo.Articulos" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillActivos" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataActivos" GeneratorSourceName="FillActivos" GetMethodModifier="Public" GetMethodName="GetDataActivos" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataActivos" UserSourceName="FillActivos">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        ArtCod, PrvCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, UniCod, 
-                         ArtPeso
-FROM            dbo.Articulos
-WHERE        (Artestado = 1)</CommandText>
+                    <CommandText>SELECT ArtCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtPeso, ArtStock, ArtStockFac, ArtStockIni, ArtStockMax, ArtStockMin, Artestado, CodAnt, PrvCod, UniCod FROM Articulos WHERE (Artestado = 1)</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -597,7 +600,7 @@ WHERE        (Artestado = 1)</CommandText>
               <DbSource ConnectionRef="AgrocomercioConnectionString (Settings)" DbObjectName="agrocomercio.dbo.Articulos" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByArtCod" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByArtCod" GeneratorSourceName="FillByArtCod" GetMethodModifier="Public" GetMethodName="GetDataByArtCod" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByArtCod" UserSourceName="FillByArtCod">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT ArtCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtPeso, ArtStock, ArtStockFac, ArtStockMax, ArtStockMin, Artestado, CodAnt, PrvCod, UniCod FROM Articulos WHERE (ArtCod = @artCod)</CommandText>
+                    <CommandText>SELECT ArtCod, ArtCostoProm, ArtDescripcion, ArtFecModi, ArtFecRegis, ArtFecVen, ArtPeso, ArtStock, ArtStockFac, ArtStockIni, ArtStockMax, ArtStockMin, Artestado, CodAnt, PrvCod, UniCod FROM Articulos WHERE (ArtCod = @artCod)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="artCod" ColumnName="ArtCod" DataSourceName="agrocomercio.dbo.Articulos" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@artCod" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ArtCod" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
@@ -811,6 +814,7 @@ WHERE        (Artestado = 1)</CommandText>
               </xs:element>
               <xs:element name="UniCod" msprop:Generator_ColumnVarNameInTable="columnUniCod" msprop:Generator_ColumnPropNameInRow="UniCod" msprop:Generator_ColumnPropNameInTable="UniCodColumn" msprop:Generator_UserColumnName="UniCod" type="xs:int" minOccurs="0" />
               <xs:element name="ArtPeso" msprop:Generator_ColumnVarNameInTable="columnArtPeso" msprop:Generator_ColumnPropNameInRow="ArtPeso" msprop:Generator_ColumnPropNameInTable="ArtPesoColumn" msprop:Generator_UserColumnName="ArtPeso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ArtStockIni" msprop:Generator_ColumnVarNameInTable="columnArtStockIni" msprop:Generator_ColumnPropNameInRow="ArtStockIni" msprop:Generator_ColumnPropNameInTable="ArtStockIniColumn" msprop:Generator_UserColumnName="ArtStockIni" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

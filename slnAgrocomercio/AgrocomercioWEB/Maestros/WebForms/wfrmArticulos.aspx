@@ -275,7 +275,19 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                                 Type="Double">*</asp:CompareValidator>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td class="clsFormEtiquetas">
+                            <asp:Label ID="Label4" runat="server" Text="Stock Inicial :" 
+                                ForeColor="Black" ></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtStockIni" runat="server" Width="100px"></asp:TextBox>
+                            <asp:CompareValidator ID="CompareValidator1" runat="server" 
+                                ControlToValidate="txtStockIni" 
+                                ErrorMessage="Ingrese un Stock Inicial" Operator="DataTypeCheck" 
+                                Type="Double">*</asp:CompareValidator>
+                        </td>
+                    </tr>
                     <tr>
                         
                         <td style="text-align:center;" colspan="2">

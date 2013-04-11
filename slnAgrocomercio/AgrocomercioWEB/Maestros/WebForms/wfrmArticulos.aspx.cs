@@ -134,7 +134,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             oArticulo.UniCod = Convert.ToInt32(ddlUnidadMedida.SelectedItem.Value);
             oArticulo.ArtEstado = chkEstado.Checked;
             oArticulo.ArtPeso = Convert.ToDecimal(txtPeso.Text);
-            
+            oArticulo.ArtStockIni = Convert.ToDecimal(txtStockIni.Text);
 
             if (ddlProveedor.Items.Count > 0)
                 oArticulo.PrvCod = Convert.ToInt32(ddlProveedor.SelectedItem.Value);
@@ -187,6 +187,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             txtCostoPromedio.Text = "0";
             txtFecVencimiento.Text = DateTime.Today.ToString();
             txtPeso.Text = "0";
+            txtStockIni.Text = "0";
             chkEstado.Checked = true;
 
             EventoLlenarLista();
@@ -245,7 +246,8 @@ namespace AgrocomercioWEB.Maestros.WebForms
             txtFecVencimiento.Text = pObjArticulo.ArtFecRegis.ToString();
             txtCostoPromedio.Text = pObjArticulo.ArtCostoProm.ToString();
             txtPeso.Text = pObjArticulo.ArtPeso.ToString();
-            
+            txtStockIni.Text = pObjArticulo.ArtStockIni.ToString();
+
             txtDescripcion.Focus();
         }
         private void EventoNuevoProducto()
@@ -259,6 +261,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             txtCostoPromedio.Text = "0";
             txtFecVencimiento.Text = DateTime.Today.ToShortDateString();
             txtPeso.Text = "0";
+            txtStockIni.Text = "0";
             chkEstado.Checked = true;
 
             //CONSULTAR PRECIOS Y LOTES DEL PRODUCTO
@@ -323,6 +326,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 txtCostoPromedio.Text = drArticulo["artCostoProm"].ToString();
                 txtPeso.Text = drArticulo["artPeso"].ToString();
                 chkEstado.Checked = Convert.ToBoolean( drArticulo["artEstado"]);
+                txtStockIni.Text = drArticulo["artStockIni"].ToString();
 
                 ListItem liElegido;
                 //si DropDownList está visible
@@ -508,6 +512,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 //txtStockMin.Text = drArticulo["artStockMin"].ToString();
                 txtFecVencimiento.Text = oArticulo.ArtFecRegis.ToString();
                 txtCostoPromedio.Text = oArticulo.ArtCostoProm.ToString();
+                txtStockIni.Text = oArticulo.ArtStockIni.ToString();
                 chkEstado.Checked = oArticulo.Artestado;
 
                 ListItem liElegido;
@@ -651,6 +656,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             oArticulo.ArtCostoProm = Convert.ToDecimal( txtCostoPromedio.Text);
             oArticulo.Artestado = chkEstado.Checked;
             oArticulo.ArtStock = Convert.ToDecimal( txtStock.Text);
+            oArticulo.ArtStockIni = Convert.ToDecimal(txtStockIni.Text);
             //oArticulo.ArtStockMax = Convert.ToDecimal(txtStockMax.Text);
             //oArticulo.ArtStockMin = Convert.ToDecimal(txtStockMin.Text);
             oArticulo.ArtFecVen = DateTime.Parse(txtFecVencimiento.Text);

@@ -201,6 +201,19 @@ namespace pryAgrocomercioBLL.Maestros
             set
             { _ArtPeso = value; }
         }
+        private decimal _ArtStockIni;
+        public decimal ArtStockIni
+        {
+            get
+            {
+                if (_ArtStockIni == null)
+                    return 0;
+                else
+                    return _ArtStockIni;
+            }
+            set
+            { _ArtStockIni = value; }
+        }
 
 #endregion
 #region metodos_estaticos
@@ -225,7 +238,7 @@ namespace pryAgrocomercioBLL.Maestros
             this.ArtFecVen  = Convert.ToDateTime(drArticulo["ArtFecVen"]);
             this.PrvCod = Convert.ToInt32(drArticulo["PrvCod"]);
             this.ArtPeso = Convert.ToDecimal(drArticulo["ArtPeso"]);
-
+            this.ArtStockIni = Convert.ToDecimal(drArticulo["ArtStockIni"]);
         }
 
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
@@ -253,7 +266,7 @@ namespace pryAgrocomercioBLL.Maestros
             try
             {
                 int NuevoArtCod = Convert.ToInt32( ArticuloAdapter.MAXARTCOD()) + 1;
-                lnResp = ArticuloAdapter.Insert(NuevoArtCod, this.PrvCod, this.ArtCostoProm, this.ArtDescripcion, this.ArtFecModi,this.ArtFecRegis, this.ArtFecVen, this.ArtStock, this.ArtStockFac, this.ArtStockMax, this.ArtStockMin,  this.ArtEstado, "",this.UniCod,this.ArtPeso );
+                lnResp = ArticuloAdapter.Insert(NuevoArtCod, this.PrvCod, this.ArtCostoProm, this.ArtDescripcion, this.ArtFecModi,this.ArtFecRegis, this.ArtFecVen, this.ArtStock, this.ArtStockFac, this.ArtStockMax, this.ArtStockMin,  this.ArtEstado, "",this.UniCod,this.ArtPeso,this.ArtStockIni );
                 if (lnResp <= 0)
                 {
                     NroError = 996;
@@ -296,7 +309,7 @@ namespace pryAgrocomercioBLL.Maestros
             oArticuloRow.PrvCod = this.PrvCod;
             oArticuloRow.ArtPeso = this.ArtPeso;
             oArticuloRow.Artestado = this.ArtEstado;
-
+            oArticuloRow.ArtStockIni = this.ArtStockIni;
             try
             {
                 regAfectados = ArticuloAdapter.Update(oArticuloRow);
