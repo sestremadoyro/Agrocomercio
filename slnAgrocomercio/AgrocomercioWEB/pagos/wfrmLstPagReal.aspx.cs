@@ -53,7 +53,7 @@ namespace AgrocomercioWEB.pagos
             {
                 iniciar_valores();
                 CargarProveedores(1);
-                btnprint.Visible = false;
+                HabilitarBtn(btnImprimir, false);
             }
         }
 
@@ -189,8 +189,8 @@ namespace AgrocomercioWEB.pagos
             dtlsdetlet = lsdetlet.GetList(cEstadoCod, cfecdesde, cfechasta, nPrvCod, "C");
             dgvlistNotas.DataSource = dtlsdetlet;
             dgvlistNotas.DataBind();
+            HabilitarBtn(btnImprimir, true);
             
-            btnprint.Visible = true;
         }
 
         protected void btnPagar_Click(object sender, EventArgs e)

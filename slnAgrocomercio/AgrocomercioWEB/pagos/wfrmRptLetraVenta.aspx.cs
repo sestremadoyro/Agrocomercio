@@ -38,7 +38,7 @@ namespace AgrocomercioWEB.pagos
                         case ("DGVLIS_SIMPLECLICK"):
                             _selectedIndex = int.Parse(Request.Params["__EVENTARGUMENT"].ToString());
                             dgvFacPend.SelectedIndex = _selectedIndex;
-                            HabilitarBtn(btnNuevo, true);    
+                            HabilitarBtn(btnNuevo, false);    
                             lblEstado.Value = "EMPTY";
                         break;
                         case ("DGVLET_SIMPLECLICK"):
@@ -195,7 +195,7 @@ namespace AgrocomercioWEB.pagos
                 lstClientes = null;
                 Cliente = null;
                 ///////////////////////////////////
-                HabilitarBtn(btnNuevo, true);
+                HabilitarBtn(btnNuevo, false);
 
             }
         }

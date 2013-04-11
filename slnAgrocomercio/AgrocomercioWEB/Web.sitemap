@@ -11,9 +11,8 @@
     <siteMapNode url="~/pagos/wfrmLiqCombranza.aspx" title="Pagos " description="Pagos" />
     <siteMapNode url="~/pagos/wfrmNotasVentas.aspx" title="Nota Clientes" description="Registrar las Notas" />
     <siteMapNode url="#" title="Reportes-Ventas"  description="Reportes-Ventas">
-      <siteMapNode url="~/pagos/wfrmPagxLetra.aspx" title="Pagos x Letra." description="Pagos por Letra" />
-      <siteMapNode url="~/pagos/wfrmListaPago.aspx" title="Ventas por cobrar" description="Pagos Pendientes" />
-      <siteMapNode url="~/pagos/wfrmLstPagReal.aspx" title="Pago de ventas" description="Pagos Realizados" />
+      <siteMapNode url="~/pagos/wfrmPagxLetra.aspx" title="Pagos x Letra." description="Pagos por Letra" />      
+      <siteMapNode url="~/pagos/wfrmRptLetraVenta.aspx" title="Letras" description="Letras" />
       <siteMapNode url="~/Ventas/wfrmRepVentasXCobrar.aspx" title="Ventas x Cobrar General" description="Ventas por Cobrar General" />
       <siteMapNode url="~/Ventas/wfrmRepResumenCliente.aspx" title="Resumen de Clientes" description="Resumen de Clientes" />
       
