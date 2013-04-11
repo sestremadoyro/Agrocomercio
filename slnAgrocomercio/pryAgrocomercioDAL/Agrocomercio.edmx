@@ -594,6 +594,8 @@
           <Property Name="OpeTotPagar" Type="numeric" Scale="2" />
           <Property Name="nporDesc" Type="numeric" Precision="12" Scale="2" />
           <Property Name="tcmCod" Type="int" />
+          <Property Name="OpeTipCiclo" Type="char" MaxLength="1" />
+          <Property Name="OpeCiclo" Type="int" />
         </EntityType>
         <EntityType Name="Pag_letras">
           <Key>
@@ -1941,6 +1943,8 @@
           <NavigationProperty Name="Proveedores" Relationship="AgrocomercioModel.FK_Operaciones_Proveedores" FromRole="Operaciones" ToRole="Proveedores" />
           <NavigationProperty Name="TipoCambios" Relationship="AgrocomercioModel.FK_Operaciones_TipoCambios" FromRole="Operaciones" ToRole="TipoCambios" />
           <NavigationProperty Name="Transportistas" Relationship="AgrocomercioModel.FK_Operaciones_Transportistas" FromRole="Operaciones" ToRole="Transportistas" />
+          <Property Type="String" Name="OpeTipCiclo" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="OpeCiclo" />
         </EntityType>
         <EntityType Name="Pag_letras">
           <Key>
@@ -2696,6 +2700,8 @@
           <EntitySetMapping Name="Operaciones">
             <EntityTypeMapping TypeName="AgrocomercioModel.Operaciones">
               <MappingFragment StoreEntitySet="Operaciones">
+                <ScalarProperty Name="OpeCiclo" ColumnName="OpeCiclo" />
+                <ScalarProperty Name="OpeTipCiclo" ColumnName="OpeTipCiclo" />
                 <ScalarProperty Name="tcmCod" ColumnName="tcmCod" />
                 <ScalarProperty Name="nporDesc" ColumnName="nporDesc" />
                 <ScalarProperty Name="OpeTotPagar" ColumnName="OpeTotPagar" />
@@ -3130,7 +3136,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Agrocomercio" ZoomLevel="25">
+      <Diagram Name="Agrocomercio" ZoomLevel="71">
         <EntityTypeShape EntityType="AgrocomercioModel.Atributos" Width="1.5" PointX="13.875" PointY="9" Height="1.9802864583333246" />
         <EntityTypeShape EntityType="AgrocomercioModel.Clientes" Width="1.5" PointX="0.5" PointY="18" Height="3.5186979166666674" />
         <EntityTypeShape EntityType="AgrocomercioModel.DetOperacion" Width="1.5" PointX="2.75" PointY="8.625" Height="3.7109993489583246" />

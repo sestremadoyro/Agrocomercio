@@ -328,6 +328,33 @@ namespace AgrocomercioWEB.Compras {
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoVenta;
         
         /// <summary>
+        /// Control ddlTipCiclo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipCiclo;
+        
+        /// <summary>
+        /// Control txtCiclo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCiclo;
+        
+        /// <summary>
+        /// Control txtCiclo_TextBoxWatermarkExtender.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtCiclo_TextBoxWatermarkExtender;
+        
+        /// <summary>
         /// Control lblDescuentoEsp.
         /// </summary>
         /// <remarks>

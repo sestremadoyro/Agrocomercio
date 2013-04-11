@@ -104,7 +104,6 @@
             <asp:HiddenField ID="lblEstado" runat="server" ClientIDMode="Static" />   
             <asp:HiddenField ID="lblProceso" runat="server" />
             <asp:HiddenField ID="lblOpeEstado" runat="server" />
-            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -282,9 +281,20 @@
                                             </asp:DropDownList></td>
                             <td class="clsCellTituloDatos2" >Venta Al: </td>
                             <td  class="clsCellDatos2">
-                                <asp:DropDownList ID="ddlTipoVenta" runat="server" Width="100px" DataTextField="AtrDescripcion" DataValueField="AtrCodigo"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlTipoVenta" runat="server" Width="100px" 
+                                    DataTextField="AtrDescripcion" DataValueField="AtrCodigo" AutoPostBack="True" 
+                                    onselectedindexchanged="ddlTipoVenta_SelectedIndexChanged"></asp:DropDownList>
                             </td> 
-                                                                   
+                            <td class="clsCellDatos2" style=" text-align:right;">
+                                <asp:DropDownList ID="ddlTipCiclo" runat="server" Width="50px" DataTextField="AtrDescripcion" DataValueField="AtrCodigo"></asp:DropDownList>
+                            </td>  
+                            <td class="clsCellDatos2">
+                                <asp:TextBox ID="txtCiclo" runat="server" Width="100px" ></asp:TextBox>
+                                <asp:TextBoxWatermarkExtender
+                                    ID="txtCiclo_TextBoxWatermarkExtender" runat="server" 
+                                    TargetControlID="txtCiclo" WatermarkText="Escriba el Ciclo">
+                                </asp:TextBoxWatermarkExtender>
+                            </td>                                     
                         </tr>
                         <tr>
                             <td class="clsCellTituloDatos2" >Vendedor: </td>

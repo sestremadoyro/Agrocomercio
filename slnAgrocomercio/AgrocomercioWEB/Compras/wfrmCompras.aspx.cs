@@ -82,6 +82,14 @@ namespace AgrocomercioWEB.Compras
             get { return (Decimal)GetNumero(txtCostoTotal.Text); }
             set { txtCostoTotal.Text = SetFormatNum((double)value); }
         }
+        public string cOpeTipCiclo
+        {
+            get { return ddlTipCiclo.SelectedValue; }
+        }
+        public int nOpeCiclo
+        {
+            get { return Convert.ToInt32(txtCiclo.Text); }
+        }
         public int ntcmCod
         {
             get { return lbltcmCod.Value == "" ? -1 : Convert.ToInt32(lbltcmCod.Value); }
@@ -378,6 +386,8 @@ namespace AgrocomercioWEB.Compras
                     lblProceso.Value = "NEW";
                     ddlTipoDocu.Enabled = true;
                     txtProveedor.Text = "";
+                    ddlTipCiclo.Visible = false;
+                    txtCiclo.Visible = false;
                 }
                 else
                 {
@@ -793,6 +803,11 @@ namespace AgrocomercioWEB.Compras
             ddlTipoDocu.DataBind();
             ddlTipoDocu.Items.Insert(0, new ListItem("", "000"));
 
+            //Cargamos combo de Tipo de Ciclo
+            ddlTipCiclo.DataSource = Atributos.ListAtributos(10);
+            ddlTipCiclo.DataBind();
+            ddlTipCiclo.SelectedIndex = 2;
+
             //Cargamos combo de Zonas
             ddlZonas.DataSource = Atributos.ListAtributos(4);
             ddlZonas.DataBind();
@@ -897,6 +912,8 @@ namespace AgrocomercioWEB.Compras
             txtFecIni.Text = "";
             txtFecFin.Text = "";
 
+            ddlTipCiclo.SelectedIndex = 2;
+
             txtDireccion.Text = "";
             txtTelefono.Text = "";
             txtDocCli.Text = "";
@@ -909,6 +926,9 @@ namespace AgrocomercioWEB.Compras
             txtFecFin.Enabled = false;
             ddlEstados.Enabled = false;
             ddlProveedorFiltro.Enabled = false;
+
+            ddlTipCiclo.Visible = false;
+            txtCiclo.Visible = false;
 
             lblProceso.Value = "";
             lblEstado.Value = "";
@@ -933,6 +953,9 @@ namespace AgrocomercioWEB.Compras
             txtFecha.Enabled = Value;
             txtProveedor.Enabled = Value;
             ddlMoneda.Enabled = Value;
+
+            ddlTipCiclo.Enabled = Value;
+            txtCiclo.Enabled = Value;
         }
 
         private void AsignarFuncionBotonImprimir()
@@ -1333,6 +1356,8 @@ namespace AgrocomercioWEB.Compras
                 txtCostoTotal.Text = SetFormatNum((double)Operacion.OpeTotal);
                 lblOpeEstado.Value = Operacion.OpeEstado.ToString();
                 txtDesEspec.Text = SetFormatNum((double)Operacion.OpeDscto);
+                txtCiclo.Text = Operacion.OpeCiclo.ToString();
+                ddlTipCiclo.SelectedValue = Operacion.OpeTipPago;
             }
             catch (Exception ex)
             {
@@ -1898,6 +1923,12 @@ namespace AgrocomercioWEB.Compras
         {
             CalcularPago(g_dtDetOperacion);
             ModalPopupGirarCompra.Show();
+        }
+
+        protected void ddlTipoVenta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlTipCiclo.Visible = ddlTipoVenta.SelectedValue == "CR";
+            txtCiclo.Visible = ddlTipoVenta.SelectedValue == "CR";
         }
 
 

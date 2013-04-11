@@ -8553,6 +8553,54 @@ namespace pryAgrocomercioDAL
         private Nullable<global::System.Int32> _tcmCod;
         partial void OntcmCodChanging(Nullable<global::System.Int32> value);
         partial void OntcmCodChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OpeTipCiclo
+        {
+            get
+            {
+                return _OpeTipCiclo;
+            }
+            set
+            {
+                OnOpeTipCicloChanging(value);
+                ReportPropertyChanging("OpeTipCiclo");
+                _OpeTipCiclo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OpeTipCiclo");
+                OnOpeTipCicloChanged();
+            }
+        }
+        private global::System.String _OpeTipCiclo;
+        partial void OnOpeTipCicloChanging(global::System.String value);
+        partial void OnOpeTipCicloChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> OpeCiclo
+        {
+            get
+            {
+                return _OpeCiclo;
+            }
+            set
+            {
+                OnOpeCicloChanging(value);
+                ReportPropertyChanging("OpeCiclo");
+                _OpeCiclo = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OpeCiclo");
+                OnOpeCicloChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _OpeCiclo;
+        partial void OnOpeCicloChanging(Nullable<global::System.Int32> value);
+        partial void OnOpeCicloChanged();
 
         #endregion
 

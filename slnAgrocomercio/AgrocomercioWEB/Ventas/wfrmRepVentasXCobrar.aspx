@@ -1,8 +1,5 @@
-﻿<%@ Page Title=".:Reportes de Compras:." Language="C#" 
-    MasterPageFile="~/Site.Master"
-    AutoEventWireup="true" 
-    CodeBehind="wfrmRepVentasXCobrar.aspx.cs" 
-    Inherits="AgrocomercioWEB.Reportes.wfrmRepVentasXCobrar" %>
+﻿<%@ Page Title=".:Reportes de Compras:." Language="C#" MasterPageFile="~/Site.Master"
+    AutoEventWireup="true" CodeBehind="wfrmRepVentasXCobrar.aspx.cs" Inherits="AgrocomercioWEB.Ventas.wfrmRepVentasXCobrar" %>
 
 <%@ Register Assembly="obout_ComboBox" Namespace="Obout.ComboBox" TagPrefix="cc4" %>
 <%@ Register Assembly="obout_Calendar2_Net" Namespace="OboutInc.Calendar2" TagPrefix="obout" %>
@@ -93,10 +90,6 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="4">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="4">
                                                     <div style="text-align: center; color: Green; font-size: 14px; font-weight: bold;">
                                                         <asp:Label ID="lblExito" runat="server" Text="El Reporte de Proceso Correctamente."
                                                             Visible="false"></asp:Label></div>
@@ -106,6 +99,33 @@
                                                 </td>
                                             </tr>
                                         </table>
+                                    </asp:Panel>
+                                </td>
+                                <td class="tabIzquierda3" valign="top">
+                                    <asp:Panel ID="pnExportar" runat="server">
+                                        <table class="tablaDerecha">
+                                                <tr>
+                                                    <td colspan="2" align="left">
+                                                        <h3>
+                                                            Opciones</h3>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                        &nbsp;</td>
+                                                    <td valign="top">
+                                                    <cc4:ComboBox runat="server" ID="cbExportar" SelectedIndex="2" 
+                                                        ShowSelectedImage="false" Width="175" >
+                                                        <Items>
+                                                            <cc4:ComboBoxItem ID="cboxItemImprimir" runat="server" Value="5" 
+                                                                ImageUrl="../App_Themes/TemaAgrocomercio/images/botones/imprimir.png" Height="100px" />
+                                                            <cc4:ComboBoxItem ID="cboxItemExcel" runat="server" Value="6" ImageUrl="../App_Themes/TemaAgrocomercio/images/botones/imprimir.png" Height="100px" />
+                                                            <cc4:ComboBoxItem ID="cboxItemPdf" runat="server" Value="7" ImageUrl="../App_Themes/TemaAgrocomercio/images/botones/imprimir.png" Height="100px" />                                                            
+                                                        </Items>
+                                                    </cc4:ComboBox>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                     </asp:Panel>
                                 </td>
                                 <td class="tabDerecha3" valign="top">

@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace AgrocomercioWEB.Reportes {
+namespace AgrocomercioWEB.Ventas {
     
     
     public partial class wfrmRepVentasXCobrar {
@@ -92,6 +92,51 @@ namespace AgrocomercioWEB.Reportes {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblError;
+        
+        /// <summary>
+        /// Control pnExportar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnExportar;
+        
+        /// <summary>
+        /// Control cbExportar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::Obout.ComboBox.ComboBox cbExportar;
+        
+        /// <summary>
+        /// Control cboxItemImprimir.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::Obout.ComboBox.ComboBoxItem cboxItemImprimir;
+        
+        /// <summary>
+        /// Control cboxItemExcel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::Obout.ComboBox.ComboBoxItem cboxItemExcel;
+        
+        /// <summary>
+        /// Control cboxItemPdf.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::Obout.ComboBox.ComboBoxItem cboxItemPdf;
         
         /// <summary>
         /// Control pnBotones.

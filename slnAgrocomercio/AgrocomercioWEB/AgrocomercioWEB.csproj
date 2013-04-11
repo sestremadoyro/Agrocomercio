@@ -323,7 +323,6 @@
     <Content Include="bin\AgrocomercioWEB.dll" />
     <Content Include="bin\AgrocomercioWEB.pdb" />
     <Content Include="bin\AjaxControlToolkit.dll" />
-    <Content Include="bin\AjaxControlToolkit.pdb" />
     <Content Include="bin\obout_Calendar2_Net.dll" />
     <Content Include="bin\obout_ComboBox.dll" />
     <Content Include="bin\obout_EasyMenu_Pro.dll" />

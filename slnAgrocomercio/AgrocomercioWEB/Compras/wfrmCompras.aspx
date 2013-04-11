@@ -302,9 +302,20 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                                 </asp:DropDownList></td>
                             <td class="clsCellTituloDatos2" >Compra Al: </td>
                             <td  class="clsCellDatos2">
-                                <asp:DropDownList ID="ddlTipoVenta" runat="server" Width="100px" DataTextField="AtrDescripcion" DataValueField="AtrCodigo"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlTipoVenta" runat="server" Width="100px" 
+                                    DataTextField="AtrDescripcion" DataValueField="AtrCodigo" 
+                                    onselectedindexchanged="ddlTipoVenta_SelectedIndexChanged"></asp:DropDownList>
                             </td> 
-                                                                   
+                             <td class="clsCellDatos2" style=" text-align:right;">
+                                <asp:DropDownList ID="ddlTipCiclo" runat="server" Width="50px" DataTextField="AtrDescripcion" DataValueField="AtrCodigo"></asp:DropDownList>
+                            </td>  
+                            <td class="clsCellDatos2">
+                                <asp:TextBox ID="txtCiclo" runat="server" Width="100px" ></asp:TextBox>
+                                <asp:TextBoxWatermarkExtender
+                                    ID="txtCiclo_TextBoxWatermarkExtender" runat="server" 
+                                    TargetControlID="txtCiclo" WatermarkText="Escriba el Ciclo">
+                                </asp:TextBoxWatermarkExtender>
+                            </td>                                           
                         </tr>
                         <tr>
                             <td colspan="6" style="margin-left: 40px" >&nbsp;&nbsp;

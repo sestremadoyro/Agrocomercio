@@ -44,7 +44,6 @@ namespace AgrocomercioWEB.Reportes
         
         protected void btnProcesar_Click(object sender, EventArgs e)
         {
-            string cMensaje = "";
             DataTable dtResultado = null;
             clsOperaciones colOperaciones = new clsOperaciones();
             DateTime dFecIni = DateTime.Today;

@@ -91,6 +91,17 @@ namespace pryAgrocomercioBLL.EntityCollection
                 Operacion.UsrCod = gcUsrCod;
                 if (_OpeTipo == "V")
                 Operacion.PerCod = (Int32)drForm["nOpeVendedor"];
+
+                if (Operacion.OpeTipPago == "CR")
+                {
+                    Operacion.OpeTipCiclo = drForm["cOpeTipCiclo"].ToString();
+                    Operacion.OpeCiclo = (Int32)drForm["nOpeCiclo"];
+                }
+                else {
+                    Operacion.OpeTipCiclo = "D";
+                    Operacion.OpeCiclo = 0;
+                }
+                
                 lstDetOperacion.Guardar(ref Operacion);
 
                 if (cProceso == "NEW")

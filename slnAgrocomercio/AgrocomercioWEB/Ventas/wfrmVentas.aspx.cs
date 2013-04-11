@@ -86,6 +86,15 @@ namespace AgrocomercioWEB.Ventas
             get { return (Decimal)GetNumero(txtTotal.Text); }
             set { txtTotal.Text = SetFormatNum((double)value); }
         }
+        public string cOpeTipCiclo
+        {
+            get { return ddlTipCiclo.SelectedValue; }
+        }
+        public int nOpeCiclo
+        {
+            get { return Convert.ToInt32(txtCiclo.Text); }
+        }
+
         public int ntcmCod
         {
             get { return lbltcmCod.Value == "" ? -1 : Convert.ToInt32(lbltcmCod.Value); }
@@ -390,6 +399,8 @@ namespace AgrocomercioWEB.Ventas
                     nMainTipo = 2;
                     lblProceso.Value = "NEW";
                     ddlTipoDocu.Enabled = true;
+                    ddlTipCiclo.Visible = false;
+                    txtCiclo.Visible = false;
                     
                     //LIMPIA LA CAJA DE BUSQUEDA AL PRESIONAR NUEVO
                     txtCliente.Text = string.Empty;
@@ -807,6 +818,11 @@ namespace AgrocomercioWEB.Ventas
             ddlTipoDocu.DataBind();
             ddlTipoDocu.Items.Insert(0, new ListItem("", "000"));
 
+            //Cargamos combo de Tipo de Ciclo
+            ddlTipCiclo.DataSource = Atributos.ListAtributos(10);
+            ddlTipCiclo.DataBind();
+            ddlTipCiclo.SelectedIndex = 2;
+
             //Cargamos combo de Zonas
             ddlZonas.DataSource = Atributos.ListAtributos(4);
             ddlZonas.DataBind();
@@ -947,6 +963,8 @@ namespace AgrocomercioWEB.Ventas
             lblDescuentoEsp.Value = "0.00";
             txtFecIni.Text = "";
             txtFecFin.Text = "";
+            txtCiclo.Text = "";
+            ddlTipCiclo.SelectedIndex = 2;
 
             txtDireccion.Text = "";
             txtTelefono.Text = "";
@@ -960,6 +978,9 @@ namespace AgrocomercioWEB.Ventas
             txtFecFin.Enabled = false;
             ddlEstados.Enabled = false;
             ddlClienteFiltro.Enabled = false;
+            ddlTipCiclo.Visible = false;
+            txtCiclo.Visible = false;
+        
 
             lblProceso.Value = "";
             lblEstado.Value = "";
@@ -983,6 +1004,8 @@ namespace AgrocomercioWEB.Ventas
             txtFecha.Enabled = Value;
             txtCliente.Enabled = Value;
             ddlListaVendedores.Enabled = Value;
+            ddlTipCiclo.Enabled = Value;
+            txtCiclo.Enabled = Value;
         }
 
         private void AsignarFuncionBotonImprimir()
@@ -1064,6 +1087,7 @@ namespace AgrocomercioWEB.Ventas
                     pnMenuArticulos.Visible = true;
                     pnDocumentos.Visible = false;
                     pnTipCam.Visible = false;
+
                     break;
                 case ("EDIT"):
                     btnNuevo.Visible = false;
@@ -1391,6 +1415,8 @@ namespace AgrocomercioWEB.Ventas
                 txtTotal.Text = SetFormatNum((double)Operacion.OpeTotal);
                 lblOpeEstado.Value = Operacion.OpeEstado.ToString();
                 txtDesEspec.Text = SetFormatNum(0.0);
+                txtCiclo.Text = Operacion.OpeCiclo.ToString();
+                ddlTipCiclo.SelectedValue = Operacion.OpeTipPago;
 
 
             }
@@ -1870,6 +1896,12 @@ namespace AgrocomercioWEB.Ventas
         }
 
         #endregion
+
+        protected void ddlTipoVenta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlTipCiclo.Visible = ddlTipoVenta .SelectedValue == "CR";
+            txtCiclo.Visible = ddlTipoVenta.SelectedValue == "CR";
+        }
 
 
 
