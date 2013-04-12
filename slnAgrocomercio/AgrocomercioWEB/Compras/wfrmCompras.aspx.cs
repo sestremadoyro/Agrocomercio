@@ -88,7 +88,7 @@ namespace AgrocomercioWEB.Compras
         }
         public int nOpeCiclo
         {
-            get { return Convert.ToInt32(txtCiclo.Text); }
+            get { return txtCiclo.Text == "" ? 0 : Convert.ToInt32(txtCiclo.Text); }
         }
         public int ntcmCod
         {
