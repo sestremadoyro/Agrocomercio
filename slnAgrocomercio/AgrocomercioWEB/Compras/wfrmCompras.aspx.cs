@@ -552,7 +552,7 @@ namespace AgrocomercioWEB.Compras
             }
             catch (Exception ex)
             {
-                MessageBox("Error Interno: " + ex.Message);
+                MessageBox("Error Interno: " + ex.Message + ex.InnerException.Message);
             }
         }
         protected void btnProcesar_Click(object sender, EventArgs e)
@@ -595,7 +595,7 @@ namespace AgrocomercioWEB.Compras
             }
             catch (Exception ex)
             {
-                MessageBox("Error Interno: " + ex.Message);
+                MessageBox("Error Interno: " + ex.Message + ex.InnerException.Message );
             }
         }
         protected void btnCerrar_Click(object sender, EventArgs e)
