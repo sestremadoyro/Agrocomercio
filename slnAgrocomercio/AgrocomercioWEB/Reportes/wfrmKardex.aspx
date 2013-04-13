@@ -106,11 +106,12 @@
                                                     </td>
                                                     <td valign="top">
                                                         <asp:Button ID="btnExcel" runat="server" Text="Excel" ToolTip="Excel" CssClass="clsBtnExcel"
-                                                            OnClientClick="exportToExcel()" OnClick="btnImprimir_Click" />
+                                                            OnClick="btnExcel_Click" />
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="btnPdf" runat="server" Text="A Pdf" ToolTip="Pdf" CssClass="clsBtnPdf"
-                                                            OnClientClick="exportToPdf()" OnClick="btnImprimir_Click" />
+                                                        <asp:Button ID="btnPdf" runat="server" Text="A Pdf" ToolTip="Pdf" 
+                                                            CssClass="clsBtnPdf" onclick="btnPdf_Click"
+                                                             />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -138,7 +139,7 @@
                                                         CallbackMode="true" Serialize="true" AllowFiltering="True" AutoGenerateColumns="False"
                                                         Width="100%" FolderStyle="..\App_Themes\TemaAgrocomercio\Grid\style_6"
                                                         GroupBy="CliNombre" FolderLocalization="..\App_Themes\TemaAgrocomercio\Grid\localization"
-                                                        Language="es" OnFiltering="gridVentasxCobrar_Filtering" PageSize="50">
+                                                        Language="es" OnFiltering="gridVentasxCobrar_Filtering" PageSize="50" FolderExports="~/TmpExports/">
                                                         <Columns>
                                                             <cc1:Column DataField="ArtCod" HeaderText="Art.Codigo" Index="0" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="70">
@@ -202,7 +203,7 @@
                                                         </Columns>
                                                         <ScrollingSettings ScrollWidth="870px" />
                                                         <ExportingSettings ExportAllPages="True" ExportColumnsFooter="True" ExportDetails="True"
-                                                            ExportGroupFooter="True" ExportGroupHeader="True" FileName="Ventas x Cobrar"
+                                                            ExportGroupFooter="True" ExportGroupHeader="True" FileName="Kardex"
                                                             KeepColumnSettings="True" />
                                                     </cc1:Grid>
                                                 </div>
