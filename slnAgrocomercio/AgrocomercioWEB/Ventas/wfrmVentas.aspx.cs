@@ -1182,6 +1182,8 @@ namespace AgrocomercioWEB.Ventas
             dtResult.Columns.Add(new DataColumn("PLlegada", typeof(String)));
             dtResult.Columns.Add(new DataColumn("NroFactura", typeof(String)));
             dtResult.Columns.Add(new DataColumn("Unidad", typeof(String)));
+            dtResult.Columns.Add(new DataColumn("dOpeTipCiclo", typeof(String)));
+            dtResult.Columns.Add(new DataColumn("dOpeCiclo", typeof(String)));
 
             return dtResult;
         }
@@ -1244,6 +1246,8 @@ namespace AgrocomercioWEB.Ventas
             newRow["PLlegada"] = txtDireccion.Text;
             newRow["NroFactura"] = "";
             newRow["Unidad"] = "";
+            newRow["dOpeTipCiclo"] = ddlTipCiclo.SelectedItem.Text ;
+            newRow["dOpeCiclo"] =  txtCiclo.Text;
 
             dtCabeceraOperacion.Rows.Add(newRow);
             AgregarVariableSession("dtCabeceraOperacion", dtCabeceraOperacion);

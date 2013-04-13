@@ -28,11 +28,15 @@ namespace AgrocomercioWEB.Reportes.Clases
         private string m_dPrecioUnitario;
         private string m_dDescuento;
         private string m_dMonto;
+        private string m_OpeTipCiclo;
+        private string m_OpeCiclo;
+
         // para la guia de remision
         private string m_Destinatario;
         private string m_PLlegada;
         private string m_NroFactura;
         private string m_Unidad;
+        
 
         public string Unidad
         {
@@ -165,6 +169,18 @@ namespace AgrocomercioWEB.Reportes.Clases
             get { return m_dMonto; }
             set { m_dMonto = value; }
         }
+
+        public string dOpeTipCiclo
+        {
+            get { return m_OpeTipCiclo; }
+            set { m_OpeTipCiclo = value; }
+        }
+        public string dOpeCiclo
+        {
+            get { return m_OpeCiclo; }
+            set { m_OpeCiclo = value; }
+        }
+
         public clsRepCabeceraDoc()
         {
             m_cRazonSocial="";
