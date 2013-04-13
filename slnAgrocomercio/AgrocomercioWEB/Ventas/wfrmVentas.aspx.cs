@@ -1415,10 +1415,23 @@ namespace AgrocomercioWEB.Ventas
                 txtTotal.Text = SetFormatNum((double)Operacion.OpeTotal);
                 lblOpeEstado.Value = Operacion.OpeEstado.ToString();
                 txtDesEspec.Text = SetFormatNum(0.0);
-                txtCiclo.Text = Operacion.OpeCiclo.ToString();
-                ddlTipCiclo.SelectedValue = Operacion.OpeTipPago;
+                if (Operacion.OpeCiclo != null)
+                    txtCiclo.Text = Operacion.OpeCiclo.ToString();
+                if (Operacion.OpeTipCiclo != null)
+                    ddlTipCiclo.SelectedValue = Operacion.OpeTipCiclo;
+                else
+                    txtCiclo.Text = "0";
 
 
+                if (ddlTipoVenta.SelectedValue == "CR")
+                {
+                    txtCiclo.Visible = true;
+                    ddlTipCiclo.Visible = true;
+                }
+                else{
+                    txtCiclo.Visible = false;
+                    ddlTipCiclo.Visible = false;
+                }
             }
             catch (Exception ex)
             {

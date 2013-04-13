@@ -393,16 +393,14 @@ namespace pryAgrocomercioBLL.EntityCollection
         }
 
 
-        public DataTable RepVentasXComprar(int _CliCod, Boolean _bPorFecha, DateTime _dFecIni, DateTime _dFecFin)
+        public DataTable RepVentasXComprar()
         {
             clsDocumenOperacion colDocumentos = new clsDocumenOperacion();
             clsdetletra colDetLetras = new clsdetletra();
 
             try
             {
-                var lstOperaciones = Find(Ope => Ope.OpeTipo == "V" && (Ope.OpeEstado == "P" || Ope.OpeEstado == "C") &&
-                    ((_CliCod != 9999 && ((int)Ope.CliCod) == _CliCod) || (_CliCod == 9999)) &&
-                    ((_bPorFecha && (DateTime)Ope.OpeFecEmision >= _dFecIni && (DateTime)Ope.OpeFecEmision <= _dFecFin) || (!_bPorFecha))).ToList();
+                var lstOperaciones = Find(Ope => Ope.OpeTipo == "V" && (Ope.OpeEstado == "P" || Ope.OpeEstado == "C") ).ToList();
 
                 var ListaOpeCod = lstOperaciones.Select(O => O.OpeCod).ToList<long>();
                 var facturas = colDocumentos.Find(D => D.tdoCod == 3 && ListaOpeCod.Contains(D.OpeCod)).ToList();
@@ -460,16 +458,14 @@ namespace pryAgrocomercioBLL.EntityCollection
             }
         }
 
-        public DataTable RepResumenCliente(int _CliCod, Boolean _bPorFecha, DateTime _dFecIni, DateTime _dFecFin)
+        public DataTable RepResumenCliente()
         {
             clsDocumenOperacion colDocumentos = new clsDocumenOperacion();
             clsdetletra colDetLetras = new clsdetletra();
 
             try
             {
-                var lstOperaciones = Find(Ope => Ope.OpeTipo == "V" && (Ope.OpeEstado == "P" || Ope.OpeEstado == "C") &&
-                    ((_CliCod != 9999 && ((int)Ope.CliCod) == _CliCod) || (_CliCod == 9999)) &&
-                    ((_bPorFecha && Ope.OpeFecEmision >= _dFecIni && Ope.OpeFecEmision <= _dFecFin) || (!_bPorFecha))).ToList();
+                var lstOperaciones = Find(Ope => Ope.OpeTipo == "V" && (Ope.OpeEstado == "P" || Ope.OpeEstado == "C") ).ToList();
 
                 var ListaOpeCod = lstOperaciones.Select(O => O.OpeCod).ToList<long>();
                 var facturas = colDocumentos.Find(D => D.tdoCod == 3 && ListaOpeCod.Contains(D.OpeCod)).ToList();
@@ -528,7 +524,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         }
 
         
-        public DataTable ReporteKardex(Boolean _bPorFecha, DateTime _dFecIni, DateTime _dFecFin)
+        public DataTable ReporteKardex()
         {
             clsDocumenOperacion colDocumentos = new clsDocumenOperacion();
             clsdetletra colDetLetras = new clsdetletra();
@@ -536,10 +532,9 @@ namespace pryAgrocomercioBLL.EntityCollection
             int nNumCor = 0;
             try
             {
-                var lstDetOperaciones = colDetOpera.Find(Det => (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C") &&
-                    ((_bPorFecha && Det.Operaciones.OpeFecEmision >= _dFecIni && Det.Operaciones.OpeFecEmision <= _dFecFin) || (!_bPorFecha))).ToList();
+                var lstDetOperaciones = colDetOpera.Find(Det => (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList();
 
-                var lstTemporal = from Det in lstDetOperaciones
+                var lstTemporal = (from Det in lstDetOperaciones
                                 orderby Det.ArtCod, Det.Operaciones.OpeFecEmision, Det.dtpCod
                                 select new
                                 {
@@ -547,6 +542,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                                     Det.ArtCod,
                                     Det.Articulos.ArtDescripcion,
                                     Det.Articulos.ArtStockIni,
+                                    CostoInicial = Det.Articulos.ArtStockIni * Det.Articulos.ArtCostoProm,
                                     Det.Operaciones.OpeFecEmision,
                                     Documento = Det.Operaciones.DocumenOperacion.OrderByDescending(Doc => Doc.dopCod).Select(Doc => new { Document = Doc.dopNroSerie.ToString() + "-"+ Doc.dopNumero.ToString() } ).First().Document,
                                     Decripcion = (Det.Operaciones.OpeTipo == "C" ? "Compra " : "Venta ") + Det.Articulos.ArtDescripcion,
@@ -558,7 +554,8 @@ namespace pryAgrocomercioBLL.EntityCollection
                                     nVen_Unidad = (Det.Operaciones.OpeTipo == "C" ? "" : Det.Articulos.Unidades.UniDescripcion),
                                     nVen_PreUnitario = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpPrecioVen),
                                     nVen_Costo = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpSubTotal)
-                                };
+                                }).ToList();
+
 
                 var lstKardex = from Kar in lstTemporal
                                 select new
@@ -567,10 +564,12 @@ namespace pryAgrocomercioBLL.EntityCollection
                                     Kar.nCom_Cantidad, Kar.nCom_Unidad, Kar.nCom_PreUnitario, Kar.nCom_Costo, Kar.nVen_Cantidad,
                                     Kar.nVen_Unidad, Kar.nVen_PreUnitario, Kar.nVen_Costo,
                                     nSal_Cantidad = (decimal)Kar.ArtStockIni +
-                                                    (lstTemporal.Where(De => De.nCorrela <= Kar.nCorrela)
+                                                    (lstTemporal.Where(De => Kar.ArtCod == De.ArtCod && De.nCorrela <= Kar.nCorrela)
                                                                      .Select(De => (De.nCom_Cantidad == null ? 0 : De.nCom_Cantidad) - (De.nVen_Cantidad == null ? 0 : De.nVen_Cantidad)).Sum()),
-                                    nSal_Unidad = Kar.nCom_Unidad,
-                                    nSal_CostoTotal = 0
+                                    nSal_Unidad = Kar.nCom_Unidad==""? Kar.nVen_Unidad : Kar.nCom_Unidad,
+                                    nSal_CostoTotal = (decimal)Kar.CostoInicial +
+                                                    (lstTemporal.Where(De => Kar.ArtCod == De.ArtCod && De.nCorrela <= Kar.nCorrela)
+                                                                     .Select(De => (De.nCom_Costo == null ? 0 : De.nCom_Costo) - (De.nVen_Costo == null ? 0 : De.nVen_Costo)).Sum())
                                 };
 
 

@@ -48,11 +48,11 @@ table.tabPedidos tr td.tabDerecha2{
 	width: 12%;
 }
 table.tabPedidos tr td.tabIzquierda3{
-	width: 75%; 
+	width: 50%; 
 }
 
 table.tabPedidos tr td.tabDerecha3{
-	width: 25%;
+	width:50%;
 }
 
 
@@ -399,8 +399,8 @@ table.tabPedidos tr td.tabDerecha3{
 }
 
 
-.clsBtnNuevo, .clsBtnNuevoDoc, .clsBtnCancelar, .clsBtnEliminar,.clsBtnAnular, .clsBtnAgregar, .clsBtnGuardar, .clsBtnProcesar, .clsBtnEditar, .clsBtnImprimir, .clsBtnAceptar,  .clsBtnRegresar,
-.clsBtnNuevoDisabled, .clsBtnNuevoDocDisabled,  .clsBtnCancelarDisabled, .clsBtnEliminarDisabled,.clsBtnAnularDisabled, .clsBtnAgregarDisabled, .clsBtnGuardarDisabled, .clsBtnProcesarDisabled, .clsBtnEditarDisabled, .clsBtnImprimirDisabled, .clsBtnAceptarDisabled,  .clsBtnRegresarDisabled
+.clsBtnNuevo, .clsBtnNuevoDoc, .clsBtnCancelar, .clsBtnEliminar,.clsBtnAnular, .clsBtnAgregar, .clsBtnGuardar, .clsBtnProcesar, .clsBtnEditar, .clsBtnImprimir, .clsBtnAceptar,  .clsBtnRegresar, .clsBtnExcel, .clsBtnPdf,
+.clsBtnNuevoDisabled, .clsBtnNuevoDocDisabled,  .clsBtnCancelarDisabled, .clsBtnEliminarDisabled,.clsBtnAnularDisabled, .clsBtnAgregarDisabled, .clsBtnGuardarDisabled, .clsBtnProcesarDisabled, .clsBtnEditarDisabled, .clsBtnImprimirDisabled, .clsBtnAceptarDisabled,  .clsBtnRegresarDisabled, .clsBtnExcelDisabled, .clsBtnPdfDisabled
 {
 	background: #ffffff;
 	width:100px;
@@ -416,7 +416,7 @@ table.tabPedidos tr td.tabDerecha3{
 	padding:2px 8px 2px 25px;	
 	border:none;
 }
-.clsBtnNuevoDisabled, .clsBtnNuevoDocDisabled, .clsBtnCancelarDisabled, .clsBtnEliminarDisabled,.clsBtnAnularDisabled, .clsBtnAgregarDisabled, .clsBtnGuardarDisabled, .clsBtnProcesarDisabled, .clsBtnEditarDisabled, .clsBtnImprimirDisabled, .clsBtnAceptarDisabled,  .clsBtnRegresarDisabled
+.clsBtnNuevoDisabled, .clsBtnNuevoDocDisabled, .clsBtnCancelarDisabled, .clsBtnEliminarDisabled,.clsBtnAnularDisabled, .clsBtnAgregarDisabled, .clsBtnGuardarDisabled, .clsBtnProcesarDisabled, .clsBtnEditarDisabled, .clsBtnImprimirDisabled, .clsBtnAceptarDisabled,  .clsBtnRegresarDisabled, .clsBtnExcelDisabled, .clsBtnPdfDisabled
 {
 	color:#ababab;
 	cursor:default; 
@@ -424,7 +424,7 @@ table.tabPedidos tr td.tabDerecha3{
 
 .clsBtnNuevo:active, .clsBtnNuevoDoc:active, .clsBtnCancelar:active, .clsBtnEliminar:active, .clsBtnAgregar:active,
 .clsBtnGuardar:active,.clsBtnProcesar:active, clsBtnEditar:active, .clsBtnImprimir:active,
-.clsBtnAceptar:active,.clsBtnAnular:active, .clsBtnRegresar:active {
+.clsBtnAceptar:active,.clsBtnAnular:active, .clsBtnRegresar:active, .clsBtnExcel:active, .clsBtnPdf:active {
 	position: relative;
 	top: 1px;
 }
@@ -476,6 +476,14 @@ table.tabPedidos tr td.tabDerecha3{
 .clsBtnRegresar { background: url(images/botones/regresar.png) no-repeat;	}
 .clsBtnRegresar:hover { background: url(images/botones/regresar-over.png) no-repeat; }
 .clsBtnRegresarDisabled { background: url(images/botones/regresar-disabled.png) no-repeat; }
+
+.clsBtnPdf { background: url(images/botones/pdf.png) no-repeat;	}
+.clsBtnPdf:hover { background: url(images/botones/pdf-over.png) no-repeat; }
+.clsBtnPdfDisabled { background: url(images/botones/pdf-disabled.png) no-repeat; }
+
+.clsBtnExcel { background: url(images/botones/excel.png) no-repeat;	}
+.clsBtnExcel:hover { background: url(images/botones/excel-over.png) no-repeat; }
+.clsBtnExcelDisabled { background: url(images/botones/excel-disabled.png) no-repeat; }
 
 
 

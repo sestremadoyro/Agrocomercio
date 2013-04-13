@@ -30,12 +30,11 @@ namespace AgrocomercioWEB.Ventas
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            SetEstado("INI");
             if (Page.IsPostBack)
             {
                
             }
-            
+            SetEstado("INI");
         }
 
 #region FUNCIONES DEL FORMULARIO
@@ -48,10 +47,9 @@ namespace AgrocomercioWEB.Ventas
             clsOperaciones colOperaciones = new clsOperaciones();
             DateTime dFecIni = DateTime.Today;
             DateTime dFecFin = DateTime.Today;
-            int prvCod = 0;
             try
             {
-                dtResultado = colOperaciones.RepVentasXComprar(prvCod, false, dFecIni, dFecFin);
+                dtResultado = colOperaciones.RepVentasXComprar();
 
                 if (dtResultado.Rows.Count > 0)
                 {
@@ -59,9 +57,12 @@ namespace AgrocomercioWEB.Ventas
 
                     gridVentasxCobrar.DataSource = dtResultado;
                     gridVentasxCobrar.DataBind();
+                    gridVentasxCobrar.Width = 100;
 
                     AgregarVariableSession("dtRepClientes", dtResultado);
                     AgregarVariableSession("nTipCam", txtTipCam.Text);
+
+                    
                 }
                 else
                     SetEstado("ERR");
@@ -108,7 +109,9 @@ namespace AgrocomercioWEB.Ventas
                 case ("INI"):
                     HabilitarBtn(btnProcesar, true);
                     HabilitarBtn(btnImprimir, false);
-                                lblExito.Visible = false;
+                    HabilitarBtn(btnExcel, false);
+                    HabilitarBtn(btnPdf, false);
+                    lblExito.Visible = false;
                     lblError.Visible = false;
 
                     clsAtributos Atributos = new clsAtributos();
@@ -123,12 +126,16 @@ namespace AgrocomercioWEB.Ventas
                 case ("PRO"):
                     HabilitarBtn(btnProcesar, false);
                     HabilitarBtn(btnImprimir, true);
+                    HabilitarBtn(btnExcel, true);
+                    HabilitarBtn(btnPdf, true);
                     lblExito.Visible = true;
                     lblError.Visible = false;
                     break;
                 case ("ERR"):
                     HabilitarBtn(btnProcesar, true);
                     HabilitarBtn(btnImprimir, false);
+                    HabilitarBtn(btnExcel, false);
+                    HabilitarBtn(btnPdf, false);
                     lblExito.Visible = false;
                     lblError.Visible = true;
                     break;
@@ -181,27 +188,7 @@ namespace AgrocomercioWEB.Ventas
 
 #endregion
 
-        protected void gridVentasxCobrar_ColumnsCreated(object sender, EventArgs e)
-        {
-            //int width = 100;
-            //int count = gridVentasxCobrar.Columns.Count;
-            //int average = 0;
-            //if (count > 0)
-            //    average = width / count;
-            //int i = 0;
-
-            //foreach (Column column in gridVentasxCobrar.Columns)
-            //{
-            //    if (i < count - 1)
-            //    {                    
-            //        //column.Width = average.ToString() + "%";
-            //        column.Width = (column.HeaderText.Length * 10).ToString();
-            //    }                
-
-            //    //width -= average;
-            //    i++;
-            //}
-        }
+      
 
         protected void gridVentasxCobrar_Filtering(object sender, EventArgs e)
         {
@@ -237,24 +224,6 @@ namespace AgrocomercioWEB.Ventas
 
         }
 
-        //protected void ddlZonas_LoadingItems(object sender, ComboBoxLoadingItemsEventArgs e)
-        //{
-        //    clsAtributos Atributos = new clsAtributos();
-
-        //    //Cargamos Zonas
-        //    var lstZonas = Atributos.ListAtributos(4);
-        //    (sender as ComboBox).DataSource = lstZonas;
-        //    (sender as ComboBox).DataBind();
-        //    // Looping through the items and adding them to the "Items" collection of the ComboBox
-        //    //foreach (object Row in lstZonas)
-        //    //{
-        //    //    (sender as ComboBox).Items.Add(new ComboBoxItem(Row.["CountryName"].ToString(), data.Rows[i]["CountryName"].ToString()));
-        //    //}
-            
-        //    //e.ItemsLoadedCount = data.Rows.Count;
-        //    //e.ItemsCount = data.Rows.Count;
-        //    Atributos = null;
-        //}
        
 
         

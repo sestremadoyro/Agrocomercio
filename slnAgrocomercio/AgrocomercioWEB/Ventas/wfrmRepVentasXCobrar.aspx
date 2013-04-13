@@ -11,16 +11,25 @@
     <link href="../App_Themes/TemaAgrocomercio/ventas.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
 
-        function AbrirVentanaProveedoresMes() {
-            window.open('Reportes/wfrmVistaRepProveedoresMes.aspx', '_blank', 'width=880px,height=600px,scrollbars=si,menubar=no,resizable=no,left=200px, top=70px');
-        }
-        function AbrirVentanaProveedoresGeneral() {
-            window.open('Reportes/wfrmVistaRepProveedoresGeneral.aspx', '_blank', 'width=880px,height=600px,scrollbars=si,menubar=no,resizable=no,left=200px, top=70px');
+        
+        function exportToExcel() {
+            gridVentasxCobrar.exportToExcel();
+            return false;
         }
 
-        function setCliCod(source, eventargs) {
-            document.getElementById('lblEstado').value = "CLI_SELECT";
-            __doPostBack('MainUpdatePanel', eventargs.get_value());
+        function exportToPdf() {
+            gridVentasxCobrar.exportToWord();
+            return false;
+        }
+
+        function printGrid() {
+            gridBodyStyle = gridVentasxCobrar.GridBodyContainer.getAttribute('style');
+            gridVentasxCobrar.GridBodyContainer.style.maxHeight = '';
+
+            gridVentasxCobrar.print();
+
+            window.setTimeout("gridVentasxCobrar.GridBodyContainer.setAttribute('style', gridBodyStyle);", 250);
+            return false;
         }
  
     </script>
@@ -63,69 +72,18 @@
                                         <table class="tableIzquierda">
                                             <tr>
                                                 <td colspan="4">
-                                                    <asp:HiddenField ID="lblEstado" runat="server" />
                                                     <h3>
                                                         <asp:Label ID="lblSubTitulo" runat="server" Text="Label">Reportes de Ventas Por Cobrar</asp:Label></h3>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="4">
-                                                    &nbsp; &nbsp;
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
                                                 <td class="clsCellTituloDatos2">
                                                     <asp:Label ID="Label7" runat="server" Text="Tipo de Cambio:"></asp:Label>
                                                 </td>
                                                 <td class="clsCellDatos2">
-                                                    <asp:TextBox ID="txtTipCam" runat="server" Text="2.56" ReadOnly="True"></asp:TextBox>
+                                                    <asp:TextBox ID="txtTipCam" runat="server" ReadOnly="True" Text="2.56"></asp:TextBox>
                                                 </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td colspan="4">
-                                                    &nbsp; &nbsp;
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="4">
-                                                    <div style="text-align: center; color: Green; font-size: 14px; font-weight: bold;">
-                                                        <asp:Label ID="lblExito" runat="server" Text="El Reporte de Proceso Correctamente."
-                                                            Visible="false"></asp:Label></div>
-                                                    <div style="text-align: center; color: Red; font-size: 14px; font-weight: bold;">
-                                                        <asp:Label ID="lblError" runat="server" Text="No hay Registros para Procesar el Reporte"
-                                                            Visible="false"></asp:Label></div>
-                                                </td>
-                                            </tr>
                                         </table>
-                                    </asp:Panel>
-                                </td>
-                                <td class="tabIzquierda3" valign="top">
-                                    <asp:Panel ID="pnExportar" runat="server">
-                                        <table class="tablaDerecha">
-                                                <tr>
-                                                    <td colspan="2" align="left">
-                                                        <h3>
-                                                            Opciones</h3>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top">
-                                                        &nbsp;</td>
-                                                    <td valign="top">
-                                                    <cc4:ComboBox runat="server" ID="cbExportar" SelectedIndex="2" 
-                                                        ShowSelectedImage="false" Width="175" >
-                                                        <Items>
-                                                            <cc4:ComboBoxItem ID="cboxItemImprimir" runat="server" Value="5" 
-                                                                ImageUrl="../App_Themes/TemaAgrocomercio/images/botones/imprimir.png" Height="100px" />
-                                                            <cc4:ComboBoxItem ID="cboxItemExcel" runat="server" Value="6" ImageUrl="../App_Themes/TemaAgrocomercio/images/botones/imprimir.png" Height="100px" />
-                                                            <cc4:ComboBoxItem ID="cboxItemPdf" runat="server" Value="7" ImageUrl="../App_Themes/TemaAgrocomercio/images/botones/imprimir.png" Height="100px" />                                                            
-                                                        </Items>
-                                                    </cc4:ComboBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
                                     </asp:Panel>
                                 </td>
                                 <td class="tabDerecha3" valign="top">
@@ -145,7 +103,15 @@
                                                     </td>
                                                     <td valign="top">
                                                         <asp:Button ID="btnImprimir" runat="server" Text="Imprimir" ToolTip="Imprimir" CssClass="clsBtnImprimir"
-                                                            OnClientClick="AbrirVentanaProveedoresGeneral()" OnClick="btnImprimir_Click" />
+                                                            OnClientClick="printGrid()" OnClick="btnImprimir_Click" />
+                                                    </td>
+                                                    <td valign="top">
+                                                        <asp:Button ID="btnExcel" runat="server" Text="Excel" ToolTip="Excel" CssClass="clsBtnExcel"
+                                                            OnClientClick="exportToExcel()" OnClick="btnImprimir_Click" />
+                                                    </td>
+                                                    <td valign="top">
+                                                        <asp:Button ID="btnPdf" runat="server" Text="A Pdf" ToolTip="Pdf" CssClass="clsBtnPdf"
+                                                            OnClientClick="exportToPdf()" OnClick="btnImprimir_Click" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -154,16 +120,25 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td colspan="4">
+                                    <div style="text-align: center; color: Green; font-size: 14px; font-weight: bold;">
+                                        <asp:Label ID="lblExito" runat="server" Text="El Reporte de Proceso Correctamente."
+                                            Visible="false"></asp:Label></div>
+                                    <div style="text-align: center; color: Red; font-size: 14px; font-weight: bold;">
+                                        <asp:Label ID="lblError" runat="server" Text="No hay Registros para Procesar el Reporte"
+                                            Visible="false"></asp:Label></div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="tablaDerecha" valign="top" colspan="2">
                                     <table class="tablaDerecha">
                                         <tr>
                                             <td>
                                                 <div id="container" style="position: relative; width: 100%;">
-
-      
-                                                    <cc1:Grid ID="gridVentasxCobrar" runat="server" AllowAddingRecords="False" AllowColumnResizing="False" CallbackMode="true" Serialize="true" 
-                                                        AllowFiltering="True" AutoGenerateColumns="False" Width="100%" FolderStyle="..\App_Themes\TemaAgrocomercio\Grid\style_6"
-                                                        OnColumnsCreated="gridVentasxCobrar_ColumnsCreated" GroupBy="CliNombre" FolderLocalization="..\App_Themes\TemaAgrocomercio\Grid\localization"
+                                                    <cc1:Grid ID="gridVentasxCobrar" runat="server" AllowAddingRecords="False" AllowColumnResizing="False"
+                                                        CallbackMode="true" Serialize="true" AllowFiltering="True" AutoGenerateColumns="False"
+                                                        Width="100%" FolderStyle="..\App_Themes\TemaAgrocomercio\Grid\style_6"
+                                                        GroupBy="CliNombre" FolderLocalization="..\App_Themes\TemaAgrocomercio\Grid\localization"
                                                         Language="es" OnFiltering="gridVentasxCobrar_Filtering">
                                                         <Columns>
                                                             <cc1:Column DataField="OpeCod" HeaderText="Codigo" Index="0" AllowGroupBy="False"
@@ -175,6 +150,8 @@
                                                                     <cc1:CustomFilterOption IsDefault="true" ID="Between_OpeFecEmision" Text="Entre">
                                                                         <TemplateSettings FilterTemplateId="OpeFecEmisionBetweenFilter" FilterControlsIds="StartDate_OpeFecEmision,EndDate_OpeFecEmision"
                                                                             FilterControlsPropertyNames="value,value" />
+                                                                        <TemplateSettings FilterControlsIds="StartDate_OpeFecEmision,EndDate_OpeFecEmision"
+                                                                            FilterControlsPropertyNames="value,value" FilterTemplateId="OpeFecEmisionBetweenFilter" />
                                                                     </cc1:CustomFilterOption>
                                                                 </FilterOptions>
                                                             </cc1:Column>
@@ -189,11 +166,14 @@
                                                                 <FilterOptions>
                                                                     <cc1:FilterOption IsDefault="true" Type="Contains" />
                                                                 </FilterOptions>
+                                                                <TemplateSettings FilterTemplateId="ClienteFilter" />
                                                             </cc1:Column>
                                                             <cc1:Column DataField="Zona" HeaderText="Zona" Index="5" Width="80" ShowFilterCriterias="false">
                                                                 <TemplateSettings FilterTemplateId="ZonasFilter" />
+                                                                <TemplateSettings FilterTemplateId="ZonasFilter" />
                                                             </cc1:Column>
-                                                            <cc1:Column DataField="Vendedor" HeaderText="Vendedor" Index="6" Width="100"  ShowFilterCriterias="false">
+                                                            <cc1:Column DataField="Vendedor" HeaderText="Vendedor" Index="6" Width="100" ShowFilterCriterias="false">
+                                                                <TemplateSettings FilterTemplateId="VendedorFilter" />
                                                                 <TemplateSettings FilterTemplateId="VendedorFilter" />
                                                             </cc1:Column>
                                                             <cc1:Column DataField="dFecPago" HeaderText="Fec.Pago" Index="7" DataFormatString="{0:d/M/yyyy}"
@@ -227,7 +207,7 @@
                                                                 AllowFilter="False" Width="180">
                                                             </cc1:Column>
                                                         </Columns>
-                                                        <ScrollingSettings ScrollWidth="870" />
+                                                        <ScrollingSettings ScrollWidth="870px" />
                                                         <Templates>
                                                             <cc1:GridTemplate runat="server" ID="OpeFecEmisionBetweenFilter">
                                                                 <Template>
@@ -266,19 +246,19 @@
                                                                 </Template>
                                                             </cc1:GridTemplate>
                                                             <cc1:GridTemplate runat="server" ID="ZonasFilter" ControlID="ddlZonas" ControlPropertyName="value">
-					                                            <Template>
+                                                                <Template>
                                                                     <cc3:OboutDropDownList runat="server" ID="ddlZonas" Width="100%" MenuWidth="100"
-						                                                FolderStyle="styles/premiere_blue/interface/OboutDropDownList"
-                                                                        DataSourceID="odsZonas" DataTextField="AtrDescripcion" DataValueField="AtrCodigo" />
-					                                            </Template>
-				                                            </cc1:GridTemplate>
+                                                                        FolderStyle="styles/premiere_blue/interface/OboutDropDownList" DataSourceID="odsZonas"
+                                                                        DataTextField="AtrDescripcion" DataValueField="AtrCodigo" />
+                                                                </Template>
+                                                            </cc1:GridTemplate>
                                                             <cc1:GridTemplate runat="server" ID="VendedorFilter" ControlID="ddlVendedor" ControlPropertyName="value">
-					                                            <Template>
+                                                                <Template>
                                                                     <cc3:OboutDropDownList runat="server" ID="ddlVendedor" Width="100%" MenuWidth="100"
-						                                                FolderStyle="styles/premiere_blue/interface/OboutDropDownList"
-                                                                        DataSourceID="odsVendedor" DataTextField="PerNombres" DataValueField="perCod" />
-					                                            </Template>
-				                                            </cc1:GridTemplate>
+                                                                        FolderStyle="styles/premiere_blue/interface/OboutDropDownList" DataSourceID="odsVendedor"
+                                                                        DataTextField="PerNombres" DataValueField="perCod" />
+                                                                </Template>
+                                                            </cc1:GridTemplate>
                                                             <cc1:GridTemplate runat="server" ID="ClienteFilter" ControlID="txtCliente">
                                                                 <Template>
                                                                     <cc3:OboutTextBox runat="server" ID="txtCliente" Width="100%">
@@ -287,9 +267,12 @@
                                                                 </Template>
                                                             </cc1:GridTemplate>
                                                         </Templates>
+                                                        <ExportingSettings ExportAllPages="True" ExportColumnsFooter="True" ExportDetails="True"
+                                                            ExportGroupFooter="True" ExportGroupHeader="True" FileName="Ventas x Cobrar"
+                                                            KeepColumnSettings="True" />
                                                     </cc1:Grid>
                                                     <script type="text/javascript">
-                                                        
+
                                                         var applyFilterTimeout = null;
 
                                                         function applyFilter() {
@@ -304,17 +287,14 @@
                                                             gridVentasxCobrar.filter();
                                                         }
                                                     </script>
-                                                   
-
-                                                    <asp:ObjectDataSource ID="odsZonas" runat="server" selectmethod="ListDataAtributos"
-                                                        typename="pryAgrocomercioBLL.EntityCollection.clsAtributos" >
+                                                    <asp:ObjectDataSource ID="odsZonas" runat="server" SelectMethod="ListDataAtributos"
+                                                        TypeName="pryAgrocomercioBLL.EntityCollection.clsAtributos">
                                                         <SelectParameters>
                                                             <asp:Parameter DefaultValue="4" Name="pcAtrTipoCod" />
                                                         </SelectParameters>
                                                     </asp:ObjectDataSource>
-
-                                                    <asp:ObjectDataSource ID="odsVendedor" runat="server" selectmethod="GetDataPersonalPorTipo"
-                                                        typename="pryAgrocomercioBLL.EntityCollection.clsPersonal" >
+                                                    <asp:ObjectDataSource ID="odsVendedor" runat="server" SelectMethod="GetDataPersonalPorTipo"
+                                                        TypeName="pryAgrocomercioBLL.EntityCollection.clsPersonal">
                                                         <SelectParameters>
                                                             <asp:Parameter DefaultValue="2" Name="pnTpecod" />
                                                         </SelectParameters>
