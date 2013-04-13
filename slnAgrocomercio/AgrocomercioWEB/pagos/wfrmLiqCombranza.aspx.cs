@@ -789,6 +789,17 @@ namespace AgrocomercioWEB.pagos
             pnDetallado.Visible = false;
             pnLiquidacion.Visible = false;
 
+            pnBotones.Enabled = true;
+            pnBusqueda.Enabled = true;
+            pnLiquidacion.Enabled = true;
+            pnDetallado.Enabled = true;
+            pnLiquidaciones.Enabled = true;
+            pnResumindo.Enabled = true;
+
+            dgvListCobDet.Enabled = true;
+            dgvListCobranza.Enabled = true;
+            dgvPagoLetra.Enabled = true;
+
             CargarClientes();
             cargarMoneda();
             CargarVendedores();

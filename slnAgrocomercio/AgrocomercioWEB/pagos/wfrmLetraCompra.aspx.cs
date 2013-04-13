@@ -832,6 +832,22 @@ namespace AgrocomercioWEB.pagos
             pnFilPend.Visible = true;
             pnFilReg.Visible = false;
             pnBusqueda.Visible = true;
+
+            pnaddfactura.Enabled = true;
+            pnBotones.Enabled = true;
+            pnBusqueda.Enabled = true;
+            pnCuotas.Enabled = true;
+            pnFilPend.Enabled = true;
+            pnFilReg.Enabled = true;
+            pnListLetras.Enabled = true;
+            pnNotas.Enabled = true;
+            pnNuevo.Enabled = true;
+
+            dgvcuotas.Enabled = true;
+            dgvFacPend.Enabled = true;
+            dgvLetReg.Enabled = true;
+            dgvListFact.Enabled = true;
+            dgvNotas.Enabled = true;
             
             dgvFacPend.Columns[8].Visible = true;
             lblPaso.Value = "";

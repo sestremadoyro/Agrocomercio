@@ -136,7 +136,7 @@
                                             <tr>
                                                 <td colspan="3" align="right">
                                                     <asp:Button ID="btnBuscar" runat="server" CssClass="clsBtnEditar" Height="41px" OnClick="btnBuscar_Click"
-                                                        Text="Buscar" Width="99px" />
+                                                        Text="Buscar" Width="99px" ToolTip="Editar" />
                                                 </td>
                                             </tr>
                                             <tr>
