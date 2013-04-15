@@ -1021,6 +1021,15 @@ namespace AgrocomercioWEB.Ventas {
         protected global::AjaxControlToolkit.CalendarExtender txtLotVenci_CalendarExtender;
         
         /// <summary>
+        /// Control lblArtPreUnitario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblArtPreUnitario;
+        
+        /// <summary>
         /// Control txtArtPreUnitario.
         /// </summary>
         /// <remarks>
@@ -1055,6 +1064,15 @@ namespace AgrocomercioWEB.Ventas {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtArtDescuento;
+        
+        /// <summary>
+        /// Control lblImpTotal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblImpTotal;
         
         /// <summary>
         /// Control txtImpTotal.

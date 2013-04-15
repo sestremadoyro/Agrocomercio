@@ -304,7 +304,8 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                             <td  class="clsCellDatos2">
                                 <asp:DropDownList ID="ddlTipoVenta" runat="server" Width="100px" 
                                     DataTextField="AtrDescripcion" DataValueField="AtrCodigo" 
-                                    onselectedindexchanged="ddlTipoVenta_SelectedIndexChanged"></asp:DropDownList>
+                                    onselectedindexchanged="ddlTipoVenta_SelectedIndexChanged" 
+                                    AutoPostBack="True"></asp:DropDownList>
                             </td> 
                              <td class="clsCellDatos2" style=" text-align:right;">
                                 <asp:DropDownList ID="ddlTipCiclo" runat="server" Width="50px" DataTextField="AtrDescripcion" DataValueField="AtrCodigo"></asp:DropDownList>
@@ -666,7 +667,7 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                                     <table>
                                     <tr>
                                         <td valign="top">
-                                            <table style=" width:200px; height:100%;" id="TablaArtLeft" runat="server">
+                                            <table style=" width:220px; height:100%;" id="TablaArtLeft" runat="server">
                                                 <tr>
                                                     <td class="clsCellTituloDatos2" valign="top" >
                                                         <asp:Label ID="lblTitLaboratorio" runat="server" Text="Laboratorio:"></asp:Label> </td>
@@ -710,12 +711,12 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                                             </table>
                                         </td>
                                         <td valign="top">
-                                            <table style=" width:200px; height:100%;">
+                                            <table style=" width:220px; height:100%;">
                                                 <tr>
-                                                    <td style=" width:50%;" >
+                                                    <td style=" width:54%;" >
                                                         <asp:HiddenField ID="lblEstadoVenArticulo" runat="server" Value="NORMAL" />
                                                     </td>
-                                                    <td style=" width:50%;" ></td>                                                
+                                                    <td style=" width:46%;" ></td>                                                
                                                 </tr>
                                                 <tr>
                                                     <td class="clsCellTituloDatos2" valign="top" >
@@ -772,7 +773,7 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                                                 </tr>
                                                 <tr>
                                                     <td class="clsCellTituloDatos2" valign="top" style=" font-weight:bold; color:#444444;">
-                                                        P.Unitario : &nbsp;</td>
+                                                        <asp:Label ID="lblArtPreUnitario" runat="server" Text="P.Unitario (S/.) : "></asp:Label> &nbsp;</td>
                                                     <td class="clsCellDatos2"  valign="top" >
                                                         <asp:TextBox ID="txtArtPreUnitario" runat="server"  Width="100px" 
                                                             Enabled="false" onkeyup="CalcularTotalArticulo('TOTAL');" ></asp:TextBox>                                                        
@@ -800,7 +801,7 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                                                 </tr>
                                                 <tr>
                                                     <td class="clsCellTituloDatos2" valign="top" style=" font-weight:bold; color:#444444;">
-                                                        Importe Total : &nbsp;</td>
+                                                        <asp:Label ID="lblImpTotal" runat="server" Text="Importe Total (S/.) : "></asp:Label>&nbsp;</td>
                                                     <td class="clsCellDatos2"  valign="top" style=" font-weight:bold;" >
                                                         <asp:TextBox ID="txtImpTotal" runat="server"  Width="100px" 
                                                             ClientIDMode="Static" Font-Bold="True" onkeyup="CalcularTotalArticulo('PU');" ></asp:TextBox>              

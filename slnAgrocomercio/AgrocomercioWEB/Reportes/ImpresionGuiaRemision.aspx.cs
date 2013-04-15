@@ -17,7 +17,8 @@ namespace AgrocomercioWEB.Ventas
                 DataTable _dtCabeceraOper = null;
                 DataTable _dtDetalleOper = null;
                 _dtCabeceraOper = (DataTable)Session["dtCabeceraOperacion"];
-                _dtDetalleOper = g_dtDetOperacion;
+                _dtDetalleOper = CopiarDT(g_dtDetOperacion);
+                _dtDetalleOper = CambiarMonedaDetOperacion(_dtDetalleOper);
                 if (_dtDetalleOper != null && _dtCabeceraOper != null)
                 {
                     if (_dtDetalleOper.Rows.Count != 0)

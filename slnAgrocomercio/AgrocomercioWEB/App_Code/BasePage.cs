@@ -331,7 +331,7 @@ namespace AgrocomercioWEB
             Char.ToUpper(builder[0]),
             builder.ToString(1, builder.Length - 1));
         }
-        public string SetFormatNum(double pnMonto)
+        public string SetFormatNum(double pnMonto, Boolean AplicarMoneda = true)
         {
             string cMonto = "";
             double nTipCam = g_nTipoCambio;
@@ -340,12 +340,15 @@ namespace AgrocomercioWEB
                 cCulture = "es-PE";
             else
                 cCulture = "en-US";
-            nTipCam = nTipCam == 0 ? 1 : nTipCam;
+            if (AplicarMoneda)
+                nTipCam = nTipCam == 0 ? 1 : nTipCam;
+            else
+                nTipCam = 1;
             cMonto = (pnMonto / nTipCam).ToString("C", CultureInfo.CreateSpecificCulture(cCulture));
 
             return cMonto;
         }
-        public double GetNumero(string pcMonto)
+        public double GetNumero(string pcMonto, Boolean AplicarMoneda = true)
         {
             double nMonto = 0.0;
             pcMonto = pcMonto.Replace("S/.", "").Trim();
@@ -353,9 +356,12 @@ namespace AgrocomercioWEB
             pcMonto = pcMonto.Replace(".", "");
             pcMonto = pcMonto.Replace(",", "");
             nMonto = double.Parse(pcMonto) / 100;
-            nMonto = Math.Round(nMonto * g_nTipoCambio, 2);
-
-            return nMonto;
+            if (AplicarMoneda)
+                nMonto = Math.Round(nMonto * g_nTipoCambio, 2);
+            else
+                nMonto = Math.Round(nMonto, 2);
+            
+            return Math.Round( nMonto,2);
         }
         public void AddCLickToGridView(ref GridView dgvGrilla)
         {
@@ -411,33 +417,43 @@ namespace AgrocomercioWEB
 
             TipCalIGV = ConfigurationManager.AppSettings["TipoCalculoIGV"];
 
-            if (cOpeTipo == "C") //PARA COMPRAS
+            if (TipCalIGV == "2")
             {
-                if (TipCalIGV == "2")
-                {
-                    nSubTotal = nPrecio - (nPrecio * 100 / 118);
-                    nPrecio = nSubTotal - (nSubTotal / 101);
-                }
-                nPrecioFin = nPrecio - pnDescuentoEsp;
-                nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
-                nIGV = Math.Round(nSubTotal * pnTasIGV, 2);
-                nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
+                nSubTotal = nPrecio - (nPrecio * 100 / 118);
+                nPrecio = nSubTotal - (nSubTotal / 101);
             }
-            else // PARA VENTAS
-            {
-                if (TipCalIGV == "1")
-                {
-                    var nIgv = nPrecio - Math.Round((nPrecio * 100 / 118), 2);
-                    nSubTotal = nPrecio - nIgv;
-                }
-                else
-                    nSubTotal = nCostoTotal;
+            nPrecioFin = nPrecio - pnDescuentoEsp;
+            nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
+            nIGV = Math.Round(nSubTotal * pnTasIGV, 2);
+            nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
 
-                nPrecioFin = nSubTotal - pnDescuentoEsp;
-                nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
-                nIGV = Math.Round(nSubTotal * nTasIGV, 2);
-                nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
-            }
+            //if (cOpeTipo == "C") //PARA COMPRAS
+            //{
+            //    if (TipCalIGV == "2")
+            //    {
+            //        nSubTotal = nPrecio - (nPrecio * 100 / 118);
+            //        nPrecio = nSubTotal - (nSubTotal / 101);
+            //    }
+            //    nPrecioFin = nPrecio - pnDescuentoEsp;
+            //    nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
+            //    nIGV = Math.Round(nSubTotal * pnTasIGV, 2);
+            //    nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
+            //}
+            //else // PARA VENTAS
+            //{
+            //    if (TipCalIGV == "1")
+            //    {
+            //        var nIgv = nPrecio - Math.Round((nPrecio * 100 / 118), 2);
+            //        nSubTotal = nPrecio - nIgv;
+            //    }
+            //    else
+            //        nSubTotal = nCostoTotal;
+
+            //    nPrecioFin = nSubTotal - pnDescuentoEsp;
+            //    nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
+            //    nIGV = Math.Round(nSubTotal * nTasIGV, 2);
+            //    nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
+            //}
 
             pcPrecioCompra = nPrecioFin;
             pcDescuento = pnDescuentoEsp;
@@ -475,6 +491,29 @@ namespace AgrocomercioWEB
             dgvGrilla.DataBind();
         }
 
+        protected DataTable CopiarDT(DataTable dtDatos)
+        {
+            DataRow newRow;
+            DataTable dtResult = new DataTable();
+
+            foreach (DataColumn Col in dtDatos.Columns)
+                dtResult.Columns.Add(new DataColumn(Col.ColumnName, Col.DataType));
+
+            for (int i = 0; i < dtDatos.Rows.Count; i++)
+            {
+                newRow = dtResult.NewRow();
+                for (int j = 0; j < dtDatos.Columns.Count; j++)
+                {
+                    if (i < dtDatos.Rows.Count)
+                        newRow[j] = dtDatos.Rows[i][j];
+                    else
+                        newRow[j] = DBNull.Value;
+                }
+                dtResult.Rows.Add(newRow);
+            }
+            return dtResult;
+        }
+
 
         protected DataTable CreatDTDetOperacion()
         {
@@ -490,6 +529,17 @@ namespace AgrocomercioWEB
             dtResult.Columns.Add(new DataColumn("dtpSubTotal", typeof(Double)));
 
             return dtResult;
+        }
+        protected DataTable CambiarMonedaDetOperacion(DataTable dtDetOper)
+        {
+            Double nTipCam = g_nTipoCambio;
+
+            for(int i=0;i<dtDetOper.Rows.Count;i++)
+            {
+                dtDetOper.Rows[i]["dtpPrecioVen"] = Double.Parse(dtDetOper.Rows[i]["dtpPrecioVen"].ToString()) / nTipCam;
+                dtDetOper.Rows[i]["dtpSubTotal"] = Double.Parse(dtDetOper.Rows[i]["dtpSubTotal"].ToString()) / nTipCam;     
+            }
+            return dtDetOper;
         }
         public DataTable g_dtDetOperacion
         {

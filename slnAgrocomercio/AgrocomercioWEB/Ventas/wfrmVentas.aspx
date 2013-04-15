@@ -666,7 +666,7 @@
                                     <table>
                                     <tr>
                                         <td valign="top">
-                                            <table style=" width:200px; height:100%;">
+                                            <table style=" width:220px; height:100%;">
                                                 <tr>
                                                     <td class="clsCellTituloDatos2" valign="top" >
                                                         Laboratorio: </td>
@@ -710,10 +710,10 @@
                                             </table>
                                         </td>
                                         <td valign="top">
-                                            <table style=" width:200px; height:100%;">
+                                            <table style=" width:220px; height:100%;">
                                                 <tr>
-                                                    <td style=" width:50%;" ></td>
-                                                    <td style=" width:50%;" ></td>                                                
+                                                    <td style=" width:54%;" ></td>
+                                                    <td style=" width:46%;" ></td>                                                
                                                 </tr>
                                                 <tr>
                                                     <td class="clsCellTituloDatos2" valign="top" >
@@ -777,7 +777,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="clsCellTituloDatos2" valign="top" >
-                                                        P.Unitario : &nbsp;</td>
+                                                        <asp:Label ID="lblArtPreUnitario" runat="server" Text="P.Unitario (S/.) : "></asp:Label> &nbsp;</td>&nbsp;</td>
                                                     <td class="clsCellDatos2"  valign="top" >
                                                         <asp:TextBox ID="txtArtPreUnitario" runat="server"  Width="100px" 
                                                             onkeyup="CalcularTotalArticulo();"  ></asp:TextBox>                                                                      
@@ -804,7 +804,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="clsCellTituloDatos2" valign="top" style=" font-weight:bold; color:#444444;">
-                                                        Importe Total : &nbsp;</td>
+                                                        <asp:Label ID="lblImpTotal" runat="server" Text="Importe Total (S/.) : "></asp:Label>&nbsp;</td>
                                                     <td class="clsCellDatos2"  valign="top" >
                                                         <asp:TextBox ID="txtImpTotal" runat="server"  Width="100px" Enabled="false" ></asp:TextBox>              
                                                     </td>                     

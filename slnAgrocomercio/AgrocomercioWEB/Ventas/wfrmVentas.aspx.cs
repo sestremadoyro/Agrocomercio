@@ -92,7 +92,7 @@ namespace AgrocomercioWEB.Ventas
         }
         public int nOpeCiclo
         {
-            get { return Convert.ToInt32(txtCiclo.Text); }
+            get { return txtCiclo.Text == "" ? 0 : Convert.ToInt32(txtCiclo.Text); }
         }
 
         public int ntcmCod
@@ -371,9 +371,23 @@ namespace AgrocomercioWEB.Ventas
         }
         protected void ddlMoneda_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pnTipCam.Visible = ddlMoneda.SelectedValue == "USD";
+            if (ddlMoneda.SelectedValue == "USD")
+            {
+                pnTipCam.Visible = true;
+                lblArtPreUnitario.Text = lblArtPreUnitario.Text.Replace("S/.", "$");
+                lblImpTotal.Text = lblImpTotal.Text.Replace("S/.", "$");
+            }
+            else
+            {
+                pnTipCam.Visible = false;
+                lblArtPreUnitario.Text = lblArtPreUnitario.Text.Replace("$", "S/.");
+                lblImpTotal.Text = lblImpTotal.Text.Replace("$", "S/.");
+            }
             CargarTipoCambio();
-            CalcularPago(g_dtDetOperacion);
+            DataTable dtDetOper = CopiarDT(g_dtDetOperacion);
+            dtDetOper = CambiarMonedaDetOperacion(dtDetOper);
+            RellenarGrilla(ref dgvDetalleVenta, dtDetOper, this.nNroDetPed);
+            CalcularPago(dtDetOper, false);
         }
         protected void txtTipCambio_TextChanged(object sender, EventArgs e)
         {
@@ -475,7 +489,9 @@ namespace AgrocomercioWEB.Ventas
 
                 dtDetOperacion = lstDetOperacion.GetListDetOperacion(nOpeCod);
                 g_dtDetOperacion = dtDetOperacion;
-                RellenarGrilla(ref dgvDetalleVenta, dtDetOperacion, nNroDetPed);
+                DataTable dtDetOper = CopiarDT(g_dtDetOperacion);
+                dtDetOper = CambiarMonedaDetOperacion(dtDetOper);
+                RellenarGrilla(ref dgvDetalleVenta, dtDetOper, this.nNroDetPed);
 
                 lblProceso.Value = lblOpeEstado.Value == "C" ? "CLOSE" : "EDIT";
                 SetBotones(lblProceso.Value);
@@ -1006,6 +1022,7 @@ namespace AgrocomercioWEB.Ventas
             ddlListaVendedores.Enabled = Value;
             ddlTipCiclo.Enabled = Value;
             txtCiclo.Enabled = Value;
+            txtTipCambio.Enabled = Value;
         }
 
         private void AsignarFuncionBotonImprimir()
@@ -1253,7 +1270,7 @@ namespace AgrocomercioWEB.Ventas
             AgregarVariableSession("dtCabeceraOperacion", dtCabeceraOperacion);
 
         }
-        protected void CalcularPago(DataTable dtDetVenta)
+        protected void CalcularPago(DataTable dtDetVenta, Boolean bChangeMoneda = true)
         {
             double lnPrecioCompra = 0, lnDescuento = 0, lnSubTotal = 0, lnIgv = 0, lnCostoTotal = 0;
 
@@ -1267,12 +1284,12 @@ namespace AgrocomercioWEB.Ventas
             CalcularTotales(dtDetVenta, gcOpeTipo, Double.Parse(txtFleteTra.Text), nTasIGV, Double.Parse(txtFleteTra.Text),
                 ref lnPrecioCompra, ref lnDescuento, ref lnSubTotal, ref lnIgv, ref lnCostoTotal);
 
-            nOpeSubTotal = (Decimal)lnPrecioCompra;
-            nOpeDscto = (Decimal)lnDescuento;
-            nOpeImpuesto = (Decimal)lnIgv;
-            txtSubTotal.Text = SetFormatNum(lnSubTotal);
-            nOpeFlete = Decimal.Parse(txtFleteTra.Text);
-            nOpeTotal = (Decimal)lnCostoTotal;
+            txtValorVenta.Text = SetFormatNum(lnPrecioCompra, bChangeMoneda);
+            txtDescuento.Text = SetFormatNum(lnDescuento, bChangeMoneda);
+            txtIgv.Text = SetFormatNum(lnIgv, bChangeMoneda);
+            txtSubTotal.Text = SetFormatNum(lnSubTotal, bChangeMoneda);
+            txtFlete.Text = SetFormatNum(Double.Parse(txtFleteTra.Text), bChangeMoneda);
+            txtTotal.Text = SetFormatNum(lnCostoTotal, bChangeMoneda);
 
             Boolean bValue = dtDetVenta.Rows.Count > 0;
 
@@ -1373,6 +1390,12 @@ namespace AgrocomercioWEB.Ventas
                     {
                         cMensaje = "Debe Escoger el Tipo de Pago";
                         ddlTipoVenta.Focus();
+                        return false;
+                    }
+                    if (ddlTipoVenta.SelectedValue == "CR" && txtCiclo.Text == "")
+                    {
+                        cMensaje = "Debe Indicar el Ciclo de la Compra";
+                        txtCiclo.Focus();
                         return false;
                     }
                     break;
@@ -1687,7 +1710,7 @@ namespace AgrocomercioWEB.Ventas
             int LotNro = 0;
             double LprPrecio = 0.0;
             double LprDscto = 0.0;
-            double nPrecio = 0.0;
+            double nTipCam = g_nTipoCambio;
             ArtCod = int.Parse(lsbArticulos.SelectedValue);
             PrvCod = int.Parse(ddlLaboratorios.SelectedValue);
 
@@ -1735,7 +1758,7 @@ namespace AgrocomercioWEB.Ventas
                 else
                     txtStockFis.ForeColor = System.Drawing.Color.Gray;
 
-                txtArtPreUnitario.Text = lstPrecios.GetCostoPromedio(ArtCod, nTasIGV).ToString();
+                txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
 
                 //if (oPrecio == null)
                 //    txtArtPreUnitario.Text = "0.0";
@@ -1796,7 +1819,6 @@ namespace AgrocomercioWEB.Ventas
 
             if (lsbArticulos.SelectedIndex >= 0)
                 lsbArticulos_SelectedIndexChanged(sender, e);
-
             ModalPopupAgregar.Show();
         }
 
@@ -1810,6 +1832,7 @@ namespace AgrocomercioWEB.Ventas
             double nDescuento = 0.0;
             double nTotal = 0.0;
             string cMensaje = "";
+            double nTipCam = g_nTipoCambio;
 
             try
             {
@@ -1827,8 +1850,10 @@ namespace AgrocomercioWEB.Ventas
                                 nPrecio = Double.Parse(dtDetalleCompra.Rows[i]["dtpPrecioVen"].ToString());
                                 nCantidad = Double.Parse(dtDetalleCompra.Rows[i]["dtpCantidad"].ToString()) + double.Parse(txtArtCant.Text);
                                 nTotal = Double.Parse(dtDetalleCompra.Rows[i]["dtpSubTotal"].ToString());
-                                nTotal += Double.Parse(txtImpTotal.Text);
-                                nDescuento = 100 - ((100 * nTotal) / (nPrecio * nCantidad));
+                                nTotal += Double.Parse(txtImpTotal.Text) * nTipCam;
+                                //nDescuento = 100 - ((100 * nTotal) / ((nPrecio * nTipCam) * nCantidad));
+                                //nDescuento = Math.Round(nDescuento, 2);
+                                nDescuento = Double.Parse(txtArtDescuento.Text);
 
                                 dtDetalleCompra.Rows[i]["dtpCantidad"] = nCantidad.ToString();
                                 dtDetalleCompra.Rows[i]["dtpDscto"] = nDescuento;
@@ -1847,18 +1872,20 @@ namespace AgrocomercioWEB.Ventas
                         NewRow["ArtDescripcion"] = lsbArticulos.SelectedItem.Text;
                         NewRow["UniAbrev"] = txtArtUniMed.Text;
                         NewRow["dtpCantidad"] = txtArtCant.Text;
-                        NewRow["dtpPrecioVen"] = txtArtPreUnitario.Text;
+                        NewRow["dtpPrecioVen"] = Double.Parse(txtArtPreUnitario.Text) * nTipCam;
                         if (ddlTipDcto.SelectedValue == "%")
                             NewRow["dtpDscto"] = txtArtDescuento.Text;
                         else
                             NewRow["dtpDscto"] = (double.Parse(txtArtDescuento.Text) * 100) / (double.Parse(txtArtPreUnitario.Text) * double.Parse(txtArtCant.Text));
-                        NewRow["dtpSubTotal"] = txtImpTotal.Text;
+                        NewRow["dtpSubTotal"] = Double.Parse(txtImpTotal.Text) * nTipCam;
                         dtDetalleCompra.Rows.Add(NewRow);
                     }
 
                     CalcularPago(dtDetalleCompra);
                     g_dtDetOperacion = dtDetalleCompra;
-                    RellenarGrilla(ref dgvDetalleVenta, dtDetalleCompra, this.nNroDetPed);
+                    DataTable dtDetOper = CopiarDT(dtDetalleCompra);
+                    dtDetOper = CambiarMonedaDetOperacion(dtDetOper);
+                    RellenarGrilla(ref dgvDetalleVenta, dtDetOper, this.nNroDetPed);
                 }
                 else
                 {
