@@ -554,8 +554,8 @@ namespace AgrocomercioWEB.Ventas
             {
                 if (ValidarDatos("OPE", ref cMensaje))
                 {
-                    //txtFleteTra.Text = Math.Round(GetNumero(txtSubTotal.Text) / 100, 2).ToString();
-                    //txtFlete.Text = SetFormatNum(Math.Round(GetNumero(txtSubTotal.Text) / 100, 2));
+                    txtFleteTra.Text = Math.Round(GetNumero(txtSubTotal.Text) / 100, 2).ToString();
+                    txtFlete.Text = SetFormatNum(Math.Round(GetNumero(txtSubTotal.Text) / 100, 2));
 
                     if (lblProceso.Value == "NEW")
                     {
@@ -598,12 +598,12 @@ namespace AgrocomercioWEB.Ventas
             int ntcmCod = 0;
             try
             {
-                if (ValidarDatos("OPE", ref cMensaje))
+                if (ValidarDatos("OPE", ref cMensaje,"PROC"))
                 {
                     if (lblProceso.Value == "NEW")
                     {
-                        //txtFleteTra.Text = Math.Round(GetNumero(txtSubTotal.Text) / 100, 2).ToString();
-                        //txtFlete.Text = SetFormatNum(Math.Round(GetNumero(txtSubTotal.Text) / 100, 2));
+                        txtFleteTra.Text = Math.Round(GetNumero(txtSubTotal.Text) / 100, 2).ToString();
+                        txtFlete.Text = SetFormatNum(Math.Round(GetNumero(txtSubTotal.Text) / 100, 2));
                         long nOpeCod = lstOperaciones.MaxOpeCod() + 1;
                         lblNroPedido.Text = nOpeCod.ToString().PadLeft(10, '0');
                         txtDesEspec.Text = "0.0";
@@ -797,15 +797,17 @@ namespace AgrocomercioWEB.Ventas
 
                 HabilitarBtn(btnProcesar, true);
                 oThread.Join();
+                
+                lblProceso.Value = "EDIT";
+                SetPanelDocumento((int)nOpeCod);
+                pnDocumentos.Visible = true;
+                lblOpeEstado.Value = "R";
+
                 if (sender != btnProcesar)
                 {
                     MessageBox("La Operacion de Venta se Guardo con Exito ");
                 }
-
-                lblProceso.Value = "EDIT";
-                SetPanelDocumento((int)nOpeCod);
-                pnDocumentos.Visible = true;
-
+                ModalPopupGirarCompra.Hide();
             }
             catch (Exception ex)
             {
@@ -983,6 +985,7 @@ namespace AgrocomercioWEB.Ventas
             txtFecIni.Text = "";
             txtFecFin.Text = "";
             txtCiclo.Text = "";
+            lblOpeEstado.Value = "";
             ddlTipCiclo.SelectedIndex = 2;
 
             txtDireccion.Text = "";
@@ -1058,7 +1061,6 @@ namespace AgrocomercioWEB.Ventas
                 MessageBox("Error Interno: " + ex.Message);
             }
         }
-
 
         private void SetBotones(string pcTipo)
         {
@@ -1309,7 +1311,7 @@ namespace AgrocomercioWEB.Ventas
             HabilitarBtn(btnProcesar, bValue);
 
         }
-        private Boolean ValidarDatos(string cTipo, ref string cMensaje)
+        private Boolean ValidarDatos(string cTipo, ref string cMensaje, string pcTipoEsp = "")
         {
             Boolean bRes = true;
 
@@ -1404,7 +1406,7 @@ namespace AgrocomercioWEB.Ventas
                         ddlTipoVenta.Focus();
                         return false;
                     }
-                    if (ddlTipoVenta.SelectedValue == "CR" && txtCiclo.Text == "")
+                    if (pcTipoEsp == "PROC" && ddlTipoVenta.SelectedValue == "CR" && txtCiclo.Text == "")
                     {
                         cMensaje = "Debe Indicar el Ciclo de la Compra";
                         txtCiclo.Focus();
@@ -1453,13 +1455,18 @@ namespace AgrocomercioWEB.Ventas
                 txtIgv.Text = SetFormatNum((double)Operacion.OpeImpuesto);
                 txtTotal.Text = SetFormatNum((double)Operacion.OpeTotal);
                 lblOpeEstado.Value = Operacion.OpeEstado.ToString();
-                txtDesEspec.Text = SetFormatNum(0.0);
+                txtDesEspec.Text = "0.0";
                 if (Operacion.OpeCiclo != null)
-                    txtCiclo.Text = Operacion.OpeCiclo.ToString();
-                if (Operacion.OpeTipCiclo != null)
-                    ddlTipCiclo.SelectedValue = Operacion.OpeTipCiclo;
+                    if (Operacion.OpeTipPago =="CR" && Operacion.OpeCiclo == 0)
+                        txtCiclo.Text = "";
+                    else
+                        txtCiclo.Text = Operacion.OpeCiclo.ToString();
                 else
                     txtCiclo.Text = "0";
+
+                if (Operacion.OpeTipCiclo != null)
+                    ddlTipCiclo.SelectedValue = Operacion.OpeTipCiclo;
+                
 
 
                 if (ddlTipoVenta.SelectedValue == "CR")

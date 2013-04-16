@@ -806,7 +806,7 @@ namespace AgrocomercioWEB.Compras
                 lblProceso.Value = "EDIT";
                 SetPanelDocumento((int)nOpeCod);
                 pnDocumentos.Visible = true;
-
+                ModalPopupGirarCompra.Hide();
             }
             catch (Exception ex)
             {
