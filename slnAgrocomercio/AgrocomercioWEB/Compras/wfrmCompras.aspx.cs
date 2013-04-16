@@ -1232,8 +1232,16 @@ namespace AgrocomercioWEB.Compras
             newRow["PLlegada"] = txtDireccion.Text;
             newRow["NroFactura"] = "";
             newRow["Unidad"] = "";
-            newRow["dOpeTipCiclo"] = ddlTipCiclo.SelectedItem.Text;
-            newRow["dOpeCiclo"] = txtCiclo.Text;
+            if (ddlTipoVenta.SelectedValue == "CR")
+            {
+                newRow["dOpeTipCiclo"] = ddlTipCiclo.SelectedItem.Text;
+                newRow["dOpeCiclo"] = txtCiclo.Text;
+            }
+            else
+            {
+                newRow["dOpeTipCiclo"] = "";
+                newRow["dOpeCiclo"] = "";
+            }
 
 
             dtCabeceraOperacion.Rows.Add(newRow);

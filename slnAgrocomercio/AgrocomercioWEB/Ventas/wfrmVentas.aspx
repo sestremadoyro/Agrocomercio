@@ -496,7 +496,8 @@
                                     <td><asp:Label ID="txtDescuento" runat="server" Text="Label"></asp:Label></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><asp:Label ID="txtFlete" runat="server" Text="Label" Visible="false"></asp:Label></td>
+                                    <td class="clsCellTituloSmall">FLETE (+): </td>
+                                    <td><asp:Label ID="txtFlete" runat="server" Text="Label"></asp:Label></td>
                                 </tr>
                                 <tr>
                                     <td class="clsCellTituloSmall"  >SUB TOTAL: </td>
@@ -884,7 +885,9 @@
                                             <td class="clsCellTituloDatos2" >Descuento Esp: </td>
                                             <td class="clsCellDatos2" ><asp:TextBox ID="txtDesEspec" runat="server" Width="120px"></asp:TextBox></td>
                                             <td class="clsCellTituloDatos2" >Flete de Trans: </td>
-                                            <td class="clsCellDatos2" ><asp:TextBox ID="txtFleteTra" runat="server" Width="100px" ></asp:TextBox></td>                    
+                                            <td class="clsCellDatos2" >
+                                                <asp:TextBox ID="txtFleteTra" runat="server" 
+                                                    Width="100px" ontextchanged="txtFleteTra_TextChanged" ></asp:TextBox></td>                    
                                         </tr>
                                         <tr>
                                             <td class="clsCellTituloDatos2" >Vendedor: </td>
@@ -930,7 +933,7 @@
 	                targetcontrolid="btnNuevoDocumentoTMP" popupcontrolid="pnPopNuevoDocumento" 
 	                backgroundcssclass="ModalPopupBG" Enabled="True" DynamicServicePath="" >
             </asp:modalpopupextender>
-            <asp:panel id="pnPopNuevoDocumento" style="display: block" runat="server" 
+            <asp:panel id="pnPopNuevoDocumento" style="display: none" runat="server" 
                 DefaultButton="btnAceptarNuevoDoc">
 	            <div class="clsModalPopup">
 	                <div class="PopupHeader" id="Div5">NUEVO DOCUMENTO</div>

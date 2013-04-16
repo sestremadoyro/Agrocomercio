@@ -554,8 +554,8 @@ namespace AgrocomercioWEB.Ventas
             {
                 if (ValidarDatos("OPE", ref cMensaje))
                 {
-                    txtFleteTra.Text = Math.Round(GetNumero(txtSubTotal.Text) / 100, 2).ToString();
-                    txtFlete.Text = SetFormatNum(Math.Round(GetNumero(txtSubTotal.Text) / 100, 2));
+                    //txtFleteTra.Text = Math.Round(GetNumero(txtSubTotal.Text) / 100, 2).ToString();
+                    //txtFlete.Text = SetFormatNum(Math.Round(GetNumero(txtSubTotal.Text) / 100, 2));
 
                     if (lblProceso.Value == "NEW")
                     {
@@ -602,8 +602,8 @@ namespace AgrocomercioWEB.Ventas
                 {
                     if (lblProceso.Value == "NEW")
                     {
-                        txtFleteTra.Text = Math.Round(GetNumero(txtSubTotal.Text) / 100, 2).ToString();
-                        txtFlete.Text = SetFormatNum(Math.Round(GetNumero(txtSubTotal.Text) / 100, 2));
+                        //txtFleteTra.Text = Math.Round(GetNumero(txtSubTotal.Text) / 100, 2).ToString();
+                        //txtFlete.Text = SetFormatNum(Math.Round(GetNumero(txtSubTotal.Text) / 100, 2));
                         long nOpeCod = lstOperaciones.MaxOpeCod() + 1;
                         lblNroPedido.Text = nOpeCod.ToString().PadLeft(10, '0');
                         txtDesEspec.Text = "0.0";
@@ -789,6 +789,8 @@ namespace AgrocomercioWEB.Ventas
             try
             {
                 txtDescuento.Text = txtDesEspec.Text;
+                CalcularPago(g_dtDetOperacion);
+
                 lstOperaciones.Guardar(this, gcOpeTipo, ref ndopCod, ref ntcmCod);  //GUARDAR OPERACION    
                 lbldopCod.Value = ndopCod.ToString();
                 lbltcmCod.Value = ntcmCod.ToString();
@@ -973,6 +975,7 @@ namespace AgrocomercioWEB.Ventas
             txtSubTotal.Text = "0.00";
             txtDescuento.Text = "0.00";
             txtFlete.Text = "0.00";
+            txtFleteTra.Text = "0.00";
             txtValorVenta.Text = "0.00";
             txtIgv.Text = "0.00";
             txtTotal.Text = "0.00";
@@ -1263,8 +1266,17 @@ namespace AgrocomercioWEB.Ventas
             newRow["PLlegada"] = txtDireccion.Text;
             newRow["NroFactura"] = "";
             newRow["Unidad"] = "";
-            newRow["dOpeTipCiclo"] = ddlTipCiclo.SelectedItem.Text ;
-            newRow["dOpeCiclo"] =  txtCiclo.Text;
+            if (ddlTipoVenta.SelectedValue == "CR")
+            {
+                newRow["dOpeTipCiclo"] = ddlTipCiclo.SelectedItem.Text;
+                newRow["dOpeCiclo"] = txtCiclo.Text;
+            }
+            else
+            {
+                newRow["dOpeTipCiclo"] = "";
+                newRow["dOpeCiclo"] = "";
+            }
+
 
             dtCabeceraOperacion.Rows.Add(newRow);
             AgregarVariableSession("dtCabeceraOperacion", dtCabeceraOperacion);
@@ -1281,7 +1293,7 @@ namespace AgrocomercioWEB.Ventas
                 txtDesEspec.Text = "0.0";
 
             nTasIGV = double.Parse(lblTasIGV.Value);
-            CalcularTotales(dtDetVenta, gcOpeTipo, Double.Parse(txtFleteTra.Text), nTasIGV, Double.Parse(txtFleteTra.Text),
+            CalcularTotales(dtDetVenta, gcOpeTipo, Double.Parse(txtDesEspec.Text), nTasIGV, Double.Parse(txtFleteTra.Text),
                 ref lnPrecioCompra, ref lnDescuento, ref lnSubTotal, ref lnIgv, ref lnCostoTotal);
 
             txtValorVenta.Text = SetFormatNum(lnPrecioCompra, bChangeMoneda);
@@ -1711,6 +1723,12 @@ namespace AgrocomercioWEB.Ventas
             double LprPrecio = 0.0;
             double LprDscto = 0.0;
             double nTipCam = g_nTipoCambio;
+
+            //VARIABLES PARA TOMAR PRECIO SIN CALCULAR FLETE  E  IGV
+            DateTime dLotFecRegis = DateTime.Today;
+            int nLotNro;
+            double nLprPrecio = 0.0;
+
             ArtCod = int.Parse(lsbArticulos.SelectedValue);
             PrvCod = int.Parse(ddlLaboratorios.SelectedValue);
 
@@ -1733,6 +1751,13 @@ namespace AgrocomercioWEB.Ventas
             oPrecio = lstPrecios.GetArticuloPrecio(ArtCod);
             oLoteArt = lstLotesArt.GetLoteArt(ArtCod);
 
+            nLotNro = oLoteArt.LotNro;
+            if (oLoteArt.LotFecModi.HasValue)
+                dLotFecRegis = oLoteArt.LotFecRegis.Value;
+
+            if (oPrecio.LprPrecio.HasValue)
+
+                nLprPrecio = (double)oPrecio.LprPrecio.Value;
             //oLoteArt.ListaPrecios.Articulos
 
             oArticulo = lstArticulos.GetArticulo(ArtCod);
@@ -1758,7 +1783,14 @@ namespace AgrocomercioWEB.Ventas
                 else
                     txtStockFis.ForeColor = System.Drawing.Color.Gray;
 
-                txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
+                if (nLotNro == 1 && DateTime.Compare(dLotFecRegis, DateTime.Parse("2013-04-09")) == 0)
+                    //txtArtPreUnitario.Text = Math.Round(((nLprPrecio)/ nTipCam), 2).ToString();                
+                    txtArtPreUnitario.Text = Math.Round(((nLprPrecio * (double)oArticulo.Proveedores.PrvGanancia) / nTipCam), 2).ToString();
+                else
+                    txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
+
+
+                //txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
 
                 //if (oPrecio == null)
                 //    txtArtPreUnitario.Text = "0.0";
@@ -1947,9 +1979,11 @@ namespace AgrocomercioWEB.Ventas
             txtCiclo.Visible = ddlTipoVenta.SelectedValue == "CR";
         }
 
-
-
-
+        protected void txtFleteTra_TextChanged(object sender, EventArgs e)
+        {
+            CalcularPago(g_dtDetOperacion);
+            ModalPopupGirarCompra.Show();
+        }
 
     }
 }

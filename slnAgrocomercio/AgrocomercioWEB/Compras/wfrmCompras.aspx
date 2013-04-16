@@ -844,7 +844,7 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
 	                targetcontrolid="btnGirarCompraTMP" popupcontrolid="pnPopGirarCompra" 
 	                backgroundcssclass="ModalPopupBG" Enabled="True" DynamicServicePath="" >
             </asp:modalpopupextender>
-            <asp:panel id="pnPopGirarCompra" style="display: none;" runat="server">
+            <asp:panel id="pnPopGirarCompra" style="display: block;" runat="server">
 	            <div class="clsModalPopup">
 	                <div class="PopupHeader" id="Div3">DATOS ADICIONALES DE LA COMPRA</div>
 	                <div class="PopupClose" id="Div4">
