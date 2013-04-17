@@ -1944,6 +1944,9 @@ namespace AgrocomercioWEB.Compras
                     DataTable dtDetOper = CopiarDT(dtDetalleCompra);
                     dtDetOper = CambiarMonedaDetOperacion(dtDetOper);
                     RellenarGrilla(ref dgvDetalleVenta, dtDetOper, this.nNroDetPed);
+
+                    //LIMPIAR BUSQUEDA
+                    txtBuscarArt.Text = string.Empty;
                 }
                 else
                 {

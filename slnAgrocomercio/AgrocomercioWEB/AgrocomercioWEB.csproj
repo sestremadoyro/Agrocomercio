@@ -1120,6 +1120,7 @@
     <None Include="App_Themes\TemaAgrocomercio\Grid\style_6\Thumbs.db" />
     <None Include="App_Themes\TemaAgrocomercio\Interface\styles\grand_gray\OboutButton\images\Thumbs.db" />
     <None Include="App_Themes\TemaAgrocomercio\Interface\styles\grand_gray\OboutTextBox\images\Thumbs.db" />
+    <Content Include="WebFacturacion.sitemap" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

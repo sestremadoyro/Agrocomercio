@@ -86,7 +86,7 @@ namespace AgrocomercioWEB
             {
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "MENSAJE", "window.location = 'index.html'", true);
                 //BasePage oPagina = new BasePage();
-                Response.Redirect("/index.html");
+                Response.Redirect("/agrocomercio/index.html");
                 //Server.Transfer("/index.html");
             }
             
