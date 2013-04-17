@@ -598,7 +598,7 @@ namespace AgrocomercioWEB.Compras
             int ntcmCod = 0;
             try
             {
-                if (ValidarDatos("OPE", ref cMensaje))
+                if (ValidarDatos("OPE", ref cMensaje, "PROC"))
                 {
                     if (lblProceso.Value == "NEW")
                     {
@@ -1277,7 +1277,7 @@ namespace AgrocomercioWEB.Compras
             HabilitarBtn(btnGuardar, bValue);
             HabilitarBtn(btnProcesar, bValue);
         }
-        private Boolean ValidarDatos(string cTipo, ref string cMensaje)
+        private Boolean ValidarDatos(string cTipo, ref string cMensaje, string pcTipoEsp = "")
         {
             Boolean bRes = true;
 
@@ -1361,7 +1361,7 @@ namespace AgrocomercioWEB.Compras
                         ddlTipoVenta.Focus();
                         return false;
                     }
-                    if (ddlTipoVenta.SelectedValue == "CR" && txtCiclo.Text == "")
+                    if (pcTipoEsp == "PROC" && ddlTipoVenta.SelectedValue == "CR" && txtCiclo.Text == "")
                     {
                         cMensaje = "Debe Indicar el Ciclo de la Compra";
                         txtCiclo.Focus();
@@ -1413,9 +1413,13 @@ namespace AgrocomercioWEB.Compras
                 lblOpeEstado.Value = Operacion.OpeEstado.ToString();
                 txtDesEspec.Text = SetFormatNum((double)Operacion.OpeDscto);
                 if (Operacion.OpeCiclo != null)
-                    txtCiclo.Text = Operacion.OpeCiclo.ToString();
+                    if (Operacion.OpeTipPago == "CR" && Operacion.OpeCiclo == 0)
+                        txtCiclo.Text = "";
+                    else
+                        txtCiclo.Text = Operacion.OpeCiclo.ToString();
                 else
                     txtCiclo.Text = "0";
+
                 if (Operacion.OpeTipCiclo != null)
                     ddlTipCiclo.SelectedValue = Operacion.OpeTipCiclo;
 

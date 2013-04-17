@@ -1466,9 +1466,7 @@ namespace AgrocomercioWEB.Ventas
 
                 if (Operacion.OpeTipCiclo != null)
                     ddlTipCiclo.SelectedValue = Operacion.OpeTipCiclo;
-                
-
-
+                                
                 if (ddlTipoVenta.SelectedValue == "CR")
                 {
                     txtCiclo.Visible = true;
