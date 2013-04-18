@@ -10,8 +10,10 @@
         <siteMapNode url="~/ventas/wfrmVentas.aspx" title="Registro Ventas" description="Registrar las Ventas" />
         <siteMapNode url="~/pagos/wfrmLetraVenta.aspx" title="Generar Pagos" description="Registrar los Pagos" />
         <siteMapNode url="~/pagos/wfrmLiqCombranza.aspx" title="Pagos " description="Pagos" />
-        <siteMapNode url="~/pagos/wfrmNotasVentas.aspx" title="Notas Clientes" description="Registrar las Notas" />
+        <siteMapNode url="~/pagos/wfrmNotasVentas.aspx" title="Nota Clientes" description="Registrar las Notas" />
         <siteMapNode url="#" title="Reportes-Ventas"  description="Reportes-Ventas">
+          <siteMapNode url="~/pagos/wfrmPagxLetra.aspx" title="Pagos x Letra." description="Pagos por Letra" />
+          <siteMapNode url="~/pagos/wfrmRptLetraVenta.aspx" title="Letras" description="Letras" />
           <siteMapNode url="~/Ventas/wfrmRepVentasXCobrar.aspx" title="Ventas x Cobrar General" description="Ventas por Cobrar General" />
           <siteMapNode url="~/Ventas/wfrmRepResumenCliente.aspx" title="Resumen de Clientes" description="Resumen de Clientes" />
         </siteMapNode>
