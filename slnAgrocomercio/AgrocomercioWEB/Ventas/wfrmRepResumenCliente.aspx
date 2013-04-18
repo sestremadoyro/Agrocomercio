@@ -1,4 +1,4 @@
-﻿<%@ Page Title=".:Reportes de Compras:." Language="C#" MasterPageFile="~/Site.Master"
+﻿<%@ Page Title=".:Reportes de Resumen de Clientes:." Language="C#" MasterPageFile="~/Site.Master"
     AutoEventWireup="true" CodeBehind="wfrmRepResumenCliente.aspx.cs" Inherits="AgrocomercioWEB.Reportes.wfrmRepResumenCliente" %>
 
 <%@ Register Assembly="obout_ComboBox" Namespace="Obout.ComboBox" TagPrefix="cc4" %>
@@ -27,6 +27,8 @@
         function printGrid() {
             gridBodyStyle = gridVentasxCobrar.GridBodyContainer.getAttribute('style');
             gridVentasxCobrar.GridBodyContainer.style.maxHeight = '';
+            gridVentasxCobrar.GridMainContainer.style.width = gridVentasxCobrar.HorizontalScroller.firstChild.firstChild.offsetWidth + 'px';
+            gridVentasxCobrar.HorizontalScroller.style.display = 'none';
 
             gridVentasxCobrar.print();
 
@@ -140,8 +142,9 @@
                                                         <cc1:Grid ID="gridVentasxCobrar" runat="server" AllowAddingRecords="False" AllowColumnResizing="False"
                                                             CallbackMode="true" Serialize="true" AllowFiltering="True" AutoGenerateColumns="False"
                                                             Width="100%" FolderStyle="..\App_Themes\TemaAgrocomercio\Grid\style_6" GroupBy="CliNombre"
-                                                            FolderLocalization="..\App_Themes\TemaAgrocomercio\Grid\localization" Language="es"
-                                                            OnFiltering="gridVentasxCobrar_Filtering" FolderExports="~/TmpExports/">
+                                                            FolderLocalization="..\App_Themes\TemaAgrocomercio\Grid\localization" Language="es" PageSize="-1" AllowPaging="false"
+                                                            OnFiltering="gridVentasxCobrar_Filtering" FolderExports="~/TmpExports/" oncolumnscreated="gridVentasxCobrar_ColumnsCreated"
+                                                             >
                                                             <Columns>
                                                                 <cc1:Column DataField="OpeCod" HeaderText="Codigo" Index="0" AllowGroupBy="False"
                                                                     AllowFilter="False" Width="60">
@@ -190,8 +193,12 @@
                                                                     Width="100">
                                                                 </cc1:Column>
                                                             </Columns>
-                                                            <ScrollingSettings ScrollWidth="870px" />
+                                                            <ScrollingSettings ScrollWidth="870" ScrollHeight="250" />
+                                                            <MasterDetailSettings LoadingMode="OnCallback" />
                                                             <Templates>
+                                                                <cc1:GridTemplate runat="server" ID="Template1">
+                                                                    <Template><span><%# Container.Value %></span></Template>
+                                                                </cc1:GridTemplate>
                                                                 <cc1:GridTemplate runat="server" ID="ZonasFilter" ControlID="ddlZonas" ControlPropertyName="value">
                                                                     <Template>
                                                                         <cc3:OboutDropDownList runat="server" ID="ddlZonas" Width="100%" MenuWidth="100"
@@ -220,6 +227,88 @@
                     </td>
                 </tr>
             </table>
+            
+            <script type="text/javascript">
+
+                var applyFilterTimeout = null;
+
+                function applyFilter() {
+                    if (applyFilterTimeout) {
+                        window.clearTimeout(applyFilterTimeout);
+                    }
+
+                    applyFilterTimeout = window.setTimeout(doFiltering, 500);
+                }
+
+                function doFiltering() {
+                    gridVentasxCobrar.filter();
+                }
+
+
+                oboutGrid.prototype._assignBodyEvents = oboutGrid.prototype.assignBodyEvents;
+                oboutGrid.prototype.assignBodyEvents = function () {
+                    this._assignBodyEvents();
+
+                    this._autoResizeColumns();
+                }
+
+                oboutGrid.prototype._getColumnWidth = function () {
+                    var totalWidth = 0;
+                    for (var i = 0; i < this.ColumnsCollection.length; i++) {
+                        if (this.ColumnsCollection[i].Visible) {
+                            totalWidth += this.ColumnsCollection[i].Width;
+                        }
+                    }
+
+                    return totalWidth;
+                }
+
+                oboutGrid.prototype._autoResizeColumns = function () {
+                    var columnWidths = new Array();
+                    var body = this.getBodyTableBody();
+
+                    for (var i = 0; i < this.ColumnsCollection.length; i++) {
+                        var headerCell = this.getHeaderCell(i);
+                        var extraWidth = headerCell.firstChild.offsetWidth - headerCell.firstChild.firstChild.offsetWidth;
+                        var maxWidth = headerCell.firstChild.firstChild.firstChild.offsetWidth + extraWidth;
+
+                        for (j = 0; j < body.childNodes.length; j++) {
+                            var bodyCell = body.childNodes[j].childNodes[i];
+                            var extraWidth = 0;
+                            var cellWidth = 0;
+
+                            if (bodyCell != null) {
+                                if (bodyCell.firstChild != null)
+                                    extraWidth = bodyCell.firstChild.offsetWidth;
+
+                                if (bodyCell.firstChild.firstChild != null)
+                                    extraWidth -= bodyCell.firstChild.firstChild.offsetWidth;
+
+                                cellWidth = extraWidth;
+                                if (bodyCell.firstChild.firstChild.firstChild != null)
+                                    cellWidth += bodyCell.firstChild.firstChild.firstChild.offsetWidth;
+
+                            }
+
+                            if (cellWidth > maxWidth) {
+                                maxWidth = cellWidth;
+                            }
+                        }
+
+                        columnWidths.push(maxWidth - this.ColumnsCollection[i].Width);
+                    }
+
+                    for (var i = 0; i < columnWidths.length; i++) {
+                        this.resizeColumn(i, columnWidths[i] + 20, false);
+                    }
+
+                    //            var width = this._getColumnWidth();
+                    //            if (width <= 0)
+                    //                width = 10;
+                    //            this.GridMainContainer.style.width = width + 'px';
+                }
+    </script>
+
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

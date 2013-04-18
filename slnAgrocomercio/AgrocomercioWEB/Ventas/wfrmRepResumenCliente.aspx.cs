@@ -230,6 +230,17 @@ namespace AgrocomercioWEB.Reportes
         }
 #endregion
 
+        protected void gridVentasxCobrar_ColumnsCreated(object sender, EventArgs e)
+        {
+            Grid grid = sender as Grid;
+
+            foreach (Column column in grid.Columns)
+            {
+                column.TemplateSettings.TemplateId = "Template1";
+                column.TemplateSettings.HeaderTemplateId = "Template1";
+            }
+        }
+
 
         
     }

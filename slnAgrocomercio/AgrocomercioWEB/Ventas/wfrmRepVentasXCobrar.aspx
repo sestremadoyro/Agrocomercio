@@ -1,4 +1,4 @@
-﻿<%@ Page Title=".:Reportes de Compras:." Language="C#" MasterPageFile="~/Site.Master"
+﻿<%@ Page Title=".:Reportes de Ventas x Cobrar:." Language="C#" MasterPageFile="~/Site.Master"
     AutoEventWireup="true" CodeBehind="wfrmRepVentasXCobrar.aspx.cs" Inherits="AgrocomercioWEB.Ventas.wfrmRepVentasXCobrar" %>
 
 <%@ Register Assembly="obout_ComboBox" Namespace="Obout.ComboBox" TagPrefix="cc4" %>
@@ -11,7 +11,7 @@
     <link href="../App_Themes/TemaAgrocomercio/ventas.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
 
-        
+
         function exportToExcel() {
             gridVentasxCobrar.exportToExcel();
             return false;
@@ -22,9 +22,13 @@
             return false;
         }
 
+
+        var gridBodyStyle = null;
         function printGrid() {
             gridBodyStyle = gridVentasxCobrar.GridBodyContainer.getAttribute('style');
             gridVentasxCobrar.GridBodyContainer.style.maxHeight = '';
+            gridVentasxCobrar.GridMainContainer.style.width = gridVentasxCobrar.HorizontalScroller.firstChild.firstChild.offsetWidth + 'px';
+            gridVentasxCobrar.HorizontalScroller.style.display = 'none';
 
             gridVentasxCobrar.print();
 
@@ -33,6 +37,12 @@
         }
  
     </script>
+    <style type="text/css" media="print">
+        .ob_gPSTT
+        {
+            display: none !important;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdateProgress ID="updateProgress" runat="server" AssociatedUpdatePanelID="MainUpdatePanel"
@@ -47,10 +57,9 @@
                     <asp:Image ID="imgUpdateProgress" runat="server" ImageUrl="../images/ajax-loader.gif"
                         AlternateText="Procesando ..." ToolTip="Trabajando ..." Style="height: 80px;
                         width: 80px;" />
-                    <span style="padding: 10px; font-size: 13px; font-weight: bold; color: #555555;">Procesando
-                        ... </span>
+                    <span style="padding: 10px; font-size: 13px; font-weight: bold; color: #555555;">Procesando...
+                    </span>
                 </div>
-                <asp:Label ID="Label8" runat="server" Text="Label"></asp:Label>
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
@@ -110,9 +119,8 @@
                                                             OnClick="btnExcel_Click" />
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="btnPdf" runat="server" Text="A Pdf" ToolTip="Pdf" 
-                                                            CssClass="clsBtnPdf" onclick="btnPdf_Click"
-                                                             />
+                                                        <asp:Button ID="btnPdf" runat="server" Text="A Pdf" ToolTip="Pdf" CssClass="clsBtnPdf"
+                                                            OnClick="btnPdf_Click" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -136,14 +144,15 @@
                                         <tr>
                                             <td>
                                                 <div id="container" style="position: relative; width: 100%;">
-                                                    <cc1:Grid ID="gridVentasxCobrar" runat="server" AllowAddingRecords="False" AllowColumnResizing="False"
-                                                        CallbackMode="true" Serialize="true" AllowFiltering="True" AutoGenerateColumns="False"
-                                                        Width="100%" FolderStyle="..\App_Themes\TemaAgrocomercio\Grid\style_6"
-                                                        GroupBy="CliNombre" FolderLocalization="..\App_Themes\TemaAgrocomercio\Grid\localization"
+                                                    <cc1:Grid ID="gridVentasxCobrar" runat="server" AllowAddingRecords="False"
+                                                        Serialize="true" AllowFiltering="True" AutoGenerateColumns="False"
+                                                        FolderStyle="..\App_Themes\TemaAgrocomercio\Grid\style_6" PageSize="-1" AllowPaging="false"
+                                                        FolderLocalization="..\App_Themes\TemaAgrocomercio\Grid\localization"
                                                         Language="es" OnFiltering="gridVentasxCobrar_Filtering" 
-                                                        FolderExports="~/TmpExports/">
+                                                        FolderExports="~/TmpExports/" Width="100%" 
+                                                        oncolumnscreated="gridVentasxCobrar_ColumnsCreated" CallbackMode="False">
                                                         <Columns>
-                                                            <cc1:Column DataField="OpeCod" HeaderText="Codigo" Index="0" AllowGroupBy="False"
+                                                            <cc1:Column DataField="OpeCod" HeaderText="Cod" Index="0" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="60">
                                                             </cc1:Column>
                                                             <cc1:Column DataField="OpeFecEmision" HeaderText="Fec.Emision" Index="1" DataFormatString="{0:d/M/yyyy}"
@@ -163,7 +172,7 @@
                                                             <cc1:Column DataField="NroFactura" HeaderText="Nro Fatura" Index="3" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="90">
                                                             </cc1:Column>
-                                                            <cc1:Column DataField="CliNombre" HeaderText="Cliente" Index="4" Width="180" ShowFilterCriterias="false">
+                                                            <cc1:Column DataField="CliNombre" HeaderText="Cliente" Index="4" ShowFilterCriterias="false">
                                                                 <TemplateSettings FilterTemplateId="ClienteFilter" />
                                                                 <FilterOptions>
                                                                     <cc1:FilterOption IsDefault="true" Type="Contains" />
@@ -209,8 +218,12 @@
                                                                 AllowFilter="False" Width="180">
                                                             </cc1:Column>
                                                         </Columns>
-                                                        <ScrollingSettings ScrollWidth="870px" />
+                                                        <ScrollingSettings ScrollWidth="870" ScrollHeight="250" />
+                                                        <MasterDetailSettings LoadingMode="OnCallback" />
                                                         <Templates>
+                                                            <cc1:GridTemplate runat="server" ID="Template1">
+                                                                <Template><span><%# Container.Value %></span></Template>
+                                                            </cc1:GridTemplate>
                                                             <cc1:GridTemplate runat="server" ID="OpeFecEmisionBetweenFilter">
                                                                 <Template>
                                                                     <div style="width: 99%; padding: 0px; margin: 0px; font-size: 5px;">
@@ -270,25 +283,9 @@
                                                             </cc1:GridTemplate>
                                                         </Templates>
                                                         <ExportingSettings ExportAllPages="True" ExportColumnsFooter="True" ExportDetails="True"
-                                                            ExportGroupFooter="True" ExportGroupHeader="True" FileName="VentasXCobrar"
-                                                            KeepColumnSettings="True" />
+                                                            ExportGroupFooter="True" ExportGroupHeader="True" FileName="VentasXCobrar" KeepColumnSettings="True" />
                                                     </cc1:Grid>
-                                                    <script type="text/javascript">
 
-                                                        var applyFilterTimeout = null;
-
-                                                        function applyFilter() {
-                                                            if (applyFilterTimeout) {
-                                                                window.clearTimeout(applyFilterTimeout);
-                                                            }
-
-                                                            applyFilterTimeout = window.setTimeout(doFiltering, 500);
-                                                        }
-
-                                                        function doFiltering() {
-                                                            gridVentasxCobrar.filter();
-                                                        }
-                                                    </script>
                                                     <asp:ObjectDataSource ID="odsZonas" runat="server" SelectMethod="ListDataAtributos"
                                                         TypeName="pryAgrocomercioBLL.EntityCollection.clsAtributos">
                                                         <SelectParameters>
@@ -311,6 +308,90 @@
                     </td>
                 </tr>
             </table>
+
+            <script type="text/javascript">
+
+                var applyFilterTimeout = null;
+
+                function applyFilter() {
+                    if (applyFilterTimeout) {
+                        window.clearTimeout(applyFilterTimeout);
+                    }
+
+                    applyFilterTimeout = window.setTimeout(doFiltering, 500);
+                }
+
+                function doFiltering() {
+                    gridVentasxCobrar.filter();
+                }
+
+
+                oboutGrid.prototype._assignBodyEvents = oboutGrid.prototype.assignBodyEvents;
+                oboutGrid.prototype.assignBodyEvents = function () {
+                    this._assignBodyEvents();
+
+                    this._autoResizeColumns();
+                }
+
+                oboutGrid.prototype._getColumnWidth = function () {
+                    var totalWidth = 0;
+                    for (var i = 0; i < this.ColumnsCollection.length; i++) {
+                        if (this.ColumnsCollection[i].Visible) {
+                            totalWidth += this.ColumnsCollection[i].Width;
+                        }
+                    }
+
+                    return totalWidth;
+                }
+
+                oboutGrid.prototype._autoResizeColumns = function () {
+                    var columnWidths = new Array();
+                    var body = this.getBodyTableBody();
+
+                    for (var i = 0; i < this.ColumnsCollection.length; i++) {
+                        var headerCell = this.getHeaderCell(i);
+                        var extraWidth = headerCell.firstChild.offsetWidth - headerCell.firstChild.firstChild.offsetWidth;
+                        var maxWidth = headerCell.firstChild.firstChild.firstChild.offsetWidth + extraWidth;
+
+                        for (j = 0; j < body.childNodes.length; j++) {
+                            var bodyCell = body.childNodes[j].childNodes[i];
+                            var extraWidth = 0;
+                            var cellWidth = 0;
+
+                            if (bodyCell != null) {
+                                if (bodyCell.firstChild != null)
+                                    extraWidth = bodyCell.firstChild.offsetWidth;
+
+                                if (bodyCell.firstChild.firstChild != null)
+                                    extraWidth -= bodyCell.firstChild.firstChild.offsetWidth;
+
+                                cellWidth = extraWidth;
+                                if (bodyCell.firstChild.firstChild.firstChild != null)
+                                    cellWidth += bodyCell.firstChild.firstChild.firstChild.offsetWidth;
+
+                            }
+
+                            if (cellWidth > maxWidth) {
+                                maxWidth = cellWidth;
+                            }
+                        }
+
+                        columnWidths.push(maxWidth - this.ColumnsCollection[i].Width);
+                    }
+
+                    for (var i = 0; i < columnWidths.length; i++) {
+                        this.resizeColumn(i, columnWidths[i] + 20, false);
+                    }
+
+                    //            var width = this._getColumnWidth();
+                    //            if (width <= 0)
+                    //                width = 10;
+                    //            this.GridMainContainer.style.width = width + 'px';
+                }
+    </script>
+
         </ContentTemplate>
+        
     </asp:UpdatePanel>
+    
 </asp:Content>

@@ -148,6 +148,15 @@ namespace AgrocomercioWEB.Ventas {
         protected global::Obout.Grid.CustomFilterOption Between_OpeFecEmision;
         
         /// <summary>
+        /// Control Template1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::Obout.Grid.GridTemplate Template1;
+        
+        /// <summary>
         /// Control OpeFecEmisionBetweenFilter.
         /// </summary>
         /// <remarks>

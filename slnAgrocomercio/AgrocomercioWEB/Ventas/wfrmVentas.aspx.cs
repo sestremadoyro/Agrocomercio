@@ -1228,10 +1228,14 @@ namespace AgrocomercioWEB.Ventas
             DataTable dtCabeceraOperacion = CreatDTCabeceraVenta();
 
             int OpeCod = int.Parse(lblNroPedido.Text);
-            string NroGuia = "";
-            string NroPedido = "";
-            string moneda = "";
+            
+            string NroGuia = "", NroFactura = "", moneda = "", NroPedido = "";
 
+            DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 3);
+            if (DocumenOpe != null)
+            {
+                NroFactura = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
+            }
             DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 2);
             if (DocumenOpe != null)
             {
@@ -1266,7 +1270,7 @@ namespace AgrocomercioWEB.Ventas
             newRow["cTotalLetras"] = ConvertiraLetras(decimal.Parse((txtTotal.Text.Replace("S/.", "").Trim()).Replace("$", "").Trim())) + moneda;
             newRow["Destinatario"] = ddlClientes.SelectedItem.Text;
             newRow["PLlegada"] = txtDireccion.Text;
-            newRow["NroFactura"] = "";
+            newRow["NroFactura"] = NroFactura;
             newRow["Unidad"] = "";
             if (ddlTipoVenta.SelectedValue == "CR")
             {

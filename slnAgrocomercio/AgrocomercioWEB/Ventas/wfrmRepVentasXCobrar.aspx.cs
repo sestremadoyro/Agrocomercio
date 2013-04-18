@@ -30,7 +30,8 @@ namespace AgrocomercioWEB.Ventas
     public partial class wfrmRepVentasXCobrar : BasePage
     {
         public String _click = "";
-
+        private Thread oThread;
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Page.IsPostBack)
@@ -46,38 +47,46 @@ namespace AgrocomercioWEB.Ventas
         
         protected void btnProcesar_Click(object sender, EventArgs e)
         {
+
             DataTable dtResultado = null;
             clsOperaciones colOperaciones = new clsOperaciones();
             DateTime dFecIni = DateTime.Today;
             DateTime dFecFin = DateTime.Today;
+
+            oThread = new Thread(delegate() { Esperar(1000); });
+            oThread.Start();
+
             try
             {
                 dtResultado = colOperaciones.RepVentasXComprar();
 
                 if (dtResultado.Rows.Count > 0)
                 {
-                    SetEstado("PRO");
-
+                    gridVentasxCobrar.ClearPreviousDataSource();
                     gridVentasxCobrar.DataSource = dtResultado;
                     gridVentasxCobrar.DataBind();
-                    gridVentasxCobrar.Width = 100;
 
+                    
                     AgregarVariableSession("dtRepClientes", dtResultado);
                     AgregarVariableSession("nTipCam", txtTipCam.Text);
 
-                    
+                    SetEstado("PRO");
+                    oThread.Join();
+
                 }
                 else
                     SetEstado("ERR");
             }
             catch (Exception ex)
             {
+                oThread.Abort();
                 MessageBox("Error Interno: " + ex.Message);
             }
         }
         protected void btnImprimir_Click(object sender, EventArgs e)
         {
             SetEstado("PRO");
+            
         }
       
 
@@ -147,48 +156,6 @@ namespace AgrocomercioWEB.Ventas
             
         }
         
-        [System.Web.Script.Services.ScriptMethod()]
-        [System.Web.Services.WebMethod]
-        public static String[] BuscarClientes(string prefixText)
-        {
-            String[] sList = null;
-            List<string> sClienteList = new List<string>();
-            clsClientes lstClientes = new clsClientes();
-
-            try
-            {
-                DataTable dtClientes = lstClientes.BuscarClientes(prefixText);
-
-                if (dtClientes.Rows.Count > 0)
-                {
-                    for (int i = 0; i < dtClientes.Rows.Count; i++)
-                    {
-                        sClienteList.Add(AjaxControlToolkit.AutoCompleteExtender.
-                          CreateAutoCompleteItem(dtClientes.Rows[i]["CliNombre"].ToString(), dtClientes.Rows[i]["CliCod"].ToString()));
-                    }
-                    sList = new String[10];
-                    sList = sClienteList.ToArray();
-                }
-                else
-                {
-                    sClienteList.Add(AjaxControlToolkit.AutoCompleteExtender.
-                          CreateAutoCompleteItem("[NUEVO CLIENTE]", "999"));
-
-                    sList = new String[1];
-                    sList = sClienteList.ToArray();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                lstClientes = null;
-            }
-            return sList;
-        }
-
 #endregion
 
       
@@ -308,6 +275,17 @@ namespace AgrocomercioWEB.Ventas
             Response.BinaryWrite(fileStream.ToArray());
             Response.End();
             SetEstado("PRO");
+        }
+
+        protected void gridVentasxCobrar_ColumnsCreated(object sender, EventArgs e)
+        {
+            Grid grid = sender as Grid;
+
+            foreach (Column column in grid.Columns)
+            {
+                column.TemplateSettings.TemplateId = "Template1";
+                column.TemplateSettings.HeaderTemplateId = "Template1";
+            }
         }
        
 
