@@ -933,7 +933,7 @@
 	                targetcontrolid="btnNuevoDocumentoTMP" popupcontrolid="pnPopNuevoDocumento" 
 	                backgroundcssclass="ModalPopupBG" Enabled="True" DynamicServicePath="" >
             </asp:modalpopupextender>
-            <asp:panel id="pnPopNuevoDocumento" style="display: none" runat="server" 
+            <asp:panel id="pnPopNuevoDocumento" style="display: block;" runat="server" 
                 DefaultButton="btnAceptarNuevoDoc">
 	            <div class="clsModalPopup">
 	                <div class="PopupHeader" id="Div5">NUEVO DOCUMENTO</div>

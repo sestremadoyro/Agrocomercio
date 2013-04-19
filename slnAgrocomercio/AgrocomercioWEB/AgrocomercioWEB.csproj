@@ -595,6 +595,7 @@
     <Content Include="index.html" />
     <Content Include="Maestros\Reportes\wfrmReporteArticulos.aspx" />
     <Content Include="Maestros\Reportes\wfrmVistaReportes.aspx" />
+    <Content Include="Maestros\WebForms\wfrmAtributos.aspx" />
     <Content Include="Maestros\WebForms\wfrmArticulos.aspx" />
     <Content Include="Maestros\WebForms\wfrmClientes.aspx" />
     <Content Include="Maestros\WebForms\wfrmPersonal.aspx" />
@@ -707,6 +708,13 @@
     </Compile>
     <Compile Include="Maestros\Reportes\wfrmVistaReportes.aspx.designer.cs">
       <DependentUpon>wfrmVistaReportes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmAtributos.aspx.cs">
+      <DependentUpon>wfrmAtributos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestros\WebForms\wfrmAtributos.aspx.designer.cs">
+      <DependentUpon>wfrmAtributos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Maestros\WebForms\wfrmArticulos.aspx.cs">
       <DependentUpon>wfrmArticulos.aspx</DependentUpon>

@@ -445,8 +445,9 @@ namespace AgrocomercioWEB.Compras
                     else
                         ddlTipoDocu.SelectedIndex = 0;
 
-                    txtNroSerie.Text = lstDocumentos.MaxDopNroSerie(Convert.ToInt32(ddlTipoDocu.SelectedValue));
-                    txtNroDocu.Focus();
+                    //txtNroSerie.Text = lstDocumentos.MaxDopNroSerie(Convert.ToInt32(ddlTipoDocu.SelectedValue));
+                    txtNroSerie.Text = string.Empty;
+                    txtNroSerie.Focus();
                     HabilitarBtn(btnAgregar, true);
                     ModalPopupNuevoDocumento.Show();
                 }

@@ -19,12 +19,13 @@
     </siteMapNode>
   </siteMapNode>
   <siteMapNode url="#" title="Mantenimientos"  description="Mantenimiento de Tablas">
-    <siteMapNode url="~/maestros/webforms/wfrmTipoCambio.aspx" title="Tipos de Cambio" description="Mantenimiento Tipo de Cambio" />
+    <siteMapNode url="~/maestros/webforms/wfrmAtributos.aspx" title="Tipos" description="Mantenimiento de Tipos" />
+    <siteMapNode url="~/maestros/webforms/wfrmTipoCambio.aspx" title="Cambios de Moneda" description="Mantenimiento Tipo de Cambio de Monedas" />
     <siteMapNode url="~/maestros/webforms/wfrmClientes.aspx" title="Clientes" description="Mantenimiento de Clientes" />
     <siteMapNode url="~/maestros/webforms/wfrmTransportista.aspx" title="Transportistas" description="Mantenimiento de Transportistas" />
     <siteMapNode url="~/maestros/webforms/wfrmRoles.aspx" title="Roles" description="Mantenimiento de Roles" />
     <siteMapNode url="~/maestros/webforms/wfrmUsuarios.aspx" title="Usuarios" description="Mantenimiento de Usuarios" />
-    <siteMapNode url="~/maestros/webforms/wfrmTipoPersonal.aspx" title="Tipo Personal" description="Mantenimiento de Tipo Personal" />
+    <siteMapNode url="~/maestros/webforms/wfrmTipoPersonal.aspx" title="Tipo de Personal" description="Mantenimiento de Tipo Personal" />
     <siteMapNode url="~/maestros/webforms/wfrmPersonal.aspx" title="Personal" description="Mantenimiento de Personal" />
   </siteMapNode>
   <siteMapNode url="#" title="Compras"  description="Letras">

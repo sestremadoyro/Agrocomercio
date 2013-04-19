@@ -19,8 +19,10 @@
         </siteMapNode>
     </siteMapNode>
     <siteMapNode url="#" title="Mantenimientos"  description="Mantenimiento de Tablas">
+        <siteMapNode url="~/maestros/webforms/wfrmAtributos.aspx" title="Tipos" description="Mantenimiento de Tipos" />      
         <siteMapNode url="~/maestros/webforms/wfrmClientes.aspx" title="Clientes" description="Mantenimiento de Clientes" />
         <siteMapNode url="~/maestros/webforms/wfrmTransportista.aspx" title="Transportistas" description="Mantenimiento de Transportistas" />
+        <siteMapNode url="~/maestros/webforms/wfrmTipoCambio.aspx" title="Cambios de Moneda" description="Mantenimiento Tipo de Cambio de Monedas" />      
     </siteMapNode>
     <siteMapNode url="#" title="Compras"  description="Letras">
         <siteMapNode url="~/pagos/wfrmNotasCompras.aspx" title="Notas Proveedores" description="Registrar las Notas" />
