@@ -24,7 +24,7 @@ namespace pryAgrocomercioBLL.EntityCollection
 
         #region FUNCIONES DE MANTENIMIENTO
 
-        public int Guardar(int pnArtCod, decimal pnPrecioVen, decimal pnDscto)
+        public int Guardar(int pnArtCod, decimal pnPrecioVen, decimal pnDscto, int cntNuevo)
         {
             ListaPrecios oPrecio = new ListaPrecios();
             int nLprPrecio = 0;
@@ -35,7 +35,7 @@ namespace pryAgrocomercioBLL.EntityCollection
 
                 if (oPrecio == null)
                 {
-                    nLprPrecio = MaxLprCod() + 1;
+                    nLprPrecio = MaxLprCod() + 1 + cntNuevo;
                     oPrecio = new ListaPrecios();
                     oPrecio.LprCod = nLprPrecio;
                     oPrecio.ArtCod = pnArtCod;

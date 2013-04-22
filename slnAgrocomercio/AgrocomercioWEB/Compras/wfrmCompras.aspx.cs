@@ -812,7 +812,7 @@ namespace AgrocomercioWEB.Compras
             catch (Exception ex)
             {
                 oThread.Abort();
-                MessageBox("Error Interno: " + ex.Message);
+                MessageBox("Error Interno: " + ex.Message + ex.InnerException );
             }
         }
 

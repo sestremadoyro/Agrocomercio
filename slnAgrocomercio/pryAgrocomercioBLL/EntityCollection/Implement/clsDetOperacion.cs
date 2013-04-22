@@ -45,6 +45,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                     DataTable dtDetOperacion = (DataTable)(contexto.Session["dtDetOperacion"]);
                     nDtpCod = MaxDtpCod();
                     nLotCod = lstLotesArt.MaxLotCod();
+                    int nCntPrecioNuevo = 0;
                     
                     //DATOS DEL DETALLE DE LA OPERACION
                     foreach (DataRow row in dtDetOperacion.Rows)
@@ -69,7 +70,14 @@ namespace pryAgrocomercioBLL.EntityCollection
                             DetOper.LotCod = nLotCod;
 
                             //SI EL ARTICULO TIENE UN PRECIO NUEVO SE AGREGA
-                            int nLprCod = lstListaPre.Guardar(lnArtCod, (decimal)DetOper.dtpPrecioVen, (decimal)DetOper.dtpDscto);
+                            int nLprCod = lstListaPre.Guardar(lnArtCod, (decimal)DetOper.dtpPrecioVen, (decimal)DetOper.dtpDscto, nCntPrecioNuevo);
+                            
+                            //VERIFICA SI ARTICULO NUEVO NO TIENE PRECIOS EN LA TABLA
+                            oPrecio = lstListaPre.GetArticuloPrecio(lnArtCod, (decimal)DetOper.dtpPrecioVen);
+
+                            //SI NO TIENE PRECIOS, INCREMENTA EL CODIGO EN 1
+                            if (oPrecio == null)
+                                nCntPrecioNuevo++;
 
                             DetOper.LotesArt = new LotesArt();
                             DetOper.LotesArt.LotCod = nLotCod;
