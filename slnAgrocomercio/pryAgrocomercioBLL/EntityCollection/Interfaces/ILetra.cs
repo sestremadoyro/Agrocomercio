@@ -22,7 +22,7 @@ namespace pryAgrocomercioBLL.EntityCollection.Interfaces
     {
     }
 
-    public interface Ifac_let : IAbstractBase<fac_x_letra>
+    public interface Ifac_x_letra : IAbstractBase<fac_x_letra>
     {
     }
     public interface Idet_let : IAbstractBase<det_letra>
@@ -55,4 +55,6 @@ namespace pryAgrocomercioBLL.EntityCollection.Interfaces
     public interface Idetalle_pagos_now : IAbstractBase<detalle_pagos_now>
     {
     }
+
+
 }

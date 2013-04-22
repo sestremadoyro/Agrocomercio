@@ -17,6 +17,24 @@
             document.getElementById('lblEstado').value = "DGVLET_" + event;
             __doPostBack('MainUpdatePanel', rowindex);
         }
+        function Imprimir_Contenido(nombre) {
+
+            
+            var tipo = document.getElementById('lblPaso').value;
+            //  alert(tipo);
+            var linea = "";
+            if (tipo == "Detalle") {
+                var cuerpo = document.getElementById('DivCnt_detalle');
+                cuerpo.style.display = "";
+            }
+            
+            var Ventana_Impresion = window.open(' ', 'popimpr', "left=10,top=10");
+
+            Ventana_Impresion.document.write(cuerpo.innerHTML);
+            Ventana_Impresion.document.close();
+            Ventana_Impresion.print();
+            Ventana_Impresion.close();
+        }
     </script>
     <style type="text/css">
         .style1
@@ -50,6 +68,10 @@
         .style8
         {
             width: 129px;
+        }
+        .style9
+        {
+            height: 27px;
         }
     </style>
 </asp:Content>
@@ -106,7 +128,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td colspan="4" align="center">
+                                                                <td colspan="4" align="center" class="style9">
                                                                     _____________________________________________________________________
                                                                 </td>
                                                             </tr>
@@ -271,7 +293,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <td> <div id="DivCnt_detalle">
                                                     <asp:Panel ID="pnNuevo" runat="server" BorderColor="#999999" BorderStyle="Solid"
                                                         Style="margin-bottom: 0px">
                                                         <table class="tableIzquierda">
@@ -348,13 +370,13 @@
                                                                                                         AutoPostBack="true" />
                                                                                                 </ItemTemplate>
                                                                                             </asp:TemplateField>
-                                                                                            <asp:BoundField DataField="dopcod" HeaderText="dop.cod">
+                                                                                            <asp:BoundField DataField="dopcod" HeaderText="Codigo">
                                                                                                 <ItemStyle Width="20px" />
                                                                                             </asp:BoundField>
-                                                                                            <asp:BoundField DataField="dfecemision" HeaderText="Fec. Facturacion" DataFormatString="{0:d}">
+                                                                                            <asp:BoundField DataField="dfecemision" HeaderText="Fec.Facturacion" DataFormatString="{0:d}">
                                                                                                 <ItemStyle Width="20px" />
                                                                                             </asp:BoundField>
-                                                                                            <asp:BoundField DataField="numfac" HeaderText="Nro. de Factura" ReadOnly="True">
+                                                                                            <asp:BoundField DataField="numfac" HeaderText="Nro.de.Factura" ReadOnly="True">
                                                                                                 <HeaderStyle Width="100px" />
                                                                                                 <ItemStyle HorizontalAlign="Left" Width="100px" />
                                                                                             </asp:BoundField>
@@ -399,7 +421,9 @@
                                                                                 <td colspan="3">
                                                                                     <asp:GridView ID="dgvNotas" runat="server" AutoGenerateColumns="False" GridLines="None"
                                                                                         CssClass="mGrid mGrid2" ShowHeaderWhenEmpty="True" Style="margin-top: 0px; padding-top: 0px;"
-                                                                                        PageSize="5" Width="233px" OnSelectedIndexChanged="dgvListFact_SelectedIndexChanged">
+                                                                                        PageSize="5" Width="233px" 
+                                                                                        OnSelectedIndexChanged="dgvListFact_SelectedIndexChanged" BorderColor="#333333" 
+                                                                                        BorderStyle="Solid">
                                                                                         <Columns>
                                                                                             <asp:ButtonField CommandName="SingleClick" Text="SingleClick" Visible="False" />
                                                                                             <asp:TemplateField>
@@ -408,16 +432,17 @@
                                                                                                         AutoPostBack="true" />
                                                                                                 </ItemTemplate>
                                                                                             </asp:TemplateField>
-                                                                                            <asp:BoundField DataField="tiponota" HeaderText="Tip. Nota">
+                                                                                            <asp:BoundField DataField="tiponota" HeaderText="Tipo.Notas" ControlStyle-BorderStyle="Solid"
+                                                                                            ControlStyle-BorderColor ="#333333" >
                                                                                                 <ItemStyle HorizontalAlign="Right" Width="50px" />
                                                                                             </asp:BoundField>
-                                                                                            <asp:BoundField DataField="ctipNota" HeaderText="Tip. Nota">
+                                                                                            <asp:BoundField DataField="ctipNota" HeaderText="Tip.Nota">
                                                                                                 <ItemStyle HorizontalAlign="Right" Width="50px" />
                                                                                             </asp:BoundField>
-                                                                                            <asp:BoundField DataField="FecEmesion" HeaderText="Fec. Nota" DataFormatString="{0:d}">
+                                                                                            <asp:BoundField DataField="FecEmesion" HeaderText="Fec.Nota" DataFormatString="{0:d}">
                                                                                                 <ItemStyle Width="20px" />
                                                                                             </asp:BoundField>
-                                                                                            <asp:BoundField DataField="inota" HeaderText="id" ReadOnly="True">
+                                                                                            <asp:BoundField DataField="inota" HeaderText="id" ReadOnly="True" Visible= "false">
                                                                                                 <HeaderStyle Width="100px" />
                                                                                                 <ItemStyle HorizontalAlign="Left" Width="100px" />
                                                                                             </asp:BoundField>
@@ -525,6 +550,7 @@
                                                             </tr>
                                                         </table>
                                                     </asp:Panel>
+                                                </div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -570,7 +596,7 @@
                                                 </td>
                                                 <td valign="top" class="style1">
                                                     <asp:Button ID="btnImprimir" runat="server" Text="Imprimir" CssClass="clsBtnImprimir"
-                                                        Height="38px" ToolTip="Imprimir" />
+                                                        Height="38px" ToolTip="Imprimir" OnClientClick="Imprimir_Contenido()"/>
                                                 </td>
                                             </tr>
                                         </table>

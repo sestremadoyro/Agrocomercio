@@ -10,7 +10,7 @@
 namespace AgrocomercioWEB.pagos {
     
     
-    public partial class wfrmPagxLetra {
+    public partial class wfrmrptcompracredito {
         
         /// <summary>
         /// MainUpdatePanel control.
@@ -58,274 +58,292 @@ namespace AgrocomercioWEB.pagos {
         protected global::System.Web.UI.WebControls.HiddenField lblOpeEstado;
         
         /// <summary>
-        /// pnListOperLetras control.
+        /// pnListLetras control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnListOperLetras;
+        protected global::System.Web.UI.WebControls.Panel pnListLetras;
         
         /// <summary>
-        /// pnListOperaciones control.
+        /// pnBusqueda control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnListOperaciones;
+        protected global::System.Web.UI.WebControls.Panel pnBusqueda;
         
         /// <summary>
-        /// dgvListOperLetras control.
+        /// lbltc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvListOperLetras;
+        protected global::System.Web.UI.WebControls.Label lbltc;
         
         /// <summary>
-        /// pnDocLetra control.
+        /// ddlProveedor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnDocLetra;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProveedor;
         
         /// <summary>
-        /// lblTipoDoc control.
+        /// txtProveedor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField lblTipoDoc;
+        protected global::System.Web.UI.WebControls.TextBox txtProveedor;
         
         /// <summary>
-        /// lbldopCod control.
+        /// txtProveedor_TextBoxWatermarkExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField lbldopCod;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtProveedor_TextBoxWatermarkExtender;
         
         /// <summary>
-        /// txtFecha control.
+        /// txtProveedor_AutoCompleteExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFecha;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtProveedor_AutoCompleteExtender;
         
         /// <summary>
-        /// txtFecha_CalendarExtender control.
+        /// ddlMoneda control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender txtFecha_CalendarExtender;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMoneda;
         
         /// <summary>
-        /// lblDescriDocumento control.
+        /// TxtFecRegDesde control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescriDocumento;
+        protected global::System.Web.UI.WebControls.TextBox TxtFecRegDesde;
         
         /// <summary>
-        /// lblNroDocumento control.
+        /// CalendarExtender1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNroDocumento;
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
         
         /// <summary>
-        /// lblProveedor control.
+        /// TxtFecRegHasta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProveedor;
+        protected global::System.Web.UI.WebControls.TextBox TxtFecRegHasta;
         
         /// <summary>
-        /// txtNumCuotas control.
+        /// CalendarExtender2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNumCuotas;
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
         
         /// <summary>
-        /// lblDescuentoEsp control.
+        /// TxtFecPagDesde control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField lblDescuentoEsp;
+        protected global::System.Web.UI.WebControls.TextBox TxtFecPagDesde;
         
         /// <summary>
-        /// pnaddfactura control.
+        /// CalendarExtender3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnaddfactura;
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender3;
         
         /// <summary>
-        /// Pnokaddfactura control.
+        /// TxtFecPagHasta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Pnokaddfactura;
+        protected global::System.Web.UI.WebControls.TextBox TxtFecPagHasta;
         
         /// <summary>
-        /// dgvListFact control.
+        /// CalendarExtender4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvListFact;
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender4;
         
         /// <summary>
-        /// lbSuma control.
+        /// TxtFecVenDesde control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbSuma;
+        protected global::System.Web.UI.WebControls.TextBox TxtFecVenDesde;
         
         /// <summary>
-        /// Pnerraddfactura control.
+        /// CalendarExtender5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Pnerraddfactura;
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender5;
         
         /// <summary>
-        /// nofactpend control.
+        /// TxtFecVenHasta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label nofactpend;
+        protected global::System.Web.UI.WebControls.TextBox TxtFecVenHasta;
         
         /// <summary>
-        /// pnNotas control.
+        /// CalendarExtender6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnNotas;
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender6;
         
         /// <summary>
-        /// pnaddNotas control.
+        /// dllEstado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnaddNotas;
+        protected global::System.Web.UI.WebControls.DropDownList dllEstado;
         
         /// <summary>
-        /// dgvNotas control.
+        /// dgvLista control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvNotas;
+        protected global::System.Web.UI.WebControls.GridView dgvLista;
         
         /// <summary>
-        /// lbresta control.
+        /// pntotales control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbresta;
+        protected global::System.Web.UI.WebControls.Panel pntotales;
         
         /// <summary>
-        /// pnnotasempty control.
+        /// lblcompras control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnnotasempty;
+        protected global::System.Web.UI.WebControls.Label lblcompras;
         
         /// <summary>
-        /// lblemptynot control.
+        /// lblsaltots control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblemptynot;
+        protected global::System.Web.UI.WebControls.Label lblsaltots;
         
         /// <summary>
-        /// Label4 control.
+        /// lblsolcom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label lblsolcom;
         
         /// <summary>
-        /// lbpago control.
+        /// lblcomprad control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbpago;
+        protected global::System.Web.UI.WebControls.Label lblcomprad;
         
         /// <summary>
-        /// btgenCuotas control.
+        /// lblsaltotd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btgenCuotas;
+        protected global::System.Web.UI.WebControls.Label lblsaltotd;
         
         /// <summary>
-        /// pnCuotas control.
+        /// Label3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnCuotas;
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// dgvcuotas control.
+        /// lblcompra control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvcuotas;
+        protected global::System.Web.UI.WebControls.Label lblcompra;
+        
+        /// <summary>
+        /// lblsaltot control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsaltot;
+        
+        /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
         /// pnBotones control.

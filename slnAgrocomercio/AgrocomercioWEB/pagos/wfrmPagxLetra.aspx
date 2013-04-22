@@ -29,7 +29,10 @@
         function Imprimir_Contenido(nombre) {
 
             var cuerpo = document.getElementById('DivContenido');
+            var tipo = document.getElementById('lblPaso').value;
+          //  alert(tipo);
             var linea = "";
+            if(tipo=="Detalle")
             var Ventana_Impresion = window.open(' ', 'popimpr', "left=10,top=10");
 
             Ventana_Impresion.document.write(cuerpo.innerHTML);
@@ -209,15 +212,11 @@
                                                     <td class="clsCellTituloDatos2">
                                                         Proveedor:
                                                     </td>
-                                                    <td class="clsCellDatos2" colspan="3">
-                                                        <asp:Label ID="lblProveedor" runat="server" Text="NombreProveedor.."></asp:Label>
+                                                    <td class="clsCellDatos2" colspan="6">
+                                                        <asp:Label ID="lblProveedor" runat="server" Text="NombreProveedor.." 
+                                                            Width="350px"></asp:Label>
                                                     </td>
-                                                    <td class="style5">
-                                                        &nbsp;
-                                                    </td>
-                                                    <td class="style7">
-                                                        &nbsp;
-                                                    </td>
+                                                    
                                                 </tr>
                                                 <tr>
                                                     <td class="clsCellTituloDatos2">
@@ -252,13 +251,13 @@
                                                                                     AutoPostBack="true" />
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-                                                                        <asp:BoundField DataField="dopcod" HeaderText="dop.cod">
+                                                                        <asp:BoundField DataField="dopcod" HeaderText="Codigo">
                                                                             <ItemStyle Width="20px" />
                                                                         </asp:BoundField>
                                                                         <asp:BoundField DataField="dfecemision" HeaderText="Fec. Facturacion" DataFormatString="{0:d}">
-                                                                            <ItemStyle Width="20px" />
+                                                                            <ItemStyle Width="100px" />
                                                                         </asp:BoundField>
-                                                                        <asp:BoundField DataField="numfac" HeaderText="Nro. de Factura" ReadOnly="True">
+                                                                        <asp:BoundField DataField="numfac" HeaderText="Nro.Facturacion" ReadOnly="True">
                                                                             <HeaderStyle Width="100px" />
                                                                             <ItemStyle HorizontalAlign="Left" Width="100px" />
                                                                         </asp:BoundField>
@@ -408,8 +407,7 @@
                                                 <tr>
                                                     <td valign="top" >
                                                         <asp:Button ID="btnEditar" runat="server" Text="Detalle" CssClass="clsBtnEditar" OnClick="btnEditar_Click"
-                                                            Height="41px" Width="99px" ToolTip ="Editar"  />
-                                                        <input type="button" ID="btnprint" runat="server" value="Imprimir " onclick="Imprimir_Contenido()"  ToolTip ="Imprimir" />
+                                                            Height="41px" Width="99px" ToolTip ="Editar"  />                                                        
                                                     </td>
                                                     <td valign="top" >
                                                         <asp:Button ID="btnAnular" runat="server" Text="Anular" CssClass="clsBtnAnular" Height="41px"
@@ -421,9 +419,10 @@
                                                         <asp:Button ID="btnProcesar" runat="server" Text="Procesar" CssClass="clsBtnProcesar"
                                                             OnClick="btnProcesar_Click" Height="41px"  ToolTip ="Procesar" />
                                                     </td>
-                                                    <td valign="top" >
-                                                        <asp:Button ID="btnImprimir" runat="server" Text="Imprimir" CssClass="clsBtnImprimir"
-                                                            Height="38px" ToolTip ="Imprimir"  />
+                                                    <td valign="top" >                                              
+                                                            
+                                                         <asp:Button ID="btnImprimir" runat="server" CssClass="clsBtnImprimir" Height="38px"
+                                                            Text="Imprimir" ToolTip="Imprimir"  OnClientClick="Imprimir_Contenido()" />
                                                     </td>
                                                     <td valign="top" >
                                                         &nbsp;</td>

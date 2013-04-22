@@ -148,7 +148,7 @@ namespace pryAgrocomercioBLL.EntityCollection
     }
 
     //public class clsfactPag : clsfac_letDao
-    public class clsfac_x_letra : clsAbstractBase<fac_x_letra>, Ifac_let
+    public class clsfac_x_letra : clsAbstractBase<fac_x_letra>, Ifac_x_letra
     {
         public DataTable GetList(int tipOpe)
         {
@@ -160,16 +160,62 @@ namespace pryAgrocomercioBLL.EntityCollection
                 Let.icodletra,
                 Let.valor,
                 Let.dfecemision,
+                Let.dfecultpag,
                 Let.dopCod,
+                Let.OpeCod,
                 Let.numfac,
                 Let.PrvRazon,
                 Let.opetotpagar,
+                Let.OpeTotal,
+                Let.OpeTotPagPen,
                 Let.PrvCod,
-                Let.monedas,
-                Let.OpeTotal
+                Let.moneda,
+                Let.opeestado,
+                Let.estado
+
             })
             .AsQueryable());
 
+        }
+        public DataTable GetList_factura(String _filtro, String _tipo, int _codProveedor, String _moneda,
+             DateTime _dfregdesde, DateTime _dfreghasta, DateTime _dpagdesde, DateTime _dpaghasta, DateTime _dvendesde, DateTime _dvenhasta, String _estado, int _tracod)
+        {
+            return ToDataTable(this.Find(Let => Let.valor == _tipo
+                && (_filtro.Substring(0, 1) == "1" || (_filtro.Substring(0, 1) == "2" && Let.PrvCod == _codProveedor))
+                && (_filtro.Substring(1, 1) == "1" || (_filtro.Substring(1, 1) == "2" && Let.moneda == _moneda))
+                && (_filtro.Substring(2, 1) == "1" || (_filtro.Substring(2, 1) == "2" && Let.dfecemision >= _dfregdesde))
+                && (_filtro.Substring(3, 1) == "1" || (_filtro.Substring(3, 1) == "2" && Let.dfecemision <= _dfreghasta))
+                && (_filtro.Substring(4, 1) == "1" || (_filtro.Substring(4, 1) == "2" && Let.dfecultpag >= _dpagdesde))
+                && (_filtro.Substring(5, 1) == "1" || (_filtro.Substring(5, 1) == "2" && Let.dfecultpag <= _dpaghasta))
+                && (_filtro.Substring(6, 1) == "1" || (_filtro.Substring(6, 1) == "2" && Let.dfecnxtvct >= _dvendesde))
+                && (_filtro.Substring(7, 1) == "1" || (_filtro.Substring(7, 1) == "2" && Let.dfecnxtvct <= _dvenhasta))
+                && (_filtro.Substring(8, 1) == "1" || (_filtro.Substring(8, 1) == "2" && Let.opeestado == _estado))
+                && (_filtro.Substring(9, 1) == "1" || (_filtro.Substring(9, 1) == "2" && Let.percod == _tracod)))
+            .OrderByDescending(Let => new { Let.PrvRazon, Let.dfecemision, Let.numfac})
+            .Select(Let => new
+            {
+                Let.icodletra,
+                Let.valor,
+                Let.dfecemision,
+                Let.dfecultpag,
+                Let.dfecnxtvct,
+                Let.dopCod,
+                Let.OpeCod,
+                Let.numfac,
+                Let.PrvRazon,
+                Let.opetotpagar,
+                Let.OpeTotal,
+                Let.OpeTotPagPen,
+                Let.PrvCod,
+                Let.moneda,
+                Let.opeestado,
+                Let.estado,
+                Let.percod,
+                Let.tra,
+                Let.idet_letra,
+                Let.nsalvenc
+            })
+            .AsQueryable());
         }
     }
 

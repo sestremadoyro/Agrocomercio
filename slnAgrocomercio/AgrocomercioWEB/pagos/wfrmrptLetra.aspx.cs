@@ -28,7 +28,6 @@ namespace AgrocomercioWEB.pagos
         {
             int _selectedIndex = 0;
             String _selectedValue = "";
-
             if (Page.IsPostBack)
             { 
                 if (lblEstado.Value != "")
@@ -503,9 +502,12 @@ namespace AgrocomercioWEB.pagos
             HabilitarBtn(btnEditar, false);
             HabilitarBtn(btnCancelar, true);
             HabilitarBtn(btnProcesar, true);
+
+            HabilitarBtn(btnImprimir, true);
             pnNuevo.Enabled = false;
             btgenCuotas.Visible = false;
             dgvLetReg.Columns[15].Visible = false;
+            lblPaso.Value = "Detalle";
         }
         protected void btnAnular_Click(object sender, EventArgs e) { }
         protected void btnCancelar_Click(object sender, EventArgs e){
@@ -711,7 +713,7 @@ namespace AgrocomercioWEB.pagos
                     _filtro = _filtro + "1";
                     fecMax = DateTime.Today;
                 }
-                if (dllEstado.SelectedValue == "AMB")
+                if (dllEstado.SelectedValue == "A")
                 {
                     _filtro = _filtro + "1";
                 }
@@ -799,7 +801,7 @@ namespace AgrocomercioWEB.pagos
             pnNotas.Enabled = false;
             lblPaso.Value = "Generacion";
             pnCuotas.Visible = true;
-            HabilitarBtn(btnGuardar, true);
+            HabilitarBtn(btnGuardar, false);
             ddlMoneda_new.Enabled = false;
             
         }
@@ -812,7 +814,7 @@ namespace AgrocomercioWEB.pagos
             btnEditar.Visible = true;
             btnAnular.Visible = false;
             btnImprimir.Visible = true;
-            btnGuardar.Visible = true;
+            btnGuardar.Visible = false;
             btnProcesar.Visible = true;
 
             HabilitarBtn(btnNuevo, false);

@@ -328,7 +328,7 @@
                                                                     Cliente:
                                                                 </td>
                                                                 <td colspan="2">
-                                                                    <asp:Label ID="lblPersona" runat="server" Text="Datos Cliente"></asp:Label>
+                                                                    <asp:Label ID="lblPersona" runat="server" Text="Datos Cliente" Width="300px"></asp:Label>
                                                                     <asp:HiddenField ID="hdcodper" runat="server" Value="0" />
                                                                 </td>
                                                             </tr>

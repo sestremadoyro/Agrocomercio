@@ -251,12 +251,12 @@
                                                                     
                                                                 </td>
                                                                 <td  align="right">
-                                                                    <asp:Button ID="btnPagar" runat="server"  Height="41px"
-                                                                        OnClick="btnPagar_Click" Text="Pagar" Width="99px" />
+                                                                    <asp:Button ID="btnPagar" runat="server" ToolTip="Procesar"   CssClass="clsBtnProcesar"
+                                                                        OnClick="btnPagar_Click" Text="Pagar" />                                                                
                                                                 </td>
                                                                 <td class="style6">
                                                                     <asp:Button ID="btnAnulPago" runat="server" Height="41px"
-                                                                        OnClick="btnAnular_Click" Text="Anular Pago" Width="145px" />
+                                                                        OnClick="btnAnular_Click" Text="Anular Pago" Width="145px" CssClass="clsBtnAnular" ToolTip="Anular"/>                                                                      
                                                                 </td>
                                                             </tr>
                                                            

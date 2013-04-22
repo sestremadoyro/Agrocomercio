@@ -166,13 +166,15 @@
                                                                                             <asp:BoundField DataField="valor" HeaderText="valor" SortExpression="valor" Visible="false" />
                                                                                             <asp:BoundField DataField="dfecemision" HeaderText="dfecemision" SortExpression="dfecemision"
                                                                                                 DataFormatString="{0:yyyy-MM-dd}" />
+                                                                                            <%--5--%>
                                                                                             <asp:BoundField DataField="dopCod" HeaderText="dopCod" ReadOnly="True" SortExpression="dopCod"
                                                                                                 Visible="false" />
                                                                                             <asp:BoundField DataField="numfac" HeaderText="numfac" SortExpression="numfac" />
                                                                                             <asp:BoundField DataField="PrvRazon" HeaderText="PrvRazon" SortExpression="PrvRazon" />
                                                                                             <asp:BoundField DataField="opetotpagar" HeaderText="opetotpagar" SortExpression="opetotpagar" />
                                                                                             <asp:BoundField DataField="PrvCod" HeaderText="PrvCod" SortExpression="PrvCod" Visible="false" />
-                                                                                            <asp:BoundField DataField="monedas" HeaderText="monedas" SortExpression="monedas" />
+                                                                                           <%--10--%>
+                                                                                           <asp:BoundField DataField="monedas" HeaderText="monedas" SortExpression="monedas" />
                                                                                         </Columns>
                                                                                         <EmptyDataTemplate>
                                                                                             <i>
@@ -311,7 +313,7 @@
                                                                     Proveedor:
                                                                 </td>
                                                                 <td colspan="2">
-                                                                    <asp:Label ID="lblPersona" runat="server" Text="Datos Provedor"></asp:Label>
+                                                                    <asp:Label ID="lblPersona" runat="server" Text="Datos Provedor" Width="300px"></asp:Label>
                                                                     <asp:HiddenField ID="hdcodper" runat="server" Value="0" />
                                                                 </td>
                                                             </tr>

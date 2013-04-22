@@ -240,7 +240,8 @@ namespace AgrocomercioWEB.pagos
         }
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            btnprint.Visible = true;
+            btnImprimir.Visible = true;
+            HabilitarBtn(btnImprimir, true);
             int nOpeCod = 0;            
             try
             {
@@ -325,7 +326,10 @@ namespace AgrocomercioWEB.pagos
                 HabilitarBtn(btnCancelar, true);
                 HabilitarBtn(btnAnular, false);
                 HabilitarBtn(btnEditar, false);
+                HabilitarBtn(btnImprimir, true);
                 ///////////////////////////////////////////////////
+
+                lblPaso.Value = "Detalle";
             }
             catch (Exception ex)
             {
@@ -719,7 +723,7 @@ namespace AgrocomercioWEB.pagos
             HabilitarBtn(btnCancelar, false);
             HabilitarBtn(btnAnular, false);
             HabilitarBtn(btnEditar, false);
-
+            HabilitarBtn(btnImprimir, false);
            
             lblDescuentoEsp.Value = "0.00";
 
@@ -734,7 +738,7 @@ namespace AgrocomercioWEB.pagos
             HabilitarBtn(btnCancelar, false);
             HabilitarBtn(btnEditar, false);
             HabilitarBtn(btnAnular, false);
-            btnprint.Visible = false;
+            btnImprimir.Visible = false;
             pnDocLetra.Visible = false;
             pnListOperaciones.Visible = true;
             pnCuotas.Visible = false;

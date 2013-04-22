@@ -195,7 +195,14 @@ namespace AgrocomercioWEB.pagos
                 }
 
             }
+            txtfecpro.Text = "";
+            txtCodNota.Text = "";
+            txtmonto.Text = "";
+            txtmontoutl.Text = "";
+            txtobservaciones.Text = "";
             btnProcesar_Click(sender, e);
+            HabilitarBtn(btnNuevo, true);
+
         }
         protected void btnProcesar_Click(object sender, EventArgs e) {
             dgvNotas.Columns[3].Visible = true;
@@ -403,6 +410,8 @@ namespace AgrocomercioWEB.pagos
             ddlMoneda_new.Enabled = true;
 
             lbmensaje.Text = "Es necesario llenar todos los campos solicitados (*)";
+            
+
         }
         public void CargarProveedores()
         {

@@ -684,7 +684,7 @@ namespace AgrocomercioWEB.pagos
                 dtPendientes = form.GetLista(_filtro+"1", _cod_prov, _factura, _fecha_factura, ddlMoneda.SelectedValue,0, "C");
                 dgvFacPend.DataSource = dtPendientes;
                 dgvFacPend.DataBind();
-                //dgvFacPend.Columns[8].Visible = false;
+                dgvFacPend.Columns[8].Visible = false;
             }
             else {
                 dgvLetReg.Columns[15].Visible = true;
