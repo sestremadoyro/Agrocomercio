@@ -74,7 +74,7 @@
                                                         <table class="tabPedidos">
                                                             <tr>
                                                             <td colspan=3 align="right">Tipo Cambio: </td>
-                                                            <td align="right">
+                                                            <td align="left">
                                                                 <asp:Label ID="lbltc" runat="server" Text="Label" ></asp:Label></td>
                                                             </tr>
                                                             <tr>
@@ -160,7 +160,7 @@
                                                                     </asp:CalendarExtender>
                                                                 </td>
                                                             </tr>
-                                                             <tr>
+                                                            <tr>
                                                                 <td align="left" colspan="4">
                                                                     Fecha del proximo vencimiento:
                                                                 </td>
@@ -238,8 +238,35 @@
                                                             <tr>
                                                             <td colspan=4>
                                                                 <asp:Panel ID="pntotales" runat="server" BorderStyle="Inset" BorderColor="#006600">
-                                                                    <asp:Table ID="tdtotales" runat="server">
-                                                                    </asp:Table>
+                                                                    <table class="tabPedidos">
+                                                                    <tr> <td colspan="2" align="right"> Total 
+                                                                    Compra-Credito   </td>
+                                                                    <td align="center"> Saldo 
+                                                                    Total</td>
+                                                                    <td align="center"> Saldo 
+                                                                    X Vencer</td>
+                                                                    <td align="center"> Saldo 
+                                                                    Vencido</td>
+                                                                    </tr> 
+                                                                    <tr><td> Total Soles </td>
+                                                                    <td align="right"><asp:Label ID="lblcompras" runat="server" Text="Label"></asp:Label> </td>
+                                                                    <td  align="right"><asp:Label ID="lblsaltots" runat="server" Text="Label"></asp:Label> </td>
+                                                                    <td align="right"><asp:Label ID="lblsalxvens" runat="server" Text="Label"></asp:Label> </td>
+                                                                    <td align="right"><asp:Label ID="lblsalvens" runat="server" Text="Label"></asp:Label> </td>
+                                                                    </tr>
+                                                                    <tr><td> Total Dolares </td>
+                                                                    <td align="right"><asp:Label ID="lblcomprad" runat="server" Text="Label"></asp:Label> </td>
+                                                                    <td align="right"><asp:Label ID="lblsaltotd" runat="server" Text="Label"></asp:Label> </td>
+                                                                    <td align="right"><asp:Label ID="lblsalxvend" runat="server" Text="Label"></asp:Label> </td>
+                                                                    <td align="right"><asp:Label ID="lblsalvend" runat="server" Text="Label"></asp:Label> </td>
+                                                                    </tr>
+                                                                    <tr><td> Total Deuda</td>
+                                                                    <td align="right"><asp:Label ID="lblcompra" runat="server" Text="Label"></asp:Label> </td>
+                                                                    <td align="right"><asp:Label ID="lblsaltot" runat="server" Text="Label"></asp:Label> </td>
+                                                                    <td align="right"><asp:Label ID="lblsalxven" runat="server" Text="Label"></asp:Label> </td>
+                                                                    <td align="right"><asp:Label ID="lblsalven" runat="server" Text="Label"></asp:Label> </td>
+                                                                    </tr>
+                                                                    </Table>
                                                                 </asp:Panel>
                                                             </td>
                                                             

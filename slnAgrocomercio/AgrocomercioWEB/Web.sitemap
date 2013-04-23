@@ -35,7 +35,7 @@
     <siteMapNode url="#" title="Reportes-Compras"  description="Reportes-Compras">
       <siteMapNode url="~/compras/wfrmReportesCompras.aspx" title="Compras x Proveedor" description="Compras x Proveedor" />
       <siteMapNode url="~/pagos/wfrmrptLetra.aspx" title="Pagos x Letra." description="Pagos por Letra" />
-      <siteMapNode url="~/pagos/wfrmrptLetra.aspx" title="Letras Por Pagar" description="Pagos " />      
+      <siteMapNode url="~/pagos/wfrmrptcompracredito.aspx" title="Compras al Credito" description="Pagos " />      
     </siteMapNode>
   </siteMapNode>
 </siteMap>

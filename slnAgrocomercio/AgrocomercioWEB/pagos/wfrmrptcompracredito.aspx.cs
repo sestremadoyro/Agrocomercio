@@ -238,7 +238,9 @@ namespace AgrocomercioWEB.pagos
             dgvLista.Columns[10].Visible = false;
             dgvLista.Columns[13].Visible = false;
             dgvLista.Columns[15].Visible = false;
-           //CalcularSumatorias();
+            CalcularSumatorias();
+            pntotales.Visible = true;
+
         }
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -276,6 +278,8 @@ namespace AgrocomercioWEB.pagos
             HabilitarBtn(btnGuardar, false);
             HabilitarBtn(btnProcesar, true);
 
+            pntotales.Visible = false;
+
             CargarProveedores();
             cargarMoneda();
             CargarTipoCambio();
@@ -311,17 +315,65 @@ namespace AgrocomercioWEB.pagos
             
         }       
         private void CalcularSumatorias(){
-            Double totalComprasol, totalCompradol, totalCompra,
-                totalSalsol, totalSaldol, totalSal,
-                totalsalpagsol, totalsalpagdol, totalsalpag;
+            Double totalComprasol, totalCompradol,
+                totalSalsol, totalSaldol, 
+                totalsalpagsol, totalsalpagdol,
+                totalsalvensol, totalsalvendol,
+                tip_cambio;
+            DateTime fechoy = DateTime.Today, fecven;
 
-            totalComprasol= totalCompradol =totalCompra=
-            totalSalsol= totalSaldol= totalSal=
-            totalsalpagsol= totalsalpagdol= totalsalpag=0.0;
-
+            totalComprasol= totalCompradol =
+            totalSalsol= totalSaldol= 
+            totalsalpagsol= totalsalpagdol= totalsalvensol= totalsalvendol= 0.0;
+            tip_cambio=Convert.ToDouble( lbltc.Text.ToString());
+            //
+            
             foreach (GridViewRow row in dgvLista.Rows){
-                String valor= row.Cells[25].Text;
+                if (row.Cells[14].Text == "PEN")
+                {
+                    totalComprasol = totalComprasol + Convert.ToDouble(row.Cells[9].Text);
+                    totalSalsol = totalSalsol + Convert.ToDouble(row.Cells[11].Text);
+                    totalsalpagsol = totalsalpagsol + Convert.ToDouble(row.Cells[12].Text);
+                    if(row.Cells[4].Text.ToString().Length>0){
+                        fecven = Convert.ToDateTime(row.Cells[4].Text.ToString());
+                        if (fecven < fechoy) {
+                            totalsalvendol = totalsalvendol + Convert.ToDouble(row.Cells[12].Text);
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    totalCompradol = totalCompradol + Convert.ToDouble(row.Cells[9].Text);
+                    totalSaldol = totalSaldol + Convert.ToDouble(row.Cells[11].Text);
+                    totalsalpagdol = totalsalpagdol + Convert.ToDouble(row.Cells[12].Text);
+                    if (row.Cells[4].Text.ToString().Length > 0)
+                    {
+                        fecven = Convert.ToDateTime(row.Cells[4].Text.ToString());
+                        if (fecven < fechoy)
+                        {
+                            totalsalvensol = totalsalvensol + Convert.ToDouble(row.Cells[12].Text);
+                        }
+                    }
+                }
             }
+            lblcompras.Text = totalComprasol.ToString("N");
+            lblcomprad.Text = totalCompradol.ToString("N");
+            lblcompra.Text =( totalComprasol+ (totalCompradol*tip_cambio)).ToString("N");
+            //---------------------------//
+            lblsaltots.Text = totalSalsol.ToString("N");
+            lblsaltotd.Text = totalSaldol.ToString("N");
+            lblsaltot.Text = (totalSalsol + (totalSaldol * tip_cambio)).ToString("N");
+            //---------------------------//
+            lblsalxvens.Text = totalsalpagsol.ToString("N");
+            lblsalxvend.Text = totalsalpagdol.ToString("N");
+            lblsalxven.Text = (totalsalpagsol + (totalsalpagdol * tip_cambio)).ToString("N");
+            //---------------------------//
+            lblsalvens.Text = totalsalvensol.ToString("N");
+            lblsalvend.Text = totalsalvendol.ToString("N");
+            lblsalven.Text = (totalsalvensol + (totalsalvendol * tip_cambio)).ToString("N");
+            //---------------------------//
+
         }
         #endregion
     }

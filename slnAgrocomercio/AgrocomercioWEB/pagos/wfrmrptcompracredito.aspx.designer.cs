@@ -283,13 +283,22 @@ namespace AgrocomercioWEB.pagos {
         protected global::System.Web.UI.WebControls.Label lblsaltots;
         
         /// <summary>
-        /// lblsolcom control.
+        /// lblsalxvens control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblsolcom;
+        protected global::System.Web.UI.WebControls.Label lblsalxvens;
+        
+        /// <summary>
+        /// lblsalvens control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsalvens;
         
         /// <summary>
         /// lblcomprad control.
@@ -310,13 +319,22 @@ namespace AgrocomercioWEB.pagos {
         protected global::System.Web.UI.WebControls.Label lblsaltotd;
         
         /// <summary>
-        /// Label3 control.
+        /// lblsalxvend control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label lblsalxvend;
+        
+        /// <summary>
+        /// lblsalvend control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsalvend;
         
         /// <summary>
         /// lblcompra control.
@@ -337,13 +355,22 @@ namespace AgrocomercioWEB.pagos {
         protected global::System.Web.UI.WebControls.Label lblsaltot;
         
         /// <summary>
-        /// Label6 control.
+        /// lblsalxven control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
+        protected global::System.Web.UI.WebControls.Label lblsalxven;
+        
+        /// <summary>
+        /// lblsalven control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsalven;
         
         /// <summary>
         /// pnBotones control.
