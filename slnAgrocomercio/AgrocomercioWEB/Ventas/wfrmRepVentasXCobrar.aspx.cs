@@ -13,269 +13,76 @@ using pryAgrocomercioBLL.EntityCollection;
 using pryAgrocomercioDAL;
 
 using System.Collections.Generic;
-using System.Linq;
-using System.Globalization;
-using System.Configuration;
 using AgrocomercioWEB;
-using System.Threading;
 using Obout.Grid;
-using Obout.ComboBox;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 using System.Collections;
 
-namespace AgrocomercioWEB.Ventas
+namespace AgrocomercioWEB.Reportes
 {
 
     public partial class wfrmRepVentasXCobrar : BasePage
     {
-        public String _click = "";
-        private Thread oThread;
-       
+        double tempTotalUSD = 0;
+        double tempTotalPEN = 0;
+        double tempTotal = 0;
+
+        Dictionary<int, double> totalUSD = new Dictionary<int, double>();
+        Dictionary<int, double> totalPEN = new Dictionary<int, double>();
+        Dictionary<int, double> total = new Dictionary<int, double>();
+        Dictionary<int, GridRow> lastGroupHeaders = new Dictionary<int, GridRow>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            String _selectedValue = "";
+
             if (Page.IsPostBack)
             {
-               
+                if (lblEstado.Value == "CLI_SELECT")
+                {
+                    _selectedValue = Request.Params["__EVENTARGUMENT"].ToString();
+                    if (_selectedValue == "")
+                        _selectedValue = "0";
+                    ddlClientes.SelectedValue = _selectedValue;
+                    ddlClientes_SelectedIndexChanged(sender, e);
+                }
             }
-            SetEstado("INI");
+            else
+            {
+                CargarClientes();
+                CreateGrid();
+            }
         }
 
-#region FUNCIONES DEL FORMULARIO
-
-     
-        
-        protected void btnProcesar_Click(object sender, EventArgs e)
+        public void CreateGrid()
         {
-
-            DataTable dtResultado = null;
+            int nCliCod = 0;
             clsOperaciones colOperaciones = new clsOperaciones();
-            DateTime dFecIni = DateTime.Today;
-            DateTime dFecFin = DateTime.Today;
-
-            oThread = new Thread(delegate() { Esperar(1000); });
-            oThread.Start();
-
-            try
-            {
-                dtResultado = colOperaciones.RepVentasXComprar();
-
-                if (dtResultado.Rows.Count > 0)
-                {
-                    gridVentasxCobrar.ClearPreviousDataSource();
-                    gridVentasxCobrar.DataSource = dtResultado;
-                    gridVentasxCobrar.DataBind();
-
-                    
-                    AgregarVariableSession("dtRepClientes", dtResultado);
-                    AgregarVariableSession("nTipCam", txtTipCam.Text);
-
-                    SetEstado("PRO");
-                    oThread.Join();
-
-                }
-                else
-                    SetEstado("ERR");
-            }
-            catch (Exception ex)
-            {
-                oThread.Abort();
-                MessageBox("Error Interno: " + ex.Message);
-            }
-        }
-        protected void btnImprimir_Click(object sender, EventArgs e)
-        {
-            SetEstado("PRO");
             
-        }
-      
+            if (ddlClientes.SelectedValue != "")
+                nCliCod = int.Parse( ddlClientes.SelectedValue);
 
-        
+            DataTable dtResultado = colOperaciones.RepVentasXComprar(nCliCod);
 
-#endregion
-
-#region FUNCIONES DE CARGA DE LISTAS DE DATOS
-
-        //public void CargarCombos()
-        //{
-        //    clsAtributos Atributos = new clsAtributos();
-
-        //   //Cargamos combo de Zonas
-            
-        //    ddlZonas.DataSource = Atributos.ListAtributos(4);
-        //    ddlZonas.DataBind();
-
-        //    lblTasIGV.Value = ((List<Atributos>)Atributos.ListAtributos(7)).FirstOrDefault().AtrDescripcion;
-
-        //    CargarTipoCambio();
-        //    Atributos = null;
-        //}
-        
-#endregion
-
-#region FUNCIONES GENERALES
-        private void SetEstado(string cTipo)
-        {
-            switch (cTipo)
-            {
-                case ("INI"):
-                    HabilitarBtn(btnProcesar, true);
-                    HabilitarBtn(btnImprimir, false);
-                    HabilitarBtn(btnExcel, false);
-                    HabilitarBtn(btnPdf, false);
-                    lblExito.Visible = false;
-                    lblError.Visible = false;
-
-                    clsAtributos Atributos = new clsAtributos();
-                    var oTip = ((List<Atributos>)Atributos.ListAtributos(8)).FirstOrDefault();
-                    if (oTip == null) 
-                        txtTipCam.Text = "2.56";
-                    else
-                        txtTipCam.Text = oTip.AtrDescripcion;
-                    Atributos = null;
-
-                    break;
-                case ("PRO"):
-                    HabilitarBtn(btnProcesar, false);
-                    HabilitarBtn(btnImprimir, true);
-                    HabilitarBtn(btnExcel, true);
-                    HabilitarBtn(btnPdf, true);
-                    lblExito.Visible = true;
-                    lblError.Visible = false;
-                    break;
-                case ("ERR"):
-                    HabilitarBtn(btnProcesar, true);
-                    HabilitarBtn(btnImprimir, false);
-                    HabilitarBtn(btnExcel, false);
-                    HabilitarBtn(btnPdf, false);
-                    lblExito.Visible = false;
-                    lblError.Visible = true;
-                    break;
-            }
-
-            
-        }
-        
-#endregion
-
-      
-
-        protected void gridVentasxCobrar_Filtering(object sender, EventArgs e)
-        {
-            // filter for OrderDate
-            Column orderDateColumn = gridVentasxCobrar.Columns[1];
-
-            if (orderDateColumn.FilterCriteria.Option is CustomFilterOption)
-            {
-                CustomFilterOption filterOption = orderDateColumn.FilterCriteria.Option as CustomFilterOption;
-
-                switch (filterOption.ID)
-                {
-                    case "Between_OpeFecEmision":
-                        string startDate = orderDateColumn.FilterCriteria.Values["StartDate_OpeFecEmision"].ToString();
-                        string endDate = orderDateColumn.FilterCriteria.Values["EndDate_OpeFecEmision"].ToString();
-
-                        if (startDate != "" && endDate != "")
-                        {
-                            DateTime startDate2 = DateTime.Parse(startDate);
-                            DateTime endDate2 = DateTime.Parse(endDate);
-
-                            if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
-                            {
-                                // we filter between start date at 12:00AM and end date at 11:59PM
-                                //orderDateColumn.FilterCriteria.FilterExpression = "(" + orderDateColumn.DataField + " >= #" + startDate + " 00:00:01 # AND " + orderDateColumn.DataField + " <= #" + endDate + " 24:59:59 #)";
-                                orderDateColumn.FilterCriteria.FilterExpression = "(" + orderDateColumn.DataField + " >= '" + startDate2.ToString("yyyy-MM-dd") + "' AND " + orderDateColumn.DataField + " <= '" + endDate2.ToString("yyyy-MM-dd") + "' )";
-                            }
-                        }
-                       
-                        break;                   
-                }
-            }
-
-        }
-
-        protected void btnExcel_Click(object sender, EventArgs e)
-        {
-            string FileName = gridVentasxCobrar.ExportToExcel();
-            Download(gridVentasxCobrar.FolderExports.Replace("~", "..") + FileName);
-            SetEstado("PRO");
-        }
-
-
-        protected void btnPdf_Click(object sender, EventArgs e)
-        {
-            gridVentasxCobrar.PageSize = -1;
+            gridVentasxCobrar.DataSource = dtResultado;
             gridVentasxCobrar.DataBind();
-            // Stream which will be used to render the data
-            MemoryStream fileStream = new MemoryStream();
-
-            Document doc = new Document(iTextSharp.text.PageSize.LETTER, 10, 10, 42, 35);
-            try
-            {
-                //Create Document class object and set its size to letter and give space left, right, Top, Bottom Margin
-                PdfWriter wri = PdfWriter.GetInstance(doc, fileStream);
-
-                doc.Open();//Open Document to write
-
-                Font font8 = FontFactory.GetFont("ARIAL", 7);
-
-                //Write some content
-                Paragraph paragraph = new Paragraph("ASP.NET Grid - Export to PDF");
-
-                //Craete instance of the pdf table and set the number of column in that table
-                PdfPTable PdfTable = new PdfPTable(gridVentasxCobrar.Columns.Count);
-                PdfPCell PdfPCell = null;
-
-                //Add headers of the pdf table
-                foreach (Column col in gridVentasxCobrar.Columns)
-                {
-                    PdfPCell = new PdfPCell(new Phrase(new Chunk(col.HeaderText, font8)));
-                    PdfTable.AddCell(PdfPCell);
-                }
-
-                //How add the data from the Grid to pdf table
-                for (int i = 0; i < gridVentasxCobrar.Rows.Count; i++)
-                {
-                    Hashtable dataItem = gridVentasxCobrar.Rows[i].ToHashtable();
-
-                    foreach (Column col in gridVentasxCobrar.Columns)
-                    {
-                        PdfPCell = new PdfPCell(new Phrase(new Chunk(dataItem[col.DataField].ToString(), font8)));
-                        PdfTable.AddCell(PdfPCell);
-                    }
-                }
-
-                PdfTable.SpacingBefore = 15f;
-
-                doc.Add(paragraph);
-                doc.Add(PdfTable);
-            }
-            catch (DocumentException docEx)
-            {
-                //handle pdf document exception if any
-            }
-            catch (IOException ioEx)
-            {
-                // handle IO exception
-            }
-            catch (Exception ex)
-            {
-                // ahndle other exception if occurs
-            }
-            finally
-            {
-                //Close document and writer
-                doc.Close();
-            }
-
-            // Send the data and the appropriate headers to the browser
-            Response.Clear();
-            Response.AddHeader("content-disposition", "attachment;filename=oboutGrid.pdf");
-            Response.ContentType = "application/pdf";
-            Response.BinaryWrite(fileStream.ToArray());
-            Response.End();
-            SetEstado("PRO");
         }
+
+        public void CargarClientes()
+        {
+            clsClientes lstClientes = new clsClientes();
+
+            ddlClientes.DataSource = lstClientes.GetAll();
+            ddlClientes.DataBind();
+            ddlClientes.Items.Insert(0, new ListItem("[TODOS]", "0"));
+
+            lstClientes = null;
+        }
+
+        public void RebindGrid(object sender, EventArgs e)
+        {
+            CreateGrid();
+        }
+
 
         protected void gridVentasxCobrar_ColumnsCreated(object sender, EventArgs e)
         {
@@ -287,10 +94,155 @@ namespace AgrocomercioWEB.Ventas
                 column.TemplateSettings.HeaderTemplateId = "Template1";
             }
         }
-       
+
+
+        //protected void Button1_Click(object sender, EventArgs e)
+        //{
+        //    string FileName = gridVentasxCobrar.ExportToExcel();
+        //    Download(gridVentasxCobrar.FolderExports.Replace("~", "..") + FileName);
+
+        //}
+
+        //static public void Download(string patch)
+        //{
+        //    System.IO.FileInfo toDownload =
+        //               new System.IO.FileInfo(HttpContext.Current.Server.MapPath(patch));
+
+        //    HttpContext.Current.Response.Clear();
+        //    HttpContext.Current.Response.AddHeader("Content-Disposition",
+        //               "attachment; filename=" + toDownload.Name);
+        //    HttpContext.Current.Response.AddHeader("Content-Length",
+        //               toDownload.Length.ToString());
+        //    HttpContext.Current.Response.ContentType = "application/octet-stream";
+        //    HttpContext.Current.Response.WriteFile(patch);
+        //    HttpContext.Current.Response.End();
+        //}
+        protected void gridVentasxCobrar_RowDataBound(object sender, GridRowEventArgs e)
+        {
+            if (e.Row.RowType == GridRowType.DataRow)
+            {
+                tempTotalUSD += double.Parse(e.Row.Cells[10].Text);
+                tempTotalPEN += double.Parse(e.Row.Cells[13].Text);
+                tempTotal += double.Parse(e.Row.Cells[14].Text);
+            }
+            else if (e.Row.RowType == GridRowType.GroupHeader)
+            {
+                //Literal textContainer = e.Row.Cells[0].Controls[0].Controls[1].Controls[0] as Literal;
+                if (!lastGroupHeaders.ContainsKey(e.Row.GroupLevel))
+                {
+                    lastGroupHeaders.Add(e.Row.GroupLevel, null);
+                }
+                lastGroupHeaders[e.Row.GroupLevel] = e.Row;
+            }
+            else if (e.Row.RowType == GridRowType.GroupFooter)
+            {
+                if (e.Row.GroupLevel > 0)
+                {
+                    for (int level = e.Row.GroupLevel - 1; level >= 0; level--)
+                    {
+                        if (!totalUSD.ContainsKey(level))
+                        {
+                            totalUSD.Add(level, 0);
+                            totalPEN.Add(level, 0);
+                            total.Add(level, 0);
+                        }
+
+                        totalUSD[level] += tempTotalUSD;
+                        totalPEN[level] += tempTotalPEN;
+                        total[level] += tempTotal;
+                    }
+                }
+
+                double totalUSDToDisplay = 0;
+                double totalPENToDisplay = 0;
+                double totalToDisplay = 0;
+
+                if (totalUSD.ContainsKey(e.Row.GroupLevel))
+                {
+                    totalUSDToDisplay = totalUSD[e.Row.GroupLevel];
+                    totalPENToDisplay = totalPEN[e.Row.GroupLevel];
+                    totalToDisplay = total[e.Row.GroupLevel];
+
+                    totalUSD[e.Row.GroupLevel] = 0;
+                    totalPEN[e.Row.GroupLevel] = 0;
+                    total[e.Row.GroupLevel] = 0;
+                }
+                else
+                {
+                    totalUSDToDisplay = tempTotalUSD;
+                    totalPENToDisplay = tempTotalPEN;
+                    totalToDisplay = tempTotal;
+                }
+
+                // Display information in Group header
+                Literal textContainer = lastGroupHeaders[e.Row.GroupLevel].Cells[0].Controls[0].Controls[lastGroupHeaders[e.Row.GroupLevel].Cells[0].Controls[0].Controls.Count - 1].Controls[0] as Literal;
+                textContainer.Text = "<div class='group-total'>" + textContainer.Text + "</div>";
+                textContainer.Text += "<div class='group-total' style='margin-left: " + (690 - (23 * e.Row.GroupLevel)).ToString() + "px;'>Totales: $" + totalUSDToDisplay.ToString() + "</div>";
+                textContainer.Text += "<div class='group-total' style='margin-left: " + (975 - (23 * e.Row.GroupLevel)).ToString() + "px;'>S/." + totalPENToDisplay.ToString() + "</div>";
+                textContainer.Text += "<div class='group-total' style='margin-left: " + (1055 - (23 * e.Row.GroupLevel)).ToString() + "px;'>S/." + totalToDisplay.ToString() + "</div>";
+
+
+                // Display information in Group footer            
+                e.Row.Cells[10].Text = "$" + totalUSDToDisplay.ToString();
+                e.Row.Cells[13].Text = "S/." + totalPENToDisplay.ToString();
+                e.Row.Cells[14].Text = "S/." + totalToDisplay.ToString();
+
+                //((Obout.Grid.Grid)sender).ShowGroupFooter = false;
+
+                tempTotalUSD = 0;
+                tempTotalPEN = 0;
+                tempTotal = 0;
+            }
+        }
+
+        protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CreateGrid();            
+        }
+
+        [System.Web.Script.Services.ScriptMethod()]
+        [System.Web.Services.WebMethod]
+        public static String[] BuscarClientes(string prefixText)
+        {
+            String[] sList = null;
+            List<string> sClienteList = new List<string>();
+            clsClientes lstClientes = new clsClientes();
+
+            try
+            {
+                DataTable dtClientes = lstClientes.BuscarClientes(prefixText);
+
+                if (dtClientes.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dtClientes.Rows.Count; i++)
+                    {
+                        sClienteList.Add(AjaxControlToolkit.AutoCompleteExtender.
+                          CreateAutoCompleteItem(dtClientes.Rows[i]["CliNombre"].ToString(), dtClientes.Rows[i]["CliCod"].ToString()));
+                    }
+                    sList = new String[10];
+                    sList = sClienteList.ToArray();
+                }
+                else
+                {
+                    sClienteList.Insert(0,AjaxControlToolkit.AutoCompleteExtender.
+                          CreateAutoCompleteItem("[TODOS]", "0"));
+
+                    sList = new String[1];
+                    sList = sClienteList.ToArray();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                lstClientes = null;
+            }
+            return sList;
+        }
 
         
     }
 }
-
 

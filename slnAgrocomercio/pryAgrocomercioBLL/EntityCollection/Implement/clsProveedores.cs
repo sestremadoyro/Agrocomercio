@@ -57,6 +57,10 @@ namespace pryAgrocomercioBLL.EntityCollection
         {
             return base.GetAll().OrderBy(Prv => Prv.PrvRazon);
         }
+        public List<Proveedores> GetProveedoresConArticulos()
+        {
+            return Find(Prv => Prv.Articulos.Count > 0).OrderBy(Prv => Prv.PrvRazon).ToList();
+        }
         public int MaxPrvCod()
         {
             if (base.GetAll().Count() > 0)

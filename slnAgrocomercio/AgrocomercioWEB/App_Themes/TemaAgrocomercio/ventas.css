@@ -48,11 +48,11 @@ table.tabPedidos tr td.tabDerecha2{
 	width: 12%;
 }
 table.tabPedidos tr td.tabIzquierda3{
-	width: 50%; 
+	width: 60%; 
 }
 
 table.tabPedidos tr td.tabDerecha3{
-	width:50%;
+	width:40%;
 }
 
 
@@ -257,9 +257,9 @@ table.tabPedidos tr td.tabDerecha3{
 	text-align: center; 
 	height: 1px; 
 	width: 1px; 
-	top: 0; 
-	right: 0; 
-	left: 0; 
+	top: 33px; 
+	right: 1271px; 
+	left: 13px; 
 	z-index: 8888888; 
 	background-color: #ffffff; 
 	opacity: 0.7; 
@@ -487,3 +487,45 @@ table.tabPedidos tr td.tabDerecha3{
 
 
 
+
+
+.group-total
+		{
+		    float: right;
+		    width:150px;
+		    position: absolute;
+		    top: 0px;
+		    overflow: hidden;
+		    white-space: nowrap;
+		}
+
+.comboBoxMaster
+{
+    position:relative;   
+}
+
+.comboBoxOver, .comboBoxOver2
+{
+    position:absolute;
+    z-index:100px;
+    width:350px;
+    height:12.5px;
+    border-bottom:1px solid #cccccc;
+	background:#fcfcfc; 
+}
+.comboBoxOver1
+{
+    position:absolute;
+    z-index:90px;
+    top:34px;
+    background:#ffffff;
+    width:350px;
+    height:3px;
+}
+
+.comboBoxOver2
+{
+    border-bottom:none;
+    border-top:1px solid #cccccc;
+    top:37px;
+}

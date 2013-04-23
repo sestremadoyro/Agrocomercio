@@ -393,14 +393,16 @@ namespace pryAgrocomercioBLL.EntityCollection
         }
 
 
-        public DataTable RepVentasXComprar()
+        public DataTable RepVentasXComprar(int pnCliCod = 0)
         {
             clsDocumenOperacion colDocumentos = new clsDocumenOperacion();
             clsdetletra colDetLetras = new clsdetletra();
 
             try
             {
-                var lstOperaciones = Find(Ope => Ope.OpeTipo == "V" && (Ope.OpeEstado == "P" || Ope.OpeEstado == "C") ).ToList();
+                var lstOperaciones = Find(Ope => Ope.OpeTipo == "V" && (Ope.OpeEstado == "P" || Ope.OpeEstado == "C") &&
+                                            ((pnCliCod != 0 && (int)Ope.CliCod == pnCliCod) || (pnCliCod == 0))
+                                            ).ToList();
 
                 var ListaOpeCod = lstOperaciones.Select(O => O.OpeCod).ToList<long>();
                 var facturas = colDocumentos.Find(D => D.tdoCod == 3 && ListaOpeCod.Contains(D.OpeCod)).ToList();
@@ -539,6 +541,8 @@ namespace pryAgrocomercioBLL.EntityCollection
                                 select new
                                 {
                                     nCorrela = ++nNumCor,
+                                    Det.Articulos.PrvCod,
+                                    Det.Articulos.Proveedores.PrvRazon,
                                     Det.ArtCod,
                                     Det.Articulos.ArtDescripcion,
                                     Det.Articulos.ArtStockIni,
@@ -560,6 +564,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 var lstKardex = from Kar in lstTemporal
                                 select new
                                 {
+                                    Kar.PrvCod, Kar.PrvRazon,
                                     Kar.ArtCod, Kar.ArtDescripcion, Kar.ArtStockIni, Kar.OpeFecEmision, Kar.Documento, Kar.Decripcion,
                                     Kar.nCom_Cantidad, Kar.nCom_Unidad, Kar.nCom_PreUnitario, Kar.nCom_Costo, Kar.nVen_Cantidad,
                                     Kar.nVen_Unidad, Kar.nVen_PreUnitario, Kar.nVen_Costo,

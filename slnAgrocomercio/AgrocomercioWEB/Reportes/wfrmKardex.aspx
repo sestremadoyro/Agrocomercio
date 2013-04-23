@@ -1,39 +1,74 @@
-﻿<%@ Page Title=".:Reportes de Compras:." Language="C#" MasterPageFile="~/Site.Master"
+﻿<%@ Page Title=".:Reportes de Kardex Fisico y Valorado:." Language="C#" MasterPageFile="~/Site.Master"
     AutoEventWireup="true" CodeBehind="wfrmKardex.aspx.cs" Inherits="AgrocomercioWEB.Reportes.wfrmKardex" %>
 
-<%@ Register Assembly="obout_ComboBox" Namespace="Obout.ComboBox" TagPrefix="cc4" %>
+<%@ Register Assembly="obout_Interface" Namespace="Obout.Interface" TagPrefix="obout" %>
+
+<%@ Register Assembly="obout_ComboBox" Namespace="Obout.ComboBox" TagPrefix="obout" %>
 <%@ Register Assembly="obout_Calendar2_Net" Namespace="OboutInc.Calendar2" TagPrefix="obout" %>
-<%@ Register Assembly="obout_ListBox" Namespace="Obout.ListBox" TagPrefix="cc2" %>
-<%@ Register Assembly="obout_Grid_NET" Namespace="Obout.Grid" TagPrefix="cc1" %>
+<%@ Register Assembly="obout_ListBox" Namespace="Obout.ListBox" TagPrefix="obout" %>
+<%@ Register Assembly="obout_Grid_NET" Namespace="Obout.Grid" TagPrefix="obout" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%@ Register Assembly="obout_Interface" Namespace="Obout.Interface" TagPrefix="cc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="../App_Themes/TemaAgrocomercio/ventas.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        div#ob_ctl00$MainContent$cbArticulosTrialDiv
+        {
+            top:-9999999;
+            z-index:-100;
+            font-weight:bold;
+            margin:200px;
+            cursor:crosshair;
+            display:none;
+            direction:none;
+        }
+        
+    </style>
     <script type="text/javascript">
 
+        document.getElementById("ob_ctl00$MainContent$cbArticulosTrialDiv").style.color = "blue";
+
         function exportToExcel() {
-            gridVentasxCobrar.exportToExcel();
+            gridKardex.exportToExcel();
             return false;
         }
 
         function exportToPdf() {
-            gridVentasxCobrar.exportToWord();
+            gridKardex.exportToWord();
             return false;
         }
 
+        function onChangePrv(sender, index) {
+            gridKardex.addFilterCriteria('PrvRazon', OboutGridFilterCriteria.EqualTo, sender.options[index].text);
+            gridKardex.executeFilter();
+        }
+
+        function onChangeArt(sender, index) {
+            gridKardex.addFilterCriteria('ArtDescripcion', OboutGridFilterCriteria.EqualTo, sender.options[index].text);
+            gridKardex.executeFilter();
+        }
+
+
+        var gridBodyStyle = null;
         function printGrid() {
-            gridBodyStyle = gridVentasxCobrar.GridBodyContainer.getAttribute('style');
-            gridVentasxCobrar.GridBodyContainer.style.maxHeight = '';
+            gridBodyStyle = gridKardex.GridBodyContainer.getAttribute('style');
+            gridKardex.GridBodyContainer.style.maxHeight = '';
+            gridKardex.GridMainContainer.style.width = gridKardex.HorizontalScroller.firstChild.firstChild.offsetWidth + 'px';
+            gridKardex.HorizontalScroller.style.display = 'none';
 
-            gridVentasxCobrar.print();
+            gridKardex.print();
 
-            window.setTimeout("gridVentasxCobrar.GridBodyContainer.setAttribute('style', gridBodyStyle);", 250);
+            window.setTimeout("gridKardex.GridBodyContainer.setAttribute('style', gridBodyStyle);", 250);
             return false;
         }
- 
+
+        
+
     </script>
+    <style type="text/css">
+        
+    </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:UpdateProgress ID="updateProgress" runat="server" AssociatedUpdatePanelID="MainUpdatePanel"
         DynamicLayout="true">
         <ProgressTemplate>
@@ -46,10 +81,9 @@
                     <asp:Image ID="imgUpdateProgress" runat="server" ImageUrl="../images/ajax-loader.gif"
                         AlternateText="Procesando ..." ToolTip="Trabajando ..." Style="height: 80px;
                         width: 80px;" />
-                    <span style="padding: 10px; font-size: 13px; font-weight: bold; color: #555555;">Procesando
-                        ... </span>
+                    <span style="padding: 10px; font-size: 13px; font-weight: bold; color: #555555;">Procesando...
+                    </span>
                 </div>
-                <asp:Label ID="Label8" runat="server" Text="Label"></asp:Label>
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
@@ -81,11 +115,39 @@
                                                 </td>
                                                 <td class="clsCellDatos2">
                                                     <asp:TextBox ID="txtTipCam" runat="server" ReadOnly="True" Text="2.56"></asp:TextBox>
+                                                    <asp:HiddenField ID="lblEstado" runat="server" ClientIDMode="Static" />   
                                                 </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="clsCellTituloDatos2">Proveedor: </td>
+                                                <td >
+                                                    <obout:ComboBox ID="cbProveedores" runat="server" Width="300" 
+                                                    FilterType="StartsWith" EmptyText="Buscar Proveedores ..."
+                                                    DataTextField="prvRazon" DataValueField="prvRazon" >
+                                                        <ClientSideEvents OnSelectedIndexChanged="onChangePrv" />
+                                                    </obout:ComboBox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="clsCellTituloDatos2">Articulos: </td>
+                                                <td >
+                                                    <div class="comboBoxMaster">
+                                                        <obout:ComboBox ID="cbArticulos" runat="server" Width="300" Height="150" 
+                                                        FilterType="StartsWith" EmptyText="Buscar Articulos ..."
+                                                        DataTextField="ArtDescripcion" DataValueField="ArtCod" >
+                                                            <ClientSideEvents OnSelectedIndexChanged="onChangeArt" />
+                                                        </obout:ComboBox>
+                                                        <div class="comboBoxOver"></div>
+                                                        <div class="comboBoxOver1"></div>
+                                                        <div class="comboBoxOver2"></div>
+                                                    </div>
+                                                    
+                                                </td>
+                                            </tr>
                                         </table>
                                     </asp:Panel>
                                 </td>
-                                <td class="tabDerecha3" valign="top">
+                                <td class="tabDerecha3" valign="top" >
                                     <div class="divDerecha">
                                         <asp:Panel runat="server" ID="pnBotones" CssClass="clspntablaDerecha">
                                             <table class="tablaDerecha">
@@ -97,21 +159,15 @@
                                                 </tr>
                                                 <tr>
                                                     <td valign="top">
-                                                        <asp:Button ID="btnProcesar" runat="server" Text="Procesar" ToolTip="Procesar" CssClass="clsBtnProcesar"
-                                                            OnClick="btnProcesar_Click" />
+                                                        <asp:Button ID="Button3" runat="server" Text="Imprimir" ToolTip="Imprimir" CssClass="clsBtnImprimir"
+                                                            OnClientClick="printGrid()" />
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="btnImprimir" runat="server" Text="Imprimir" ToolTip="Imprimir" CssClass="clsBtnImprimir"
-                                                            OnClientClick="printGrid()" OnClick="btnImprimir_Click" />
+                                                        <asp:Button ID="Button4" runat="server" Text="Excel" ToolTip="Excel" CssClass="clsBtnExcel"
+                                                            OnClientClick="exportToExcel()" />
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="btnExcel" runat="server" Text="Excel" ToolTip="Excel" CssClass="clsBtnExcel"
-                                                            OnClick="btnExcel_Click" />
-                                                    </td>
-                                                    <td valign="top">
-                                                        <asp:Button ID="btnPdf" runat="server" Text="A Pdf" ToolTip="Pdf" 
-                                                            CssClass="clsBtnPdf" onclick="btnPdf_Click"
-                                                             />
+                                                        <asp:Button ID="Button5" runat="server" Text="A Pdf" ToolTip="Pdf" CssClass="clsBtnPdf" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -120,92 +176,160 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="4">
-                                    <div style="text-align: center; color: Green; font-size: 14px; font-weight: bold;">
-                                        <asp:Label ID="lblExito" runat="server" Text="El Reporte de Proceso Correctamente."
-                                            Visible="false"></asp:Label></div>
-                                    <div style="text-align: center; color: Red; font-size: 14px; font-weight: bold;">
-                                        <asp:Label ID="lblError" runat="server" Text="No hay Registros para Procesar el Reporte"
-                                            Visible="false"></asp:Label></div>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td class="tablaDerecha" valign="top" colspan="2">
-                                    <table class="tablaDerecha">
+                                    <table class="tablaDerecha" >
                                         <tr>
                                             <td>
-                                                <div id="container" style="position: relative; width: 100%;">
-                                                    <cc1:Grid ID="gridVentasxCobrar" runat="server" AllowAddingRecords="False" AllowColumnResizing="False"
-                                                        CallbackMode="true" Serialize="true" AllowFiltering="True" AutoGenerateColumns="False"
-                                                        Width="100%" FolderStyle="..\App_Themes\TemaAgrocomercio\Grid\style_6"
-                                                        GroupBy="CliNombre" FolderLocalization="..\App_Themes\TemaAgrocomercio\Grid\localization"
-                                                        Language="es" OnFiltering="gridVentasxCobrar_Filtering" PageSize="50" FolderExports="~/TmpExports/">
+                                                <div id="Div1" style="position: relative; width: 100%;">
+
+
+                                                    <obout:Grid ID="gridKardex" runat="server" CallbackMode="true" Serialize="true"
+                                                        AutoGenerateColumns="false" PageSize="-1" AllowAddingRecords="false" ShowMultiPageGroupsInfo="false"
+                                                        AllowColumnResizing="true"
+                                                        ShowGroupFooter="true"  OnRowDataBound="gridVentasxCobrar_RowDataBound"
+                                                        AllowGrouping="true" GroupBy="PrvRazon,ArtCod" AllowFiltering="True" 
+                                                        Width="100%" HideColumnsWhenGrouping="True"
+                                                        FolderLocalization="~/App_Themes/TemaAgrocomercio/Grid/localization" Language="es"
+                                                        FolderStyle="~/App_Themes/TemaAgrocomercio/Grid/style_6" 
+                                                        FilterType="ProgrammaticOnly" >
                                                         <Columns>
-                                                            <cc1:Column DataField="ArtCod" HeaderText="Art.Codigo" Index="0" AllowGroupBy="False"
-                                                                AllowFilter="False" Width="70">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="ArtDescripcion" HeaderText="Articulo" Index="1" AllowGroupBy="False"
-                                                                AllowFilter="False" Width="130">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="ArtStockIni" HeaderText="Articulo Stock Inicial" Index="2" AllowGroupBy="False"
-                                                                AllowFilter="False" Width="60">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="OpeFecEmision" HeaderText="Fec.Emision" Index="3" DataFormatString="{0:d/M/yyyy}"
-                                                                AllowGroupBy="False" Width="190">
+                                                            <obout:Column DataField="PrvRazon" HeaderText="Proveedor" Index="0" Width="150">
+                                                            </obout:Column>
+                                                            <obout:Column DataField="ArtCod" HeaderText="Art.Codigo" Index="1" AllowFilter="False" Visible="false" >
+                                                            </obout:Column>
+                                                            <obout:Column DataField="ArtDescripcion" HeaderText="Articulo" Index="2" AllowGroupBy="False" Visible="false" 
+                                                                Width="150">
+                                                            </obout:Column>
+                                                            <obout:Column DataField="ArtStockIni" HeaderText="Art.Stock.Inicial" Index="3" AllowGroupBy="False"
+                                                                AllowFilter="False" Visible="false" >
+                                                            </obout:Column>
+                                                            <obout:Column DataField="OpeFecEmision" HeaderText="Fec.Emision" Index="4" DataFormatString="{0:d/M/yyyy}"
+                                                                AllowGroupBy="False" Width="90">
                                                                 <FilterOptions>
-                                                                    <cc1:CustomFilterOption IsDefault="true" ID="Between_OpeFecEmision" Text="Entre">
+                                                                    <obout:CustomFilterOption IsDefault="true" ID="Between_OpeFecEmision" Text="Entre">
                                                                         <TemplateSettings FilterTemplateId="OpeFecEmisionBetweenFilter" FilterControlsIds="StartDate_OpeFecEmision,EndDate_OpeFecEmision"
                                                                             FilterControlsPropertyNames="value,value" />
                                                                         <TemplateSettings FilterControlsIds="StartDate_OpeFecEmision,EndDate_OpeFecEmision"
                                                                             FilterControlsPropertyNames="value,value" FilterTemplateId="OpeFecEmisionBetweenFilter" />
-                                                                    </cc1:CustomFilterOption>
+                                                                    </obout:CustomFilterOption>
                                                                 </FilterOptions>
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="Documento" HeaderText="Nro Documento" Index="4" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="Documento" HeaderText="Nro Documento" Index="5" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="100">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="Decripcion" HeaderText="Descripcion" Index="5" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="Decripcion" HeaderText="Descripcion" Index="6" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="180">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nCom_Cantidad" HeaderText="Comp.Cantidad" Index="6" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nCom_Cantidad" HeaderText="Comp.Cantidad" Index="7" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="95">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nCom_Unidad" HeaderText="Comp.Unidad" Index="7" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nCom_Unidad" HeaderText="Comp.Unidad" Index="8" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="90">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nCom_PreUnitario" HeaderText="Comp.Precio.Unit" Index="8" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nCom_PreUnitario" HeaderText="Comp.Precio.Unit" Index="9" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="105">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nCom_Costo" HeaderText="Comp.Costo" Index="9" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nCom_Costo" HeaderText="Comp.Costo" Index="10" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="90">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nVen_Cantidad" HeaderText="Venta.Cantidad" Index="10" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nVen_Cantidad" HeaderText="Venta.Cantidad" Index="11" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="95">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nVen_Unidad" HeaderText="Venta.Unidad" Index="11" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nVen_Unidad" HeaderText="Venta.Unidad" Index="12" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="90">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nVen_PreUnitario" HeaderText="Venta.Precio.Unit" Index="12" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nVen_PreUnitario" HeaderText="Venta.Precio.Unit" Index="13" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="105">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nVen_Costo" HeaderText="Venta.Costo" Index="13" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nVen_Costo" HeaderText="Venta.Costo" Index="14" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="90">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nSal_Cantidad" HeaderText="Saldo.Cantidad" Index="14" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nSal_Cantidad" HeaderText="Saldo.Cantidad" Index="15" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="95">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nSal_Unidad" HeaderText="Saldo.Unidad" Index="15" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nSal_Unidad" HeaderText="Saldo.Unidad" Index="16" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="90">
-                                                            </cc1:Column>
-                                                            <cc1:Column DataField="nSal_CostoTotal" HeaderText="Saldo.Costo Total" Index="16" AllowGroupBy="False"
+                                                            </obout:Column>
+                                                            <obout:Column DataField="nSal_CostoTotal" HeaderText="Saldo.Costo Total" Index="17" AllowGroupBy="False"
                                                                 AllowFilter="False" Width="110">
-                                                            </cc1:Column>
+                                                            </obout:Column>
                                                         </Columns>
-                                                        <ScrollingSettings ScrollWidth="870px" />
-                                                        <ExportingSettings ExportAllPages="True" ExportColumnsFooter="True" ExportDetails="True"
-                                                            ExportGroupFooter="True" ExportGroupHeader="True" FileName="Kardex"
-                                                            KeepColumnSettings="True" />
-                                                    </cc1:Grid>
+                                                        <GroupingSettings AllowChanges="False" />
+                                                        <ScrollingSettings ScrollWidth="870" ScrollHeight="350" />
+                                                        <ExportingSettings Encoding="UTF8" ExportAllPages="True" FileName="Kardex"
+                                                            KeepColumnSettings="True" ExportGroupFooter="true"  />
+                                                        <CssSettings 
+                                                             CSSExportHeaderCellStyle="font-weight: bold; color: #000000;  border:1px solid #222; background:#ddd;"
+                                                             CSSExportCellStyle="font-weight: normal; color: #111111; border:1px solid #444;"/>
+                                                        <Templates>
+                                                            <obout:GridTemplate runat="server" ID="OpeFecEmisionBetweenFilter">
+                                                                <Template>
+                                                                    <div style="width: 99%; padding: 0px; margin: 0px; font-size: 5px;">
+                                                                        <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+                                                                            <tr>
+                                                                                <td valign="middle">
+                                                                                    <input readonly="readonly" type="text" id="StartDate_OpeFecEmision" style="width: 45px;
+                                                                                        font-size: 9px" />
+                                                                                </td>
+                                                                                <td valign="middle" width="30">
+                                                                                    <obout:Calendar ID="cal1" runat="server" StyleFolder="..\App_Themes\TemaAgrocomercio\calendar\styles\default"
+                                                                                        DatePickerMode="true" DateFormat="d/M/yyyy" YearSelectorType="HtmlList" TitleText="<span style='color:crimson'>Eliga el Año:</span> "
+                                                                                        DatePickerImagePath="..\App_Themes\TemaAgrocomercio\calendar\styles\icon2.gif"
+                                                                                        TextBoxId="StartDate_OpeFecEmision">
+                                                                                    </obout:Calendar>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="separator">
+                                                                                        -</div>
+                                                                                </td>
+                                                                                <td valign="middle">
+                                                                                    <input readonly="readonly" type="text" id="EndDate_OpeFecEmision" style="width: 45px;
+                                                                                        font-size: 9px" />
+                                                                                </td>
+                                                                                <td valign="middle" width="30">
+                                                                                    <obout:Calendar ID="cal2" runat="server" StyleFolder="..\App_Themes\TemaAgrocomercio\calendar\styles\default"
+                                                                                        DatePickerMode="true" DateFormat="d/M/yyyy" YearSelectorType="HtmlList" TitleText="<span style='color:crimson'>Eliga el Año:</span> "
+                                                                                        DatePickerImagePath="..\App_Themes\TemaAgrocomercio\calendar\styles\icon2.gif"
+                                                                                        TextBoxId="EndDate_OpeFecEmision">
+                                                                                    </obout:Calendar>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </Template>
+                                                            </obout:GridTemplate>
+                                                            <obout:GridTemplate runat="server" ID="ZonasFilter" ControlID="ddlZonas" ControlPropertyName="value">
+                                                                <Template>
+                                                                    <obout:OboutDropDownList runat="server" ID="ddlZonas" Width="100%" MenuWidth="100"
+                                                                        FolderStyle="~/App_Themes/TemaAgrocomercio/Grid/style_6/interface/OboutDropDownList" DataSourceID="odsZonas"
+                                                                        DataTextField="AtrDescripcion" DataValueField="AtrCodigo" />
+                                                                </Template>
+                                                            </obout:GridTemplate>
+                                                            <obout:GridTemplate runat="server" ID="VendedorFilter" ControlID="ddlVendedor" ControlPropertyName="value">
+                                                                <Template>
+                                                                    <obout:OboutDropDownList runat="server" ID="ddlVendedor" Width="100%" MenuWidth="100"
+                                                                        FolderStyle="~/App_Themes/TemaAgrocomercio/Grid/style_6/interface/OboutDropDownList" DataSourceID="odsVendedor"
+                                                                        DataTextField="PerNombres" DataValueField="perCod" />
+                                                                </Template>
+                                                            </obout:GridTemplate>
+                                                        </Templates>
+                                                    </obout:Grid>
+                                                    
+                                                     <asp:ObjectDataSource ID="odsZonas" runat="server" SelectMethod="ListDataAtributos"
+                                                        TypeName="pryAgrocomercioBLL.EntityCollection.clsAtributos">
+                                                        <SelectParameters>
+                                                            <asp:Parameter DefaultValue="4" Name="pcAtrTipoCod" />
+                                                        </SelectParameters>
+                                                    </asp:ObjectDataSource>
+                                                    <asp:ObjectDataSource ID="odsVendedor" runat="server" SelectMethod="GetDataPersonalPorTipo"
+                                                        TypeName="pryAgrocomercioBLL.EntityCollection.clsPersonal">
+                                                        <SelectParameters>
+                                                            <asp:Parameter DefaultValue="2" Name="pnTpecod" />
+                                                        </SelectParameters>
+                                                    </asp:ObjectDataSource>
+
+
+                                                    
                                                 </div>
                                             </td>
                                         </tr>
@@ -218,4 +342,5 @@
             </table>
         </ContentTemplate>
     </asp:UpdatePanel>
+
 </asp:Content>

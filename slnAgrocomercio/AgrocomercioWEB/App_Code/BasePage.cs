@@ -25,19 +25,10 @@ namespace AgrocomercioWEB
         public int nNroDetPed = 15;
         public Double nTasIGV;
 
-        public BasePage()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-
-
         protected void Esperar(int nTiempo)
         {
             Thread.Sleep(nTiempo);
         }
-
 
         protected int ExtraeQueryStringEntero(string var)
         {

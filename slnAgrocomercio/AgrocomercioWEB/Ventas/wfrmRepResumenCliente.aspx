@@ -1,14 +1,13 @@
 ﻿<%@ Page Title=".:Reportes de Resumen de Clientes:." Language="C#" MasterPageFile="~/Site.Master"
     AutoEventWireup="true" CodeBehind="wfrmRepResumenCliente.aspx.cs" Inherits="AgrocomercioWEB.Reportes.wfrmRepResumenCliente" %>
 
+<%@ Register Assembly="obout_Interface" Namespace="Obout.Interface" TagPrefix="cc3" %>
+
 <%@ Register Assembly="obout_ComboBox" Namespace="Obout.ComboBox" TagPrefix="cc4" %>
 <%@ Register Assembly="obout_Calendar2_Net" Namespace="OboutInc.Calendar2" TagPrefix="obout" %>
 <%@ Register Assembly="obout_ListBox" Namespace="Obout.ListBox" TagPrefix="cc2" %>
 <%@ Register Assembly="obout_Grid_NET" Namespace="Obout.Grid" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%@ Register Assembly="obout_Interface" Namespace="Obout.Interface" TagPrefix="cc3" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%@ Register Assembly="obout_Interface" Namespace="Obout.Interface" TagPrefix="cc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="../App_Themes/TemaAgrocomercio/ventas.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
@@ -141,8 +140,8 @@
                                                 <div id="container" style="position: relative; width: 100%;">
                                                         <cc1:Grid ID="gridVentasxCobrar" runat="server" AllowAddingRecords="False" AllowColumnResizing="False"
                                                             CallbackMode="true" Serialize="true" AllowFiltering="True" AutoGenerateColumns="False"
-                                                            Width="100%" FolderStyle="..\App_Themes\TemaAgrocomercio\Grid\style_6" GroupBy="CliNombre"
-                                                            FolderLocalization="..\App_Themes\TemaAgrocomercio\Grid\localization" Language="es" PageSize="-1" AllowPaging="false"
+                                                            Width="100%"  FolderStyle="~/App_Themes/TemaAgrocomercio/Grid/style_6"
+                                                            FolderLocalization="~/App_Themes/TemaAgrocomercio/Grid/localization" Language="es" PageSize="-1" AllowPaging="false"
                                                             OnFiltering="gridVentasxCobrar_Filtering" FolderExports="~/TmpExports/" oncolumnscreated="gridVentasxCobrar_ColumnsCreated"
                                                              >
                                                             <Columns>
@@ -217,6 +216,9 @@
                                                                 <asp:Parameter DefaultValue="4" Name="pcAtrTipoCod" />
                                                             </SelectParameters>
                                                         </asp:ObjectDataSource>
+                                                   
+                                         
+
                                                     </div>
                                             </td>
                                         </tr>
