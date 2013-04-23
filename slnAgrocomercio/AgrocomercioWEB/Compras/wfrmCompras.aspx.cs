@@ -1942,6 +1942,7 @@ namespace AgrocomercioWEB.Compras
                         else
                             NewRow["dtpDscto"] = (double.Parse(txtArtDescuento.Text) * 100) / (double.Parse(txtArtPreUnitario.Text) * double.Parse(txtArtCant.Text));
                         NewRow["dtpSubTotal"] = Double.Parse(txtImpTotal.Text)*nTipCam;
+                        NewRow["LotFecVenci"] = txtLotVenci.Text==""?DateTime.Today.AddMonths(1):DateTime.Parse(txtLotVenci.Text);
                         dtDetalleCompra.Rows.Add(NewRow);
                     }
 

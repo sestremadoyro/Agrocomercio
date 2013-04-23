@@ -518,6 +518,7 @@ namespace AgrocomercioWEB
             dtResult.Columns.Add(new DataColumn("dtpPrecioVen", typeof(Double)));
             dtResult.Columns.Add(new DataColumn("dtpDscto", typeof(Double)));
             dtResult.Columns.Add(new DataColumn("dtpSubTotal", typeof(Double)));
+            dtResult.Columns.Add(new DataColumn("LotFecVenci", typeof(DateTime)));
 
             return dtResult;
         }

@@ -85,7 +85,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                             DetOper.LotesArt.LotStock = DetOper.dtpCantidad;
                             DetOper.LotesArt.LprCod = nLprCod;
                             DetOper.LotesArt.LotFecRegis = DateTime.Today;
-                            DetOper.LotesArt.LotFecVenci = DateTime.Today.AddDays(30);
+                            DetOper.LotesArt.LotFecVenci = DateTime.Parse(row["LotFecVenci"].ToString());
                             DetOper.LotesArt.LotFecModi = DateTime.Now;
                             DetOper.LotesArt.LotEstado = false;
                         }
@@ -216,7 +216,8 @@ namespace pryAgrocomercioBLL.EntityCollection
                     Det.dtpCantidad,
                     Det.dtpPrecioVen,
                     Det.dtpDscto,
-                    Det.dtpSubTotal
+                    Det.dtpSubTotal,
+                    Det.LotesArt.LotFecVenci
                 })
                 .AsQueryable());
 
