@@ -1,0 +1,62 @@
+ALTER VIEW [dbo].[fac_pnd_let] (
+valor,dfecemision, dopCod, numfac, PrvRazon, opetotpagar,OpeTotal, PrvCod, monedas, percod, tranom
+
+)
+AS
+SELECT    OP.OpeTipo AS valor, CAST(
+DO.dopFecEmision as date) AS dfecemision, DO.dopCod, DO.dopNroSerie + '-' + DO.dopNumero AS numfac, 
+                      CASE WHEN OpeTipo = 'C' THEN
+                          (SELECT     PrvRazon
+                            FROM          Proveedores
+                            WHERE      PrvCod = OP.PrvCod) ELSE
+                          (SELECT     CliNombre
+                            FROM          Clientes
+                            WHERE      CliCod = OP.CliCod) END AS PrvRazon, 
+                            OP.OpeTotPagar, OP.opetotal,
+                            CASE WHEN OpeTipo = 'C' THEN OP.PrvCod ELSE OP.CliCod END AS PrvCod
+                            ,dopMoneda , OP.PerCod, (select perNombres from Personal where perCod=OP.PerCod) as TraNombre
+FROM         dbo.DocumenOperacion AS DO INNER JOIN
+                      dbo.Operaciones AS OP ON DO.OpeCod = OP.OpeCod
+WHERE     ((DO.tdoCod IN (2, 4) AND OpeTipo ='C')
+        OR (DO.tdoCod IN (3, 5) AND OpeTipo ='V')
+        OR (DO.tdoCod = (4) AND OpeTipo ='V' and(select COUNT(*) from DocumenOperacion DCO where DCO.OpeCod = do.OpeCod)=1) ) AND (DO.icodletra IS NULL) AND (OP.OpeTipPago = 'CR') and OP.OpeEstado ='P'
+GO
+
+
+
+ALTER VIEW [dbo].[fac_x_letra] (
+icodletra, valor, dfecemision, dfecultpag, dfecnxtvct, dopCod, OpeCod, numfac, 
+PrvRazon, opetotpagar, OpeTotal, OpeTotPagPen, PrvCod, moneda, opeestado, estado, 
+percod, tra, idet_letra, nsalvenc
+
+
+)
+AS 
+
+select icodletra, valor, dfecemision, dfecultpag, dfecnxtvct, dopCod, OpeCod, numfac, PrvRazon, opetotpagar, OpeTotal, OpeTotPagPen, PrvCod, moneda, opeestado, estado, percod, tra, idet_letra,
+Convert(numeric(17,2), coalesce ((select nmonto - (select coalesce (sum(nmonto),0) from Pag_letras where idetletra= idet_letra)from det_letra where idetletra= idet_letra ),0)* nporDesc/100 ) as nsalvenc from (
+select icodletra, opetipo as valor,
+cast (dopfecemision as date) as dfecemision, 
+cast ((select max(dfecpago) from det_letra where icodletra=do.icodletra)as date) as dfecultpag, 
+cast ((select min(dfecvenc) from det_letra where icodletra=do.icodletra and cestado=1)as date) as dfecnxtvct,
+dopCod, op.OpeCod , dopNroSerie +'-'+ dopNumero as numfac,
+case when OpeTipo ='C' then 
+(select PrvRazon from Proveedores where PrvCod =  OP.PrvCod)
+else 
+(select CliNombre  from Clientes  where CliCod  =  OP.CliCod ) end as PrvRazon, 
+opetotpagar , OpeTotal,OpeTotPagPen
+, case when OpeTipo ='C' then 
+OP.PrvCod else OP.CliCod  end as PrvCod,dopMoneda as moneda,
+opeestado, case when opeestado ='P' then 'Pendiente' else 'Cancelado' end as estado
+,percod, (select perNombres+' '+perApellidoPat from Personal PER where per.perCod= OP.PerCod) as tra
+,(select MIN(idetletra) from det_letra where icodletra=do.icodletra and cestado =1) as idet_letra
+,OP.nporDesc
+from DocumenOperacion as DO
+inner join Operaciones as OP on do.OpeCod= OP.OpeCod
+
+where ((tdoCod in (2, 4) and OpeTipo='C') or 
+       (tdoCod in (3, 5) and OpeTipo='V') or
+       (tdoCod in (4) and OpeTipo='V' and(select COUNT(*) from DocumenOperacion DCO where DCO.OpeCod = do.OpeCod)=1))  and icodletra is not null and OpeTipPago ='CR'
+
+) as tabla
+GO
