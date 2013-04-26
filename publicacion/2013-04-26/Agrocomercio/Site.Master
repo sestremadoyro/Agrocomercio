@@ -1,0 +1,91 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="AgrocomercioWEB.SiteMaster" %>
+
+<%@ Register Assembly="obout_EasyMenu_Pro" Namespace="OboutInc.EasyMenu_Pro" TagPrefix="oem" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1" runat="server">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>AGROCOMERCIO S.R.L.</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <%--<link href="style.css" rel="stylesheet" type="text/css" media="screen" />--%>
+    <link href="App_Themes/TemaAgrocomercio/FormStyleSheet.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/TemaAgrocomercio/style.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/TemaAgrocomercio/ventas.css" rel="stylesheet" type="text/css" />
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+<form id="Form1" runat="server">
+<div id="wrapper">
+	<div id="logo">
+	    <div style="float: left; width:140px;">
+            <img id="Img1" src="images/agroco.JPG"  width="140" height="80"  runat="server" alt=""/>
+        </div>
+        <div style="float: left; width:780px;">
+		    <h1><a href="#">AGROCOMERCIO S.R.L</a></h1>
+		    <p><em> Distribuidora de productos agropecuarios y veterinarios</em></p>
+		</div>  
+	</div>
+	<hr />
+	<!-- end #logo -->
+    <div id="search">
+      
+         <asp:Label ID="lblUsuario" runat="server" 
+                  Text="{Bienvenido Usuario}" CssClass="cls_search_text" 
+             ForeColor="White"></asp:Label><br />
+         &nbsp;<asp:Button ID="butCierre" runat="server" 
+                  Text="Cerrar Sesión" CssClass="cls_search-submit" 
+             onclick="butCierre_Click" UseSubmitBehavior="False" />  
+    &nbsp;  
+    </div>
+	<div id="header">
+	</div>
+	<!-- end #header-wrapper -->
+	<div id="page">
+        <div  id="page-menu">
+                <oem:EasyMenu id="EasymenuMain" runat="server" ShowEvent="Always" StyleFolder="~/App_Themes/TemaAgrocomercio/EasyMenu/Horizontal1"
+		            Position="Horizontal" CSSMenu="ParentMenu" 
+                    CSSMenuItemContainer="ParentItemContainer" Width="100%" Align="Under">
+		            <CSSClassesCollection>
+			            <oem:CSSClasses ObjectType="OboutInc.EasyMenu_Pro.MenuItem" ComponentSubMenuCellOver="ParentItemSubMenuCellOver"
+				            ComponentContentCell="ParentItemContentCell" Component="ParentItem" ComponentSubMenuCell="ParentItemSubMenuCell"
+				            ComponentIconCellOver="ParentItemIconCellOver" ComponentIconCell="ParentItemIconCell"
+				            ComponentOver="ParentItemOver" ComponentContentCellOver="ParentItemContentCellOver"></oem:CSSClasses>
+			            <oem:CSSClasses ObjectType="OboutInc.EasyMenu_Pro.MenuSeparator" ComponentSubMenuCellOver="ParentSeparatorSubMenuCellOver"
+				            ComponentContentCell="ParentSeparatorContentCell" Component="ParentSeparator"
+				            ComponentSubMenuCell="ParentSeparatorSubMenuCell" ComponentIconCellOver="ParentSeparatorIconCellOver"
+				            ComponentIconCell="ParentSeparatorIconCell" ComponentOver="ParentSeparatorOver"
+				            ComponentContentCellOver="ParentSeparatorContentCellOver"></oem:CSSClasses>
+		            </CSSClassesCollection>
+		            <Components>
+		            </Components>
+	            </oem:EasyMenu>
+                <asp:PlaceHolder ID="Menu_placeHolder" runat="server"></asp:PlaceHolder>
+        	</div>
+        <div id="page-bgtop">
+            <div id="content">
+			    <div class="post">
+                    <asp:ScriptManager ID="ScriptManager1" runat="server">
+                    </asp:ScriptManager>
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+			    </div>
+		    </div>
+		    <!-- end #content -->
+		    <!-- end #sidebar -->
+
+        </div>
+	</div>
+	<!-- end #page -->
+	<div id="footer-bgcontent">
+	    <div id="footer">
+		    <p>Copyright (c) 2012. Derechos Reservados. Agrocomercio S.R.L.</p>
+	    </div>
+	</div>
+	<!-- end #footer -->
+</div>
+</form>
+</body>
+</html>

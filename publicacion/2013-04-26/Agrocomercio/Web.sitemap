@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="#" title="Almacenes"  description="Almacenes">
+      <siteMapNode url="~/compras/wfrmCompras.aspx" title="Compras" description="Compras" />
+      <siteMapNode url="~/maestros/webforms/wfrmArticulos.aspx" title="Articulos" description="Mantenimiento de Productos" />
+      <siteMapNode url="~/maestros/webforms/wfrmProveedores.aspx" title="Proveedores" description="Mantenimiento de Laboratorios" />
+      <siteMapNode url="~/Reportes/wfrmKardex.aspx" title="Kardex" description="Kardex" />
+    </siteMapNode>
+  <siteMapNode url="#" title="Ventas"  description="Ventas">
+    <siteMapNode url="~/ventas/wfrmVentas.aspx" title="Registro Ventas" description="Registrar las Ventas" />
+    <siteMapNode url="~/pagos/wfrmLetraVenta.aspx" title="Generar Pagos" description="Registrar los Pagos" />
+    <siteMapNode url="~/pagos/wfrmLiqCombranza.aspx" title="Pagos " description="Pagos" />
+    <siteMapNode url="~/pagos/wfrmNotasVentas.aspx" title="Nota Clientes" description="Registrar las Notas" />
+    <siteMapNode url="#" title="Reportes-Ventas"  description="Reportes-Ventas">
+      <siteMapNode url="~/pagos/wfrmPagxLetra.aspx" title="Pagos x Letra." description="Pagos por Letra" />      
+      <siteMapNode url="~/pagos/wfrmRptLetraVenta.aspx" title="Letras" description="Letras" />
+      <siteMapNode url="~/Ventas/wfrmRepVentasXCobrar.aspx" title="Ventas x Cobrar General" description="Ventas por Cobrar General" />
+      <siteMapNode url="~/Ventas/wfrmRepResumenCliente.aspx" title="Resumen de Clientes" description="Resumen de Clientes" />
+    </siteMapNode>
+  </siteMapNode>
+  <siteMapNode url="#" title="Mantenimientos"  description="Mantenimiento de Tablas">
+    <siteMapNode url="~/maestros/webforms/wfrmAtributos.aspx" title="Tipos" description="Mantenimiento de Tipos" />
+    <siteMapNode url="~/maestros/webforms/wfrmTipoCambio.aspx" title="Cambios de Moneda" description="Mantenimiento Tipo de Cambio de Monedas" />
+    <siteMapNode url="~/maestros/webforms/wfrmClientes.aspx" title="Clientes" description="Mantenimiento de Clientes" />
+    <siteMapNode url="~/maestros/webforms/wfrmTransportista.aspx" title="Transportistas" description="Mantenimiento de Transportistas" />
+    <siteMapNode url="~/maestros/webforms/wfrmRoles.aspx" title="Roles" description="Mantenimiento de Roles" />
+    <siteMapNode url="~/maestros/webforms/wfrmUsuarios.aspx" title="Usuarios" description="Mantenimiento de Usuarios" />
+    <siteMapNode url="~/maestros/webforms/wfrmTipoPersonal.aspx" title="Tipo de Personal" description="Mantenimiento de Tipo Personal" />
+    <siteMapNode url="~/maestros/webforms/wfrmPersonal.aspx" title="Personal" description="Mantenimiento de Personal" />
+  </siteMapNode>
+  <siteMapNode url="#" title="Compras"  description="Letras">
+    <siteMapNode url="~/pagos/wfrmLetraCompra.aspx" title="Registro Letras" description="Registrar las Letras" />
+    <siteMapNode url="~/pagos/wfrmNotasCompras.aspx" title="Notas Proveedores" description="Registrar las Notas" />
+    <siteMapNode url="~/pagos/wfrmPagoLetras.aspx" title="Pago de Letras" description="Pago de Letras" />
+    <siteMapNode url="#" title="Reportes-Compras"  description="Reportes-Compras">
+      <siteMapNode url="~/compras/wfrmReportesCompras.aspx" title="Compras x Proveedor" description="Compras x Proveedor" />
+      <siteMapNode url="~/pagos/wfrmrptLetra.aspx" title="Pagos x Letra." description="Pagos por Letra" />
+      <siteMapNode url="~/pagos/wfrmrptcompracredito.aspx" title="Compras al Credito" description="Pagos " />      
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>
