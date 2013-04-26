@@ -616,7 +616,6 @@
     <Content Include="pagos\wfrmPagxLetra.aspx" />
     <Content Include="pagos\wfrmRepNotasCompras.aspx" />
     <Content Include="pagos\wfrmRepNotasVentas.aspx" />
-    <Content Include="Reportes\aspnet_totals_groups.aspx" />
     <Content Include="Reportes\ImpresionBoleta.aspx" />
     <Content Include="Reportes\ImpresionNotaGeneral.aspx" />
     <Content Include="Reportes\ImpresionNotaPedido.aspx" />

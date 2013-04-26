@@ -31,20 +31,34 @@ namespace AgrocomercioWEB.Reportes.Clases
         private string m_OpeTipCiclo;
         private string m_OpeCiclo;
 
+
         // para la guia de remision
         private string m_Destinatario;
         private string m_PLlegada;
         private string m_NroFactura;
         private string m_Unidad;
+        private string m_PPartida;
+        private string m_dFecTraslado;       
         
+
+        public string PPartida
+        {
+            get { return m_PPartida; }
+            set { m_PPartida = value; }
+        }
+        
+        public string dFecTraslado
+        {
+            get { return m_dFecTraslado; }
+            set { m_dFecTraslado = value; }
+        }
 
         public string Unidad
         {
             get { return m_Unidad; }
             set { m_Unidad = value; }
         }
-
-
+        
         public string NroFactura
         {
             get { return m_NroFactura; }

@@ -125,6 +125,18 @@ namespace AgrocomercioWEB.Ventas
         {
             get { return lbldopCod.Value.Trim() == "" ? 0 : Convert.ToInt64(lbldopCod.Value); }
         }
+        public DateTime? ddopFecTraslado
+        {
+            get
+            {
+                if (txtFecTraslado.Text == "") return null;
+                else return Convert.ToDateTime(txtFecTraslado.Text);
+            }
+        }
+        public String cdopPunPartida
+        {
+            get { return txtPuntoPartida.Text; }
+        }
 
 
 
@@ -987,6 +999,8 @@ namespace AgrocomercioWEB.Ventas
             txtFecFin.Text = "";
             txtCiclo.Text = "";
             lblOpeEstado.Value = "";
+            txtPuntoPartida.Text = "";
+            txtFecTraslado.Text = "";
             ddlTipCiclo.SelectedIndex = 2;
 
             txtDireccion.Text = "";
@@ -1030,6 +1044,8 @@ namespace AgrocomercioWEB.Ventas
             ddlTipCiclo.Enabled = Value;
             txtCiclo.Enabled = Value;
             txtTipCambio.Enabled = Value;
+            txtPuntoPartida.Enabled = Value;
+            txtFecTraslado.Enabled = Value;
         }
 
         private void AsignarFuncionBotonImprimir()
@@ -1207,6 +1223,8 @@ namespace AgrocomercioWEB.Ventas
             dtResult.Columns.Add(new DataColumn("Unidad", typeof(String)));
             dtResult.Columns.Add(new DataColumn("dOpeTipCiclo", typeof(String)));
             dtResult.Columns.Add(new DataColumn("dOpeCiclo", typeof(String)));
+            dtResult.Columns.Add(new DataColumn("PPartida", typeof(String)));
+            dtResult.Columns.Add(new DataColumn("dFecTraslado", typeof(String)));
 
             return dtResult;
         }
@@ -1229,8 +1247,8 @@ namespace AgrocomercioWEB.Ventas
             DataTable dtCabeceraOperacion = CreatDTCabeceraVenta();
 
             int OpeCod = int.Parse(lblNroPedido.Text);
-            
-            string NroGuia = "", NroFactura = "", moneda = "", NroPedido = "";
+
+            string NroGuia = "", NroFactura = "", moneda = "", NroPedido = "", cPuntoPartida = "", cFecTraslado = "";
 
             DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 3);
             if (DocumenOpe != null)
@@ -1241,6 +1259,13 @@ namespace AgrocomercioWEB.Ventas
             if (DocumenOpe != null)
             {
                 NroGuia = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
+                if (DocumenOpe.dopPunPartida != null)
+                    cPuntoPartida = DocumenOpe.dopPunPartida;
+                if (DocumenOpe.dopFecTraslado != null)
+                    cFecTraslado = ((DateTime)DocumenOpe.dopFecTraslado).ToString("yyyy-MM-dd");
+                else
+                    cFecTraslado = ((DateTime)DocumenOpe.dopFecEmision).ToString("yyyy-MM-dd");
+
             }
             DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 4);
             if (DocumenOpe != null)
@@ -1273,6 +1298,8 @@ namespace AgrocomercioWEB.Ventas
             newRow["PLlegada"] = txtDireccion.Text;
             newRow["NroFactura"] = NroFactura;
             newRow["Unidad"] = "";
+            newRow["PPartida"] = cPuntoPartida;
+            newRow["dFecTraslado"] = cFecTraslado;
             if (ddlTipoVenta.SelectedValue == "CR")
             {
                 newRow["dOpeTipCiclo"] = ddlTipCiclo.SelectedItem.Text;
@@ -1504,10 +1531,29 @@ namespace AgrocomercioWEB.Ventas
                 lblNroDocumento.Text = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
                 txtFecha.Text = ((DateTime)DocumenOpe.dopFecEmision).ToString("yyyy-MM-dd");
 
+                lblFecTraslado.Visible = false;
+                txtFecTraslado.Visible = false;
+                lblPuntoPartida.Visible = false;
+                txtPuntoPartida.Visible = false;
+                txtFecTraslado.Text = "";
+                txtPuntoPartida.Text = "";
+
                 switch (lblTipoDoc.Value)
                 {
                     case "2":
                         btnImprimir.OnClientClick = "AbrirVentanaGuia()";
+                        lblFecTraslado.Visible = true;
+                        txtFecTraslado.Visible = true;
+                        lblPuntoPartida.Visible = true;
+                        txtPuntoPartida.Visible = true;
+                        if (DocumenOpe.dopFecTraslado != null)
+                            txtFecTraslado.Text = ((DateTime)DocumenOpe.dopFecTraslado).ToString("yyyy-MM-dd");
+                        else
+                            txtFecTraslado.Text = ((DateTime)DocumenOpe.dopFecEmision).ToString("yyyy-MM-dd");
+                        if (DocumenOpe.dopPunPartida != null)
+                            txtPuntoPartida.Text = DocumenOpe.dopPunPartida;
+                        else
+                            txtPuntoPartida.Text = "";
                         break;
                     case "4":
                         btnImprimir.OnClientClick = "AbrirVentanaNota()";

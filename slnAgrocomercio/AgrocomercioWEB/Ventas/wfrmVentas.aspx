@@ -305,6 +305,20 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="clsCellTituloDatos2" >
+                                <asp:Label ID="lblPuntoPartida" runat="server" Text="Punto de Partida: "></asp:Label></td>
+                            <td class="clsCellDatos2" colspan="3">
+                                <asp:TextBox ID="txtPuntoPartida" runat="server" Width="270px" ></asp:TextBox></td>
+                            <td class="clsCellTituloDatos2" >
+                                <asp:Label ID="lblFecTraslado" runat="server" Text="Fecha de Traslado: "></asp:Label></td>
+                            <td  class="clsCellDatos2">
+                                <asp:TextBox ID="txtFecTraslado" runat="server" Width="100px" ></asp:TextBox>
+                                <asp:CalendarExtender ID="txtFecTraslado_CalendarExtender" runat="server" 
+                                    TargetControlID="txtFecTraslado" Format="yyyy-MM-dd"
+                                    PopupButtonID="Image2" Enabled="True" ></asp:CalendarExtender>
+                            </td>                                       
+                        </tr>
+                        <tr>
                             <td colspan="6" >&nbsp;&nbsp;
                                 <asp:HiddenField ID="lblDescuentoEsp" runat="server" Value="0.0" />
                             </td>                                    

@@ -62,6 +62,9 @@ namespace pryAgrocomercioBLL.EntityCollection
                 DocumenOpe.dopNroImpre = NroImpre;
                 DocumenOpe.dopFecEmision = Convert.ToDateTime(drForm["dOpeFecEmision"]);
                 DocumenOpe.dopEstado = "A";
+                DocumenOpe.dopPunPartida = drForm["cdopPunPartida"].ToString();
+                if (DocumenOpe.tdoCod == 2)
+                    DocumenOpe.dopFecTraslado = Convert.ToDateTime(drForm["ddopFecTraslado"]);
 
                 if (cProceso == "NEW" || cProceso == "NEWDOC")
                     Add(DocumenOpe);
