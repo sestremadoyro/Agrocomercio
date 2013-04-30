@@ -517,15 +517,15 @@ table.tabPedidos tr td.tabDerecha3{
 {
     position:absolute;
     z-index:90px;
-    top:34px;
+    top:35px;
     background:#ffffff;
     width:350px;
-    height:3px;
+    height:4px;
 }
 
 .comboBoxOver2
 {
     border-bottom:none;
     border-top:1px solid #cccccc;
-    top:37px;
+    top:39px;
 }

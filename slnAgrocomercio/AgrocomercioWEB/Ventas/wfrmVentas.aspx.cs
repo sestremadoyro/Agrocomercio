@@ -894,7 +894,7 @@ namespace AgrocomercioWEB.Ventas
         {
             Usuarios objUsuario = (Usuarios)(LeerVariableSesion("oUsuario"));
             clsPersonal lstPersonal = new clsPersonal();
-            var lstVendedores = lstPersonal.GetPersonalPorTipo(2);
+            var lstVendedores = lstPersonal.GetPersonalPorTipo(1);
 
             ddlVendedores.DataSource = lstVendedores;
             ddlVendedores.DataBind();

@@ -421,7 +421,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 var lstComprasPrv = from Ope in lstOperaciones
                                     join Cli in AgroEntidades.Clientes.ToList() on Ope.CliCod equals Cli.CliCod
                                     join Zo in Zonas on Ope.ZonCod.ToString() equals Zo.AtrCodigo
-                                    join Per in AgroEntidades.Personal.ToList() on Ope.UsrCod equals Per.perCod 
+                                    join Per in AgroEntidades.Personal.ToList() on Ope.PerCod equals Per.perCod 
                                     join fac in facturas on Ope.OpeCod equals fac.OpeCod into dGru
                                         from fac2 in dGru.DefaultIfEmpty()
                                     join not in facturas on Ope.OpeCod equals not.OpeCod into dNot
@@ -487,7 +487,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 var lstComprasPrv = from Ope in lstOperaciones
                                     join Cli in AgroEntidades.Clientes.ToList() on Ope.CliCod equals Cli.CliCod
                                     join Zo in Zonas on Ope.ZonCod.ToString() equals Zo.AtrCodigo
-                                    join Per in AgroEntidades.Personal.ToList() on Ope.UsrCod equals Per.perCod
+                                    join Per in AgroEntidades.Personal.ToList() on Ope.PerCod equals Per.perCod
                                     join fac in facturas on Ope.OpeCod equals fac.OpeCod into dGru
                                     from fac2 in dGru.DefaultIfEmpty()
                                     join not in facturas on Ope.OpeCod equals not.OpeCod into dNot

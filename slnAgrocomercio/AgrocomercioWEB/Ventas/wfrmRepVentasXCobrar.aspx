@@ -335,7 +335,7 @@
                                                     <asp:ObjectDataSource ID="odsVendedor" runat="server" SelectMethod="GetDataPersonalPorTipo"
                                                         TypeName="pryAgrocomercioBLL.EntityCollection.clsPersonal">
                                                         <SelectParameters>
-                                                            <asp:Parameter DefaultValue="2" Name="pnTpecod" />
+                                                            <asp:Parameter DefaultValue="1" Name="pnTpecod" />
                                                         </SelectParameters>
                                                     </asp:ObjectDataSource>
 
