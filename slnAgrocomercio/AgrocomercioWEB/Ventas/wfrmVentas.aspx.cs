@@ -999,8 +999,8 @@ namespace AgrocomercioWEB.Ventas
             txtFecFin.Text = "";
             txtCiclo.Text = "";
             lblOpeEstado.Value = "";
-            txtPuntoPartida.Text = "";
-            txtFecTraslado.Text = "";
+            txtPuntoPartida.Text = "Av. Ferrocarril 131-132 TINGO";
+            txtFecTraslado.Text = DateTime.Today.ToString("yyyy-MM-dd");
             ddlTipCiclo.SelectedIndex = 2;
 
             txtDireccion.Text = "";
@@ -1410,6 +1410,7 @@ namespace AgrocomercioWEB.Ventas
                         txtLotVenci.Focus();
                         return false;
                     }
+                    
                     break;
                 case "OPE":
                     if ((ddlMoneda.Items.Count == 1 && ddlMoneda.Items[0].Value == "000") ||
@@ -1442,6 +1443,12 @@ namespace AgrocomercioWEB.Ventas
                     {
                         cMensaje = "Debe Indicar el Ciclo de la Compra";
                         txtCiclo.Focus();
+                        return false;
+                    }
+                    if (txtFecTraslado.Text.Trim() == string.Empty)
+                    {
+                        cMensaje = "Debe Ingresar una Fecha de Traslado.";
+                        txtLotVenci.Focus();
                         return false;
                     }
                     break;
