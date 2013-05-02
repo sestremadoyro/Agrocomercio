@@ -217,7 +217,7 @@
                         <tr>
                             <td class="clsCellTituloDatos2" >Fecha: </td>
                             <td  class="clsCellDatos2" colspan="2">
-                                <asp:TextBox ID="txtFecha" runat="server" Width="100px" ReadOnly="True"></asp:TextBox>
+                                <asp:TextBox ID="txtFecha" runat="server" Width="100px"></asp:TextBox>
                                 <asp:CalendarExtender ID="txtFecha_CalendarExtender" runat="server" 
                                     TargetControlID="txtFecha" Format="yyyy-MM-dd"
                                     PopupButtonID="Image2" Enabled="True" ></asp:CalendarExtender>

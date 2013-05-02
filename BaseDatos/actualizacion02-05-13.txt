@@ -1,0 +1,2 @@
+
+update Clientes set CliNombre = UPPER(clinombre) , CliDireccion = UPPER(clidireccion), CliRepresen=UPPER(CliRepresen)
