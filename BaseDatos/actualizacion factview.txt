@@ -1,12 +1,13 @@
 USE [Agrocomercio]
 GO
 
-/****** Object:  View [dbo].[fac_x_letra]    Script Date: 05/03/2013 16:36:25 ******/
+/****** Object:  View [dbo].[fac_x_letra]    Script Date: 05/04/2013 01:41:15 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 --/*
@@ -22,7 +23,10 @@ AS --*/
 select icodletra, 
 valor, dfecemision, dfecultpag, 
 dfecnxtvct, dopCod, OpeCod, numfac, PrvRazon, opetotpagar, OpeTotal, OpeTotPagPen, PrvCod, moneda, opeestado, estado, percod, tra, idet_letra,
-Convert(numeric(17,2), coalesce ((select nmonto - (select coalesce (sum(nmonto),0) from Pag_letras where idetletra= idet_letra)from det_letra where idetletra= idet_letra ),0)* nporDesc/100 ) as nsalvenc, tdocod , tipdoc from (
+Convert(numeric(17,2), coalesce ((select nmonto - (select coalesce (sum(nmonto),0) from Pag_letras where idetletra= idet_letra)from det_letra where idetletra= idet_letra ),0)* nporDesc/100 ) as nsalvenc, 
+tdocod , case when valor = 'C' then
+  (select AtrDescripcion from atributos where AtrTipoCod=5 and atrcodigo=tdocod and AtrCodigo!='*')
+  else   (select AtrDescripcion from atributos where AtrTipoCod=3 and atrcodigo=tdocod and AtrCodigo!='*') end as   tipdoc from (
 select icodletra, opetipo as valor,
 cast (dopfecemision as date) as dfecemision, 
 cast ((select max(dfecpago) from det_letra where icodletra=do.icodletra)as date) as dfecultpag, 
@@ -39,10 +43,10 @@ opeestado, ( select AtrDescripcion from Atributos where AtrTipoCod=6 and AtrCodi
 --,case when opeestado ='P' then 'Pendiente' else 'Cancelado' end as estado
 ,percod, (select perNombres+' '+perApellidoPat from Personal PER where per.perCod= OP.PerCod) as tra
 ,(select MIN(idetletra) from det_letra where icodletra=do.icodletra and cestado =1) as idet_letra
-,OP.nporDesc, DO.tdocod,
- case when OpeTipo = 'C' then
-  (select AtrDescripcion from atributos where AtrTipoCod=5 and atrcodigo=DO.tdocod) 
-  else   (select AtrDescripcion from atributos where AtrTipoCod=3 and atrcodigo=DO.tdocod)  end as tipdoc
+,OP.nporDesc, DO.tdocod
+ --/*
+ 
+--*/
 from DocumenOperacion as DO
 inner join Operaciones as OP on do.OpeCod= OP.OpeCod
 
@@ -51,6 +55,13 @@ where ((tdoCod in (2, 4) and OpeTipo='C') or
        (tdoCod in (4) and OpeTipo='V' and(select COUNT(*) from DocumenOperacion DCO where DCO.OpeCod = do.OpeCod)=1))  and icodletra is not null and OpeTipPago ='CR'
 
 ) as tabla
+
+
+
+
+
+GO
+
 
 
 

@@ -316,7 +316,7 @@ namespace AgrocomercioWEB.pagos
         private void CargarTipDocumento()
         {
             clsAtributos Atributos = new clsAtributos();
-            ddlTipoDocu.DataSource = Atributos.ListAtributos(5);
+            ddlTipoDocu.DataSource = Atributos.ListAtributos(3);
             ddlTipoDocu.DataBind();
             ddlTipoDocu.Items.Insert(0, new ListItem("", "000"));
 
