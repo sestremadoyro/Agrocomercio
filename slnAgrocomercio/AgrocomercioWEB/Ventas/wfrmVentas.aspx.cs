@@ -1293,7 +1293,7 @@ namespace AgrocomercioWEB.Ventas
             newRow["cIGV"] = txtIgv.Text;
             newRow["cTotal"] = txtTotal.Text;
             newRow["cTotalSinFlete"] = SetFormatNum(GetNumero(newRow["cValorVenta"].ToString()) * (nTasIGV + 1));
-            newRow["cTotalLetras"] = ConvertiraLetras(decimal.Parse((txtTotal.Text.Replace("S/.", "").Trim()).Replace("$", "").Trim())) + moneda;
+            newRow["cTotalLetras"] = ConvertiraLetras(decimal.Parse((txtTotal.Text.Replace("S/.", "").Trim()).Replace("$", "").Trim())).ToUpper() + moneda.ToUpper();
             newRow["Destinatario"] = ddlClientes.SelectedItem.Text;
             newRow["PLlegada"] = txtDireccion.Text;
             newRow["NroFactura"] = NroFactura;
@@ -1563,6 +1563,8 @@ namespace AgrocomercioWEB.Ventas
                             txtPuntoPartida.Text = "";
                         break;
                     case "4":
+                        txtFecTraslado.Visible = true;
+                        lblFecTraslado.Visible = true;
                         btnImprimir.OnClientClick = "AbrirVentanaNota()";
                         break;
                     case "5":
