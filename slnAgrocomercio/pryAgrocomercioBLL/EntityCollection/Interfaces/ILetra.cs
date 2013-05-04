@@ -55,6 +55,8 @@ namespace pryAgrocomercioBLL.EntityCollection.Interfaces
     public interface Idetalle_pagos_now : IAbstractBase<detalle_pagos_now>
     {
     }
-
+    public interface Ivwtodo_movimiento : IAbstractBase<vwtodo_movimiento>
+    {
+    }
 
 }

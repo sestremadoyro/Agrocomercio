@@ -600,6 +600,7 @@
     <Content Include="Maestros\WebForms\wfrmTipoPersonal.aspx" />
     <Content Include="Maestros\WebForms\wfrmTransportista.aspx" />
     <Content Include="Maestros\WebForms\wfrmUsuarios.aspx" />
+    <Content Include="pagos\wfrmrptventacredito.aspx" />
     <Content Include="pagos\wfrmrptcompracredito.aspx" />
     <Content Include="pagos\wfrmRptLetraVenta.aspx" />
     <Content Include="pagos\wfrmrptLetra.aspx" />
@@ -785,6 +786,13 @@
     </Compile>
     <Compile Include="Maestros\WebForms\wfrmUsuarios.aspx.designer.cs">
       <DependentUpon>wfrmUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagos\wfrmrptventacredito.aspx.cs">
+      <DependentUpon>wfrmrptventacredito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagos\wfrmrptventacredito.aspx.designer.cs">
+      <DependentUpon>wfrmrptventacredito.aspx</DependentUpon>
     </Compile>
     <Compile Include="pagos\wfrmrptcompracredito.aspx.cs">
       <DependentUpon>wfrmrptcompracredito.aspx</DependentUpon>

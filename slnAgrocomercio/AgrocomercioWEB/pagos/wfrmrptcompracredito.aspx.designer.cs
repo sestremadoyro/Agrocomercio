@@ -130,6 +130,15 @@ namespace AgrocomercioWEB.pagos {
         protected global::System.Web.UI.WebControls.DropDownList ddlMoneda;
         
         /// <summary>
+        /// ddlTipPago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipPago;
+        
+        /// <summary>
         /// TxtFecRegDesde control.
         /// </summary>
         /// <remarks>
@@ -245,6 +254,15 @@ namespace AgrocomercioWEB.pagos {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList dllEstado;
+        
+        /// <summary>
+        /// ddlTipoDocu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipoDocu;
         
         /// <summary>
         /// dgvLista control.

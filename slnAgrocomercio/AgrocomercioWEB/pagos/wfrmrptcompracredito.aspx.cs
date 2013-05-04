@@ -145,20 +145,21 @@ namespace AgrocomercioWEB.pagos
         }
         protected void btnProcesar_Click(object sender, EventArgs e)
         {
-            dgvLista.Columns[0].Visible = true;
-            dgvLista.Columns[1].Visible = true;
-            dgvLista.Columns[5].Visible = true;
-            dgvLista.Columns[6].Visible = true;
-            dgvLista.Columns[10].Visible = true;
-            dgvLista.Columns[13].Visible = true;
+            dgvLista.Columns[2].Visible = true;
+            dgvLista.Columns[3].Visible = true;
+            dgvLista.Columns[7].Visible = true;
+            dgvLista.Columns[8].Visible = true;
+            dgvLista.Columns[12].Visible = true;
             dgvLista.Columns[15].Visible = true;
+            dgvLista.Columns[17].Visible = true;
             String _filtro = "", _moneda = "", _estado = "";
             int _cod_prove;
             DateTime fregdesde = DateTime.Today, freghasta = DateTime.Today,
                 fvendesde = DateTime.Today, fvenhasta = DateTime.Today,fultdesde = DateTime.Today, fulthasta = DateTime.Today;
-            clsfac_x_letra formulario = new clsfac_x_letra();
+            clsvwtodo_movimiento formulario = new clsvwtodo_movimiento();
             DataTable dtRegistro;
-
+            String _tip_pago="";
+            int _tip_doc=0;
             if (txtProveedor.Text.Length > 0)
             {
                 _filtro = _filtro + "2";
@@ -211,9 +212,9 @@ namespace AgrocomercioWEB.pagos
             }
             else
                 _filtro = _filtro + "1";
-            if (TxtFecPagHasta.Text.Length > 0)
+            if (TxtFecVenHasta.Text.Length > 0)
             {
-                fvenhasta = Convert.ToDateTime(TxtFecPagHasta.Text);
+                fvenhasta = Convert.ToDateTime(TxtFecVenHasta.Text);
                 _filtro = _filtro + "2";
             }
             else
@@ -228,16 +229,35 @@ namespace AgrocomercioWEB.pagos
                 _estado = dllEstado.SelectedValue.ToString();
             }
             _filtro = _filtro + "1"; //no tiene vendedor
-            dtRegistro = formulario.GetList_factura(_filtro, "C", _cod_prove, _moneda, fregdesde, freghasta, fultdesde, fulthasta, fvendesde, fvenhasta, _estado, 0);
+            if (ddlTipPago.SelectedValue == "Ambos")
+                _filtro = _filtro + "1";
+            else
+            {
+                _filtro = _filtro + "2";
+                _tip_pago = ddlTipPago.SelectedValue.ToString();
+            }
+            if (ddlTipoDocu.SelectedValue == "000")
+                _filtro = _filtro + "1";
+            else
+            {
+                _filtro = _filtro + "2";
+                _tip_doc = Convert.ToInt32( ddlTipoDocu.SelectedValue.ToString());
+            }
+            dtRegistro = formulario.GetList_factura(
+                _filtro, "C", _cod_prove,
+                _moneda, fregdesde, freghasta, 
+                fultdesde, fulthasta, fvendesde, 
+                fvenhasta, _estado, 0,  
+                _tip_pago,  _tip_doc);
             dgvLista.DataSource = dtRegistro;
             dgvLista.DataBind();
-            dgvLista.Columns[0].Visible = false;
-            dgvLista.Columns[1].Visible = false;
-            dgvLista.Columns[5].Visible = false;
-            dgvLista.Columns[6].Visible = false;
-            dgvLista.Columns[10].Visible = false;
-            dgvLista.Columns[13].Visible = false;
+            dgvLista.Columns[2].Visible = false;
+            dgvLista.Columns[3].Visible = false;
+            dgvLista.Columns[7].Visible = false;
+            dgvLista.Columns[8].Visible = false;
+            dgvLista.Columns[12].Visible = false;
             dgvLista.Columns[15].Visible = false;
+            dgvLista.Columns[17].Visible = false;
             CalcularSumatorias();
             pntotales.Visible = true;
 
@@ -283,9 +303,19 @@ namespace AgrocomercioWEB.pagos
             CargarProveedores();
             cargarMoneda();
             CargarTipoCambio();
+            CargarTipDocumento();
             //rbtPendiente.Checked = true;
 
            
+        }
+
+        private void CargarTipDocumento()
+        {
+            clsAtributos Atributos = new clsAtributos();
+            ddlTipoDocu.DataSource = Atributos.ListAtributos(5);
+            ddlTipoDocu.DataBind();
+            ddlTipoDocu.Items.Insert(0, new ListItem("", "000"));
+
         }
         private void CargarProveedores()
         {
@@ -327,53 +357,58 @@ namespace AgrocomercioWEB.pagos
             totalsalpagsol= totalsalpagdol= totalsalvensol= totalsalvendol= 0.0;
             tip_cambio=Convert.ToDouble( lbltc.Text.ToString());
             //
-            
-            foreach (GridViewRow row in dgvLista.Rows){
-                if (row.Cells[14].Text == "PEN")
-                {
-                    totalComprasol = totalComprasol + Convert.ToDouble(row.Cells[9].Text);
-                    totalSalsol = totalSalsol + Convert.ToDouble(row.Cells[11].Text);
-                    totalsalpagsol = totalsalpagsol + Convert.ToDouble(row.Cells[12].Text);
-                    if(row.Cells[4].Text.ToString().Length>0){
-                        fecven = Convert.ToDateTime(row.Cells[4].Text.ToString());
-                        if (fecven < fechoy) {
-                            totalsalvendol = totalsalvendol + Convert.ToDouble(row.Cells[12].Text);
-                        }
-                    }
-                    
-                }
-                else
-                {
-                    totalCompradol = totalCompradol + Convert.ToDouble(row.Cells[9].Text);
-                    totalSaldol = totalSaldol + Convert.ToDouble(row.Cells[11].Text);
-                    totalsalpagdol = totalsalpagdol + Convert.ToDouble(row.Cells[12].Text);
-                    if (row.Cells[4].Text.ToString().Length > 0)
-                    {
-                        fecven = Convert.ToDateTime(row.Cells[4].Text.ToString());
-                        if (fecven < fechoy)
-                        {
-                            totalsalvensol = totalsalvensol + Convert.ToDouble(row.Cells[12].Text);
-                        }
-                    }
-                }
-            }
-            lblcompras.Text = totalComprasol.ToString("N");
-            lblcomprad.Text = totalCompradol.ToString("N");
-            lblcompra.Text =( totalComprasol+ (totalCompradol*tip_cambio)).ToString("N");
-            //---------------------------//
-            lblsaltots.Text = totalSalsol.ToString("N");
-            lblsaltotd.Text = totalSaldol.ToString("N");
-            lblsaltot.Text = (totalSalsol + (totalSaldol * tip_cambio)).ToString("N");
-            //---------------------------//
-            lblsalxvens.Text = totalsalpagsol.ToString("N");
-            lblsalxvend.Text = totalsalpagdol.ToString("N");
-            lblsalxven.Text = (totalsalpagsol + (totalsalpagdol * tip_cambio)).ToString("N");
-            //---------------------------//
-            lblsalvens.Text = totalsalvensol.ToString("N");
-            lblsalvend.Text = totalsalvendol.ToString("N");
-            lblsalven.Text = (totalsalvensol + (totalsalvendol * tip_cambio)).ToString("N");
-            //---------------------------//
 
+            foreach (GridViewRow row in dgvLista.Rows)
+            {
+                if (row.Cells[17].Text != "A")
+                {
+                    if (row.Cells[16].Text == "PEN")
+                    {
+                        totalComprasol = totalComprasol + Convert.ToDouble(row.Cells[11].Text);
+                        totalSalsol = totalSalsol + Convert.ToDouble(row.Cells[13].Text);
+                        totalsalpagsol = totalsalpagsol + Convert.ToDouble(row.Cells[14].Text);
+                        if (row.Cells[6].Text.ToString().Length == 10)
+                        {
+                            fecven = Convert.ToDateTime(row.Cells[6].Text.ToString());
+                            if (fecven < fechoy)
+                            {
+                                totalsalvensol = totalsalvensol + Convert.ToDouble(row.Cells[14].Text);
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        totalCompradol = totalCompradol + Convert.ToDouble(row.Cells[11].Text);
+                        totalSaldol = totalSaldol + Convert.ToDouble(row.Cells[13].Text);
+                        totalsalpagdol = totalsalpagdol + Convert.ToDouble(row.Cells[14].Text);
+                        if (row.Cells[6].Text.ToString().Length == 10)
+                        {
+                            fecven = Convert.ToDateTime(row.Cells[6].Text.ToString());
+                            if (fecven < fechoy)
+                            {
+                                totalsalvendol = totalsalvendol + Convert.ToDouble(row.Cells[14].Text);
+                            }
+                        }
+                    }
+                }
+                lblcompras.Text = totalComprasol.ToString("N");
+                lblcomprad.Text = totalCompradol.ToString("N");
+                lblcompra.Text = (totalComprasol + (totalCompradol * tip_cambio)).ToString("N");
+                //---------------------------//
+                lblsaltots.Text = totalSalsol.ToString("N");
+                lblsaltotd.Text = totalSaldol.ToString("N");
+                lblsaltot.Text = (totalSalsol + (totalSaldol * tip_cambio)).ToString("N");
+                //---------------------------//
+                lblsalxvens.Text = totalsalpagsol.ToString("N");
+                lblsalxvend.Text = totalsalpagdol.ToString("N");
+                lblsalxven.Text = (totalsalpagsol + (totalsalpagdol * tip_cambio)).ToString("N");
+                //---------------------------//
+                lblsalvens.Text = totalsalvensol.ToString("N");
+                lblsalvend.Text = totalsalvendol.ToString("N");
+                lblsalven.Text = (totalsalvensol + (totalsalvendol * tip_cambio)).ToString("N");
+                //---------------------------//
+            }
         }
         #endregion
     }

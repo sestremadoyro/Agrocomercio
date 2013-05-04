@@ -141,7 +141,9 @@
       [fac_x_letra].[percod] AS [percod], 
       [fac_x_letra].[tra] AS [tra], 
       [fac_x_letra].[idet_letra] AS [idet_letra], 
-      [fac_x_letra].[nsalvenc] AS [nsalvenc]
+      [fac_x_letra].[nsalvenc] AS [nsalvenc], 
+      [fac_x_letra].[tdocod] AS [tdocod], 
+      [fac_x_letra].[tipdoc] AS [tipdoc]
       FROM [dbo].[fac_x_letra] AS [fac_x_letra]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="list_detLetra" EntityType="AgrocomercioModel.Store.list_detLetra" store:Type="Views" store:Schema="dbo" store:Name="list_detLetra">
@@ -345,6 +347,33 @@
       [vwList_let_detalle].[PerCod] AS [PerCod], 
       [vwList_let_detalle].[TraNombre] AS [TraNombre]
       FROM [dbo].[vwList_let_detalle] AS [vwList_let_detalle]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwtodo_movimiento" EntityType="AgrocomercioModel.Store.vwtodo_movimiento" store:Type="Views" store:Schema="dbo" store:Name="vwtodo_movimiento">
+            <DefiningQuery>SELECT 
+      [vwtodo_movimiento].[tipPag] AS [tipPag], 
+      [vwtodo_movimiento].[icodletra] AS [icodletra], 
+      [vwtodo_movimiento].[valor] AS [valor], 
+      [vwtodo_movimiento].[dfecemision] AS [dfecemision], 
+      [vwtodo_movimiento].[dfecultpag] AS [dfecultpag], 
+      [vwtodo_movimiento].[dfecnxtvct] AS [dfecnxtvct], 
+      [vwtodo_movimiento].[dopCod] AS [dopCod], 
+      [vwtodo_movimiento].[OpeCod] AS [OpeCod], 
+      [vwtodo_movimiento].[numfac] AS [numfac], 
+      [vwtodo_movimiento].[PrvRazon] AS [PrvRazon], 
+      [vwtodo_movimiento].[opetotpagar] AS [opetotpagar], 
+      [vwtodo_movimiento].[OpeTotal] AS [OpeTotal], 
+      [vwtodo_movimiento].[OpeTotPagPen] AS [OpeTotPagPen], 
+      [vwtodo_movimiento].[PrvCod] AS [PrvCod], 
+      [vwtodo_movimiento].[moneda] AS [moneda], 
+      [vwtodo_movimiento].[opeestado] AS [opeestado], 
+      [vwtodo_movimiento].[estado] AS [estado], 
+      [vwtodo_movimiento].[percod] AS [percod], 
+      [vwtodo_movimiento].[tra] AS [tra], 
+      [vwtodo_movimiento].[idet_letra] AS [idet_letra], 
+      [vwtodo_movimiento].[nsalvenc] AS [nsalvenc], 
+      [vwtodo_movimiento].[tdocod] AS [tdocod], 
+      [vwtodo_movimiento].[tipdoc] AS [tipdoc]
+      FROM [dbo].[vwtodo_movimiento] AS [vwtodo_movimiento]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="det_letra_fk" Association="AgrocomercioModel.Store.det_letra_fk">
             <End Role="letra" EntitySet="letra" />
@@ -882,6 +911,7 @@
           <Key>
             <PropertyRef Name="dopCod" />
             <PropertyRef Name="OpeCod" />
+            <PropertyRef Name="tdocod" />
             <PropertyRef Name="estado" />
           </Key>
           <Property Name="icodletra" Type="int" />
@@ -899,11 +929,13 @@
           <Property Name="PrvCod" Type="int" />
           <Property Name="moneda" Type="char" MaxLength="3" />
           <Property Name="opeestado" Type="char" MaxLength="1" />
-          <Property Name="estado" Type="varchar" Nullable="false" MaxLength="9" />
+          <Property Name="estado" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="percod" Type="int" />
           <Property Name="tra" Type="varchar" MaxLength="121" />
           <Property Name="idet_letra" Type="int" />
           <Property Name="nsalvenc" Type="numeric" Precision="17" Scale="2" />
+          <Property Name="tdocod" Type="int" Nullable="false" />
+          <Property Name="tipdoc" Type="varchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'Agrocomercio.dbo.list_detLetra' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -1158,6 +1190,38 @@
           <Property Name="ctippago" Type="varchar" MaxLength="1" />
           <Property Name="PerCod" Type="int" />
           <Property Name="TraNombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Agrocomercio.dbo.vwtodo_movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vwtodo_movimiento">
+          <Key>
+            <PropertyRef Name="tipPag" />
+            <PropertyRef Name="OpeCod" />
+          </Key>
+          <Property Name="tipPag" Type="varchar" Nullable="false" MaxLength="7" />
+          <Property Name="icodletra" Type="bigint" />
+          <Property Name="valor" Type="char" MaxLength="1" />
+          <Property Name="dfecemision" Type="date" />
+          <Property Name="dfecultpag" Type="date" />
+          <Property Name="dfecnxtvct" Type="date" />
+          <Property Name="dopCod" Type="bigint" />
+          <Property Name="OpeCod" Type="bigint" Nullable="false" />
+          <Property Name="numfac" Type="varchar" MaxLength="54" />
+          <Property Name="PrvRazon" Type="nvarchar" MaxLength="80" />
+          <Property Name="opetotpagar" Type="numeric" Scale="2" />
+          <Property Name="OpeTotal" Type="numeric" Scale="2" />
+          <Property Name="OpeTotPagPen" Type="numeric" Scale="2" />
+          <Property Name="PrvCod" Type="int" />
+          <Property Name="moneda" Type="char" MaxLength="3" />
+          <Property Name="opeestado" Type="char" MaxLength="1" />
+          <Property Name="estado" Type="varchar" MaxLength="100" />
+          <Property Name="percod" Type="int" />
+          <Property Name="tra" Type="varchar" MaxLength="121" />
+          <Property Name="idet_letra" Type="int" />
+          <Property Name="nsalvenc" Type="numeric" Precision="17" Scale="2" />
+          <Property Name="tdocod" Type="int" />
+          <Property Name="tipdoc" Type="varchar" MaxLength="100" />
         </EntityType>
         <Association Name="det_letra_fk">
           <End Role="letra" Type="AgrocomercioModel.Store.letra" Multiplicity="1" />
@@ -1522,6 +1586,7 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
+          <EntitySet Name="vwtodo_movimiento" EntityType="AgrocomercioModel.vwtodo_movimiento" />
         </EntityContainer>
         <EntityType Name="Articulos">
           <Key>
@@ -2004,6 +2069,7 @@
             <PropertyRef Name="dopCod" />
             <PropertyRef Name="OpeCod" />
             <PropertyRef Name="estado" />
+            <PropertyRef Name="tdocod" />
           </Key>
           <Property Type="Int32" Name="icodletra" />
           <Property Type="String" Name="valor" MaxLength="1" FixedLength="true" Unicode="false" />
@@ -2025,6 +2091,8 @@
           <Property Type="String" Name="tra" MaxLength="121" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="idet_letra" />
           <Property Type="Decimal" Name="nsalvenc" Precision="17" Scale="2" />
+          <Property Type="Int32" Name="tdocod" Nullable="false" />
+          <Property Type="String" Name="tipdoc" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="list_detLetra">
           <Key>
@@ -2490,6 +2558,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="vwtodo_movimiento">
+          <Key>
+            <PropertyRef Name="tipPag" />
+            <PropertyRef Name="OpeCod" />
+          </Key>
+          <Property Type="String" Name="tipPag" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="icodletra" />
+          <Property Type="String" Name="valor" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="dfecemision" />
+          <Property Type="DateTime" Name="dfecultpag" />
+          <Property Type="DateTime" Name="dfecnxtvct" />
+          <Property Type="Int64" Name="dopCod" />
+          <Property Type="Int64" Name="OpeCod" Nullable="false" />
+          <Property Type="String" Name="numfac" MaxLength="54" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PrvRazon" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="opetotpagar" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="OpeTotal" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="OpeTotPagPen" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="PrvCod" />
+          <Property Type="String" Name="moneda" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="opeestado" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="estado" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="percod" />
+          <Property Type="String" Name="tra" MaxLength="121" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="idet_letra" />
+          <Property Type="Decimal" Name="nsalvenc" Precision="17" Scale="2" />
+          <Property Type="Int32" Name="tdocod" />
+          <Property Type="String" Name="tipdoc" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2955,6 +3052,8 @@
           <EntitySetMapping Name="fac_x_letra">
             <EntityTypeMapping TypeName="AgrocomercioModel.fac_x_letra">
               <MappingFragment StoreEntitySet="fac_x_letra">
+                <ScalarProperty Name="tipdoc" ColumnName="tipdoc" />
+                <ScalarProperty Name="tdocod" ColumnName="tdocod" />
                 <ScalarProperty Name="nsalvenc" ColumnName="nsalvenc" />
                 <ScalarProperty Name="idet_letra" ColumnName="idet_letra" />
                 <ScalarProperty Name="tra" ColumnName="tra" />
@@ -3200,6 +3299,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vwtodo_movimiento">
+            <EntityTypeMapping TypeName="AgrocomercioModel.vwtodo_movimiento">
+              <MappingFragment StoreEntitySet="vwtodo_movimiento">
+                <ScalarProperty Name="tipdoc" ColumnName="tipdoc" />
+                <ScalarProperty Name="tdocod" ColumnName="tdocod" />
+                <ScalarProperty Name="nsalvenc" ColumnName="nsalvenc" />
+                <ScalarProperty Name="idet_letra" ColumnName="idet_letra" />
+                <ScalarProperty Name="tra" ColumnName="tra" />
+                <ScalarProperty Name="percod" ColumnName="percod" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="opeestado" ColumnName="opeestado" />
+                <ScalarProperty Name="moneda" ColumnName="moneda" />
+                <ScalarProperty Name="PrvCod" ColumnName="PrvCod" />
+                <ScalarProperty Name="OpeTotPagPen" ColumnName="OpeTotPagPen" />
+                <ScalarProperty Name="OpeTotal" ColumnName="OpeTotal" />
+                <ScalarProperty Name="opetotpagar" ColumnName="opetotpagar" />
+                <ScalarProperty Name="PrvRazon" ColumnName="PrvRazon" />
+                <ScalarProperty Name="numfac" ColumnName="numfac" />
+                <ScalarProperty Name="OpeCod" ColumnName="OpeCod" />
+                <ScalarProperty Name="dopCod" ColumnName="dopCod" />
+                <ScalarProperty Name="dfecnxtvct" ColumnName="dfecnxtvct" />
+                <ScalarProperty Name="dfecultpag" ColumnName="dfecultpag" />
+                <ScalarProperty Name="dfecemision" ColumnName="dfecemision" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="icodletra" ColumnName="icodletra" />
+                <ScalarProperty Name="tipPag" ColumnName="tipPag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3397,6 +3525,7 @@
           <ConnectorPoint PointX="5.833333333333333" PointY="2.7928925664062505" />
           <ConnectorPoint PointX="6" PointY="2.7928925664062505" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="AgrocomercioModel.vwtodo_movimiento" Width="1.5" PointX="21.375" PointY="13.75" Height="5.4417122395833246" />
       </Diagram>
     </Diagrams>
   </Designer>

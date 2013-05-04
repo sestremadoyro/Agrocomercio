@@ -16,6 +16,7 @@
       <siteMapNode url="~/pagos/wfrmRptLetraVenta.aspx" title="Letras" description="Letras" />
       <siteMapNode url="~/Ventas/wfrmRepVentasXCobrar.aspx" title="Ventas x Cobrar General" description="Ventas por Cobrar General" />
       <siteMapNode url="~/Ventas/wfrmRepResumenCliente.aspx" title="Resumen de Clientes" description="Resumen de Clientes" />
+      <siteMapNode url="~/pagos/wfrmrptventacredito.aspx" title="Ventas al Credito/contado" description="Pagos " />
     </siteMapNode>
   </siteMapNode>
   <siteMapNode url="#" title="Mantenimientos"  description="Mantenimiento de Tablas">
@@ -35,7 +36,7 @@
     <siteMapNode url="#" title="Reportes-Compras"  description="Reportes-Compras">
       <siteMapNode url="~/compras/wfrmReportesCompras.aspx" title="Compras x Proveedor" description="Compras x Proveedor" />
       <siteMapNode url="~/pagos/wfrmrptLetra.aspx" title="Pagos x Letra." description="Pagos por Letra" />
-      <siteMapNode url="~/pagos/wfrmrptcompracredito.aspx" title="Compras al Credito" description="Pagos " />      
+      <siteMapNode url="~/pagos/wfrmrptcompracredito.aspx" title="Compras al Credito/contado" description="Pagos " />      
     </siteMapNode>
   </siteMapNode>
 </siteMap>

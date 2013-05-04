@@ -104,9 +104,20 @@
                                                                 <td align="right">
                                                                     Moneda:
                                                                 </td>
-                                                                <td colspan="3">
+                                                                <td >
                                                                     <asp:DropDownList ID="ddlMoneda" runat="server" AutoPostBack="True" DataTextField="AtrDescripcion"
                                                                         DataValueField="AtrCodigo" Width="100px">
+                                                                    </asp:DropDownList>
+                                                                </td>
+                                                                <td align="right">
+                                                                    Tipo de Pago:
+                                                                </td>
+                                                                <td >
+                                                                    <asp:DropDownList ID="ddlTipPago" runat="server" AutoPostBack="True" DataTextField="AtrDescripcion"
+                                                                        DataValueField="AtrCodigo" Width="100px">
+                                                                        <asp:ListItem>Ambos</asp:ListItem>
+                                                                        <asp:ListItem>Contado</asp:ListItem>
+                                                                        <asp:ListItem>Credito</asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
                                                             </tr>
@@ -189,13 +200,18 @@
                                                                 <td align="right">
                                                                     Estado:
                                                                 </td>
-                                                                <td class="style8" colspan="3">
+                                                                <td class="style8" >
                                                                     <asp:DropDownList ID="dllEstado" runat="server">
                                                                         <asp:ListItem Value="P">Pendiente</asp:ListItem>
                                                                         <asp:ListItem Value="C">Cancelado</asp:ListItem>
                                                                         <asp:ListItem Value="A">Ambas</asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
+                                                                <td class="clsCellTituloDatos2" >Tipo de Documento: </td>
+                                            <td class="clsCellDatos2" >
+                                                <asp:DropDownList ID="ddlTipoDocu" runat="server" Width="250px" 
+                                                    DataTextField="AtrDescripcion" DataValueField="AtrCodigo">
+                                                            </asp:DropDownList></td>
                                                             </tr>
                                                             <tr>
                                                                 <td align="right" colspan="4">
@@ -203,19 +219,21 @@
                                                                         CssClass="mGrid mGrid2" ShowHeaderWhenEmpty="True" OnRowDataBound="dgvLista_RowDataBound">
                                                                         <AlternatingRowStyle CssClass="alt" />
                                                                         <Columns>
+                                                                            <asp:BoundField DataField="tipPag" HeaderText="Tip.Pago" SortExpression="tipPag"/>
+                                                                            <asp:BoundField DataField="tipdoc" HeaderText="Doc." SortExpression="tipdoc"/>
                                                                             <asp:BoundField DataField="icodletra" HeaderText="icodletra" SortExpression="icodletra" visible="false"/>
                                                                             <asp:BoundField DataField="valor" HeaderText="valor" SortExpression="valor"  visible="false"/>
                                                                             <asp:BoundField DataField="dfecemision" HeaderText="Fec. Emision" SortExpression="dfecemision"  DataFormatString="{0:yyyy-MM-dd}" />
                                                                             <asp:BoundField DataField="dfecultpag" HeaderText="Fec. Ult. Pago" SortExpression="dfecultpag"  DataFormatString="{0:yyyy-MM-dd}" />
                                                                             <asp:BoundField DataField="dfecnxtvct" HeaderText="Fec. Prox. Vnct" SortExpression="dfecnxtvct"  DataFormatString="{0:yyyy-MM-dd}" />                                                                       
                                                                             <asp:BoundField DataField="dopCod" HeaderText="dopCod" ReadOnly="True" SortExpression="dopCod"  visible="false"/>
-                                                                            <%--6--%>
+                                                                            <%--8--%>
                                                                             <asp:BoundField DataField="OpeCod" HeaderText="OpeCod" ReadOnly="True" SortExpression="OpeCod"  visible="false"/>
                                                                             <asp:BoundField DataField="numfac" HeaderText="N° Factura" SortExpression="numfac" />
                                                                             <asp:BoundField DataField="PrvRazon" HeaderText="Proveedor" SortExpression="PrvRazon" />
                                                                             <asp:BoundField DataField="opetotpagar" HeaderText="Total." SortExpression="opetotpagar" />
                                                                             <asp:BoundField DataField="OpeTotal" HeaderText="OpeTotal" SortExpression="OpeTotal" visible="false"/>
-                                                                            <%--11--%>
+                                                                            <%--13--%>
                                                                             <asp:BoundField DataField="OpeTotPagPen" HeaderText="Saldo." SortExpression="OpeTotPagPen" />
                                                                             <asp:BoundField DataField="nsalvenc" HeaderText="Sal x Venc" SortExpression="nsalvenc" />
                                                                             <asp:BoundField DataField="PrvCod" HeaderText="PrvCod" SortExpression="PrvCod"  visible="false"/>
