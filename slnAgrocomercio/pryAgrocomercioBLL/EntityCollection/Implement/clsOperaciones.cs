@@ -275,9 +275,9 @@ namespace pryAgrocomercioBLL.EntityCollection
                              select new
                              {
                                  Ope.OpeCod,
-                                 PrvRazon = Ope.DocumenOperacion.Any(Do => Do.tdoCod < 4 ) ? Ope.Proveedores.PrvRazon :
+                                 PrvRazon = Ope.DocumenOperacion.All(Do => Do.tdoCod < 4 ) ? Ope.Proveedores.PrvRazon :
                                                 Ope.Personal.perNombres + " " + Ope.Personal.perApellidoPat + " " + Ope.Personal.perApellidoMat,
-                                 CliNombre = Ope.DocumenOperacion.Any(Do => Do.tdoCod != 7) ? Ope.Clientes.CliNombre :
+                                 CliNombre = Ope.DocumenOperacion.All(Do => Do.tdoCod != 7) ? Ope.Clientes.CliNombre :
                                                 Ope.Personal.perNombres + " " + Ope.Personal.perApellidoPat + " " + Ope.Personal.perApellidoMat,
                                  Ope.OpeMoneda,
                                  OpeTotal = Math.Round((decimal)(Ope.OpeTotal/ Ope.TipoCambios.tcmCambio),2),

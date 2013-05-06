@@ -458,13 +458,15 @@ namespace AgrocomercioWEB
         {
             DataRow newRow;
             DataTable dtResult = new DataTable();
+            int nLimite = _nNroReg;
 
             foreach (DataColumn Col in dtDatos.Columns)
                 dtResult.Columns.Add(new DataColumn(Col.ColumnName, Col.DataType));
 
             if (_nNroReg > 0)
             {
-                for (int i = 0; i < _nNroReg; i++)
+                nLimite = dtDatos.Rows.Count > _nNroReg ? dtDatos.Rows.Count : _nNroReg;
+                for (int i = 0; i < nLimite; i++)
                 {
                     newRow = dtResult.NewRow();
                     for (int j = 0; j < dtDatos.Columns.Count; j++)

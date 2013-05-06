@@ -16,6 +16,7 @@ namespace AgrocomercioWEB.Reportes.Clases
             public Double dtpPrecioVen;
             public Double dtpDscto;
             public Double dtpSubTotal;
+            public DateTime LotFecVenci;
 
             public clsRepDetalleFactura()
             {
@@ -28,6 +29,7 @@ namespace AgrocomercioWEB.Reportes.Clases
                  dtpPrecioVen = 0.0;
                  dtpDscto = 0.0;
                  dtpSubTotal = 0.0;
+                 LotFecVenci = DateTime.Today;
             }
     }
 }

@@ -37,8 +37,9 @@
         }
 
         function setArtCod(source, eventargs) {
+            var ArtCod = eventargs.get_value();
             document.getElementById('lblEstado').value = "ART_SELECT";
-            __doPostBack('MainUpdatePanel', eventargs.get_value());
+            __doPostBack('MainUpdatePanel', ArtCod);
         }
 
         function setCliCod(source, eventargs) {
@@ -782,7 +783,7 @@
                                                                         <td class="clsCellDatos2" valign="top">
                                                                             <asp:TextBox ID="txtBuscarArt" runat="server" Width="196px"></asp:TextBox>
                                                                             <asp:TextBoxWatermarkExtender ID="txtBuscarArt_waterMark" runat="server" TargetControlID="txtBuscarArt"
-                                                                                WatermarkCssClass="clsWaterMark" WatermarkText="Buqueda de Articulos..." Enabled="true">
+                                                                                WatermarkCssClass="clsWaterMark" WatermarkText="Busqueda de Articulos..." Enabled="true">
                                                                             </asp:TextBoxWatermarkExtender>
                                                                             <div id="listPlacement" class="cls_listPlacement">
                                                                             </div>

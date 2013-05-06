@@ -35,7 +35,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         }
         public IEnumerable<object> GetVendedores()
         {
-            return this.Find(Per => Per.tpecod == 1).Select(Per => new
+            return this.Find(Per => Per.tpecod == 2).Select(Per => new
                 {
                     Per.perCod,
                     Per.tpecod,

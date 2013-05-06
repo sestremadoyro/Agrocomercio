@@ -34,14 +34,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit">
-      <HintPath>..\..\..\..\AGROCOMERCIO\AGROCOMERCIO.NET\COMPILADO\bin\AjaxControlToolkit.dll</HintPath>
+      <HintPath>Dlls\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="itextsharp">
-      <HintPath>C:\Users\DELL\Downloads\itextsharp-all-5.4.1\itextsharp.dll</HintPath>
+      <HintPath>Dlls\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -57,25 +57,23 @@
     <Reference Include="obout_AJAXPage">
       <HintPath>C:\oboutSuite_3.5\bin\obout_AJAXPage.dll</HintPath>
     </Reference>
-    <Reference Include="obout_Calendar2_Net, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b114d8766feff9ce, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="obout_Calendar2_Net">
+      <HintPath>Dlls\obout_Calendar2_Net.dll</HintPath>
     </Reference>
-    <Reference Include="obout_ComboBox, Version=4.0.8.0, Culture=neutral, PublicKeyToken=8921cd007946710d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="obout_ComboBox">
+      <HintPath>Dlls\obout_ComboBox.dll</HintPath>
     </Reference>
-    <Reference Include="obout_EasyMenu_Pro, Version=3.11.3.1, Culture=neutral, PublicKeyToken=b76d93635057b0c1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="obout_EasyMenu_Pro">
+      <HintPath>Dlls\obout_EasyMenu_Pro.dll</HintPath>
     </Reference>
-    <Reference Include="obout_Grid_NET, Version=7.0.9.0, Culture=neutral, PublicKeyToken=5ddc49d3b53e3f98, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\obout_Grid_NET.dll</HintPath>
+    <Reference Include="obout_Grid_NET">
+      <HintPath>Dlls\obout_Grid_NET.dll</HintPath>
     </Reference>
-    <Reference Include="obout_Interface, Version=4.0.10.0, Culture=neutral, PublicKeyToken=d5dff6913a9d6649, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="obout_Interface">
+      <HintPath>Dlls\obout_Interface.dll</HintPath>
     </Reference>
-    <Reference Include="obout_ListBox, Version=1.0.8.0, Culture=neutral, PublicKeyToken=5a727501b20f450d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\obout_ListBox.dll</HintPath>
+    <Reference Include="obout_ListBox">
+      <HintPath>Dlls\obout_ListBox.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -526,8 +524,6 @@
     <Content Include="App_Themes\TemaAgrocomercio\ventas.css" />
     <Content Include="bin\AgrocomercioWEB.dll" />
     <Content Include="bin\AgrocomercioWEB.pdb" />
-    <Content Include="bin\AjaxControlToolkit.dll" />
-    <Content Include="bin\AjaxControlToolkit.pdb" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\itextsharp.xml" />
     <Content Include="bin\obout_AJAXPage.dll" />
@@ -628,7 +624,6 @@
     <Content Include="Reportes\ImpresionNotaPedido.aspx" />
     <Content Include="Reportes\ImpresionFactura.aspx" />
     <Content Include="Reportes\ImpresionGuiaRemision.aspx" />
-    <Content Include="Reportes\wfrmKardex2.aspx" />
     <Content Include="Reportes\wfrmKardex.aspx" />
     <Content Include="style.css" />
     <Content Include="Styles\Site.css" />
@@ -697,10 +692,6 @@
     </Compile>
     <Compile Include="Compras\wfrmReportesCompras.aspx.designer.cs">
       <DependentUpon>wfrmReportesCompras.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Grid.master.cs">
-      <DependentUpon>Grid.master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Maestros\Reportes\wfrmReporteArticulos.aspx.cs">
       <DependentUpon>wfrmReporteArticulos.aspx</DependentUpon>
@@ -1010,13 +1001,6 @@
       <DependentUpon>crREpNotaGeneral.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\wfrmKardex2.aspx.cs">
-      <DependentUpon>wfrmKardex2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reportes\wfrmKardex2.aspx.designer.cs">
-      <DependentUpon>wfrmKardex2.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Reportes\wfrmKardex.aspx.cs">
       <DependentUpon>wfrmKardex.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1170,7 +1154,6 @@
     <None Include="App_Themes\TemaAgrocomercio\Interface\styles\grand_gray\OboutButton\images\Thumbs.db" />
     <None Include="App_Themes\TemaAgrocomercio\Interface\styles\grand_gray\OboutTextBox\images\Thumbs.db" />
     <Content Include="WebFacturacion.sitemap" />
-    <Content Include="Grid.master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
