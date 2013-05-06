@@ -29,9 +29,23 @@ namespace pryAgrocomercioBLL.EntityCollection
 
             return ToDataTable<object>(result.AsQueryable());
         }
-        public object GetPersonalPorTipo(int pnTpecod)
+        public IQueryable<Personal> GetPersonalPorTipo(int pnTpecod)
         {
             return this.Find(Per => Per.tpecod == pnTpecod);
+        }
+        public IEnumerable<object> GetVendedores()
+        {
+            return this.Find(Per => Per.tpecod == 1).Select(Per => new
+                {
+                    Per.perCod,
+                    Per.tpecod,
+                    Per.perNombres,
+                    Per.perApellidoPat,
+                    Per.perApellidoMat,
+                    Per.perDireccion,
+                    Per.perTelefono,
+                    VenNombre = Per.perNombres + " " + Per.perApellidoPat + " " + Per.perApellidoMat
+                });
         }
         public Personal GetPersonal(int pnPerCod)
         {

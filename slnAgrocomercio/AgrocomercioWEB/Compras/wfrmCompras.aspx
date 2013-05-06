@@ -259,24 +259,26 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                             <td class="clsCellDatos2" colspan="3">
                                 <asp:DropDownList ID="ddlProveedor" runat="server" Width="250px" 
                                     AutoPostBack="True" DataTextField="PrvRazon" DataValueField="PrvCod" 
-                                    onselectedindexchanged="ddlProveedor_SelectedIndexChanged" style=" display:none;" >
+                                    onselectedindexchanged="ddlProveedor_SelectedIndexChanged"  CssClass="cssHide"  >
                                             </asp:DropDownList>
-                                <asp:TextBox ID="txtProveedor" runat="server" Width="270px" ></asp:TextBox>
-                                <asp:TextBoxWatermarkExtender 
-	                                ID="txtProveedor_TextBoxWatermarkExtender" runat="server"
-	                                TargetControlID="txtProveedor" WatermarkCssClass = "clsWaterMark" 
-	                                WatermarkText="Busqueda de Proveedores..." Enabled="true">
-                                </asp:TextBoxWatermarkExtender>
-                                <div id="PrvlistPlacement" class="cls_listPlacement" style=" overflow:auto; "></div>
-                                <asp:AutoCompleteExtender ID="txtProveedor_AutoCompleteExtender"
-	                                MinimumPrefixLength="2" TargetControlID="txtProveedor" 
-                                    enablecaching="true" 
-                                    showonlycurrentwordincompletionlistitem="true" 
-	                                CompletionSetCount="10" CompletionInterval="100" 
-	                                ServiceMethod="BuscarProveedores" 
-	                                runat="server" OnClientItemSelected="setPrvCod" 
-	                                CompletionListElementID="PrvlistPlacement">
-                                </asp:AutoCompleteExtender>
+                                <div id="divClienteFilter" runat="server">
+                                    <asp:TextBox ID="txtProveedor" runat="server" Width="270px" ></asp:TextBox>
+                                    <asp:TextBoxWatermarkExtender 
+	                                    ID="txtProveedor_TextBoxWatermarkExtender" runat="server"
+	                                    TargetControlID="txtProveedor" WatermarkCssClass = "clsWaterMark" 
+	                                    WatermarkText="Busqueda de Proveedores..." Enabled="true">
+                                    </asp:TextBoxWatermarkExtender>
+                                    <div id="PrvlistPlacement" class="cls_listPlacement" style=" overflow:auto; "></div>
+                                    <asp:AutoCompleteExtender ID="txtProveedor_AutoCompleteExtender"
+	                                    MinimumPrefixLength="2" TargetControlID="txtProveedor" 
+                                        enablecaching="true" 
+                                        showonlycurrentwordincompletionlistitem="true" 
+	                                    CompletionSetCount="10" CompletionInterval="100" 
+	                                    ServiceMethod="BuscarProveedores" 
+	                                    runat="server" OnClientItemSelected="setPrvCod" 
+	                                    CompletionListElementID="PrvlistPlacement">
+                                    </asp:AutoCompleteExtender>
+                                </div> 
                             </td>
                             <td class="clsCellTituloDatos2" >
                                 <asp:Label ID="lblDocCli" runat="server" Text="R.U.C.:"></asp:Label></td>
@@ -309,6 +311,8 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                             </td> 
                              <td class="clsCellDatos2" style=" text-align:right;">
                                 <asp:DropDownList ID="ddlTipCiclo" runat="server" Width="50px" DataTextField="AtrDescripcion" DataValueField="AtrCodigo"></asp:DropDownList>
+                                <div class="clsCellTituloDatos2" style=" font-weight:normal;"><asp:Label ID="lblNotaPedidoVen" runat="server" Text="Nota Pedido Vendedor: "></asp:Label>
+                                </div>
                             </td>  
                             <td class="clsCellDatos2">
                                 <asp:TextBox ID="txtCiclo" runat="server" Width="100px" ></asp:TextBox>
@@ -316,6 +320,7 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                                     ID="txtCiclo_TextBoxWatermarkExtender" runat="server" 
                                     TargetControlID="txtCiclo" WatermarkText="Escriba el Ciclo">
                                 </asp:TextBoxWatermarkExtender>
+                                <asp:TextBox ID="txtNotaPedidoVen" runat="server" Width="100px" ></asp:TextBox>
                             </td>                                           
                         </tr>
                         <tr>
@@ -414,7 +419,22 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                                     </td>
                                     <td valign="top">
                                         <asp:Button ID="btnAnular" runat="server" Text="Anular" ToolTip="Anular" 
-                                                    CssClass="clsBtnAnular" onclick="btnAnular_Click"  /></td>
+                                                    CssClass="clsBtnAnular" onclick="btnAnular_Click"  />
+                                        <asp:ConfirmButtonExtender ID="btnAnular_ConfirmButtonExtender" runat="server" 
+                                            TargetControlID="btnAnular"
+                                            OnClientCancel="cancelClick"
+                                            DisplayModalPopupID="ModalPopupExtender1" />
+                                        <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" 
+                                            TargetControlID="btnAnular" PopupControlID="PNL" OkControlID="ButtonOk" 
+                                            CancelControlID="ButtonCancel" BackgroundCssClass="modalBackground" />
+                                        <asp:Panel ID="PNL" runat="server" style="display:none; width:250px; background-color:White; border-width:2px; border-color:Black; border-style:solid; padding:20px;" DefaultButton="ButtonCancel">
+                                            <asp:Label ID="lblMensajeConfir" runat="server" Text="¿ESTA SEGURO DE ANULAR ESTA COMPRA?"></asp:Label>                    
+                                            <div style="text-align:right;  margin-top:5px;">
+                                                <asp:Button ID="ButtonOk" runat="server" Text="SI" Width="40"  />
+                                                <asp:Button ID="ButtonCancel" runat="server" Text="NO" Width="40" />
+                                            </div>
+                                        </asp:Panel>  
+                                    </td>
                                 </tr>
                                 
                                 <tr>
@@ -781,7 +801,7 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"> 
-                                                    <HR>
+                                                    <hr />
                                                     </td>
                                                     
                                                 </tr>

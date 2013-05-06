@@ -326,7 +326,7 @@ table.tabPedidos tr td.tabDerecha3{
 }
 
 
-.clsBotton1:active, .clsBotton2:active, .clsBotton3:active, .clsBotton4:active, {
+.clsBotton1:active, .clsBotton2:active, .clsBotton3:active, .clsBotton4:active {
 	position: relative;
 	top: 1px;
 }

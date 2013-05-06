@@ -75,9 +75,22 @@ namespace pryAgrocomercioBLL.EntityCollection
                 Operacion.OpeFecEmision = Convert.ToDateTime(drForm["dOpeFecEmision"]);
                 Operacion.ZonCod = Convert.ToInt32(drForm["cZonCod"]);
                 if (_OpeTipo == "C")
-                    Operacion.PrvCod = Convert.ToInt32(drForm["nOpePrvCod"]);
+                {
+                    if ((Int32)drForm["ntdoCod"] > 3)
+                        Operacion.PerCod = (Int32)drForm["nOpePrvCod"];
+                    else
+                        Operacion.PrvCod = Convert.ToInt32(drForm["nOpePrvCod"]);
+                }
                 else
-                    Operacion.CliCod = Convert.ToInt32(drForm["nOpeCliCod"]);
+                {
+                    if (drForm["ntdoCod"].ToString() == "7")
+                        Operacion.PerCod = (Int32)drForm["nOpeCliCod"];
+                    else 
+                    {
+                        Operacion.CliCod = Convert.ToInt32(drForm["nOpeCliCod"]);
+                        Operacion.PerCod = (Int32)drForm["nOpeVendedor"];
+                    }                    
+                }
                 Operacion.OpeMoneda = drForm["cOpeMoneda"].ToString();
                 Operacion.OpeTipPago = drForm["cOpeTipPago"].ToString();
                 Operacion.tcmCod = ntcmCod;
@@ -89,9 +102,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 Operacion.OpeEstado = "R";
                 Operacion.OpeModifica = DateTime.Now;
                 Operacion.UsrCod = gcUsrCod;
-                if (_OpeTipo == "V")
-                Operacion.PerCod = (Int32)drForm["nOpeVendedor"];
-
+                                
                 if (Operacion.OpeTipPago == "CR")
                 {
                     Operacion.OpeTipCiclo = drForm["cOpeTipCiclo"].ToString();
@@ -173,7 +184,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 }
                                 
                 Operacion.OpeEstado = "A";
-                Operacion.OpeModifica = DateTime.Now;
+                 Operacion.OpeModifica = DateTime.Now;
                 Update(Operacion);
 
                 SaveChanges();
@@ -264,8 +275,10 @@ namespace pryAgrocomercioBLL.EntityCollection
                              select new
                              {
                                  Ope.OpeCod,
-                                 Ope.Proveedores.PrvRazon,
-                                 Ope.Clientes.CliNombre,
+                                 PrvRazon = Ope.DocumenOperacion.Any(Do => Do.tdoCod < 4 ) ? Ope.Proveedores.PrvRazon :
+                                                Ope.Personal.perNombres + " " + Ope.Personal.perApellidoPat + " " + Ope.Personal.perApellidoMat,
+                                 CliNombre = Ope.DocumenOperacion.Any(Do => Do.tdoCod != 7) ? Ope.Clientes.CliNombre :
+                                                Ope.Personal.perNombres + " " + Ope.Personal.perApellidoPat + " " + Ope.Personal.perApellidoMat,
                                  Ope.OpeMoneda,
                                  OpeTotal = Math.Round((decimal)(Ope.OpeTotal/ Ope.TipoCambios.tcmCambio),2),
                                  Ope.OpeFecEmision,

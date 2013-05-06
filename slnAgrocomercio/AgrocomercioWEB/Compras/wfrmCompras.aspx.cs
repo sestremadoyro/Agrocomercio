@@ -132,6 +132,12 @@ namespace AgrocomercioWEB.Compras
         {
             get { return txtPuntoPartida.Text; }
         }
+        public String cdopDocComple
+        {
+            get { return txtNotaPedidoVen.Text; }
+        }
+
+        
 
 
 
@@ -314,16 +320,32 @@ namespace AgrocomercioWEB.Compras
             }
             else
             {
-                clsProveedores lstProveedores = new clsProveedores();
-                Proveedores Proveedor = lstProveedores.GetProveedor(nPrvCod);
+                if (int.Parse(lblTipoDoc.Value) > 3)
+                {
+                    clsPersonal lstPersonal = new clsPersonal();
+                    Personal oVendedor = lstPersonal.GetPersonal(nPrvCod);
 
-                txtProveedor.Text = Proveedor.PrvRazon.ToString();
-                txtDocCli.Text = Proveedor.PrvNumDoc.ToString();
-                txtDireccion.Text = Proveedor.PrvDireccion.ToString();
-                txtTelefono.Text = Proveedor.PrvTelefono.ToString();
+                    txtProveedor.Text = oVendedor.perNombres + " " + oVendedor.perApellidoPat + " " + oVendedor.perApellidoMat;
+                    txtDocCli.Text = "";
+                    txtDireccion.Text = oVendedor.perDireccion == null ? "" : oVendedor.perDireccion.ToString();
+                    txtTelefono.Text = oVendedor.perTelefono == null ? "" : oVendedor.perTelefono.ToString();
 
-                lstProveedores = null;
-                Proveedor = null;
+                    lstPersonal = null;
+                    oVendedor = null;
+                }
+                else
+                {
+                    clsProveedores lstProveedores = new clsProveedores();
+                    Proveedores Proveedor = lstProveedores.GetProveedor(nPrvCod);
+
+                    txtProveedor.Text = Proveedor.PrvRazon.ToString();
+                    txtDocCli.Text = Proveedor.PrvNumDoc.ToString();
+                    txtDireccion.Text = Proveedor.PrvDireccion.ToString();
+                    txtTelefono.Text = Proveedor.PrvTelefono.ToString();
+
+                    lstProveedores = null;
+                    Proveedor = null;
+                }
             }
         }
         protected void chkPorEstado_CheckedChanged(object sender, EventArgs e)
@@ -456,8 +478,8 @@ namespace AgrocomercioWEB.Compras
                     else
                         ddlTipoDocu.SelectedIndex = 0;
 
-                    //txtNroSerie.Text = lstDocumentos.MaxDopNroSerie(Convert.ToInt32(ddlTipoDocu.SelectedValue));
-                    txtNroSerie.Text = string.Empty;
+                    txtNroSerie.Text = lstDocumentos.MaxDopNroSerie(Convert.ToInt32(ddlTipoDocu.SelectedValue));
+                    //txtNroSerie.Text = string.Empty;
                     txtNroSerie.Focus();
                     HabilitarBtn(btnAgregar, true);
                     ModalPopupNuevoDocumento.Show();
@@ -491,8 +513,7 @@ namespace AgrocomercioWEB.Compras
             {
                 HabilitarCampos(true);
                 CargarCombos();
-                CargarProveedores();
-
+                
                 txtDireccion.Enabled = false;
                 txtDocCli.Enabled = false;
                 txtTelefono.Enabled = false;
@@ -503,8 +524,9 @@ namespace AgrocomercioWEB.Compras
                 nDopCod = int.Parse(dgvDocumentos.Rows[0].Cells[1].Text);
                 cDopDescri = dgvDocumentos.Rows[0].Cells[2].Text;
 
-                CargarCamposOperacion(nOpeCod);
                 CargarCamposDocumento(nDopCod, cDopDescri);
+                CargarProveedores();
+                CargarCamposOperacion(nOpeCod);
                 ddlProveedor_SelectedIndexChanged(sender, e);
 
                 dtDetOperacion = lstDetOperacion.GetListDetOperacion(nOpeCod);
@@ -516,6 +538,8 @@ namespace AgrocomercioWEB.Compras
 
                 lblProceso.Value = lblOpeEstado.Value == "C" ? "CLOSE" : "EDIT";
                 SetBotones(lblProceso.Value);
+
+                ConfigurarDocumento();
 
                 GuardarDtCabeceraDocumento();
 
@@ -633,6 +657,8 @@ namespace AgrocomercioWEB.Compras
 
                     lblProceso.Value = "EDIT";
                     SetBotones(lblProceso.Value);
+
+                    ConfigurarDocumento();
                 }
                 else
                 {
@@ -691,7 +717,7 @@ namespace AgrocomercioWEB.Compras
             IniciarCamposArticulos();
             if (lsbArticulos.Items.Count > 0 && lsbArticulos.Items[0].Value != "0")
             {
-                if (ddlProveedor.SelectedValue != "000" && ddlProveedor.SelectedValue != "999")
+                if (ddlProveedor.SelectedValue != "000" && ddlProveedor.SelectedValue != "999" && lblTipoDoc.Value != "4" && lblTipoDoc.Value != "5")
                 {
                     ddlLaboratorios.SelectedValue = ddlProveedor.SelectedValue;
                     ddlLaboratorios_SelectedIndexChanged(sender, e);
@@ -765,6 +791,7 @@ namespace AgrocomercioWEB.Compras
 
                         txtFecha.Text = DateTime.Today.ToString("yyyy-MM-dd");
                         SetBotones(lblProceso.Value);
+                        ConfigurarDocumento();
                     }
                     else if (lblProceso.Value == "NEWDOC")
                     {
@@ -819,6 +846,8 @@ namespace AgrocomercioWEB.Compras
                 SetPanelDocumento((int)nOpeCod);
                 pnDocumentos.Visible = true;
                 ModalPopupGirarCompra.Hide();
+                
+                ConfigurarDocumento();
             }
             catch (Exception ex)
             {
@@ -868,9 +897,24 @@ namespace AgrocomercioWEB.Compras
         {
             clsProveedores lstProveedores = new clsProveedores();
 
-            ddlProveedor.DataSource = lstProveedores.GetAll();
-            ddlProveedor.DataBind();
-            ddlProveedor.Items.Add(new ListItem("[NUEVO PROVEEDOR]", "999"));
+            if (lblTipoDoc.Value != "4" && lblTipoDoc.Value != "5" )
+            {
+                ddlProveedor.DataTextField = "PrvRazon";
+                ddlProveedor.DataValueField = "PrvCod";
+                ddlProveedor.DataSource = lstProveedores.GetAll();
+                ddlProveedor.DataBind();
+                ddlProveedor.Items.Add(new ListItem("[NUEVO PROVEEDOR]", "999"));               
+            }
+            else
+            {
+                clsPersonal lstPersonal = new clsPersonal();
+                var lstVendedores = lstPersonal.GetPersonalPorTipo(1);
+                ddlProveedor.DataTextField = "VenNombre";
+                ddlProveedor.DataValueField = "PerCod";
+                ddlProveedor.DataSource = lstPersonal.GetVendedores();
+                ddlProveedor.DataBind();
+            }
+
             ddlProveedor.Items.Insert(0, new ListItem("", "000"));
 
             ddlProveedorFiltro.DataSource = lstProveedores.GetAll();
@@ -960,6 +1004,7 @@ namespace AgrocomercioWEB.Compras
             txtFecFin.Text = "";
             txtPuntoPartida.Text = "";
             txtFecTraslado.Text = "";
+            txtNotaPedidoVen.Text = "";
 
             ddlTipCiclo.SelectedIndex = 2;
 
@@ -978,6 +1023,7 @@ namespace AgrocomercioWEB.Compras
 
             ddlTipCiclo.Visible = false;
             txtCiclo.Visible = false;
+            txtNotaPedidoVen.Visible = false;
 
             lblProceso.Value = "";
             lblEstado.Value = "";
@@ -1005,11 +1051,58 @@ namespace AgrocomercioWEB.Compras
             txtTipCambio.Enabled = Value;
             txtPuntoPartida.Enabled = Value;
             txtFecTraslado.Enabled = Value;
+            txtNotaPedidoVen.Enabled = Value;
 
             ddlTipCiclo.Enabled = Value;
             txtCiclo.Enabled = Value;
         }
+        private void ConfigurarDocumento()
+        {
+            lblFecTraslado.Visible = false;
+            txtFecTraslado.Visible = false;
+            lblPuntoPartida.Visible = false;
+            txtPuntoPartida.Visible = false;
+            divClienteFilter.Visible = true;
+            txtNotaPedidoVen.Visible = false;
+            lblNotaPedidoVen.Visible = false;
+            ddlProveedor.CssClass = "cssHide";
 
+            if (lblOpeEstado.Value.Trim() == "R")
+                ddlTipoVenta.Enabled = true;
+
+            switch (int.Parse(lblTipoDoc.Value))
+            {
+                case 2:
+                    btnImprimir.OnClientClick = "AbrirVentanaGuia()";
+                    lblFecTraslado.Visible = true;
+                    txtFecTraslado.Visible = true;
+                    lblPuntoPartida.Visible = true;
+                    txtPuntoPartida.Visible = true;
+                    break;
+                case 4: case 5:
+                    btnImprimir.OnClientClick = "";
+                    divClienteFilter.Visible = false;
+                    ddlTipoVenta.SelectedValue = "CO";
+                    ddlTipoVenta.Enabled = false;
+                    txtNotaPedidoVen.Visible = true;
+                    lblNotaPedidoVen.Visible = true;
+                    ddlProveedor.CssClass = "cssShow";
+                    pnDocumentos.Visible = false;
+                    break;
+                default:
+                    btnImprimir.OnClientClick = "AbrirVentanaFactura()";
+                    lblFecTraslado.Visible = false;
+                    txtFecTraslado.Visible = false;
+                    lblPuntoPartida.Visible = false;
+                    txtPuntoPartida.Visible = false;
+                    txtFecTraslado.Text = "";
+                    txtPuntoPartida.Text = "";
+                    break;
+            }
+
+
+
+        }
         private void AsignarFuncionBotonImprimir()
         {
             //FUNCION PARA ASIGNAR LA FUNCION JAVASCRIPT QUE VA A EJECUTAR EL BOTON IMPRIMIR
@@ -1104,6 +1197,7 @@ namespace AgrocomercioWEB.Compras
                         HabilitarBtn(btnGuardar, true);
                         HabilitarBtn(btnProcesar, true);
                         HabilitarBtn(btnEliminar, false);
+                        HabilitarBtn(btnAgregar, true);
                         pnMenuArticulos.Visible = true;
                     }
                     else if (lblOpeEstado.Value.Trim() == "P")
@@ -1399,6 +1493,21 @@ namespace AgrocomercioWEB.Compras
                         txtCiclo.Focus();
                         return false;
                     }
+                    if (lblTipoDoc.Value == "2" && txtFecTraslado.Text == "")
+                    {
+                        cMensaje = "Ingrese una Fecha de Traslado";
+                        txtCiclo.Focus();
+                        return false;
+                    }
+                    if ((lblTipoDoc.Value == "4" || lblTipoDoc.Value == "5") && txtNotaPedidoVen.Text == "")
+                    {
+                        cMensaje = "Debe Ingresar el Numero de Pedido del Vendedor";
+                        txtNotaPedidoVen.Focus();
+                        return false;
+                    }
+                    
+
+                    
                     // DataRow[] Filas = g_dtDetOperacion.Select("dtpSubTotal = 0");
                     //if (Filas.Count() > 0)
                     //{
@@ -1433,7 +1542,14 @@ namespace AgrocomercioWEB.Compras
                 lblNroPedido.Text = Operacion.OpeCod.ToString();
                 txtFecha.Text = ((DateTime)Operacion.OpeFecEmision).ToString("yyyy-MM-dd");
                 ddlZonas.SelectedValue = Operacion.ZonCod.ToString().Trim();
-                ddlProveedor.SelectedValue = Operacion.PrvCod.ToString();
+                if (lblTipoDoc.Value == "4" || lblTipoDoc.Value == "5")
+                {
+                    ddlProveedor.SelectedValue = Operacion.PerCod.ToString();
+                }
+                else
+                {
+                    ddlProveedor.SelectedValue = Operacion.PrvCod.ToString();
+                }                
                 ddlMoneda.SelectedValue = Operacion.OpeMoneda.ToString().Trim();
                 ddlTipoVenta.SelectedValue = Operacion.OpeTipPago.ToString().Trim();
                 txtPrecioCompra.Text = SetFormatNum((double)Operacion.OpeSubTotal);
@@ -1489,34 +1605,19 @@ namespace AgrocomercioWEB.Compras
                 lbldopCod.Value = DocumenOpe.dopCod.ToString();
                 lblNroDocumento.Text = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
                 txtFecha.Text = ((DateTime)DocumenOpe.dopFecEmision).ToString("yyyy-MM-dd");
+                txtNotaPedidoVen.Text = DocumenOpe.dopDocComple;
+                if (DocumenOpe.dopFecTraslado != null)
+                    txtFecTraslado.Text = ((DateTime)DocumenOpe.dopFecTraslado).ToString("yyyy-MM-dd");
+                else
+                    txtFecTraslado.Text = ((DateTime)DocumenOpe.dopFecEmision).ToString("yyyy-MM-dd");
 
-                switch (lblTipoDoc.Value)
-                {
-                    case "2":
-                        btnImprimir.OnClientClick = "AbrirVentanaGuia()";
-                        lblFecTraslado.Visible = true;
-                        txtFecTraslado.Visible = true;
-                        lblPuntoPartida.Visible = true;
-                        txtPuntoPartida.Visible = true;
-                        if (DocumenOpe.dopFecTraslado != null)
-                            txtFecTraslado.Text = ((DateTime)DocumenOpe.dopFecTraslado).ToString("yyyy-MM-dd");
-                        else
-                            txtFecTraslado.Text = ((DateTime)DocumenOpe.dopFecEmision).ToString("yyyy-MM-dd");
-                        if (DocumenOpe.dopPunPartida != null)
-                            txtPuntoPartida.Text = DocumenOpe.dopPunPartida;
-                        else
-                            txtPuntoPartida.Text = "";
-                        break;
-                    default:
-                        btnImprimir.OnClientClick = "AbrirVentanaFactura()";
-                        lblFecTraslado.Visible = false;
-                        txtFecTraslado.Visible = false;
-                        lblPuntoPartida.Visible = false;
-                        txtPuntoPartida.Visible = false;
-                        txtFecTraslado.Text = "";
-                        txtPuntoPartida.Text = "";
-                        break;
-                }
+                if (DocumenOpe.dopPunPartida != null)
+                    txtPuntoPartida.Text = DocumenOpe.dopPunPartida;
+                else
+                    txtPuntoPartida.Text = "";
+
+                ConfigurarDocumento();
+                
             }
             catch (Exception ex)
             {
@@ -1856,7 +1957,6 @@ namespace AgrocomercioWEB.Compras
             clsArticulos oArticulos = new clsArticulos();
             int PrvCod = Int32.Parse(ddlLaboratorios.SelectedValue);
             
-
             if (PrvCod == -1)
                 lsbArticulos.DataSource = oArticulos.GetAll();
             else
@@ -1867,8 +1967,12 @@ namespace AgrocomercioWEB.Compras
                 lsbArticulos.Items.Add(new ListItem("Este Proveedor no tiene Articulos", "0"));
             }
             oArticulos = null;
-            ddlProveedor.SelectedValue = ddlLaboratorios.SelectedValue;
-            ddlProveedor_SelectedIndexChanged(sender, e);
+            if (lblTipoDoc.Value != "4" && lblTipoDoc.Value != "5")
+            {
+                ddlProveedor.SelectedValue = ddlLaboratorios.SelectedValue;
+                ddlProveedor_SelectedIndexChanged(sender, e);
+            }
+            
             ModalPopupAgregar.Show();
         }
         protected void btnGuardarPrecio_Click(object sender, EventArgs e)

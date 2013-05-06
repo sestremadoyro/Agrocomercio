@@ -202,16 +202,17 @@ namespace AgrocomercioWEB.Reportes
                 doc.Add(paragraph);
                 doc.Add(PdfTable);
             }
-            catch (DocumentException docEx)
-            {
-                //handle pdf document exception if any
-            }
-            catch (IOException ioEx)
-            {
-                // handle IO exception
-            }
+            //catch (DocumentException docEx)
+            //{
+            //    //handle pdf document exception if any
+            //}
+            //catch (IOException ioEx)
+            //{
+            //    // handle IO exception
+            //}
             catch (Exception ex)
             {
+                MessageBox(ex.Message);
                 // ahndle other exception if occurs
             }
             finally
