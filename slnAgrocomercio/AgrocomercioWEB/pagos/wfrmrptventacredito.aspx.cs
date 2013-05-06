@@ -356,9 +356,6 @@ namespace AgrocomercioWEB.pagos
             ddlListaVendedores.DataSource = lstVendedores;
             ddlListaVendedores.DataBind();
             ddlListaVendedores.Items.Insert(0, new ListItem("Todos", "0"));
-
-
-
         }
         private void CalcularSumatorias(){
             Double totalComprasol, totalCompradol,
