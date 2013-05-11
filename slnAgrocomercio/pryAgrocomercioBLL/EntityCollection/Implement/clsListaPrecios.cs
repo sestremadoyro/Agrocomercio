@@ -158,7 +158,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 nCostoProm += (double)result.Select(Pre => (Pre.LprPrecio - (Pre.LprPrecio * Pre.LprDscto / 100) +
                         (Pre.LprPrecio / 100)) * (Pre.Articulos.Proveedores.PrvGanancia > 0 ? Pre.Articulos.Proveedores.PrvGanancia : 1)).Average();
 
-            return Math.Round(nCostoProm, 2);
+            return Math.Round((nCostoProm*1.18), 2);
         }
 
         #endregion

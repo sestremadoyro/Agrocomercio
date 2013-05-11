@@ -408,43 +408,43 @@ namespace AgrocomercioWEB
 
             TipCalIGV = ConfigurationManager.AppSettings["TipoCalculoIGV"];
 
-            if (TipCalIGV == "2")
+            //if (TipCalIGV == "2")
+            //{
+            //    nSubTotal = nPrecio - (nPrecio * 100 / 118);
+            //    nPrecio = nSubTotal - (nSubTotal / 101);
+            //}
+            //nPrecioFin = nPrecio - pnDescuentoEsp;
+            //nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
+            //nIGV = Math.Round(nSubTotal * pnTasIGV, 2);
+            //nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
+
+            if (cOpeTipo == "C") //PARA COMPRAS
             {
-                nSubTotal = nPrecio - (nPrecio * 100 / 118);
-                nPrecio = nSubTotal - (nSubTotal / 101);
+                if (TipCalIGV == "2")
+                {
+                    nSubTotal = nPrecio - (nPrecio * 100 / 118);
+                    nPrecio = nSubTotal - (nSubTotal / 101);
+                }
+                nPrecioFin = nPrecio - pnDescuentoEsp;
+                nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
+                nIGV = Math.Round(nSubTotal * pnTasIGV, 2);
+                nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
             }
-            nPrecioFin = nPrecio - pnDescuentoEsp;
-            nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
-            nIGV = Math.Round(nSubTotal * pnTasIGV, 2);
-            nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
+            else // PARA VENTAS
+            {
+                if (TipCalIGV == "1")
+                {
+                    var nIgv = nPrecio - Math.Round((nPrecio * 100 / 118), 2);
+                    nSubTotal = nPrecio - nIgv;
+                }
+                else
+                    nSubTotal = nCostoTotal;
 
-            //if (cOpeTipo == "C") //PARA COMPRAS
-            //{
-            //    if (TipCalIGV == "2")
-            //    {
-            //        nSubTotal = nPrecio - (nPrecio * 100 / 118);
-            //        nPrecio = nSubTotal - (nSubTotal / 101);
-            //    }
-            //    nPrecioFin = nPrecio - pnDescuentoEsp;
-            //    nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
-            //    nIGV = Math.Round(nSubTotal * pnTasIGV, 2);
-            //    nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
-            //}
-            //else // PARA VENTAS
-            //{
-            //    if (TipCalIGV == "1")
-            //    {
-            //        var nIgv = nPrecio - Math.Round((nPrecio * 100 / 118), 2);
-            //        nSubTotal = nPrecio - nIgv;
-            //    }
-            //    else
-            //        nSubTotal = nCostoTotal;
-
-            //    nPrecioFin = nSubTotal - pnDescuentoEsp;
-            //    nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
-            //    nIGV = Math.Round(nSubTotal * nTasIGV, 2);
-            //    nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
-            //}
+                nPrecioFin = nSubTotal - pnDescuentoEsp;
+                nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
+                nIGV = Math.Round(nSubTotal * nTasIGV, 2);
+                nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
+            }
 
             pcPrecioCompra = nPrecioFin;
             pcDescuento = pnDescuentoEsp;

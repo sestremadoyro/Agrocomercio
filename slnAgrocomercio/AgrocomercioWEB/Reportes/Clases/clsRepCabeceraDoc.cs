@@ -14,6 +14,7 @@ namespace AgrocomercioWEB.Reportes.Clases
         private string m_cNroGuia;
         private string m_cNroPedido;        
         private string m_cFormaPago;
+        private string m_cSimboloMon;        
         private string m_cAnio;
         private string m_cMes;
         private string m_cDia;
@@ -38,9 +39,14 @@ namespace AgrocomercioWEB.Reportes.Clases
         private string m_NroFactura;
         private string m_Unidad;
         private string m_PPartida;
-        private string m_dFecTraslado;       
-        
+        private string m_dFecTraslado;
 
+
+        public string cSimboloMon
+        {
+            get { return m_cSimboloMon; }
+            set { m_cSimboloMon = value; }
+        }
         public string PPartida
         {
             get { return m_PPartida; }

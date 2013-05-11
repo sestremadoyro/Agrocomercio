@@ -1270,6 +1270,7 @@ namespace AgrocomercioWEB.Compras
             dtResult.Columns.Add(new DataColumn("cNroPedido", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cRuc", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cFormaPago", typeof(String)));
+            dtResult.Columns.Add(new DataColumn("cSimboloMon", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cAnio", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cMes", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cDia", typeof(String)));
@@ -1342,13 +1343,14 @@ namespace AgrocomercioWEB.Compras
             newRow["cNroPedido"] = "";
             newRow["cRuc"] = txtDocCli.Text;
             newRow["cFormaPago"] = ddlTipoVenta.SelectedItem.Text;
+            newRow["cSimboloMon"] = ddlMoneda.SelectedValue == "PEN" ? "S/." : "$";
             newRow["cAnio"] = DateTime.Parse(txtFecha.Text).Year.ToString();
             newRow["cMes"] = DateTime.Parse(txtFecha.Text).Month.ToString();
             newRow["cDia"] = DateTime.Parse(txtFecha.Text).Day.ToString();
-            newRow["cValorVenta"] = SetFormatNum(GetNumero(txtSubTotal.Text) - GetNumero(txtDescuento.Text));
-            newRow["cFlete"] = txtFlete.Text;
-            newRow["cIGV"] = txtIgv.Text;
-            newRow["cTotal"] = txtCostoTotal.Text;
+            newRow["cValorVenta"] = (GetNumero(txtSubTotal.Text, false) - GetNumero(txtDescuento.Text, false)).ToString();
+            newRow["cFlete"] = GetNumero(txtFlete.Text, false).ToString();
+            newRow["cIGV"] = GetNumero(txtIgv.Text, false).ToString();
+            newRow["cTotal"] = GetNumero(txtCostoTotal.Text, false).ToString();
             newRow["cTotalSinFlete"] = SetFormatNum(GetNumero(newRow["cValorVenta"].ToString()) * (nTasIGV + 1));
             newRow["cTotalLetras"] = ConvertiraLetras((decimal)GetNumero(txtCostoTotal.Text)) + moneda;
             newRow["Destinatario"] = ddlProveedor.SelectedItem.Text;

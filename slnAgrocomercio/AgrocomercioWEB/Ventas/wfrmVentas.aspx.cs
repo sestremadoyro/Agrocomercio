@@ -1301,6 +1301,7 @@ namespace AgrocomercioWEB.Ventas
             dtResult.Columns.Add(new DataColumn("cNroPedido", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cRuc", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cFormaPago", typeof(String)));
+            dtResult.Columns.Add(new DataColumn("cSimboloMon", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cAnio", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cMes", typeof(String)));
             dtResult.Columns.Add(new DataColumn("cDia", typeof(String)));
@@ -1378,13 +1379,14 @@ namespace AgrocomercioWEB.Ventas
             newRow["cNroPedido"] = NroPedido;
             newRow["cRuc"] = txtDocCli.Text;
             newRow["cFormaPago"] = ddlTipoVenta.SelectedItem.Text;
+            newRow["cSimboloMon"] = ddlMoneda.SelectedValue == "PEN" ? "S/." : "$";
             newRow["cAnio"] = DateTime.Parse(txtFecha.Text).Year.ToString();
             newRow["cMes"] = DateTime.Parse(txtFecha.Text).Month.ToString();
             newRow["cDia"] = DateTime.Parse(txtFecha.Text).Day.ToString();
-            newRow["cValorVenta"] = SetFormatNum(GetNumero(txtValorVenta.Text) - GetNumero(txtDescuento.Text));
-            newRow["cFlete"] = txtFlete.Text;
-            newRow["cIGV"] = txtIgv.Text;
-            newRow["cTotal"] = txtTotal.Text;
+            newRow["cValorVenta"] = (GetNumero(txtValorVenta.Text, false) - GetNumero(txtDescuento.Text, false)).ToString();
+            newRow["cFlete"] = GetNumero(txtFlete.Text, false).ToString();
+            newRow["cIGV"] = GetNumero(txtIgv.Text, false).ToString();
+            newRow["cTotal"] = GetNumero(txtTotal.Text, false).ToString();
             newRow["cTotalSinFlete"] = SetFormatNum(GetNumero(newRow["cValorVenta"].ToString()) * (nTasIGV + 1));
             newRow["cTotalLetras"] = ConvertiraLetras(decimal.Parse((txtTotal.Text.Replace("S/.", "").Trim()).Replace("$", "").Trim())) + moneda;
             newRow["Destinatario"] = ddlClientes.SelectedItem.Text;
@@ -1932,8 +1934,7 @@ namespace AgrocomercioWEB.Ventas
                     txtArtPreUnitario.Text = Math.Round(((nLprPrecio * (double)oArticulo.Proveedores.PrvGanancia) / nTipCam), 2).ToString();
                 else
                     txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
-
-
+                
                 //txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
 
                 //if (oPrecio == null)
