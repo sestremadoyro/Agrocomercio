@@ -1352,7 +1352,7 @@ namespace AgrocomercioWEB.Compras
             newRow["cIGV"] = GetNumero(txtIgv.Text, false).ToString();
             newRow["cTotal"] = GetNumero(txtCostoTotal.Text, false).ToString();
             newRow["cTotalSinFlete"] = SetFormatNum(GetNumero(newRow["cValorVenta"].ToString()) * (nTasIGV + 1));
-            newRow["cTotalLetras"] = ConvertiraLetras((decimal)GetNumero(txtCostoTotal.Text)) + moneda;
+            newRow["cTotalLetras"] = ConvertiraLetras((decimal)GetNumero(txtCostoTotal.Text)).ToUpper() + moneda.ToUpper();
             newRow["Destinatario"] = ddlProveedor.SelectedItem.Text;
             newRow["PLlegada"] = txtDireccion.Text;
             newRow["NroFactura"] = NroFactura;

@@ -6,14 +6,15 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
 <%@ Import Namespace="pryAgrocomercioDAL" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanel11" runat="server">
     <ContentTemplate>
     
-            <table style="width: 645px; margin:0 auto;" >
+            <table style="width: 760px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior">Administración de Productos</h2>
+                <td> <h2 class="clsTituloInterior" style="width:760px;">Administración de Productos</h2>
                 </td>
             </tr>
             <tr>
@@ -21,8 +22,8 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                 <div id="pnlTipoProductos" visible="true" runat="server" 
                         style="background-color: #FFFFFF">
                        
-                <asp:Panel ID="pnlBusqueda" runat="server">
-                <table class=clsSubTituloInterior>
+                <asp:Panel ID="pnlBusqueda" runat="server" CssClass="anchopanel" >
+                <table class="clsSubTituloInterior">
                     <tr>
                         <td class="clsPanelBusquedaTitulo">
                                 <asp:Label ID="Label8" runat="server" Text="Ingrese el Nombre del Producto a Buscar:"></asp:Label>
@@ -57,7 +58,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
             </tr>
             <tr>
             <td>
-            <div id="pnlProductos" visible="true" runat="server" 
+            <div id="pnlProductos" visible="true" runat="server"  class="anchopanel"
                     style="background-color: #FFFFFF">
                 <asp:GridView ID="gvwProductos" runat="server" Width="648px" 
                     AutoGenerateColumns="False" 
@@ -139,8 +140,8 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
             </tr>
             <tr>
             <td>
-                <asp:Panel id="pnlEditProductos" runat="server" Visible="false" BackColor="White">
-                    <span class="clsSubTituloInterior" style="float:left;">Datos del Producto</span>
+                <asp:Panel id="pnlEditProductos" runat="server" Visible="false" BackColor="White"  CssClass="anchopanel" >
+                    <span class="clsSubTituloInterior" style="float:left; width:645px;">Datos del Producto</span>
                 
                  <table style="width: 645px; margin:0 auto;">
                     <tr>
@@ -307,13 +308,13 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
             </tr>
             <tr>
             <td>
-            <div id="pnlListaPrecios" visible="true" runat="server" 
-                    style="background-color: #FFFFFF">
+            <div id="pnlListaPrecios" visible="true" runat="server"
+                    style="background-color: #FFFFFF; width:760px;">
                     <span class="clsSubTituloInterior" style="float:left;">Precios - Lotes</span>
                     <div style=" float:right;">
                          <asp:Button ID="btnNuevoPrecio" runat="server" Text="Nuevo" 
                         CssClass="clsBtnNuevo" onclick="btnNuevoPrecio_Click" ForeColor="Black" 
-                        Visible="true" />
+                        Visible="False" />
                     </div>
                 <asp:GridView ID="gvwListaPrecios" runat="server" Width="648px" 
                     AutoGenerateColumns="False" 
@@ -383,7 +384,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
             </tr>
             <tr>
             <td>
-            <asp:Panel id="pnlDetallePrecio" runat="server" Visible="false" BackColor="White">
+            <asp:Panel id="pnlDetallePrecio" runat="server" Visible="false" BackColor="White" CssClass="anchopanel">
                 <span class="clsSubTituloInterior" style="float:left;">Datos del Precio y Lote</span>
 
                 <table style="width: 645px; margin:0 auto;">
@@ -438,7 +439,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                                 ForeColor="Black" ></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtStockLote" runat="server" Width="120px"></asp:TextBox>
+                            <asp:TextBox ID="txtStockLote" runat="server" Width="120px" Enabled="False"></asp:TextBox>
                             <asp:CompareValidator ID="CompareValidator8" runat="server" 
                                 ControlToValidate="txtStockLote" 
                                 ErrorMessage="Ingrese un Stock Correcto" Operator="DataTypeCheck" 

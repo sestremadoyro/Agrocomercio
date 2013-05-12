@@ -781,7 +781,11 @@ namespace AgrocomercioWEB.Maestros.WebForms
                     txtStockLote.Text = ldeStockLote.ToString();
                     this.AgregarVariableSession("stockLote", ldeStockLote);
 
-                    txtFecVenceLote.Text = oLotesArt.LotFecVenci.ToString();
+                    DateTime FechaVenci ;
+
+                    FechaVenci = oLotesArt.LotFecVenci.Value;
+
+                    txtFecVenceLote.Text = FechaVenci.ToString("yyyy-MM-dd");
                     chkEstadoPrecio.Checked = oListaPrecio.LprEstado;
                     lblCodigoLote.Text = oLotesArt.LotCod.ToString();
 
