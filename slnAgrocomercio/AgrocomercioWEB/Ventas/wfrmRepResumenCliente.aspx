@@ -137,7 +137,7 @@
                                     <table class="tablaDerecha">
                                         <tr>
                                             <td>
-                                                <div id="container" style="position: relative; width: 100%;">
+                                                <div id="container" style="position: relative; width: 875px; height:430px; overflow:hidden;">
                                                         <cc1:Grid ID="gridVentasxCobrar" runat="server" AllowAddingRecords="False" AllowColumnResizing="False"
                                                             CallbackMode="true" Serialize="true" AllowFiltering="True" AutoGenerateColumns="False"
                                                             Width="100%"  FolderStyle="~/App_Themes/TemaAgrocomercio/Grid/style_6"

@@ -559,12 +559,12 @@ namespace AgrocomercioWEB.Ventas
 
             clsOperaciones lstOperaciones = new clsOperaciones();
             int nOpeCod = 0;
-
+            string pcResult = "";
             try
             {
                 nOpeCod = int.Parse(dgvListOperVentas.Rows[dgvListOperVentas.SelectedIndex].Cells[2].Text);
 
-                if (lstOperaciones.ValidarAnulacion(nOpeCod))
+                if (lstOperaciones.ValidarAnulacion(nOpeCod, ref pcResult))
                 {
                     lstOperaciones.Anular(nOpeCod);
 
@@ -575,7 +575,7 @@ namespace AgrocomercioWEB.Ventas
                 }
                 else
                 {
-                    MessageBox("Esta vente no se puede ANULAR.");
+                    MessageBox(pcResult);
                 }
             }
             catch (Exception ex)

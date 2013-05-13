@@ -619,6 +619,7 @@
     <Content Include="pagos\wfrmPagxLetra.aspx" />
     <Content Include="pagos\wfrmRepNotasCompras.aspx" />
     <Content Include="pagos\wfrmRepNotasVentas.aspx" />
+    <Content Include="Reportes\wfrmTotalPorProveedor.aspx" />
     <Content Include="Reportes\ImpresionBoleta.aspx" />
     <Content Include="Reportes\ImpresionNotaGeneral.aspx" />
     <Content Include="Reportes\ImpresionNotaPedido.aspx" />
@@ -906,6 +907,13 @@
     <Compile Include="Reportes\Clases\clsRepCabeceraDoc.cs" />
     <Compile Include="Reportes\Clases\clsRepDetalleFactura.cs" />
     <Compile Include="Reportes\Clases\clsRepCompras.cs" />
+    <Compile Include="Reportes\wfrmTotalPorProveedor.aspx.cs">
+      <DependentUpon>wfrmTotalPorProveedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\wfrmTotalPorProveedor.aspx.designer.cs">
+      <DependentUpon>wfrmTotalPorProveedor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\ImpresionBoleta.aspx.cs">
       <DependentUpon>ImpresionBoleta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

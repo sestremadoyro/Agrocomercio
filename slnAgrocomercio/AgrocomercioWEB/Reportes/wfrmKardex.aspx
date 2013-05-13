@@ -176,11 +176,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="tablaDerecha" valign="top" colspan="2">
-                                    <table class="tablaDerecha" >
+                                <td class="tablaDerecha" valign="top" colspan="2"  >
+                                    <table class="tablaDerecha"  >
                                         <tr>
                                             <td>
-                                                <div id="Div1" style="position: relative; width: 100%;">
+                                                <div id="Div1" style="position: relative; width: 875px; height:430px; overflow:hidden;">
 
 
                                                     <obout:Grid ID="gridKardex" runat="server" CallbackMode="true" Serialize="true"

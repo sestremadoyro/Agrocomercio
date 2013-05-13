@@ -302,8 +302,10 @@ namespace pryAgrocomercioBLL.EntityCollection
             }
             return 0;
         }
-        public Boolean ValidarAnulacion(int _OpeCod)
+        public Boolean ValidarAnulacion(int _OpeCod, ref string pcResult)
         {
+            Boolean bResult = true;
+            pcResult = "";
             //clsLotesArt lstLotes = new clsLotesArt();
             clsDetOperacion lstDetOpe = new clsDetOperacion();
 
@@ -312,7 +314,23 @@ namespace pryAgrocomercioBLL.EntityCollection
                 && Det.Operaciones.OpeEstado == "P"
                 && Det.LotesArt.LotStock != Det.dtpCantidad);
 
-            return ResultA.Count() == 0;
+            if (ResultA.Count() != 0)
+            {
+                pcResult = "Esta compra no se puede ANULAR, El lote Comprado fue Afectado por una Venta. Debe Anular Primero la Venta.";
+                bResult = false;
+            }
+            else{
+                var ResultB = Find(Ope => Ope.OpeCod == _OpeCod
+                    && Ope.DocumenOperacion.Any(Doc => Doc.icodletra != null));
+                
+                if (ResultB.Count() != 0)
+                {
+                    pcResult = "Esta Operacion no se Puede Anular por que ya se le Genero Letras";
+                    bResult = false;
+                }
+            }
+
+            return bResult;
         }
 
 #endregion
@@ -594,6 +612,55 @@ namespace pryAgrocomercioBLL.EntityCollection
 
 
                 return ToDataTable<object>(lstKardex.AsQueryable());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<object> ReporteTotalProveedor()
+        {
+            clsdetletra colDetLetras = new clsdetletra();
+            clsDetOperacion colDetOpera = new clsDetOperacion();
+            clsArticulos colArticulos = new clsArticulos();
+            try
+            {
+                var lstDetOperaciones = colDetOpera.Find(Det => (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList();
+
+                var lstOperaciones = (from Det in lstDetOperaciones
+                                      group Det by Det.ArtCod into GroupDet
+                                      select new
+                                      {
+                                          ArtCod = GroupDet.Key,
+                                          nCom_Cantidad = GroupDet.Sum(Det => (Det.Operaciones.OpeTipo == "V" ? 0 : Det.dtpCantidad)),
+                                          nCom_Total = GroupDet.Sum(Det => (Det.Operaciones.OpeTipo == "V" ? 0 : Det.dtpSubTotal)),
+                                          nVen_Cantidad = GroupDet.Sum(Det => (Det.Operaciones.OpeTipo == "C" ? 0 : Det.dtpCantidad)),
+                                          nVen_Total = GroupDet.Sum(Det => (Det.Operaciones.OpeTipo == "C" ? 0 : Det.dtpSubTotal))
+                                       }).ToList();
+
+
+                var lstResult = from Art in colArticulos.GetAll().ToList()
+                                orderby Art.Proveedores.PrvRazon, Art.ArtDescripcion
+                                join Ope in lstOperaciones on Art.ArtCod equals Ope.ArtCod into dGru
+                                    from Ope2 in dGru.DefaultIfEmpty()
+                                select new
+                                {
+                                    Art.PrvCod,
+                                    Art.Proveedores.PrvRazon,
+                                    Art.ArtCod,
+                                    Art.ArtDescripcion,
+                                    Art.ArtStockIni,
+                                    nTotalIni = Math.Round((decimal)(Art.ArtStockIni * Art.ArtCostoProm),2),
+                                    nCom_Cantidad = Ope2 == null ? 0 : (Ope2.nCom_Cantidad),
+                                    nCom_Total = Ope2 == null ? 0 : (Ope2.nCom_Total),
+                                    nVen_Cantidad = Ope2 == null ? 0 : (Ope2.nVen_Cantidad),
+                                    nVen_Total = Ope2 == null ? 0 : (Ope2.nVen_Total),
+                                    Art.ArtStock,
+                                    nTotalFin = Math.Round((decimal)((Art.ArtStockIni * Art.ArtCostoProm) + (Ope2 == null ? 0 : (Ope2.nCom_Total - Ope2.nVen_Total ))), 2),
+                                };
+
+                return lstResult.ToList();
             }
             catch (Exception ex)
             {

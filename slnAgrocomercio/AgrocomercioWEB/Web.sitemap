@@ -5,6 +5,7 @@
       <siteMapNode url="~/maestros/webforms/wfrmArticulos.aspx" title="Articulos" description="Mantenimiento de Productos" />
       <siteMapNode url="~/maestros/webforms/wfrmProveedores.aspx" title="Proveedores" description="Mantenimiento de Laboratorios" />
       <siteMapNode url="~/Reportes/wfrmKardex.aspx" title="Kardex" description="Kardex" />
+      <siteMapNode url="~/Reportes/wfrmTotalPorProveedor.aspx" title="Total Por Proveedor" description="Total Por Proveedor" />
     </siteMapNode>
   <siteMapNode url="#" title="Ventas"  description="Ventas">
     <siteMapNode url="~/ventas/wfrmVentas.aspx" title="Registro Ventas" description="Registrar las Ventas" />

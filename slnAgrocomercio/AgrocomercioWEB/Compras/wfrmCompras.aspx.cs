@@ -558,12 +558,12 @@ namespace AgrocomercioWEB.Compras
 
             clsOperaciones lstOperaciones = new clsOperaciones();
             int nOpeCod = 0;
-
+            string pcResult = "";
             try
             {
                 nOpeCod = int.Parse(dgvListOperCompras.Rows[dgvListOperCompras.SelectedIndex].Cells[2].Text);
 
-                if (lstOperaciones.ValidarAnulacion(nOpeCod))
+                if (lstOperaciones.ValidarAnulacion(nOpeCod,ref pcResult))
                 {
                     lstOperaciones.Anular(nOpeCod);
 
@@ -574,7 +574,7 @@ namespace AgrocomercioWEB.Compras
                 }
                 else
                 {
-                    MessageBox("Esta compra no se puede ANULAR, El lote Comprado fue Afectado por una Venta. Debe Anular Primero la Venta.");
+                    MessageBox(pcResult);
                 }
             }
             catch (Exception ex)
