@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Reportes_DataSet.cs">
       <DependentUpon>Reportes_DataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes_DataSet.Designer.cs">
       <DependentUpon>Reportes_DataSet.cs</DependentUpon>
