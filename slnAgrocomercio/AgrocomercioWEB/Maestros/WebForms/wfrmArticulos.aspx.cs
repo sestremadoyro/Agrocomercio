@@ -144,7 +144,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             if (linOperacion == 1)        //NUEVO
             {
                 nResp = oArticulo.fnArticuloInsert();
-                btnNuevoPrecio.Visible = true;
+                //btnNuevoPrecio.Visible = true;
             }
             else                        // MODIFICAR
                 nResp = oArticulo.fnArticuloUpdate();
@@ -356,7 +356,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 pnlDetallePrecio.Visible = false;
                 lblMensajes.Visible = false;
 
-                btnNuevoPrecio.Visible = true;
+                //btnNuevoPrecio.Visible = true;
             }
         }
         private decimal  CalcularStock(int pArtCod)
