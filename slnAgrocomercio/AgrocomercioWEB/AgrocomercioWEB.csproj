@@ -524,6 +524,7 @@
     <Content Include="App_Themes\TemaAgrocomercio\ventas.css" />
     <Content Include="bin\AgrocomercioWEB.dll" />
     <Content Include="bin\AgrocomercioWEB.pdb" />
+    <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\itextsharp.xml" />
     <Content Include="bin\obout_AJAXPage.dll" />
@@ -619,6 +620,7 @@
     <Content Include="pagos\wfrmPagxLetra.aspx" />
     <Content Include="pagos\wfrmRepNotasCompras.aspx" />
     <Content Include="pagos\wfrmRepNotasVentas.aspx" />
+    <Content Include="Reportes\wfrmRepSaldos.aspx" />
     <Content Include="Reportes\wfrmTotalPorProveedor.aspx" />
     <Content Include="Reportes\ImpresionBoleta.aspx" />
     <Content Include="Reportes\ImpresionNotaGeneral.aspx" />
@@ -907,6 +909,19 @@
     <Compile Include="Reportes\Clases\clsRepCabeceraDoc.cs" />
     <Compile Include="Reportes\Clases\clsRepDetalleFactura.cs" />
     <Compile Include="Reportes\Clases\clsRepCompras.cs" />
+    <Compile Include="Reportes\rpt\crSaldos1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crSaldos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\wfrmRepSaldos.aspx.cs">
+      <DependentUpon>wfrmRepSaldos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\wfrmRepSaldos.aspx.designer.cs">
+      <DependentUpon>wfrmRepSaldos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\wfrmTotalPorProveedor.aspx.cs">
       <DependentUpon>wfrmTotalPorProveedor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1141,6 +1156,10 @@
     <EmbeddedResource Include="Reportes\rpt\crREpNotaGeneral.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crREpNotaGeneral1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rpt\crSaldos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSaldos1.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

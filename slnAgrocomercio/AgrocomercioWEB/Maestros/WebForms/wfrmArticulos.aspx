@@ -439,7 +439,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                                 ForeColor="Black" ></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtStockLote" runat="server" Width="120px" Enabled="False"></asp:TextBox>
+                            <asp:TextBox ID="txtStockLote" runat="server" Width="120px"></asp:TextBox>
                             <asp:CompareValidator ID="CompareValidator8" runat="server" 
                                 ControlToValidate="txtStockLote" 
                                 ErrorMessage="Ingrese un Stock Correcto" Operator="DataTypeCheck" 

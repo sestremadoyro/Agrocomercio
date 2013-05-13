@@ -48,6 +48,7 @@
     <Compile Include="CArticulo.cs" />
     <Compile Include="cBase.cs" />
     <Compile Include="CCliente.cs" />
+    <Compile Include="CReportes.cs" />
     <Compile Include="EntityCollection\Implement\clsTipoCambios.cs" />
     <Compile Include="EntityCollection\Implement\Pagos\clsOpNotas.cs" />
     <Compile Include="EntityCollection\Implement\Pagos\clsOpPagos.cs" />

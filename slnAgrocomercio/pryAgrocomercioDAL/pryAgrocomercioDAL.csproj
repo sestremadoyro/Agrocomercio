@@ -63,6 +63,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reportes_DataSet.cs">
+      <DependentUpon>Reportes_DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes_DataSet.Designer.cs">
+      <DependentUpon>Reportes_DataSet.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Agrocomercio.edmx">
@@ -93,6 +99,13 @@
     <None Include="ReportesDataSet.xsd" />
     <None Include="ReportesDataSet.xss">
       <DependentUpon>ReportesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes_DataSet.xsc">
+      <DependentUpon>Reportes_DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes_DataSet.xsd" />
+    <None Include="Reportes_DataSet.xss">
+      <DependentUpon>Reportes_DataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
