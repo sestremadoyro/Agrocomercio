@@ -14,7 +14,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmTipoPersonal"  %>
     
             <table style="width: 645px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior">Administración de Tipo de Personal</h2>
+                <td> <h2 class="clsTituloInterior2">Administración de Tipo de Personal</h2>
                 </td>
             </tr>
 

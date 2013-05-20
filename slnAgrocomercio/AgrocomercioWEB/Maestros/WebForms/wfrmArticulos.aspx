@@ -14,7 +14,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
     
             <table style="width: 760px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior" style="width:760px;">Administración de Productos</h2>
+                <td> <h2 class="clsTituloInterior2" style="width:760px;">Administración de ARTICULOS</h2>
                 </td>
             </tr>
             <tr>

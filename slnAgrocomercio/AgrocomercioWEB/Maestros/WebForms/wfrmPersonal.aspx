@@ -13,7 +13,7 @@ CodeBehind="wfrmPersonal.aspx.cs" Inherits="AgrocomercioWEB.Maestros.WebForms.wf
     
             <table style="width: 645px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior">Administración de Personal</h2>
+                <td> <h2 class="clsTituloInterior2">Administración de Personal</h2>
                 </td>
             </tr>
             <tr>

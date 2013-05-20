@@ -11,7 +11,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmUsuarios" %>
     
             <table style="width: 645px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior">Administración de Usuarios</h2>
+                <td> <h2 class="clsTituloInterior2">Administración de Usuarios</h2>
                 </td>
             </tr>
 

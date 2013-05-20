@@ -118,6 +118,16 @@
     font-weight:bold;
     width: 1219px;
 }
+.clsTituloInterior2
+{
+    font-family: Trebuchet MS,Arial;
+    font-size: 19px;
+    text-align: center;
+    color: #20480A;
+    font-weight:bold;
+    width: 650px;
+    margin:0 auto;
+}
 
 .clsSubTituloInterior
 {

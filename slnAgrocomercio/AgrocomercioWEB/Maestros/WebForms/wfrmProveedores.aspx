@@ -13,7 +13,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmProveedores" %>
     
             <table style="width: 645px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior">Administración de Proveedores</h2>
+                <td> <h2 class="clsTituloInterior2">Administración de Proveedores</h2>
                 </td>
             </tr>
             <tr>

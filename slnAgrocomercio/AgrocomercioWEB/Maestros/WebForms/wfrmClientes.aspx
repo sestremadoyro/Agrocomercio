@@ -6,6 +6,21 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmClientes"  %>
 <%@ Import Namespace="pryAgrocomercioDAL" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <style type="text/css">
+        .style1
+        {
+            width: 653px;
+        }
+        .style2
+        {
+            font-family: Trebuchet MS,Arial;
+            font-size: 13px;
+            color: #000000;
+            text-align: left;
+            vertical-align: top;
+            width: 653px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
    
@@ -15,12 +30,12 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmClientes"  %>
     
             <table style="width: 645px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior">Administración de Clientes</h2>
+                <td class="style1"> <h2 class="clsTituloInterior2">Administración de Clientes</h2>
                 </td>
             </tr>
 
             <tr>
-                <td class="clsCellDatos">
+                <td class="style2">
                 
                 <div id="pnlTipoProductos" visible="true" runat="server" 
                     style="background-color: #FFFFFF">
@@ -60,7 +75,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmClientes"  %>
             </tr>
 
             <tr>
-            <td>
+            <td class="style1">
             <div id="pnlClientes" visible="true" runat="server" 
                     style="background-color: #FFFFFF">
                 <asp:GridView ID="gvwClientes" runat="server" Width="648px" 
@@ -140,7 +155,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmClientes"  %>
             </td>
             </tr>
             <tr>
-            <td>
+            <td class="style1">
                 <asp:Panel id="pnlEditClientes" runat="server" Visible="false" BackColor="White">
                 
                 <table style="width: 645px; margin:0 auto;">
@@ -279,7 +294,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmClientes"  %>
             </td>
             </tr>
             
-            <tr><td>
+            <tr><td class="style1">
                 <asp:Label ID="lblMensajes" runat="server" CssClass="clsError"></asp:Label>
             </td></tr>
 

@@ -13,7 +13,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmRoles" %>
     
             <table style="width: 445px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior">Administración de Roles</h2>
+                <td> <h2 class="clsTituloInterior2">Administración de Roles</h2>
                 </td>
             </tr>
 

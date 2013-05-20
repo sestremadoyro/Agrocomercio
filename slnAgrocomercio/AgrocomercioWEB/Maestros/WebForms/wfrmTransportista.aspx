@@ -17,7 +17,7 @@ CodeBehind="wfrmTransportista.aspx.cs" Inherits="AgrocomercioWEB.Maestros.WebFor
     
             <table style="width: 645px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior">Administración de Transportistas</h2>
+                <td> <h2 class="clsTituloInterior2">Administración de Transportistas</h2>
                 </td>
             </tr>
 

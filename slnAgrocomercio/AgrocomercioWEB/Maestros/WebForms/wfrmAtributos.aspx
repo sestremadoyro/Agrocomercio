@@ -13,7 +13,7 @@ CodeBehind="wfrmAtributos.aspx.cs" Inherits="AgrocomercioWEB.Maestros.WebForms.w
     
             <table style="width: 645px; margin:0 auto;" >
             <tr>
-                <td> <h2 class="clsTituloInterior">Administración de Tipos</h2>
+                <td> <h2 class="clsTituloInterior2">Administración de Tipos</h2>
                 </td>
             </tr>
             <tr>
