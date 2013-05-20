@@ -401,7 +401,7 @@ margin: 10% 0%;
                                                                             </asp:TemplateField>
                                                                             <asp:TemplateField HeaderText="Fec. Pago(*)">
                                                                                 <ItemTemplate>
-                                                                                    <asp:TextBox ID="txtFecPago" runat="server" ReadOnly="True" Width="100px"
+                                                                                    <asp:TextBox ID="txtFecPago" runat="server"  Width="100px"
                                                                                         ></asp:TextBox>
                                                                                     <asp:CalendarExtender ID="txtFecPago_CalendarExtender" runat="server" Enabled="True"
                                                                                         Format="yyyy-MM-dd" PopupButtonID="Image2" TargetControlID="txtFecPago">
