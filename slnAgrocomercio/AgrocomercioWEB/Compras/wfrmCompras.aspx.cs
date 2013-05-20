@@ -805,6 +805,7 @@ namespace AgrocomercioWEB.Compras
 
                         SetPanelDocumento(OpeCod);
                         lblProceso.Value = "EDIT";
+                        dgvDocumentos_SelectedIndexChanged(sender, e);
                     }
                 }
                 else
@@ -1347,10 +1348,10 @@ namespace AgrocomercioWEB.Compras
             newRow["cAnio"] = DateTime.Parse(txtFecha.Text).Year.ToString();
             newRow["cMes"] = DateTime.Parse(txtFecha.Text).Month.ToString();
             newRow["cDia"] = DateTime.Parse(txtFecha.Text).Day.ToString();
-            newRow["cValorVenta"] = (GetNumero(txtSubTotal.Text, false) - GetNumero(txtDescuento.Text, false)).ToString();
-            newRow["cFlete"] = GetNumero(txtFlete.Text, false).ToString();
-            newRow["cIGV"] = GetNumero(txtIgv.Text, false).ToString();
-            newRow["cTotal"] = GetNumero(txtCostoTotal.Text, false).ToString();
+            newRow["cValorVenta"] = (GetNumero(txtSubTotal.Text, false) - GetNumero(txtDescuento.Text, false)).ToString("F2");
+            newRow["cFlete"] = GetNumero(txtFlete.Text, false).ToString("F2");
+            newRow["cIGV"] = GetNumero(txtIgv.Text, false).ToString("F2");
+            newRow["cTotal"] = GetNumero(txtCostoTotal.Text, false).ToString("F2");
             newRow["cTotalSinFlete"] = SetFormatNum(GetNumero(newRow["cValorVenta"].ToString()) * (nTasIGV + 1));
             newRow["cTotalLetras"] = ConvertiraLetras((decimal)GetNumero(txtCostoTotal.Text)).ToUpper() + moneda.ToUpper();
             newRow["Destinatario"] = ddlProveedor.SelectedItem.Text;
@@ -1619,6 +1620,7 @@ namespace AgrocomercioWEB.Compras
                     txtPuntoPartida.Text = "";
 
                 ConfigurarDocumento();
+                GuardarDtCabeceraDocumento();
                 
             }
             catch (Exception ex)
@@ -1634,6 +1636,7 @@ namespace AgrocomercioWEB.Compras
 
             dgvDocumentos.DataSource = lstDocumenOpe.GetListDocumenOperacion(nOpeCod);
             dgvDocumentos.DataBind();
+            dgvDocumentos.SelectedIndex = 0;
 
             switch (lblTipoDoc.Value)
             {

@@ -808,9 +808,10 @@ namespace AgrocomercioWEB.Ventas
 
                         lstDocumenOpe.Guardar(this, ref ndopCod);
                         lbldopCod.Value = ndopCod.ToString();
-
+                        
                         SetPanelDocumento(OpeCod);
                         lblProceso.Value = "EDIT";
+                        dgvDocumentos_SelectedIndexChanged(sender, e);
                     }
 
                 }
@@ -1385,10 +1386,10 @@ namespace AgrocomercioWEB.Ventas
             newRow["cAnio"] = DateTime.Parse(txtFecha.Text).Year.ToString();
             newRow["cMes"] = DateTime.Parse(txtFecha.Text).Month.ToString();
             newRow["cDia"] = DateTime.Parse(txtFecha.Text).Day.ToString();
-            newRow["cValorVenta"] = (GetNumero(txtValorVenta.Text, false) - GetNumero(txtDescuento.Text, false)).ToString();
-            newRow["cFlete"] = GetNumero(txtFlete.Text, false).ToString();
-            newRow["cIGV"] = GetNumero(txtIgv.Text, false).ToString();
-            newRow["cTotal"] = GetNumero(txtTotal.Text, false).ToString();
+            newRow["cValorVenta"] = (GetNumero(txtValorVenta.Text, false) - GetNumero(txtDescuento.Text, false)).ToString("F2");
+            newRow["cFlete"] = GetNumero(txtFlete.Text, false).ToString("F2");
+            newRow["cIGV"] = GetNumero(txtIgv.Text, false).ToString("F2");
+            newRow["cTotal"] = GetNumero(txtTotal.Text, false).ToString("F2");
             newRow["cTotalSinFlete"] = SetFormatNum(GetNumero(newRow["cValorVenta"].ToString()) * (nTasIGV + 1));
             newRow["cTotalLetras"] = ConvertiraLetras(decimal.Parse((txtTotal.Text.Replace("S/.", "").Trim()).Replace("$", "").Trim())).ToUpper() + moneda.ToUpper();
             newRow["Destinatario"] = ddlClientes.SelectedItem.Text;
@@ -1654,6 +1655,7 @@ namespace AgrocomercioWEB.Ventas
                     txtPuntoPartida.Text = "";
 
                 ConfigurarDocumento();
+                GuardarDtCabeceraDocumento();
             }
             catch (Exception ex)
             {
@@ -1665,8 +1667,9 @@ namespace AgrocomercioWEB.Ventas
             clsDocumenOperacion lstDocumenOpe = new clsDocumenOperacion();
             dgvDocumentos.DataSource = lstDocumenOpe.GetListDocumenOperacion(nOpeCod);
             dgvDocumentos.DataBind();
+            dgvDocumentos.SelectedIndex = 0;
 
-            HabilitarBtn(btnNuevoDocumento, dgvDocumentos.Rows.Count < 6);
+            HabilitarBtn(btnNuevoDocumento, dgvDocumentos.Rows.Count < 6);            
         }
 
         #endregion
