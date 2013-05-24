@@ -465,7 +465,7 @@ namespace AgrocomercioWEB.Compras
                     {
                         txtNroDocu.Enabled = true;
                         txtNroSerie.Enabled = true;
-                        nMainTipo = 3;
+                        nMainTipo = 4;
                         lblProceso.Value = "NEWDOC";
                         ddlTipoDocu.Enabled = false;
                     }
