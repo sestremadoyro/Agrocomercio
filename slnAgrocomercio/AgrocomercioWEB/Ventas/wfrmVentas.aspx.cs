@@ -1048,7 +1048,7 @@ namespace AgrocomercioWEB.Ventas
             txtFecFin.Text = "";
             txtCiclo.Text = "";
             lblOpeEstado.Value = "";
-            txtPuntoPartida.Text = "Av. Ferrocarril 131-132 TINGO";
+            txtPuntoPartida.Text = "Av. Ferrocarril 131-135 TINGO";
             txtFecTraslado.Text = DateTime.Today.ToString("yyyy-MM-dd");
             ddlTipCiclo.SelectedIndex = 2;
 
