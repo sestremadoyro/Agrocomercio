@@ -352,6 +352,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 var lstComprasPrv = from Ope in lstOperaciones
                                     join doc in documentos on Ope.OpeCod equals doc.OpeCod into dGru
                                     from dGru2 in dGru.DefaultIfEmpty()
+                                    orderby Ope.Proveedores.PrvRazon
                                     select new
                                     {
                                         Ope.OpeCod,
@@ -393,6 +394,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                                     from dGru2 in dGru.DefaultIfEmpty()
                                     join le in detLetras on (dGru2 == null ? 0 : dGru2.icodletra) equals le.icodletra into dGruLe
                                     from dGruLe2 in dGruLe.DefaultIfEmpty()
+                                    orderby Ope.Proveedores.PrvRazon
                                     select new
                                     {
                                         Ope.OpeCod,
@@ -459,6 +461,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                                         from not2 in dNot.DefaultIfEmpty()
                                     join le in detLetras on (fac2 == null ? 0 : fac2.icodletra) equals le.icodletra into dGruLe
                                         from dGruLe2 in dGruLe.DefaultIfEmpty()
+                                    orderby Cli.CliNombre
                                     select new
                                     {
                                         Ope.OpeCod,
@@ -525,6 +528,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                                     from not2 in dNot.DefaultIfEmpty()
                                     join le in detLetras on (fac2 == null ? 0 : fac2.icodletra) equals le.icodletra into dGruLe
                                     from dGruLe2 in dGruLe.DefaultIfEmpty()
+                                    orderby Cli.CliNombre
                                     select new
                                     {
                                         Ope.OpeCod,

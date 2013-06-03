@@ -1313,7 +1313,7 @@ namespace AgrocomercioWEB.Compras
             clsDocumenOperacion lstDocumenOpe = new clsDocumenOperacion();
 
             int OpeCod = int.Parse(lblNroPedido.Text);
-            string NroGuia = "", NroFactura = "", moneda = "", cPuntoPartida = "", cFecTraslado = "";
+            string NroGuia = "", NroFactura = "", moneda = "", cPuntoPartida = "", cFecTraslado = "", cFormaPago = "";
 
             DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 2);
             if (DocumenOpe != null)
@@ -1338,13 +1338,18 @@ namespace AgrocomercioWEB.Compras
             else
                 moneda = " Dolares";
 
+            if (ddlTipoVenta.SelectedValue=="CR")
+                cFormaPago = ddlTipCiclo.SelectedItem.Text + txtCiclo.Text;
+            else
+                cFormaPago = ddlTipoVenta.SelectedItem.Text;            
+
             DataRow newRow = dtCabeceraOperacion.NewRow();
             newRow["cRazonSocial"] = ddlProveedor.SelectedItem.Text;
             newRow["cDireccion"] = txtDireccion.Text;
             newRow["cNroGuia"] = NroGuia;
             newRow["cNroPedido"] = "";
             newRow["cRuc"] = txtDocCli.Text;
-            newRow["cFormaPago"] = ddlTipoVenta.SelectedItem.Text;
+            newRow["cFormaPago"] = cFormaPago;
             newRow["cSimboloMon"] = ddlMoneda.SelectedValue == "PEN" ? "S/." : "$";
             newRow["cAnio"] = DateTime.Parse(txtFecha.Text).Year.ToString();
             newRow["cMes"] = DateTime.Parse(txtFecha.Text).Month.ToString();

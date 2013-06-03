@@ -11,7 +11,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div style=" width:100%; height:600px; overflow:scroll;">
+    <div >
      <table>
     <tr><td>
         <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" 
