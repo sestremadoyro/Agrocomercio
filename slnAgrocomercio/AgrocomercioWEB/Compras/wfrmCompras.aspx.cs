@@ -255,8 +255,9 @@ namespace AgrocomercioWEB.Compras
                             break;
                         case ("ART_SELECT"):
                             _selectedValue = Request.Params["__EVENTARGUMENT"].ToString();
-                            lsbArticulos.SelectedValue = _selectedValue;
-                            lsbArticulos_SelectedIndexChanged(sender, e);
+                            if (_selectedValue != "")                            
+                                lsbArticulos.SelectedValue = _selectedValue;                                                            
+                            lsbArticulos_SelectedIndexChanged(sender, e);                            
                             break;
                         case ("PRV_SELECT"):
                             _selectedValue = Request.Params["__EVENTARGUMENT"].ToString();

@@ -41,8 +41,11 @@ Inherits="AgrocomercioWEB.Compras.wfrmCompras"
     }
 
     function setArtCod(source, eventargs) {
+        //setTimeout('wait()', 500)
         document.getElementById('lblEstado').value = "ART_SELECT";
         __doPostBack('MainUpdatePanel', eventargs.get_value());
+    }
+    function wait() {
     }
 
     function setPrvCod(source, eventargs) {
