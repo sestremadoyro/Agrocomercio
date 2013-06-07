@@ -346,6 +346,19 @@ namespace AgrocomercioWEB.Compras
 
                     lstProveedores = null;
                     Proveedor = null;
+
+                    ////////////////////silvia/////////////////
+                    clsListNotas lstNota = new clsListNotas();
+                    nota_list nota_lista = new nota_list();
+                    DataTable dtOpeNotas;
+                    dtOpeNotas = lstNota.GetLista("1212111", "0", "N",
+                        "PEN", nPrvCod, Convert.ToDateTime("1990-01-01"),
+                        Convert.ToDateTime("1990-01-01"), "C", 0);
+                    dgvNotas.DataSource = dtOpeNotas;
+                    dgvNotas.DataBind();
+                    pnNotas.Visible = true;
+
+                    ///////////////////////////////////////////
                 }
             }
         }
@@ -432,6 +445,11 @@ namespace AgrocomercioWEB.Compras
         {
             ddlTipCiclo.Visible = ddlTipoVenta.SelectedValue == "CR";
             txtCiclo.Visible = ddlTipoVenta.SelectedValue == "CR";
+            chkletra.Visible = ddlTipoVenta.SelectedValue == "CR"  && ddlTipCiclo.SelectedValue=="D";
+        }
+        protected void ddlTipoCiclo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            chkletra.Visible = ddlTipoVenta.SelectedValue == "CR" && ddlTipCiclo.SelectedValue == "D";
         }
         #endregion
 
@@ -1036,6 +1054,11 @@ namespace AgrocomercioWEB.Compras
             CargarEstados(ref ddlEstados);
             CargarProveedores();
             ddlEstados.SelectedValue = "R";
+
+            ///////silvia//////////////
+            pnNotas.Visible = false;
+            chkletra.Visible = false;
+            ////////////////////////////////
         }
         private void HabilitarCampos(Boolean Value)
         {

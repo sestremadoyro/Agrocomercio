@@ -325,6 +325,8 @@
                                                         DataValueField="PerCod">
                                                     </asp:DropDownList>
                                                 </td>
+                                                <td class="clsCellDatos2" colspan="2">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="clsCellTituloDatos2">
@@ -600,6 +602,35 @@
                                                     <td colspan="2" class="clsCellDatosLarge2">
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         <asp:Label ID="txtTotal" runat="server" Text="S/. 0.00"></asp:Label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                        <asp:Panel runat="server" ID="pnNotas" Style="height: auto;" CssClass="clspntablaDerecha">
+                                            <table class="tablaDerecha" style="height: 100%;">
+                                                <tr>
+                                                    <td colspan="2" align="left" valign="top">
+                                                        <h3>
+                                                            Notas Pendientes</h3>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                        <asp:GridView ID="dgvNotas" runat="server" AutoGenerateColumns="False" GridLines="None"
+                                                        CssClass="mGrid mGrid2" ShowHeaderWhenEmpty="True" Style="margin-top: 0px; padding-top: 0px;">
+                                                            <AlternatingRowStyle CssClass="alt" />
+                                                            <Columns>
+                                                                <asp:BoundField DataField="tiponota" HeaderText="tiponota" SortExpression="tiponota" />
+                                                                <asp:BoundField DataField="moneda" HeaderText="moneda" SortExpression="moneda" />
+                                                                <asp:BoundField DataField="nmontoNota" HeaderText="nmontoNota" SortExpression="nmontoNota" />
+                                                            </Columns>
+                                                             <EmptyDataTemplate>
+                                                                <i>
+                                                                    <div class="clsError1" id="lblError1" runat="server">
+                                                                        No tiene Notas pendientes</div>
+                                                                </i>
+                                                            </EmptyDataTemplate>
+                                                        </asp:GridView>                                                       
                                                     </td>
                                                 </tr>
                                             </table>

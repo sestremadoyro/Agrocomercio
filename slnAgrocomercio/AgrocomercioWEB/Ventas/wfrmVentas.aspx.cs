@@ -337,6 +337,18 @@ namespace AgrocomercioWEB.Ventas
 
                     lstClientes = null;
                     Cliente = null;
+                    ////////////////////silvia/////////////////
+                    clsListNotas lstNota = new clsListNotas();
+                    nota_list nota_lista = new nota_list();
+                    DataTable dtOpeNotas;
+                    dtOpeNotas= lstNota.GetLista("1212111","0", "N",
+                        "PEN",nCliCod  , Convert.ToDateTime("1990-01-01"), 
+                        Convert.ToDateTime("1990-01-01") ,"V",0);
+                    dgvNotas.DataSource = dtOpeNotas;
+                    dgvNotas.DataBind();
+                    pnNotas.Visible = true;
+
+                    ///////////////////////////////////////////
                 }
             }
         }
@@ -1076,6 +1088,9 @@ namespace AgrocomercioWEB.Ventas
             CargarEstados(ref ddlEstados);
             CargarClientes();
             ddlEstados.SelectedValue = "R";
+            ///////silvia//////////////
+            pnNotas.Visible = false;
+            ////////////////////////////////
         }
         private void HabilitarCampos(Boolean Value)
         {
@@ -1846,7 +1861,7 @@ namespace AgrocomercioWEB.Ventas
             {
                 nTotal = double.Parse(txtArtPreUnitario.Text) * double.Parse(txtArtCant.Text);
                 nTotal -= nTotal * (double.Parse(txtArtDescuento.Text) / 100);
-                txtImpTotal.Text = nTotal.ToString();
+                txtImpTotal.Text = nTotal.ToString("0.00");
             }
 
             ModalPopupAgregar.Show();
@@ -1910,7 +1925,7 @@ namespace AgrocomercioWEB.Ventas
 
             if (oPrecio.LprPrecio.HasValue)
 
-                nLprPrecio = (double)oPrecio.LprPrecio.Value;
+                 nLprPrecio = (double)oPrecio.LprPrecio.Value;
             //oLoteArt.ListaPrecios.Articulos
 
             oArticulo = lstArticulos.GetArticulo(ArtCod);
@@ -1940,10 +1955,16 @@ namespace AgrocomercioWEB.Ventas
                     txtStockFis.ForeColor = System.Drawing.Color.Gray;
 
                 if (nLotNro == 1 && DateTime.Compare(dLotFecRegis, DateTime.Parse("2013-04-09")) == 0)
-                    //txtArtPreUnitario.Text = Math.Round(((nLprPrecio)/ nTipCam), 2).ToString();                
+              
                     txtArtPreUnitario.Text = Math.Round(((nLprPrecio * (double)oArticulo.Proveedores.PrvGanancia) / nTipCam), 2).ToString();
                 else
                     txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
+              
+                /////Cambio hecho 06-06-2013 se desea q se muestre elprecio venta q se ve en  el modulo almacen -articulos///
+                //////////silvia////////////////////////////////////////////////////////////////////////////////////////////
+                txtArtPreUnitario.Text = Math.Round(((nLprPrecio) / nTipCam), 2).ToString("0.00"); 
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                
                 
                 //txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
 

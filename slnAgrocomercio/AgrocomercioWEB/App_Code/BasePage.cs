@@ -434,16 +434,25 @@ namespace AgrocomercioWEB
             {
                 if (TipCalIGV == "1")
                 {
-                    var nIgv = nPrecio - Math.Round((nPrecio * 100 / 118), 2);
-                    nSubTotal = nPrecio - nIgv;
+                    //var nIgv = nPrecio - Math.Round((nPrecio * 100 / 118), 2);
+                    //nSubTotal = nPrecio - nIgv;
+                    //var nIgv = Math.Round((nPrecio * 100 / 118), 2);
+                    nSubTotal = Math.Round((nPrecio / (nTasIGV+1)), 2);
+                    nPrecioFin = nSubTotal - pnDescuentoEsp;
+                    nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);                   
+                    nCostoTotal = Math.Round(nSubTotal * (nTasIGV + 1), 2);
+                    nIGV = Math.Round(nCostoTotal-nSubTotal, 2);
+
                 }
                 else
+                {
                     nSubTotal = nCostoTotal;
 
-                nPrecioFin = nSubTotal - pnDescuentoEsp;
-                nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
-                nIGV = Math.Round(nSubTotal * nTasIGV, 2);
-                nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
+                    nPrecioFin = nSubTotal - pnDescuentoEsp;
+                    nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);
+                    nIGV = Math.Round(nSubTotal * nTasIGV, 2);
+                    nCostoTotal = Math.Round(nSubTotal + nIGV, 2);
+                }
             }
 
             pcPrecioCompra = nPrecioFin;
