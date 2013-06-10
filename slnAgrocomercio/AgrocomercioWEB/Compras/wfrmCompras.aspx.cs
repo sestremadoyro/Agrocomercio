@@ -1105,7 +1105,7 @@ namespace AgrocomercioWEB.Compras
                     txtPuntoPartida.Visible = true;
                     break;
                 case 4: case 5:
-                    btnImprimir.OnClientClick = "";
+                    btnImprimir.OnClientClick = "AbrirVentanaGuia()";
                     divClienteFilter.Visible = false;
                     ddlTipoVenta.SelectedValue = "CO";
                     ddlTipoVenta.Enabled = false;
@@ -1139,14 +1139,8 @@ namespace AgrocomercioWEB.Compras
 
                 switch (lblTipoDoc.Value)
                 {
-                    case "2":
+                    case "2": case "4": case "5":
                         btnImprimir.OnClientClick = "AbrirVentanaGuia()";
-                        break;
-                    case "4":
-                        btnImprimir.OnClientClick = "AbrirVentanaNota()";
-                        break;
-                    case "5":
-                        btnImprimir.OnClientClick = "AbrirVentanaBoleta()";
                         break;
                     default:
                         btnImprimir.OnClientClick = "AbrirVentanaFactura()";
@@ -2192,10 +2186,6 @@ namespace AgrocomercioWEB.Compras
         }
 
         #endregion
-
-       
-
-
 
     }
 }
