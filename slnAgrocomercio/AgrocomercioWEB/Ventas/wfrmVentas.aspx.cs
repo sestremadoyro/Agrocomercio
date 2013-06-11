@@ -1143,7 +1143,7 @@ namespace AgrocomercioWEB.Ventas
                     btnImprimir.OnClientClick = "AbrirVentanaBoleta()";
                     break;
                 case "7":
-                    btnImprimir.OnClientClick = "";
+                    btnImprimir.OnClientClick = "AbrirVentanaGuia()";
                     divClienteFilter.Visible = false;
                     lblListaVendedor.Visible = false;
                     ddlListaVendedores.Visible = false;
@@ -1177,6 +1177,9 @@ namespace AgrocomercioWEB.Ventas
                         break;
                     case "5":
                         btnImprimir.OnClientClick = "AbrirVentanaBoleta()";
+                        break;
+                    case "7":
+                        btnImprimir.OnClientClick = "AbrirVentanaGuia()";
                         break;
                     default:
                         btnImprimir.OnClientClick = "AbrirVentanaFactura()";
@@ -1954,11 +1957,10 @@ namespace AgrocomercioWEB.Ventas
                 else
                     txtStockFis.ForeColor = System.Drawing.Color.Gray;
 
-                if (nLotNro == 1 && DateTime.Compare(dLotFecRegis, DateTime.Parse("2013-04-09")) == 0)
-              
-                    txtArtPreUnitario.Text = Math.Round(((nLprPrecio * (double)oArticulo.Proveedores.PrvGanancia) / nTipCam), 2).ToString();
-                else
-                    txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
+                //if (nLotNro == 1 && DateTime.Compare(dLotFecRegis, DateTime.Parse("2013-04-09")) == 0)              
+                //    txtArtPreUnitario.Text = Math.Round(((nLprPrecio * (double)oArticulo.Proveedores.PrvGanancia) / nTipCam), 2).ToString();
+                //else
+                //    txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
               
                 /////Cambio hecho 06-06-2013 se desea q se muestre elprecio venta q se ve en  el modulo almacen -articulos///
                 //////////silvia////////////////////////////////////////////////////////////////////////////////////////////
@@ -1967,22 +1969,6 @@ namespace AgrocomercioWEB.Ventas
                 
                 
                 //txtArtPreUnitario.Text = Math.Round((lstPrecios.GetCostoPromedio(ArtCod, nTasIGV) / nTipCam), 2).ToString();
-
-                //if (oPrecio == null)
-                //    txtArtPreUnitario.Text = "0.0";
-                //else
-                //{
-                //    nPrecio = (double)oPrecio.LprPrecio;
-                //    var nDcto = Math.Round((nPrecio * (double)oPrecio.LprDscto / 100), 2);
-                //    nPrecio -= nDcto;
-                //    var nFlete = Math.Round(nPrecio / 100, 2);
-                //    nPrecio += nFlete;
-                //    var nIgv = Math.Round(nPrecio * nTasIGV, 2);
-                //    nPrecio += nIgv;
-                //    if (oArticulo.Proveedores.PrvGanancia != 0)
-                //        nPrecio = Math.Round((nPrecio * (double)oArticulo.Proveedores.PrvGanancia), 2);
-                //    txtArtPreUnitario.Text = nPrecio.ToString();
-                //}
 
                 if (BuscarArticulo(oArticulo.ArtCod, ref LotNro, ref LprPrecio, ref LprDscto))
                 {
