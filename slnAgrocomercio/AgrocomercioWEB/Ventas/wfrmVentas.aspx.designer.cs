@@ -364,6 +364,15 @@ namespace AgrocomercioWEB.Ventas {
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtCiclo_TextBoxWatermarkExtender;
         
         /// <summary>
+        /// chkletra control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkletra;
+        
+        /// <summary>
         /// lblListaVendedor control.
         /// </summary>
         /// <remarks>

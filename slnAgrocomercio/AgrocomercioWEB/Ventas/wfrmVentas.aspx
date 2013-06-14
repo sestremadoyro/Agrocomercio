@@ -316,6 +316,12 @@
                                                     </asp:TextBoxWatermarkExtender>
                                                 </td>
                                             </tr>
+                                             <tr>
+                                                <td colspan="6" align="right">
+                                                    <asp:CheckBox ID="chkletra" Checked=true  Text ="Generar Letra automaticamente"
+                                                     runat="server" />
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td class="clsCellTituloDatos2">
                                                     <asp:Label ID="lblListaVendedor" runat="server" Text="Vendedor: "></asp:Label>

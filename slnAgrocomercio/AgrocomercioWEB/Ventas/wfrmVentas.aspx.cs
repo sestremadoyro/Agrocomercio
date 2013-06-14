@@ -24,7 +24,7 @@ namespace AgrocomercioWEB.Ventas
         public String _click = "";
         public String gcOpeTipo = "V";
         private Thread oThread;
-
+        public int dopcod_letra = 0;
         #region PROPIEDADES FORMULARIO
 
         /// PROPIEDADES DE LA OPERACION
@@ -441,8 +441,12 @@ namespace AgrocomercioWEB.Ventas
         {
             ddlTipCiclo.Visible = ddlTipoVenta.SelectedValue == "CR";
             txtCiclo.Visible = ddlTipoVenta.SelectedValue == "CR";
+            chkletra.Visible = ddlTipoVenta.SelectedValue == "CR" && ddlTipCiclo.SelectedValue == "D";
         }
-
+        protected void ddlTipoCiclo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            chkletra.Visible = ddlTipoVenta.SelectedValue == "CR" && ddlTipCiclo.SelectedValue == "D";
+        }
         protected void txtFleteTra_TextChanged(object sender, EventArgs e)
         {
             CalcularPago(g_dtDetOperacion);
@@ -680,6 +684,62 @@ namespace AgrocomercioWEB.Ventas
                     SetBotones(lblProceso.Value);
 
                     ConfigurarDocumento();
+                     /*generacion automatica de  la letra*/
+                    string valor = lblTipoDoc.Value;
+                    if (valor == "3" && ddlTipCiclo.SelectedValue == "D" && chkletra.Checked == true)
+                    {
+                        int cuotas = 1;
+                        int icodigo, idetcodigo;
+                        Double monto_total = Double.Parse(txtTotal.Text.ToString().Substring(3));
+                        Double monto_nota = 0.00;
+                        String moneda;
+                        try
+                        {
+                            clsLetra _Letra = new clsLetra();
+                            letra obj = new letra();
+
+                            icodigo = Convert.ToInt32(_Letra.MaxOpeCod() + 1);
+                            obj.icodigo = icodigo;
+                            moneda = ddlMoneda.SelectedValue;
+                            obj.icodigo = icodigo;
+                            obj.itotcuota = cuotas;
+                            obj.nmontocuota = Convert.ToDecimal(monto_total);
+                            obj.cmoneda = moneda;
+                            obj.nintpag = Convert.ToDecimal(0.00);
+                            obj.iestado = "1";
+                            obj.dfeccreacion = DateTime.Today;
+                            obj.dfecmod = DateTime.Today;
+                            obj.ctippago = "D";
+                            obj.nmntnota = Convert.ToDecimal(monto_nota);
+                            _Letra.fnletraInsertar(obj);
+                            clsdetletra _detletra = new clsdetletra();
+                            det_letra _detobj = new det_letra();
+                            _detobj.icodletra = icodigo;
+                            _detobj.inumletra = 1;
+                            _detobj.cnumletra = "-";
+                            _detobj.ccodletra = "-";
+                            _detobj.nmonto = Convert.ToDecimal(monto_total);
+                            _detobj.cestado = "1";
+                            _detobj.ninteres = Convert.ToDecimal(0.00);
+                            _detobj.dfecvenc = Convert.ToDateTime(txtFecha.Text).AddDays(Convert.ToInt16(this.txtCiclo.Text));
+                            _detobj.dfecmod = DateTime.Today;
+                            idetcodigo = Convert.ToInt32(_detletra.Maxdetletra_cod()) + 1;
+                            _detobj.idetletra = idetcodigo;
+                            _detletra.fndet_letraInsertar(_detobj);
+
+                            clsDocumenOperacion _docobj = new clsDocumenOperacion();
+                            DocumenOperacion _docope = new DocumenOperacion();
+                            _docope = _docobj.GetDocumenOperaciona(dopcod_letra);
+                            _docope.icodletra = icodigo;
+                            _docobj.fnDocOpeUpdate(_docope);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox("Error Interno: " + ex.Message);
+                        }
+
+                    }
                 }
                 else
                 {
@@ -1090,6 +1150,7 @@ namespace AgrocomercioWEB.Ventas
             ddlEstados.SelectedValue = "R";
             ///////silvia//////////////
             pnNotas.Visible = false;
+            chkletra.Visible = false;
             ////////////////////////////////
         }
         private void HabilitarCampos(Boolean Value)
@@ -1368,7 +1429,11 @@ namespace AgrocomercioWEB.Ventas
             DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 3);
             if (DocumenOpe != null)
             {
+
                 NroFactura = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
+                //////////////////////cmbios silvia///////////////////////////
+                dopcod_letra = Convert.ToInt32(DocumenOpe.dopCod);
+                /////////////////////////////////////////////////////////////
             }
             DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 2);
             if (DocumenOpe != null)
@@ -1386,6 +1451,7 @@ namespace AgrocomercioWEB.Ventas
             if (DocumenOpe != null)
             {
                 NroPedido = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
+               
             }
             if (ddlMoneda.SelectedValue == "PEN")
                 moneda = " Nuevos Soles";

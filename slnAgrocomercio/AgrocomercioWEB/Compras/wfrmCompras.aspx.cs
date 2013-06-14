@@ -137,9 +137,6 @@ namespace AgrocomercioWEB.Compras
             get { return txtNotaPedidoVen.Text; }
         }
 
-        
-
-
 
         /// PROPIEDADES DE PROVEEDORES
         public int nPrvCod
@@ -205,8 +202,8 @@ namespace AgrocomercioWEB.Compras
 
                             if (dgvDetalleVenta.Rows[_selectedIndex].Cells[2].Text.Trim() != "&nbsp;" && dgvDetalleVenta.Rows[_selectedIndex].Cells[2].Text.Trim() != "")
                             {
-                                if (double.Parse(dgvDetalleVenta.Rows[_selectedIndex].Cells[7].Text) == 0)
-                                {
+                               // if (double.Parse(dgvDetalleVenta.Rows[_selectedIndex].Cells[7].Text) == 0)
+                                //{
                                     dgvDetalleVenta.SelectedIndex = _selectedIndex;
                                     IniciarCamposArticulos("ESPECIAL");
                                     lsbArticulos.SelectedValue = dgvDetalleVenta.Rows[_selectedIndex].Cells[2].Text;
@@ -214,7 +211,7 @@ namespace AgrocomercioWEB.Compras
                                     txtArtCant.Text = dgvDetalleVenta.Rows[_selectedIndex].Cells[6].Text;
                                     txtArtDescuento.Text = dgvDetalleVenta.Rows[_selectedIndex].Cells[8].Text;
                                     ModalPopupAgregar.Show();
-                                }
+                                //}
                             }
                             else
                             {
@@ -678,7 +675,7 @@ namespace AgrocomercioWEB.Compras
                     SetBotones(lblProceso.Value);
 
                     ConfigurarDocumento();
-
+                    /*generacion automatica de  la letra*/
                     string valor = lblTipoDoc.Value;
                     if (valor == "3" && ddlTipCiclo.SelectedValue == "D" && chkletra.Checked==true)
                     {
@@ -726,6 +723,7 @@ namespace AgrocomercioWEB.Compras
                             _docope = _docobj.GetDocumenOperaciona(dopcod_letra);
                             _docope.icodletra = icodigo;
                             _docobj.fnDocOpeUpdate(_docope);
+                           
                         }
                         catch (Exception ex)
                         {
@@ -733,6 +731,7 @@ namespace AgrocomercioWEB.Compras
                         }
                        
                     }
+                    /************************************/
                 }
                 else
                 {
@@ -1403,7 +1402,9 @@ namespace AgrocomercioWEB.Compras
             if (DocumenOpe != null)
             {
                 NroFactura = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
+               //////////////////////cmbios silvia///////////////////////////
                 dopcod_letra =Convert.ToInt32(DocumenOpe.dopCod);
+                /////////////////////////////////////////////////////////////
             }
             
             if (ddlMoneda.SelectedValue == "PEN")
