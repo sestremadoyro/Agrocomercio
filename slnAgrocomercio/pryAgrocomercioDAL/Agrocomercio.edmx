@@ -375,11 +375,15 @@
       [vwtodo_movimiento].[tipdoc] AS [tipdoc]
       FROM [dbo].[vwtodo_movimiento] AS [vwtodo_movimiento]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="det_letra_fk" Association="AgrocomercioModel.Store.det_letra_fk">
+            <End Role="letra" EntitySet="letra" />
+            <End Role="det_letra" EntitySet="det_letra" />
+          </AssociationSet>
           <AssociationSet Name="FK_Articulos_Proveedores" Association="AgrocomercioModel.Store.FK_Articulos_Proveedores">
             <End Role="Proveedores" EntitySet="Proveedores" />
             <End Role="Articulos" EntitySet="Articulos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Articulos_Unidades" Association="AgrocomercioModel.Store.FK_Articulos_Unidades">
+          <AssociationSet Name="FK_ARTICULOS_UNIDADES" Association="AgrocomercioModel.Store.FK_ARTICULOS_UNIDADES">
             <End Role="Unidades" EntitySet="Unidades" />
             <End Role="Articulos" EntitySet="Articulos" />
           </AssociationSet>
@@ -570,15 +574,15 @@
             <PropertyRef Name="LotCod" />
           </Key>
           <Property Name="LotCod" Type="int" Nullable="false" />
-          <Property Name="ArtCod" Type="int" Nullable="false" />
           <Property Name="LotNro" Type="int" Nullable="false" />
           <Property Name="LotStock" Type="numeric" Scale="2" />
-          <Property Name="LotPrecioCom" Type="numeric" Scale="2" />
-          <Property Name="LotPrecioVen" Type="numeric" Scale="2" />
           <Property Name="LotFecRegis" Type="date" />
           <Property Name="LotFecVenci" Type="date" />
           <Property Name="LotFecModi" Type="datetime" />
           <Property Name="LotEstado" Type="bit" Nullable="false" />
+          <Property Name="ArtCod" Type="int" />
+          <Property Name="LotPrecioCom" Type="numeric" Scale="2" />
+          <Property Name="LotPrecioVen" Type="numeric" Scale="2" />
         </EntityType>
         <EntityType Name="Notas">
           <Key>
@@ -785,8 +789,8 @@
           <Property Name="usrClave" Type="varchar" MaxLength="10" />
           <Property Name="RolCod" Type="int" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.cab_letra' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.cab_letra' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="cab_letra">
           <Key>
@@ -807,8 +811,8 @@
           <Property Name="fec_nxtpg" Type="datetime" />
           <Property Name="ctippago" Type="varchar" MaxLength="1" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.detalle_pagos' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.detalle_pagos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="detalle_pagos">
           <Key>
@@ -843,8 +847,8 @@
           <Property Name="cli_cod" Type="int" />
           <Property Name="ult" Type="int" Nullable="false" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.detalle_pagos_now' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.detalle_pagos_now' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="detalle_pagos_now">
           <Key>
@@ -879,8 +883,8 @@
           <Property Name="cli_cod" Type="int" />
           <Property Name="ult" Type="int" Nullable="false" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.fac_pnd_let' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.fac_pnd_let' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="fac_pnd_let">
           <Key>
@@ -898,8 +902,8 @@
           <Property Name="percod" Type="int" />
           <Property Name="tranom" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.fac_x_letra' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.fac_x_letra' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="fac_x_letra">
           <Key>
@@ -930,8 +934,8 @@
           <Property Name="tdocod" Type="int" Nullable="false" />
           <Property Name="tipdoc" Type="varchar" MaxLength="100" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.list_detLetra' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.list_detLetra' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="list_detLetra">
           <Key>
@@ -958,8 +962,8 @@
           <Property Name="icodletra" Type="int" Nullable="false" />
           <Property Name="idetletra" Type="int" Nullable="false" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.list_letra' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.list_letra' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="list_letra">
           <Key>
@@ -984,8 +988,8 @@
           <Property Name="PerCod" Type="int" />
           <Property Name="TraNombre" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.nota_list' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.nota_list' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="nota_list">
           <Key>
@@ -1008,8 +1012,8 @@
           <Property Name="cobservaciones" Type="text" />
           <Property Name="letra" Type="bigint" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.Pag_pendientes' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.Pag_pendientes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="Pag_pendientes">
           <Key>
@@ -1036,8 +1040,8 @@
           <Property Name="OpeTipo" Type="char" MaxLength="1" />
           <Property Name="cmoneda" Type="varchar" MaxLength="3" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.pag_pendnow' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.pag_pendnow' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="pag_pendnow">
           <Key>
@@ -1064,8 +1068,8 @@
           <Property Name="OpeTipo" Type="char" MaxLength="1" />
           <Property Name="cmoneda" Type="varchar" MaxLength="3" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.proveedor_letra' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.proveedor_letra' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="proveedor_letra">
           <Key>
@@ -1088,8 +1092,8 @@
           <Property Name="MNTLTSOL" Type="numeric" Precision="10" Scale="2" />
           <Property Name="salsol" Type="numeric" Precision="38" Scale="2" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.rel_not_fact' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.rel_not_fact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="rel_not_fact">
           <Key>
@@ -1104,8 +1108,8 @@
           <Property Name="irelnotfac" Type="int" Nullable="false" />
           <Property Name="icodletra" Type="bigint" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.RepNotDet' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.RepNotDet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="RepNotDet">
           <Key>
@@ -1130,8 +1134,8 @@
           <Property Name="nmntsolutl" Type="numeric" Precision="19" Scale="2" />
           <Property Name="moneda" Type="char" MaxLength="3" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.RepNotGen' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.RepNotGen' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="RepNotGen">
           <Key>
@@ -1154,8 +1158,8 @@
           <Property Name="nmntsoles" Type="numeric" Precision="10" Scale="2" />
           <Property Name="moneda" Type="char" MaxLength="3" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.vwList_let_detalle' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.vwList_let_detalle' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vwList_let_detalle">
           <Key>
@@ -1184,8 +1188,8 @@
           <Property Name="PerCod" Type="int" />
           <Property Name="TraNombre" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.vwtodo_movimiento' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'agrocomercio.dbo.vwtodo_movimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vwtodo_movimiento">
           <Key>
@@ -1216,6 +1220,18 @@
           <Property Name="tdocod" Type="int" />
           <Property Name="tipdoc" Type="varchar" MaxLength="100" />
         </EntityType>
+        <Association Name="det_letra_fk">
+          <End Role="letra" Type="AgrocomercioModel.Store.letra" Multiplicity="1" />
+          <End Role="det_letra" Type="AgrocomercioModel.Store.det_letra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="letra">
+              <PropertyRef Name="icodigo" />
+            </Principal>
+            <Dependent Role="det_letra">
+              <PropertyRef Name="icodletra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Articulos_Proveedores">
           <End Role="Proveedores" Type="AgrocomercioModel.Store.Proveedores" Multiplicity="0..1" />
           <End Role="Articulos" Type="AgrocomercioModel.Store.Articulos" Multiplicity="*" />
@@ -1228,7 +1244,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Articulos_Unidades">
+        <Association Name="FK_ARTICULOS_UNIDADES">
           <End Role="Unidades" Type="AgrocomercioModel.Store.Unidades" Multiplicity="0..1" />
           <End Role="Articulos" Type="AgrocomercioModel.Store.Articulos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1277,9 +1293,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DetOperacion_Operaciones">
-          <End Role="Operaciones" Type="AgrocomercioModel.Store.Operaciones" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Operaciones" Type="AgrocomercioModel.Store.Operaciones" Multiplicity="1" />
           <End Role="DetOperacion" Type="AgrocomercioModel.Store.DetOperacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Operaciones">
@@ -1303,9 +1317,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DocumenOperacion_Operaciones">
-          <End Role="Operaciones" Type="AgrocomercioModel.Store.Operaciones" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Operaciones" Type="AgrocomercioModel.Store.Operaciones" Multiplicity="1" />
           <End Role="DocumenOperacion" Type="AgrocomercioModel.Store.DocumenOperacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Operaciones">
@@ -1317,7 +1329,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LotesArt_Articulos">
-          <End Role="Articulos" Type="AgrocomercioModel.Store.Articulos" Multiplicity="1" />
+          <End Role="Articulos" Type="AgrocomercioModel.Store.Articulos" Multiplicity="0..1" />
           <End Role="LotesArt" Type="AgrocomercioModel.Store.LotesArt" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Articulos">
@@ -1436,6 +1448,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1484,7 +1527,7 @@
             <End Role="Proveedores" EntitySet="Proveedores" />
             <End Role="Articulos" EntitySet="Articulos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Articulos_Unidades" Association="AgrocomercioModel.FK_Articulos_Unidades">
+          <AssociationSet Name="FK_ARTICULOS_UNIDADES" Association="AgrocomercioModel.FK_ARTICULOS_UNIDADES">
             <End Role="Unidades" EntitySet="Unidades" />
             <End Role="Articulos" EntitySet="Articulos" />
           </AssociationSet>
@@ -1499,6 +1542,10 @@
           <AssociationSet Name="FK_Operaciones_Clientes" Association="AgrocomercioModel.FK_Operaciones_Clientes">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Operaciones" EntitySet="Operaciones" />
+          </AssociationSet>
+          <AssociationSet Name="det_letra_fk" Association="AgrocomercioModel.det_letra_fk">
+            <End Role="letra" EntitySet="letra" />
+            <End Role="det_letra" EntitySet="det_letra" />
           </AssociationSet>
           <AssociationSet Name="FK_det_letra_letra" Association="AgrocomercioModel.FK_det_letra_letra">
             <End Role="letra" EntitySet="letra" />
@@ -1574,7 +1621,7 @@
           <Property Type="DateTime" Name="ArtFecVen" />
           <Property Type="Decimal" Name="ArtStockIni" Precision="18" Scale="2" />
           <NavigationProperty Name="Proveedores" Relationship="AgrocomercioModel.FK_Articulos_Proveedores" FromRole="Articulos" ToRole="Proveedores" />
-          <NavigationProperty Name="Unidades" Relationship="AgrocomercioModel.FK_Articulos_Unidades" FromRole="Articulos" ToRole="Unidades" />
+          <NavigationProperty Name="Unidades" Relationship="AgrocomercioModel.FK_ARTICULOS_UNIDADES" FromRole="Articulos" ToRole="Unidades" />
           <NavigationProperty Name="DetOperacion" Relationship="AgrocomercioModel.FK_DetOperacion_Articulos" FromRole="Articulos" ToRole="DetOperacion" />
           <NavigationProperty Name="LotesArt" Relationship="AgrocomercioModel.FK_LotesArt_Articulos" FromRole="Articulos" ToRole="LotesArt" />
         </EntityType>
@@ -1622,7 +1669,8 @@
           <Property Type="DateTime" Name="dfecmod" />
           <Property Type="Int32" Name="idetletra" Nullable="false" />
           <Property Type="String" Name="cnumletra" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="letra" Relationship="AgrocomercioModel.FK_det_letra_letra" FromRole="det_letra" ToRole="letra" />
+          <NavigationProperty Name="letra" Relationship="AgrocomercioModel.det_letra_fk" FromRole="det_letra" ToRole="letra" />
+          <NavigationProperty Name="letra1" Relationship="AgrocomercioModel.FK_det_letra_letra" FromRole="det_letra" ToRole="letra" />
         </EntityType>
         <EntityType Name="DetOperacion">
           <Key>
@@ -1680,24 +1728,25 @@
           <Property Type="Int32" Name="iusrCreacion" />
           <Property Type="String" Name="ctippago" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="nmntnota" Precision="12" Scale="2" />
-          <NavigationProperty Name="det_letra" Relationship="AgrocomercioModel.FK_det_letra_letra" FromRole="letra" ToRole="det_letra" />
+          <NavigationProperty Name="det_letra" Relationship="AgrocomercioModel.det_letra_fk" FromRole="letra" ToRole="det_letra" />
+          <NavigationProperty Name="det_letra1" Relationship="AgrocomercioModel.FK_det_letra_letra" FromRole="letra" ToRole="det_letra" />
         </EntityType>
         <EntityType Name="LotesArt">
           <Key>
             <PropertyRef Name="LotCod" />
           </Key>
           <Property Type="Int32" Name="LotCod" Nullable="false" />
-          <Property Type="Int32" Name="ArtCod" Nullable="false" />
           <Property Type="Int32" Name="LotNro" Nullable="false" />
           <Property Type="Decimal" Name="LotStock" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="LotPrecioVen" Precision="18" Scale="2" />
           <Property Type="DateTime" Name="LotFecRegis" />
           <Property Type="DateTime" Name="LotFecVenci" />
           <Property Type="DateTime" Name="LotFecModi" />
           <Property Type="Boolean" Name="LotEstado" Nullable="false" />
+          <Property Type="Int32" Name="ArtCod" />
+          <Property Type="Decimal" Name="LotPrecioCom" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="LotPrecioVen" Precision="18" Scale="2" />
           <NavigationProperty Name="Articulos" Relationship="AgrocomercioModel.FK_LotesArt_Articulos" FromRole="LotesArt" ToRole="Articulos" />
           <NavigationProperty Name="DetOperacion" Relationship="AgrocomercioModel.FK_DetOperacion_LotesArt" FromRole="LotesArt" ToRole="DetOperacion" />
-          <Property Type="Decimal" Name="LotPrecioCom" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Notas">
           <Key>
@@ -1911,7 +1960,7 @@
           <Property Type="Int32" Name="UniSuperior" Nullable="false" />
           <Property Type="Boolean" Name="UniEstado" />
           <Property Type="DateTime" Name="UniFecRegis" Nullable="false" />
-          <NavigationProperty Name="Articulos" Relationship="AgrocomercioModel.FK_Articulos_Unidades" FromRole="Unidades" ToRole="Articulos" />
+          <NavigationProperty Name="Articulos" Relationship="AgrocomercioModel.FK_ARTICULOS_UNIDADES" FromRole="Unidades" ToRole="Articulos" />
           <NavigationProperty Name="DetOperacion" Relationship="AgrocomercioModel.FK_DetOperacion_Unidades" FromRole="Unidades" ToRole="DetOperacion" />
         </EntityType>
         <EntityType Name="Usuarios">
@@ -2321,7 +2370,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Articulos_Unidades">
+        <Association Name="FK_ARTICULOS_UNIDADES">
           <End Type="AgrocomercioModel.Unidades" Role="Unidades" Multiplicity="0..1" />
           <End Type="AgrocomercioModel.Articulos" Role="Articulos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2346,7 +2395,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LotesArt_Articulos">
-          <End Type="AgrocomercioModel.Articulos" Role="Articulos" Multiplicity="1" />
+          <End Type="AgrocomercioModel.Articulos" Role="Articulos" Multiplicity="0..1" />
           <End Type="AgrocomercioModel.LotesArt" Role="LotesArt" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Articulos">
@@ -2366,6 +2415,18 @@
             </Principal>
             <Dependent Role="Operaciones">
               <PropertyRef Name="CliCod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="det_letra_fk">
+          <End Type="AgrocomercioModel.letra" Role="letra" Multiplicity="1" />
+          <End Type="AgrocomercioModel.det_letra" Role="det_letra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="letra">
+              <PropertyRef Name="icodigo" />
+            </Principal>
+            <Dependent Role="det_letra">
+              <PropertyRef Name="icodletra" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2657,15 +2718,15 @@
           <EntitySetMapping Name="LotesArt">
             <EntityTypeMapping TypeName="AgrocomercioModel.LotesArt">
               <MappingFragment StoreEntitySet="LotesArt">
+                <ScalarProperty Name="LotPrecioVen" ColumnName="LotPrecioVen" />
                 <ScalarProperty Name="LotPrecioCom" ColumnName="LotPrecioCom" />
+                <ScalarProperty Name="ArtCod" ColumnName="ArtCod" />
                 <ScalarProperty Name="LotEstado" ColumnName="LotEstado" />
                 <ScalarProperty Name="LotFecModi" ColumnName="LotFecModi" />
                 <ScalarProperty Name="LotFecVenci" ColumnName="LotFecVenci" />
                 <ScalarProperty Name="LotFecRegis" ColumnName="LotFecRegis" />
-                <ScalarProperty Name="LotPrecioVen" ColumnName="LotPrecioVen" />
                 <ScalarProperty Name="LotStock" ColumnName="LotStock" />
                 <ScalarProperty Name="LotNro" ColumnName="LotNro" />
-                <ScalarProperty Name="ArtCod" ColumnName="ArtCod" />
                 <ScalarProperty Name="LotCod" ColumnName="LotCod" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3290,68 +3351,68 @@
     <Diagrams>
       <Diagram Name="Agrocomercio" ZoomLevel="38">
         <EntityTypeShape EntityType="AgrocomercioModel.Articulos" Width="1.5" PointX="3" PointY="8.75" Height="4.8648079427083246" />
-        <EntityTypeShape EntityType="AgrocomercioModel.Atributos" Width="1.5" PointX="5.75" PointY="4.625" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="AgrocomercioModel.Atributos" Width="1.5" PointX="5.75" PointY="4.5" Height="1.9802864583333246" />
         <EntityTypeShape EntityType="AgrocomercioModel.Clientes" Width="1.5" PointX="3.75" PointY="4.5" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.det_letra" Width="1.5" PointX="13" PointY="7" Height="3.3263964843750102" />
+        <EntityTypeShape EntityType="AgrocomercioModel.det_letra" Width="1.5" PointX="11" PointY="2.875" Height="3.518697916666639" />
         <EntityTypeShape EntityType="AgrocomercioModel.DetOperacion" Width="1.5" PointX="8.25" PointY="14.625" Height="3.7109993489583264" />
         <EntityTypeShape EntityType="AgrocomercioModel.DocumenOperacion" Width="1.5" PointX="8.25" PointY="9.125" Height="4.0956022135416674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.letra" Width="1.5" PointX="10.75" PointY="6.875" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.LotesArt" Width="1.5" PointX="5.25" PointY="16.125" Height="3.1340950520833246" />
-        <EntityTypeShape EntityType="AgrocomercioModel.Notas" Width="1.5" PointX="8.75" PointY="2.875" Height="3.3263964843749818" />
+        <EntityTypeShape EntityType="AgrocomercioModel.letra" Width="1.5" PointX="8.75" PointY="2.75" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="AgrocomercioModel.LotesArt" Width="1.5" PointX="5.25" PointY="16" Height="3.3263964843749818" />
+        <EntityTypeShape EntityType="AgrocomercioModel.Notas" Width="1.5" PointX="10.75" PointY="7.75" Height="3.3263964843749818" />
         <EntityTypeShape EntityType="AgrocomercioModel.Operaciones" Width="1.5" PointX="6" PointY="7.625" Height="7.172425130208353" />
-        <EntityTypeShape EntityType="AgrocomercioModel.Pag_letras" Width="1.5" PointX="10.75" PointY="11.625" Height="3.1340950520833246" />
+        <EntityTypeShape EntityType="AgrocomercioModel.Pag_letras" Width="1.5" PointX="10.75" PointY="12.5" Height="3.1340950520833246" />
         <EntityTypeShape EntityType="AgrocomercioModel.Personal" Width="1.5" PointX="3.75" PointY="0.75" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="AgrocomercioModel.Proveedores" Width="1.5" PointX="0.75" PointY="9.5" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.rel_notfactura" Width="1.5" PointX="11" PointY="3.375" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="AgrocomercioModel.rel_notfactura" Width="1.5" PointX="13" PointY="8.25" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="AgrocomercioModel.Roles" Width="1.5" PointX="3.75" PointY="27.375" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="14.625" Height="1.9802864583333264" />
-        <EntityTypeShape EntityType="AgrocomercioModel.tbliqCobranza" Width="1.5" PointX="12.75" PointY="11.625" Height="4.8648079427083264" />
+        <EntityTypeShape EntityType="AgrocomercioModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="14.5" Height="1.9802864583333264" />
+        <EntityTypeShape EntityType="AgrocomercioModel.tbliqCobranza" Width="1.5" PointX="12.75" PointY="11.5" Height="4.8648079427083264" />
         <EntityTypeShape EntityType="AgrocomercioModel.TipoCambios" Width="1.5" PointX="3.75" PointY="20.5" Height="2.1725878906249818" />
         <EntityTypeShape EntityType="AgrocomercioModel.TipoPersonal" Width="1.5" PointX="1.5" PointY="2.625" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="AgrocomercioModel.Transportistas" Width="1.5" PointX="3.75" PointY="23.375" Height="2.557190755208353" />
-        <EntityTypeShape EntityType="AgrocomercioModel.Ubigeos" Width="1.5" PointX="13.75" PointY="2.625" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="AgrocomercioModel.Ubigeos" Width="1.5" PointX="13.75" PointY="2.5" Height="1.4033821614583246" />
         <EntityTypeShape EntityType="AgrocomercioModel.Unidades" Width="1.5" PointX="0.75" PointY="5.875" Height="2.7494921874999818" />
         <EntityTypeShape EntityType="AgrocomercioModel.Usuarios" Width="1.5" PointX="6" PointY="1" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.cab_letra" Width="1.5" PointX="14.75" PointY="11.625" Height="3.7109993489583246" />
-        <EntityTypeShape EntityType="AgrocomercioModel.detalle_pagos" Width="1.5" PointX="14.75" PointY="16.625" Height="5.8263151041666674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.detalle_pagos_now" Width="1.5" PointX="15.75" PointY="2.625" Height="5.8263151041666674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.fac_pnd_let" Width="1.5" PointX="0.75" PointY="17.625" Height="3.1340950520833246" />
-        <EntityTypeShape EntityType="AgrocomercioModel.fac_x_letra" Width="1.5" PointX="10.75" PointY="17.625" Height="5.2494108072916674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.list_detLetra" Width="1.5" PointX="16.75" PointY="9.625" Height="4.2879036458333246" />
-        <EntityTypeShape EntityType="AgrocomercioModel.list_letra" Width="1.5" PointX="16.75" PointY="15.625" Height="4.4802050781249836" />
-        <EntityTypeShape EntityType="AgrocomercioModel.nota_list" Width="1.5" PointX="17.75" PointY="2.625" Height="3.9033007812499818" />
-        <EntityTypeShape EntityType="AgrocomercioModel.Pag_pendientes" Width="1.5" PointX="7.75" PointY="19.625" Height="4.4802050781249818" />
-        <EntityTypeShape EntityType="AgrocomercioModel.pag_pendnow" Width="1.5" PointX="18.75" PointY="7.625" Height="4.4802050781249818" />
-        <EntityTypeShape EntityType="AgrocomercioModel.proveedor_letra" Width="1.5" PointX="18.75" PointY="13.625" Height="4.0956022135416692" />
-        <EntityTypeShape EntityType="AgrocomercioModel.rel_not_fact" Width="1.5" PointX="18.75" PointY="18.625" Height="2.5571907552083246" />
-        <EntityTypeShape EntityType="AgrocomercioModel.RepNotDet" Width="1.5" PointX="19.75" PointY="2.625" Height="4.0956022135416674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.RepNotGen" Width="1.5" PointX="0.75" PointY="21.625" Height="3.7109993489583246" />
-        <EntityTypeShape EntityType="AgrocomercioModel.vwList_let_detalle" Width="1.5" PointX="20.75" PointY="7.625" Height="5.2494108072916674" />
-        <EntityTypeShape EntityType="AgrocomercioModel.vwtodo_movimiento" Width="1.5" PointX="20.75" PointY="13.625" Height="5.4417122395833264" />
+        <EntityTypeShape EntityType="AgrocomercioModel.cab_letra" Width="1.5" PointX="14.75" PointY="11.5" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="AgrocomercioModel.detalle_pagos" Width="1.5" PointX="14.75" PointY="16.5" Height="5.8263151041666674" />
+        <EntityTypeShape EntityType="AgrocomercioModel.detalle_pagos_now" Width="1.5" PointX="15.75" PointY="2.5" Height="5.8263151041666674" />
+        <EntityTypeShape EntityType="AgrocomercioModel.fac_pnd_let" Width="1.5" PointX="0.75" PointY="17.5" Height="3.1340950520833246" />
+        <EntityTypeShape EntityType="AgrocomercioModel.fac_x_letra" Width="1.5" PointX="10.75" PointY="17.5" Height="5.2494108072916674" />
+        <EntityTypeShape EntityType="AgrocomercioModel.list_detLetra" Width="1.5" PointX="16.75" PointY="9.5" Height="4.2879036458333246" />
+        <EntityTypeShape EntityType="AgrocomercioModel.list_letra" Width="1.5" PointX="16.75" PointY="15.5" Height="4.4802050781249836" />
+        <EntityTypeShape EntityType="AgrocomercioModel.nota_list" Width="1.5" PointX="17.75" PointY="2.5" Height="3.9033007812499818" />
+        <EntityTypeShape EntityType="AgrocomercioModel.Pag_pendientes" Width="1.5" PointX="7.75" PointY="19.5" Height="4.4802050781249818" />
+        <EntityTypeShape EntityType="AgrocomercioModel.pag_pendnow" Width="1.5" PointX="18.75" PointY="7.5" Height="4.4802050781249818" />
+        <EntityTypeShape EntityType="AgrocomercioModel.proveedor_letra" Width="1.5" PointX="18.75" PointY="13.5" Height="4.0956022135416692" />
+        <EntityTypeShape EntityType="AgrocomercioModel.rel_not_fact" Width="1.5" PointX="18.75" PointY="18.5" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="AgrocomercioModel.RepNotDet" Width="1.5" PointX="19.75" PointY="2.5" Height="4.0956022135416674" />
+        <EntityTypeShape EntityType="AgrocomercioModel.RepNotGen" Width="1.5" PointX="0.75" PointY="21.5" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="AgrocomercioModel.vwList_let_detalle" Width="1.5" PointX="20.75" PointY="7.5" Height="5.2494108072916674" />
+        <EntityTypeShape EntityType="AgrocomercioModel.vwtodo_movimiento" Width="1.5" PointX="20.75" PointY="13.5" Height="5.4417122395833264" />
         <AssociationConnector Association="AgrocomercioModel.FK_Articulos_Proveedores" >
           <ConnectorPoint PointX="2.25" PointY="11.259348958333334" />
           <ConnectorPoint PointX="3" PointY="11.259348958333334" />
         </AssociationConnector>
-        <AssociationConnector Association="AgrocomercioModel.FK_Articulos_Unidades" >
+        <AssociationConnector Association="AgrocomercioModel.FK_ARTICULOS_UNIDADES" >
           <ConnectorPoint PointX="2.25" PointY="8.3528450520833246" />
           <ConnectorPoint PointX="3.34375" PointY="8.3528450520833246" />
           <ConnectorPoint PointX="3.34375" PointY="8.75" />
         </AssociationConnector>
         <AssociationConnector Association="AgrocomercioModel.FK_DetOperacion_Articulos" >
           <ConnectorPoint PointX="3.75" PointY="13.614807942708325" />
-          <ConnectorPoint PointX="3.75" PointY="15.461212565104177" />
-          <ConnectorPoint PointX="4.0729191666666669" PointY="15.461212565104177" />
-          <ConnectorPoint PointX="4.2395858333333329" PointY="15.461212565104177" />
-          <ConnectorPoint PointX="6.8697891666666671" PointY="15.461212565104175" />
-          <ConnectorPoint PointX="7.1458333333333321" PointY="15.461212565104177" />
-          <ConnectorPoint PointX="7.2760441666666669" PointY="15.461212565104177" />
-          <ConnectorPoint PointX="7.4427108333333329" PointY="15.461212565104177" />
-          <ConnectorPoint PointX="8.25" PointY="15.461212565104177" />
+          <ConnectorPoint PointX="3.75" PointY="15.398712565104177" />
+          <ConnectorPoint PointX="4.0729191666666669" PointY="15.398712565104177" />
+          <ConnectorPoint PointX="4.2395858333333329" PointY="15.398712565104177" />
+          <ConnectorPoint PointX="6.8697891666666671" PointY="15.398712565104175" />
+          <ConnectorPoint PointX="7.1458333333333321" PointY="15.398712565104177" />
+          <ConnectorPoint PointX="7.2760441666666669" PointY="15.398712565104177" />
+          <ConnectorPoint PointX="7.4427108333333329" PointY="15.398712565104177" />
+          <ConnectorPoint PointX="8.25" PointY="15.398712565104177" />
         </AssociationConnector>
         <AssociationConnector Association="AgrocomercioModel.FK_LotesArt_Articulos" >
           <ConnectorPoint PointX="4.1562525" PointY="13.614807942708325" />
-          <ConnectorPoint PointX="4.1562525" PointY="17.692047526041662" />
-          <ConnectorPoint PointX="5.25" PointY="17.692047526041662" />
+          <ConnectorPoint PointX="4.1562525" PointY="17.663198242187491" />
+          <ConnectorPoint PointX="5.25" PointY="17.663198242187491" />
         </AssociationConnector>
         <AssociationConnector Association="AgrocomercioModel.FK_Operaciones_Clientes" >
           <ConnectorPoint PointX="5.25" PointY="7.8218489583333337" />
@@ -3359,24 +3420,28 @@
           <ConnectorPoint PointX="5.583333333333333" PointY="7.8218489583333337" />
           <ConnectorPoint PointX="6" PointY="7.8218489583333337" />
         </AssociationConnector>
+        <AssociationConnector Association="AgrocomercioModel.det_letra_fk" >
+          <ConnectorPoint PointX="10.25" PointY="4.6343489583333195" />
+          <ConnectorPoint PointX="11" PointY="4.6343489583333195" />
+        </AssociationConnector>
         <AssociationConnector Association="AgrocomercioModel.FK_det_letra_letra" >
-          <ConnectorPoint PointX="12.25" PointY="8.6631982421875051" />
-          <ConnectorPoint PointX="13" PointY="8.6631982421875051" />
+          <ConnectorPoint PointX="10.25" PointY="3.6921744791666598" />
+          <ConnectorPoint PointX="11" PointY="3.6921744791666598" />
         </AssociationConnector>
         <AssociationConnector Association="AgrocomercioModel.FK_DetOperacion_LotesArt" >
-          <ConnectorPoint PointX="6.75" PointY="17.230499674479162" />
-          <ConnectorPoint PointX="6.8697891666666671" PointY="17.230499674479162" />
-          <ConnectorPoint PointX="7.1458333333333321" PointY="17.230499674479162" />
-          <ConnectorPoint PointX="7.2760441666666669" PointY="17.230499674479162" />
-          <ConnectorPoint PointX="7.4427108333333329" PointY="17.230499674479162" />
-          <ConnectorPoint PointX="8.25" PointY="17.230499674479162" />
+          <ConnectorPoint PointX="6.75" PointY="17.167999674479162" />
+          <ConnectorPoint PointX="6.8697891666666671" PointY="17.167999674479162" />
+          <ConnectorPoint PointX="7.1458333333333321" PointY="17.167999674479162" />
+          <ConnectorPoint PointX="7.2760441666666669" PointY="17.167999674479162" />
+          <ConnectorPoint PointX="7.4427108333333329" PointY="17.167999674479162" />
+          <ConnectorPoint PointX="8.25" PointY="17.167999674479162" />
         </AssociationConnector>
         <AssociationConnector Association="AgrocomercioModel.FK_DetOperacion_Operaciones" >
           <ConnectorPoint PointX="7.15625" PointY="14.797425130208353" />
-          <ConnectorPoint PointX="7.15625" PointY="15.09806684765627" />
-          <ConnectorPoint PointX="7.2760441666666669" PointY="15.09806684765627" />
-          <ConnectorPoint PointX="7.4427108333333329" PointY="15.09806684765627" />
-          <ConnectorPoint PointX="8.25" PointY="15.09806684765627" />
+          <ConnectorPoint PointX="7.15625" PointY="15.06681684765627" />
+          <ConnectorPoint PointX="7.2760441666666669" PointY="15.06681684765627" />
+          <ConnectorPoint PointX="7.4427108333333329" PointY="15.06681684765627" />
+          <ConnectorPoint PointX="8.25" PointY="15.06681684765627" />
         </AssociationConnector>
         <AssociationConnector Association="AgrocomercioModel.FK_DetOperacion_Unidades" >
           <ConnectorPoint PointX="2.25" PointY="7.0826705260416691" />
@@ -3404,14 +3469,14 @@
           <ConnectorPoint PointX="8.25" PointY="11.172801106770834" />
         </AssociationConnector>
         <AssociationConnector Association="AgrocomercioModel.rel_notfactura_fk2" >
-          <ConnectorPoint PointX="10.25" PointY="4.5574446614583337" />
-          <ConnectorPoint PointX="11" PointY="4.5574446614583337" />
+          <ConnectorPoint PointX="12.25" PointY="9.4324446614583337" />
+          <ConnectorPoint PointX="13" PointY="9.4324446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="AgrocomercioModel.FK_Operaciones_Personal" >
           <ConnectorPoint PointX="5.25" PointY="2.2208968098958337" />
           <ConnectorPoint PointX="5.75" PointY="2.2208968098958337" />
-          <ConnectorPoint PointX="5.75" PointY="4.375" />
-          <ConnectorPoint PointX="7.5" PointY="4.375" />
+          <ConnectorPoint PointX="5.75" PointY="4.25" />
+          <ConnectorPoint PointX="7.5" PointY="4.25" />
           <ConnectorPoint PointX="7.5" PointY="7.25" />
           <ConnectorPoint PointX="6.75" PointY="7.25" />
           <ConnectorPoint PointX="6.75" PointY="7.625" />
@@ -3424,8 +3489,6 @@
           <ConnectorPoint PointX="3.8333333333333335" PointY="15.172425130208353" />
           <ConnectorPoint PointX="4.0729191666666669" PointY="15.172425130208353" />
           <ConnectorPoint PointX="4.2395858333333329" PointY="15.172425130208353" />
-          <ConnectorPoint PointX="5.416666666666667" PointY="15.172425130208353" />
-          <ConnectorPoint PointX="5.583333333333333" PointY="15.172425130208353" />
           <ConnectorPoint PointX="5.6261528461538468" PointY="15.172425130208353" />
           <ConnectorPoint PointX="6.0011528461538459" PointY="14.797425130208353" />
         </AssociationConnector>
@@ -3452,14 +3515,16 @@
         <AssociationConnector Association="AgrocomercioModel.FK_Usuarios_Roles" >
           <ConnectorPoint PointX="5.25" PointY="28.557444661458334" />
           <ConnectorPoint PointX="7.0625" PointY="28.557444661458334" />
-          <ConnectorPoint PointX="7.0625" PointY="15.297425130208353" />
-          <ConnectorPoint PointX="7.0364558333333331" PointY="15.297425130208353" />
-          <ConnectorPoint PointX="6.8697891666666671" PointY="15.297425130208353" />
-          <ConnectorPoint PointX="5.5" PointY="15.297425130208353" />
-          <ConnectorPoint PointX="5.5" PointY="6.8552864583333246" />
-          <ConnectorPoint PointX="7.416666666666667" PointY="6.8552864583333237" />
-          <ConnectorPoint PointX="7.583333333333333" PointY="6.8552864583333246" />
-          <ConnectorPoint PointX="7.75" PointY="6.8552864583333246" />
+          <ConnectorPoint PointX="7.0625" PointY="14.984925130208353" />
+          <ConnectorPoint PointX="7.0364558333333331" PointY="14.984925130208353" />
+          <ConnectorPoint PointX="6.8697891666666671" PointY="14.984925130208353" />
+          <ConnectorPoint PointX="5.89698617948718" PointY="14.984925130208353" />
+          <ConnectorPoint PointX="5.7303195128205138" PointY="14.984925130208353" />
+          <ConnectorPoint PointX="5.5" PointY="14.984925130208353" />
+          <ConnectorPoint PointX="5.5" PointY="6.7302864583333246" />
+          <ConnectorPoint PointX="7.416666666666667" PointY="6.7302864583333237" />
+          <ConnectorPoint PointX="7.583333333333333" PointY="6.7302864583333246" />
+          <ConnectorPoint PointX="7.75" PointY="6.7302864583333246" />
           <ConnectorPoint PointX="7.75" PointY="3.7398893229166674" />
           <ConnectorPoint PointX="6.75" PointY="3.7398893229166674" />
           <ConnectorPoint PointX="6.75" PointY="3.3648893229166674" />

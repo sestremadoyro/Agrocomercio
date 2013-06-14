@@ -43,7 +43,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         {
             try
             {
-                var Result = this.Find(Art => Art.ArtStock > 0 && Art.Artestado).ToList();
+                var Result = this.Find(Art => Art.ArtStock > 0 && Art.Artestado).OrderBy(Art => Art.ArtDescripcion).ToList();
                 return Result;
             }
             catch (Exception ex)

@@ -74,14 +74,21 @@ namespace pryAgrocomercioBLL.EntityCollection
         {
             var result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
                 .OrderBy(Lot => Lot.LotNro);
-
-            if (result.Count() > 0)
+            if (cTipReg == "FIRST")
             {
-                if (cTipReg == "FIRST")
-                    return result.First();
-                else if (cTipReg == "LAST")
-                    return result.Last();
+                 result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
+                .OrderBy(Lot => Lot.LotNro);
             }
+            else
+            {
+                 result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
+                    .OrderByDescending(Lot => Lot.LotNro);
+            }
+            if (result.Count() > 0)
+            {    
+                return result.First();                
+            }
+
             return null;
         }
         public LotesArt GetLoteArt(int ArtCod, int LotCod)
