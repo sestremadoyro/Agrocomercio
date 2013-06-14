@@ -1908,10 +1908,8 @@ namespace AgrocomercioWEB.Ventas
             txtLotStock.Text = "0";
 
             clsArticulos lstArticulos = new clsArticulos();
-            clsListaPrecios lstPrecios = new clsListaPrecios();
             clsLotesArt lstLotesArt = new clsLotesArt();
             Articulos oArticulo = new Articulos();
-            ListaPrecios oPrecio = new ListaPrecios();
             LotesArt oLoteArt = new LotesArt();
 
             txtLotNro.Enabled = false;
@@ -1919,18 +1917,15 @@ namespace AgrocomercioWEB.Ventas
             txtLotStock.Enabled = false;
             txtArtDescuento.Enabled = true;
 
-            oPrecio = lstPrecios.GetArticuloPrecio(ArtCod);
             oLoteArt = lstLotesArt.GetLoteArt(ArtCod);
 
             nLotNro = oLoteArt.LotNro;
             if (oLoteArt.LotFecModi.HasValue)
                 dLotFecRegis = oLoteArt.LotFecRegis.Value;
 
-            if (oPrecio.LprPrecio.HasValue)
-
-                 nLprPrecio = (double)oPrecio.LprPrecio.Value;
-            //oLoteArt.ListaPrecios.Articulos
-
+            if (oLoteArt.LotPrecioVen.HasValue)
+                nLprPrecio = (double)oLoteArt.LotPrecioVen;
+            
             oArticulo = lstArticulos.GetArticulo(ArtCod);
             if (oArticulo != null)
             {
@@ -1989,8 +1984,6 @@ namespace AgrocomercioWEB.Ventas
 
             lstArticulos = null;
             oArticulo = null;
-            lstPrecios = null;
-            oPrecio = null;
 
             CalcularTotalArticulo();
             lsbArticulos.Focus();

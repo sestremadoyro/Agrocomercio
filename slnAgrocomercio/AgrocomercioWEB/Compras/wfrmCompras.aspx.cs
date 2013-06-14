@@ -1963,13 +1963,12 @@ namespace AgrocomercioWEB.Compras
                 ArtCod = int.Parse(lsbArticulos.SelectedValue);
 
             clsArticulos lstArticulos = new clsArticulos();
-            clsListaPrecios lstPrecios = new clsListaPrecios();
             clsLotesArt lstLotesArt = new clsLotesArt();
             Articulos oArticulo = new Articulos();
-            ListaPrecios oPrecio = new ListaPrecios();
-
-            oPrecio = lstPrecios.GetArticuloPrecio(ArtCod);
+            LotesArt oLoteArt = new LotesArt();
+            
             oArticulo = lstArticulos.GetArticulo(ArtCod);
+            oLoteArt = lstLotesArt.GetLoteArt(ArtCod,"LAST");
 
             if (oArticulo != null)
             {
@@ -1983,22 +1982,17 @@ namespace AgrocomercioWEB.Compras
                 ddlLaboratorios.SelectedValue = oArticulo.PrvCod.ToString();
                 hideStockLote.Value = lstLotesArt.GetLoteArtStock(ArtCod).ToString();
 
-                if (oArticulo.ArtStock <= 0)
-                {
-                    txtStockFis.ForeColor = System.Drawing.Color.Red;
-                }
-                else
-                {
-                    txtStockFis.ForeColor = System.Drawing.Color.Gray;
-                }
-
-                if (oPrecio == null)
+                txtStockFis.ForeColor = oArticulo.ArtStock <= 0?System.Drawing.Color.Red:txtStockFis.ForeColor = System.Drawing.Color.Gray;
+                
+                if (oLoteArt == null)
                 {
                     txtArtPreUnitario.Text = "0.0";
+                    LotNro = 0;
                 }
                 else
                 {
-                    txtArtPreUnitario.Text = Math.Round(((Double)oPrecio.LprPrecio / nTipCam),2).ToString();
+                    txtArtPreUnitario.Text = Math.Round(((Double)oLoteArt.LotPrecioCom / nTipCam), 2).ToString();
+                    LotNro = oLoteArt.LotNro;
                 }
 
                 if (BuscarArticulo(oArticulo.ArtCod, ref LotNro, ref LprPrecio, ref LprDscto))
@@ -2015,7 +2009,6 @@ namespace AgrocomercioWEB.Compras
                 {
                     txtArtPreUnitario.Enabled = true;
                     txtLotNro.Enabled = true;
-                    LotNro = lstLotesArt.MaxLotNro(ArtCod);
                     txtLotNro.Text = (LotNro + 1).ToString();
                 }
                 if (lblEstadoVenArticulo.Value == "NORMAL")
@@ -2028,8 +2021,6 @@ namespace AgrocomercioWEB.Compras
 
             lstArticulos = null;
             oArticulo = null;
-            lstPrecios = null;
-            oPrecio = null;
             lstLotesArt = null;
 
             CalcularTotalArticulo();
@@ -2125,10 +2116,8 @@ namespace AgrocomercioWEB.Compras
             string cMensaje = "";
             double nTipCam = g_nTipoCambio;
 
-            clsListaPrecios lstPrecios = new clsListaPrecios();
             clsArticulos colArticulos = new clsArticulos();
-            ListaPrecios oPrecio = new ListaPrecios();
-
+           
             try
             {
                 if (ValidarDatos("ART", ref cMensaje))
@@ -2198,8 +2187,6 @@ namespace AgrocomercioWEB.Compras
             {
                 MessageBox(ex.Message);
             }
-            lstPrecios = null;
-            oPrecio = null;
         }
 
         [System.Web.Script.Services.ScriptMethod()]

@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit">
-      <HintPath>..\..\..\..\..\CASERIO HUAJE\SISTEMA2\CaserioWEB\Bin\AjaxControlToolkit.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -60,7 +57,6 @@
     <Compile Include="EntityCollection\Implement\clsClientes.cs" />
     <Compile Include="EntityCollection\Implement\clsDetOperacion.cs" />
     <Compile Include="EntityCollection\Implement\clsDocumenOperacion.cs" />
-    <Compile Include="EntityCollection\Implement\clsListaPrecios.cs" />
     <Compile Include="EntityCollection\Implement\clsLotesArt.cs" />
     <Compile Include="EntityCollection\Implement\clsOperaciones.cs" />
     <Compile Include="EntityCollection\Implement\clsPersonal.cs" />
@@ -78,7 +74,6 @@
     <Compile Include="EntityCollection\Interfaces\IDetOperacion.cs" />
     <Compile Include="EntityCollection\Interfaces\IDocumenOperacion.cs" />
     <Compile Include="EntityCollection\Interfaces\ILetra.cs" />
-    <Compile Include="EntityCollection\Interfaces\IListaPrecios.cs" />
     <Compile Include="EntityCollection\Interfaces\ILotesArt.cs" />
     <Compile Include="EntityCollection\Interfaces\INotas.cs" />
     <Compile Include="EntityCollection\Interfaces\IOperaciones.cs" />

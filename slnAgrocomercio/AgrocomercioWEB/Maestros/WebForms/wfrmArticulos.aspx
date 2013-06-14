@@ -327,7 +327,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                         <ItemTemplate>
                             <asp:LinkButton ID="lnbSeleccionaPrecio" runat="server" 
                             CommandName="SeleccionaPrecio" 
-                            CommandArgument='<%# Eval("LprCod") %>'>[Editar]</asp:LinkButton>
+                            CommandArgument='<%# Eval("LotCod") %>'>[Editar]</asp:LinkButton>
                         </ItemTemplate>                
                         <HeaderStyle Font-Size="10px" Width="8px" />
                         <ItemStyle Font-Size="8pt" Width="8px"  HorizontalAlign="Center"/>
@@ -336,16 +336,16 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                         <ItemTemplate>
                             <asp:LinkButton ID="lnbEliminaPrecio" runat="server"
                             CommandName="EliminaPrecio" 
-                            CommandArgument='<%#Eval("LprCod")%>'>[Eliminar]</asp:LinkButton>
+                            CommandArgument='<%#Eval("LotCod")%>'>[Eliminar]</asp:LinkButton>
                         </ItemTemplate>
                         <HeaderStyle Font-Size="10px" Width="8px" />
                         <ItemStyle Font-Size="8pt" Width="8px"  HorizontalAlign="Center"/>
                     </asp:TemplateField>
-                        <asp:BoundField DataField="LprCod" HeaderText="#" InsertVisible="False" ReadOnly="True"
+                        <asp:BoundField DataField="LotCod" HeaderText="#" InsertVisible="False" ReadOnly="True"
                             SortExpression="artCod"  ItemStyle-Font-Size="10pt">
                             <ItemStyle Width="20px" />
                         </asp:BoundField>
-                        <asp:BoundField DataField="LprPrecio" HeaderText="Precio"
+                        <asp:BoundField DataField="LotPrecioVen" HeaderText="Precio"
                             SortExpression="LprPrecio" >
                             <ItemStyle Width="50px" Font-Size="10pt" />
                             <ControlStyle Width="50px" Font-Size="10pt"/>

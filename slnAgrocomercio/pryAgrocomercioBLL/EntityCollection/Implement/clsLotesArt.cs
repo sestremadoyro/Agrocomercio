@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using pryAgrocomercioDAL;
 using pryAgrocomercioBLL.EntityCollection.Interfaces;
+using System.Data;
 
 namespace pryAgrocomercioBLL.EntityCollection
 {
@@ -30,17 +31,16 @@ namespace pryAgrocomercioBLL.EntityCollection
                 var Lote = this.Find(Lot => Lot.LotCod == LotCod).FirstOrDefault();
                 this.Delete(Lote);
             }
-            catch
+            catch (Exception ex)
             {
-
+                throw ex;
             }
         }
-
         public void DisminuirLotStock(int nArtCod, decimal nCantidad)
         {
             try
             {
-                var Lotes = this.Find(Lot => Lot.ListaPrecios.ArtCod == nArtCod && Lot.LotEstado && Lot.LotStock > 0).
+                var Lotes = this.Find(Lot => Lot.ArtCod == nArtCod && Lot.LotEstado && Lot.LotStock > 0).
                     OrderBy(Lot => Lot.LotNro);
 
                 foreach (LotesArt Lot in Lotes)
@@ -62,28 +62,31 @@ namespace pryAgrocomercioBLL.EntityCollection
                 }
                 SaveChanges();
             }
-            catch
+            catch(Exception ex)
             {
-
+                throw ex;
             }
         }
         #endregion
 
         #region FUNCIONES DE CONSULTA
-        public LotesArt GetLoteArt(int ArtCod)
+        public LotesArt GetLoteArt(int ArtCod, string cTipReg = "FIRST")
         {
-            var result = this.Find(Lot => Lot.ListaPrecios.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
+            var result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
                 .OrderBy(Lot => Lot.LotNro);
 
             if (result.Count() > 0)
             {
-                return result.First();
+                if (cTipReg == "FIRST")
+                    return result.First();
+                else if (cTipReg == "LAST")
+                    return result.Last();
             }
             return null;
         }
         public LotesArt GetLoteArt(int ArtCod, int LotCod)
         {
-            var result = this.Find(Lot => Lot.ListaPrecios.ArtCod == ArtCod && Lot.LotCod == LotCod);
+            var result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotCod == LotCod);
             if (result.Count() > 0)
             {
                 return result.First();
@@ -93,7 +96,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         public decimal GetLoteArtStock(int ArtCod)
         {
             decimal nTotalStock = 0;
-            var result = this.Find(Lot => Lot.LotEstado == true && Lot.ListaPrecios.ArtCod == ArtCod);
+            var result = this.Find(Lot => Lot.LotEstado == true && Lot.ArtCod == ArtCod);
 
             if (result.Count() > 0)
                 nTotalStock += (decimal)result.Select(Lot => Lot.LotStock).Sum();
@@ -122,19 +125,13 @@ namespace pryAgrocomercioBLL.EntityCollection
         }
         public int MaxLotNro(int ArtCod)
         {
-            var result = this.Find(Lot => Lot.ListaPrecios.ArtCod == ArtCod);
+            var result = this.Find(Lot => Lot.ArtCod == ArtCod);
 
             if (result.Count() > 0)
             {
                 return result.Max(Lot => Lot.LotNro);
             }
             return 0;
-        }
-        public LotesArt GetLotesPrecio(int pLprCod)
-        {
-            var result = this.Find(Lot => Lot.LprCod == pLprCod);
-
-            return result.First<LotesArt>();
         }
         public int MaxLotesCod()
         {
@@ -144,7 +141,59 @@ namespace pryAgrocomercioBLL.EntityCollection
             }
             return 0;
         }
+
+        public Double GetCostoPromedio(int ArtCod, double nTasIGV, Double pnPrecio = 0.0)
+        {
+            Double nCostoProm = 0;
+            Decimal nIGV = (Decimal)(nTasIGV + 1);
+            List<Decimal> lstPre = null;
+
+            var result = this.Find(Pre => Pre.ArtCod == ArtCod && Pre.LotPrecioVen > 0);
+
+            if (result.Count() > 0)
+            {
+                //lstPre = result.Select(Pre => (Decimal)((((Pre.LprPrecio - (Pre.LprPrecio * Pre.LprDscto / 100)) * nIGV) +
+                //        (Pre.LprPrecio / 100)) * (Pre.Articulos.Proveedores.PrvGanancia > 0 ? Pre.Articulos.Proveedores.PrvGanancia : 1))).ToList();
+
+                lstPre = result.Select(Pre => (Decimal)Pre.LotPrecioVen).ToList();
+
+                if (pnPrecio > 0)
+                {
+                    pnPrecio = (pnPrecio * (Double)nIGV) + pnPrecio / 100;
+                    Double prGanancia = (Double)result.Select(Pre => Pre.Articulos.Proveedores.PrvGanancia).FirstOrDefault();
+                    pnPrecio *= prGanancia > 0 ? prGanancia : 1;
+                    lstPre.Add((Decimal)pnPrecio);
+                }
+            }
+            if (lstPre != null)
+                nCostoProm = Math.Round((Double)lstPre.Average(), 2);
+            else
+                nCostoProm = 0.0;
+            return nCostoProm;
+        }
+
+
+        //public ListaPrecios GetArticuloPrecio(int ArtCod, decimal pLprPrecio)
+        //{
+        //    var result = this.Find(Pre => Pre.ArtCod == ArtCod && Pre.LprPrecio == pLprPrecio);
+        //    return result.FirstOrDefault();
+        //}
+        //public ListaPrecios GetPrecio(int pLprCod)
+        //{
+        //    var result = this.Find(Pre => Pre.LprCod == pLprCod);
+
+        //    return result.First<ListaPrecios>();
+        //}
+
+        public List<LotesArt> GetListaLotes(int pArtCod)
+        {
+            var lstPreciosTmp = Find(Pre => Pre.ArtCod == pArtCod && Pre.LotEstado == true);
+            return lstPreciosTmp.ToList();
+        }
+
+
         #endregion
+
 
 
     }

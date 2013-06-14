@@ -28,9 +28,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         public Boolean Guardar(ref Operaciones Operacion)
         {
             clsArticulos lstArticulos = new clsArticulos(AgroEntidades);
-            clsListaPrecios lstListaPre = new clsListaPrecios(AgroEntidades);
             clsLotesArt lstLotesArt = new clsLotesArt(AgroEntidades);
-            ListaPrecios oPrecio = new ListaPrecios();
             
             long nDtpCod = 0;
             int nLotCod = 0;
@@ -45,7 +43,6 @@ namespace pryAgrocomercioBLL.EntityCollection
                     DataTable dtDetOperacion = (DataTable)(contexto.Session["dtDetOperacion"]);
                     nDtpCod = MaxDtpCod();
                     nLotCod = lstLotesArt.MaxLotCod();
-                    int nCntPrecioNuevo = 0;
                     
                     //DATOS DEL DETALLE DE LA OPERACION
                     foreach (DataRow row in dtDetOperacion.Rows)
@@ -69,21 +66,16 @@ namespace pryAgrocomercioBLL.EntityCollection
                         {
                             DetOper.LotCod = nLotCod;
 
-                            //SI EL ARTICULO TIENE UN PRECIO NUEVO SE AGREGA
-                            int nLprCod = lstListaPre.Guardar(lnArtCod, (decimal)DetOper.dtpPrecioVen, (decimal)DetOper.dtpDscto, nCntPrecioNuevo);
-                            
-                            //VERIFICA SI ARTICULO NUEVO NO TIENE PRECIOS EN LA TABLA
-                            oPrecio = lstListaPre.GetArticuloPrecio(lnArtCod, (decimal)DetOper.dtpPrecioVen);
-
-                            //SI NO TIENE PRECIOS, INCREMENTA EL CODIGO EN 1
-                            if (oPrecio == null)
-                                nCntPrecioNuevo++;
+                            decimal nPrecioCom = (decimal)DetOper.dtpPrecioVen - ((decimal)DetOper.dtpPrecioVen * (decimal)DetOper.dtpDscto / 100);
+                            decimal nPrecioVen = nPrecioVen = (decimal)lstLotesArt.GetCostoPromedio(lnArtCod, 0.18, (Double)nPrecioCom);
 
                             DetOper.LotesArt = new LotesArt();
                             DetOper.LotesArt.LotCod = nLotCod;
+                            DetOper.LotesArt.ArtCod = lnArtCod;
                             DetOper.LotesArt.LotNro = int.Parse(row["LotNro"].ToString());
                             DetOper.LotesArt.LotStock = DetOper.dtpCantidad;
-                            DetOper.LotesArt.LprCod = nLprCod;
+                            DetOper.LotesArt.LotPrecioCom = nPrecioCom;
+                            DetOper.LotesArt.LotPrecioVen = nPrecioVen;
                             DetOper.LotesArt.LotFecRegis = DateTime.Today;
                             DetOper.LotesArt.LotFecVenci = DateTime.Parse(row["LotFecVenci"].ToString());
                             DetOper.LotesArt.LotFecModi = DateTime.Now;
@@ -95,7 +87,6 @@ namespace pryAgrocomercioBLL.EntityCollection
                         Operacion.DetOperacion.Add(DetOper);
 
                     }
-                    lstListaPre.SaveChanges();
                 }          
 
             }
@@ -104,9 +95,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 throw ex;
             }
             lstArticulos = null;
-            lstListaPre = null;
             lstLotesArt = null;
-            oPrecio = null;
             return true;
         }
         public Boolean Procesar(ref Operaciones Operacion)
@@ -178,7 +167,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         public Boolean UpdatePrecio(long nOpeCod, int nArtCod, decimal nPrecio)
         {
             DetOperacion DetOper = GetDetOperacion((int)nOpeCod, nArtCod);
-            DetOper.LotesArt.ListaPrecios.LprPrecio = nPrecio;
+            DetOper.LotesArt.LotPrecioVen = nPrecio;
             Update(DetOper);
             SaveChanges();
 

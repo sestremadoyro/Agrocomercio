@@ -68,12 +68,10 @@ namespace AgrocomercioWEB.Maestros.WebForms
 
         private void EventoEliminar(int proCodigo)
         {
-            clsListaPrecios oListaPrecio = new clsListaPrecios();
-            
-            DataTable dtPreciosLotes = new DataTable();
-            dtPreciosLotes = oListaPrecio.GetListaPreciosLotes(proCodigo);
+            clsLotesArt oLotesArtLst = new clsLotesArt();
+            var lstPreciosLotes = oLotesArtLst.GetListaLotes(proCodigo);
 
-            if (dtPreciosLotes.Rows.Count  > 0)
+            if (lstPreciosLotes.Count > 0)
             {
                 lblMensajes.Text = "No se pudo ELIMINAR el registro, tiene Precios Asignados.";
                 this.MessageBox("No se pudo ELIMINAR el registro, tiene Precios Asignados.");
@@ -362,23 +360,18 @@ namespace AgrocomercioWEB.Maestros.WebForms
         private decimal  CalcularStock(int pArtCod)
         {
             Decimal decStockTotal = 0;
-            clsListaPrecios oListaPrecio = new clsListaPrecios();
-            DataTable dtPreciosLotes = new DataTable();
-            dtPreciosLotes = oListaPrecio.GetListaPreciosLotes(pArtCod);
-            foreach (DataRow drLote in  dtPreciosLotes.Rows)
-            {
-                decStockTotal += Decimal.Parse ( drLote["LotStock"].ToString());
-            
-            }
+            int linProCodigo = (int)LeerVariableSesion("proCodigo");
+            clsLotesArt oLotesArtLst = new clsLotesArt();
+            var lstPreciosLotes = oLotesArtLst.GetListaLotes(linProCodigo);
+
+            decStockTotal = (decimal)lstPreciosLotes.Sum(Lo => Lo.LotStock);
             return decStockTotal;
         }
 
         private void MostrarPreciosLotes(int pArtCod)
         {
-            clsListaPrecios oListaPrecio = new clsListaPrecios();
-            DataTable dtPreciosLotes = new DataTable();
-            dtPreciosLotes = oListaPrecio.GetListaPreciosLotes(pArtCod);
-            gvwListaPrecios.DataSource = dtPreciosLotes;
+            clsLotesArt oLotesArtLst = new clsLotesArt();
+            gvwListaPrecios.DataSource = oLotesArtLst.GetListaLotes(pArtCod);
             gvwListaPrecios.DataBind();
 
         }
@@ -391,27 +384,18 @@ namespace AgrocomercioWEB.Maestros.WebForms
             {
                 int linProCodigo = (int)LeerVariableSesion("proCodigo");
 
-                clsListaPrecios oListaPrecioLst = new clsListaPrecios();
                 clsLotesArt oLotesArtLst = new clsLotesArt();
-
-                ListaPrecios oListaPrecio = new ListaPrecios();
                 LotesArt oLotesArt = new LotesArt();
               
-                int linLprCod = oListaPrecioLst.MaxListaPrecioCod() + 1;
                 int linLotCod = oLotesArtLst.MaxLotesCod() + 1;
                 int linNroLot = oLotesArtLst.MaxLotNro(linProCodigo) + 1;
 
-                oListaPrecio.LprPrecio = Convert.ToDecimal( txtPrecio.Text);
-                oListaPrecio.LprDscto = Convert.ToDecimal( txtDescuento.Text);
-                oListaPrecio.LprCod = linLprCod;
-                oListaPrecio.LprFecRegis = DateTime.Today;
-                oListaPrecio.LprEstado = true;
-                oListaPrecio.ArtCod = linProCodigo;
-                
                 oLotesArt.LotStock = Convert.ToDecimal(txtStockLote.Text);
                 oLotesArt.LotFecVenci = DateTime.Parse( txtFecVenceLote.Text);
-                oLotesArt.LprCod = linLprCod;
                 oLotesArt.LotCod = linLotCod;
+                oLotesArt.ArtCod = linProCodigo;
+                oLotesArt.LotPrecioCom = 0;
+                oLotesArt.LotPrecioVen = Convert.ToDecimal(txtDescuento.Text) - Convert.ToDecimal(txtPrecio.Text) * Convert.ToDecimal(txtDescuento.Text)/100;
                 oLotesArt.LotNro = Convert.ToInt32(txtLote.Text);
                 oLotesArt.LotFecModi = DateTime.Today;
                 oLotesArt.LotFecRegis = DateTime.Today;
@@ -419,9 +403,6 @@ namespace AgrocomercioWEB.Maestros.WebForms
 
                 try
                 {
-                    oListaPrecioLst.Add(oListaPrecio);
-                    oListaPrecioLst.SaveChanges();
-
                     oLotesArtLst.Add(oLotesArt);
                     oLotesArtLst.SaveChanges();
 
@@ -447,28 +428,19 @@ namespace AgrocomercioWEB.Maestros.WebForms
             }
             else             // MODIFICAR
             {
-                int linPrecioCodigo = (int)LeerVariableSesion("precioCodigo");
+                int linProCodigo = (int)LeerVariableSesion("proCodigo");
+                int loteCodigo = (int)LeerVariableSesion("loteCodigo");
 
-                ListaPrecios oListaPrecio = new ListaPrecios();
-                clsListaPrecios oListaPrecioLst  =  new clsListaPrecios ();
-                oListaPrecio =  oListaPrecioLst.GetPrecio(linPrecioCodigo);
-                
                 LotesArt oLotesArt = new LotesArt();
                 clsLotesArt oLotesArtLst = new clsLotesArt();
-                oLotesArt = oLotesArtLst.GetLotesPrecio(oListaPrecio.LprCod);
+                oLotesArt = oLotesArtLst.GetLoteArt(linProCodigo,loteCodigo);
                
-                oListaPrecio.LprPrecio = Convert.ToDecimal( txtPrecio.Text);
-                oListaPrecio.LprDscto = Convert.ToDecimal( txtDescuento.Text);
-                
+                oLotesArt.LotPrecioVen = Convert.ToDecimal(txtDescuento.Text) - Convert.ToDecimal(txtPrecio.Text) * Convert.ToDecimal(txtDescuento.Text) / 100;
                 oLotesArt.LotStock = Convert.ToDecimal(txtStockLote.Text);
                 oLotesArt.LotFecVenci = DateTime.Parse( txtFecVenceLote.Text);
 
                 try 
                 {
-                    int linProCodigo = (int)LeerVariableSesion("proCodigo");
-                    oListaPrecioLst.Update(oListaPrecio);
-                    oListaPrecioLst.SaveChanges();
-
                     oLotesArtLst.Update(oLotesArt);
                     oLotesArtLst.SaveChanges();
 
@@ -748,30 +720,27 @@ namespace AgrocomercioWEB.Maestros.WebForms
         protected void gvwListaPrecios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
+            int linProCodigo = (int)LeerVariableSesion("proCodigo");
             //presiona BOTON MODIFICAR EN GRILLA
             if (e.CommandName == "SeleccionaPrecio")
             {
 
-                int linPrecioCodigo;
-                linPrecioCodigo = Convert.ToInt32(e.CommandArgument);
+                int LoteCodigo;
+                LoteCodigo = Convert.ToInt32(e.CommandArgument);
 
-                AgregarVariableSession("precioCodigo", linPrecioCodigo);
+                AgregarVariableSession("loteCodigo", LoteCodigo);
                 AgregarVariableSession("operacionPrecio", 2);
-
-                clsListaPrecios oListaPrecioList = new clsListaPrecios();
-                ListaPrecios oListaPrecio = new ListaPrecios();
-                oListaPrecio =  oListaPrecioList.GetPrecio(linPrecioCodigo);
 
                 clsLotesArt oLotesArtList = new clsLotesArt();
                 LotesArt oLotesArt = new LotesArt();
-                oLotesArt = oLotesArtList.GetLotesPrecio(linPrecioCodigo);
+                oLotesArt = oLotesArtList.GetLoteArt(linProCodigo,LoteCodigo);
 
-                if (oListaPrecio != null)
+                if (oLotesArt != null)
                 {
-                    
-                    txtCodigoPrecio.Text = oListaPrecio.LprCod.ToString();
-                    txtPrecio.Text = oListaPrecio.LprPrecio.ToString();
-                    txtDescuento.Text = oListaPrecio.LprDscto.ToString();
+
+                    txtCodigoPrecio.Text = oLotesArt.LotCod.ToString();
+                    txtPrecio.Text = oLotesArt.LotPrecioVen.ToString();
+                    txtDescuento.Text = "0.0";
                     txtLote.Text = oLotesArt.LotNro.ToString();
                     //grabamos el stock del lote
                     decimal ldeStockLote = 0;
@@ -786,7 +755,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
                     FechaVenci = oLotesArt.LotFecVenci.Value;
 
                     txtFecVenceLote.Text = FechaVenci.ToString("yyyy-MM-dd");
-                    chkEstadoPrecio.Checked = oListaPrecio.LprEstado;
+                    chkEstadoPrecio.Checked = oLotesArt.LotEstado;
                     lblCodigoLote.Text = oLotesArt.LotCod.ToString();
 
                     pnlBusqueda.Visible = false;
@@ -805,24 +774,13 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 int linPrecioCodigo;
                 linPrecioCodigo = Convert.ToInt32(e.CommandArgument);
 
-                clsListaPrecios oListaPrecioList = new clsListaPrecios();
-                ListaPrecios oListaPrecio = new ListaPrecios();
-                oListaPrecio = oListaPrecioList.GetPrecio(linPrecioCodigo);
-                oListaPrecio.LprEstado = false;
-
                 clsLotesArt oLotesArtList = new clsLotesArt();
                 LotesArt oLotesArt = new LotesArt();
-                oLotesArt = oLotesArtList.GetLotesPrecio(linPrecioCodigo);
+                oLotesArt = oLotesArtList.GetLoteArt(linProCodigo, linPrecioCodigo);
                 oLotesArt.LotEstado = false;
 
                 try
                 {
-                    int linProCodigo=0;
-                    linProCodigo = Convert.ToInt32( LeerVariableSesion("proCodigo"));
-
-                    oListaPrecioList.Update(oListaPrecio);
-                    oListaPrecioList.SaveChanges();
-
                     oLotesArtList.Update(oLotesArt);
                     oLotesArtList.SaveChanges();
 
@@ -861,15 +819,12 @@ namespace AgrocomercioWEB.Maestros.WebForms
             AgregarVariableSession("operacionPrecio", 1);
             int linProCodigo = (int)LeerVariableSesion("proCodigo");
 
-            clsListaPrecios oListaPrecioLst = new clsListaPrecios();
             clsLotesArt oLotesArtLst = new clsLotesArt();
 
-            int linLprCod = oListaPrecioLst.MaxListaPrecioCod();
             int linLotCod = oLotesArtLst.MaxLotesCod();
             int linNroLot = oLotesArtLst.MaxLotNro(linProCodigo) + 1;
 
             txtLote.Text = linNroLot.ToString();
-            txtCodigoPrecio.Text = linLprCod.ToString();
             lblCodigoLote.Text = linLotCod.ToString();
 
             //GUARDAR DATOS NUEVO PRODUCTO INGRESADOS
