@@ -1,5 +1,0 @@
-ALTER TABLE [dbo].[Articulos]
-ADD [ArtStockIni] numeric(18, 2) NULL
-GO
-
-update [Articulos] set [ArtStockIni] = [ArtStock]

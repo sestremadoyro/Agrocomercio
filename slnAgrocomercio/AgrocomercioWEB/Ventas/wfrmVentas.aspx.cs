@@ -1459,7 +1459,7 @@ namespace AgrocomercioWEB.Ventas
                 moneda = " Dolares";
 
             if (ddlTipoVenta.SelectedValue == "CR")
-                cFormaPago = ddlTipCiclo.SelectedItem.Text + txtCiclo.Text;
+                cFormaPago = txtCiclo.Text + ddlTipCiclo.SelectedItem.Text;
             else
                 cFormaPago = ddlTipoVenta.SelectedItem.Text; 
 

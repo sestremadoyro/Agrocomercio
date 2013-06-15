@@ -1,8 +1,0 @@
-select percod, pernombres + ' '+perApellidoPat+ ' '+ perApellidoMat as vendedor, 
-cast(datepart (year,dfecpago)as varchar(4))+ '-'+cast(datepart (month,dfecpago)as varchar(2)) as periodo,SUM(nmonto)as pagos from Pag_letras pl
-inner join Personal pr on pl.ipercod= pr.perCod
-group by  percod, pernombres + ' '+perApellidoPat+ ' '+ perApellidoMat , 
-cast(datepart (year,dfecpago)as varchar(4))+ '-'+cast(datepart (month,dfecpago)as varchar(2))
-select * from tbliqCobranza
-select * from Personal
- select datepart(month,getdate());
