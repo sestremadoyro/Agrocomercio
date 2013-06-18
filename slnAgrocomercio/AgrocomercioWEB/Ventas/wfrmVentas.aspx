@@ -13,6 +13,9 @@
 
             document.getElementById('lblEstado').value = "DGVCOM_" + event;
             __doPostBack('MainUpdatePanel', rowindex);
+            if (event == "DOUBLECLICK") {
+                AbrirWinArticulos("ESPECIAL");
+            }        
         }
         function dgvListOperVentasClickEvent(event, rowindex) {
 
@@ -99,6 +102,11 @@
 
 
         function AbrirWinArticulos() {
+            if (tipo == "ESPECIAL")
+                winArticulos.setSize(300, 360);
+            else
+                winArticulos.setSize(520, 360); 
+
             winArticulos.Open();
             winArticulos.screenCenter();
         }
