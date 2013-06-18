@@ -318,7 +318,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                     </div>
                 <asp:GridView ID="gvwListaPrecios" runat="server" Width="648px" 
                     AutoGenerateColumns="False" 
-                    DataKeyNames="LprCod" BackColor="White" 
+                    DataKeyNames="LotCod" BackColor="White" 
                     onrowdatabound="gvwListaPrecios_RowDataBound"
                     OnRowCommand="gvwListaPrecios_RowCommand" AllowPaging="True" 
                     onpageindexchanging="gvwListaPrecios_PageIndexChanging">
@@ -350,11 +350,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                             <ItemStyle Width="50px" Font-Size="10pt" />
                             <ControlStyle Width="50px" Font-Size="10pt"/>
                         </asp:BoundField>
-                        <asp:BoundField DataField="LprDscto" HeaderText="Dscto"
-                            SortExpression="LprDscto" >
-                            <ItemStyle Width="50px" Font-Size="10pt" />
-                            <ControlStyle Width="50px" Font-Size="10pt"/>
-                        </asp:BoundField>
+                        
                         <asp:BoundField DataField="LotNro" HeaderText="Lote"
                             SortExpression="LotNro" >
                             <ItemStyle Width="20px" Font-Size="10pt" />
@@ -418,10 +414,10 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                     <tr>
                         <td class="clsFormEtiquetas">
                             <asp:Label ID="Label14" runat="server" Text="Descuento :" 
-                                ForeColor="Black" ></asp:Label>
+                                ForeColor="Black" Visible="False" ></asp:Label>
                         </td>
                         <td>
-                             <asp:TextBox ID="txtDescuento" runat="server" Width="120px"></asp:TextBox>
+                             <asp:TextBox ID="txtDescuento" runat="server" Width="120px" Visible="False"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -439,7 +435,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                                 ForeColor="Black" ></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtStockLote" runat="server" Width="120px"></asp:TextBox>
+                            <asp:TextBox ID="txtStockLote" runat="server" Width="120px" Enabled="False"></asp:TextBox>
                             <asp:CompareValidator ID="CompareValidator8" runat="server" 
                                 ControlToValidate="txtStockLote" 
                                 ErrorMessage="Ingrese un Stock Correcto" Operator="DataTypeCheck" 

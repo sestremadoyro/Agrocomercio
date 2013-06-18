@@ -183,7 +183,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             //txtStockMax.Text = "0";
             //txtStockMin.Text = "0";
             txtCostoPromedio.Text = "0";
-            txtFecVencimiento.Text = DateTime.Today.ToString();
+            txtFecVencimiento.Text = DateTime.Today.ToString("yyyy-MM-dd");
             txtPeso.Text = "0";
             txtStockIni.Text = "0";
             chkEstado.Checked = true;
@@ -241,7 +241,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             txtStock.Text = pObjArticulo.ArtStock.ToString();
             //txtStockMax.Text = pObjArticulo.ArtStockMax.ToString();
             //txtStockMin.Text = pObjArticulo.ArtStockMin.ToString();
-            txtFecVencimiento.Text = pObjArticulo.ArtFecRegis.ToString();
+            txtFecVencimiento.Text = pObjArticulo.ArtFecRegis.ToString("yyyy-MM-dd");;
             txtCostoPromedio.Text = pObjArticulo.ArtCostoProm.ToString();
             txtPeso.Text = pObjArticulo.ArtPeso.ToString();
             txtStockIni.Text = pObjArticulo.ArtStockIni.ToString();
@@ -257,7 +257,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             //txtStockMax.Text = "0";
             //txtStockMin.Text = "0";
             txtCostoPromedio.Text = "0";
-            txtFecVencimiento.Text = DateTime.Today.ToShortDateString();
+            txtFecVencimiento.Text = DateTime.Today.ToString("yyyy-MM-dd");
             txtPeso.Text = "0";
             txtStockIni.Text = "0";
             chkEstado.Checked = true;
@@ -395,7 +395,8 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 oLotesArt.LotCod = linLotCod;
                 oLotesArt.ArtCod = linProCodigo;
                 oLotesArt.LotPrecioCom = 0;
-                oLotesArt.LotPrecioVen = Convert.ToDecimal(txtDescuento.Text) - Convert.ToDecimal(txtPrecio.Text) * Convert.ToDecimal(txtDescuento.Text)/100;
+                //oLotesArt.LotPrecioVen = Convert.ToDecimal(txtDescuento.Text) - Convert.ToDecimal(txtPrecio.Text) * Convert.ToDecimal(txtDescuento.Text)/100;
+                oLotesArt.LotPrecioVen = Convert.ToDecimal(txtPrecio.Text);
                 oLotesArt.LotNro = Convert.ToInt32(txtLote.Text);
                 oLotesArt.LotFecModi = DateTime.Today;
                 oLotesArt.LotFecRegis = DateTime.Today;
@@ -482,7 +483,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 txtStock.Text = oArticulo.ArtStock.ToString();
                 //txtStockMax.Text = drArticulo["artStockMax"].ToString();
                 //txtStockMin.Text = drArticulo["artStockMin"].ToString();
-                txtFecVencimiento.Text = oArticulo.ArtFecRegis.ToString();
+                txtFecVencimiento.Text = oArticulo.ArtFecVen.ToString();
                 txtCostoPromedio.Text = oArticulo.ArtCostoProm.ToString();
                 txtStockIni.Text = oArticulo.ArtStockIni.ToString();
                 chkEstado.Checked = oArticulo.Artestado;
@@ -771,12 +772,12 @@ namespace AgrocomercioWEB.Maestros.WebForms
             //presiona BOTON ELIMINAR EN GRILLA
             if (e.CommandName == "EliminaPrecio")
             {
-                int linPrecioCodigo;
-                linPrecioCodigo = Convert.ToInt32(e.CommandArgument);
+                int LoteCodigo;
+                LoteCodigo = Convert.ToInt32(e.CommandArgument);
 
                 clsLotesArt oLotesArtList = new clsLotesArt();
                 LotesArt oLotesArt = new LotesArt();
-                oLotesArt = oLotesArtList.GetLoteArt(linProCodigo, linPrecioCodigo);
+                oLotesArt = oLotesArtList.GetLoteArt(linProCodigo, LoteCodigo);
                 oLotesArt.LotEstado = false;
 
                 try

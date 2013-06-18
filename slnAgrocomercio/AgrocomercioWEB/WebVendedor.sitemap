@@ -5,7 +5,10 @@
       <siteMapNode url="~/maestros/webforms/wfrmProveedores.aspx" title="Proveedores" description="Mantenimiento de Laboratorios" />
     </siteMapNode>
   <siteMapNode url="#" title="Ventas"  description="Ventas">
-    <siteMapNode url="~/ventas/wfrmVentas.aspx" title="Registro Ventas" description="Registrar las Ventas" />
+    <siteMapNode url="#" title="Reportes-Ventas"  description="Reportes-Ventas">
+      <siteMapNode url="~/Ventas/wfrmRepVentasXCobrar.aspx" title="Ventas x Cobrar General" description="Ventas por Cobrar General" />
+      <siteMapNode url="~/Ventas/wfrmRepResumenCliente.aspx" title="Resumen de Clientes" description="Resumen de Clientes" />
+    </siteMapNode>
   </siteMapNode>
   <siteMapNode url="#" title="Mantenimientos"  description="Mantenimiento de Tablas">
     <siteMapNode url="~/maestros/webforms/wfrmClientes.aspx" title="Clientes" description="Mantenimiento de Clientes" />

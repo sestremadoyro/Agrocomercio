@@ -537,6 +537,7 @@
     <Content Include="bin\obout_Grid_NET.dll" />
     <Content Include="bin\obout_Interface.dll" />
     <Content Include="bin\obout_ListBox.dll" />
+    <Content Include="bin\obout_Window_NET.dll" />
     <Content Include="bin\pryAgrocomercioBLL.dll" />
     <Content Include="bin\pryAgrocomercioBLL.pdb" />
     <Content Include="bin\pryAgrocomercioDAL.dll" />
