@@ -8,37 +8,36 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region Metadatos de relaciones en EDM
 
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_Articulos_Proveedores", "Proveedores", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Proveedores), "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Articulos), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_ARTICULOS_UNIDADES", "Unidades", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Unidades), "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Articulos), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_DetOperacion_Articulos", "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Articulos), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_LISTAPRECIOS_ARTICULOS", "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.Articulos), "ListaPrecios", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.ListaPrecios), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_LotesArt_Articulos", "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Articulos), "LotesArt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.LotesArt), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_Operaciones_Clientes", "Clientes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Clientes), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "det_letra_fk", "letra", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.letra), "det_letra", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.det_letra), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_det_letra_letra", "letra", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.letra), "det_letra", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.det_letra), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_DetOperacion_LotesArt", "LotesArt", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.LotesArt), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_DetOperacion_Operaciones", "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.Operaciones), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_DetOperacion_Unidades", "Unidades", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Unidades), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_DocumenOperacion_Operaciones", "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.Operaciones), "DocumenOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DocumenOperacion), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_LotesArt_ListaPrecios", "ListaPrecios", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.ListaPrecios), "LotesArt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.LotesArt), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "rel_notfactura_fk2", "Notas", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Notas), "rel_notfactura", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.rel_notfactura), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_Operaciones_Personal", "Personal", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Personal), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_Operaciones_Proveedores", "Proveedores", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Proveedores), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_Operaciones_TipoCambios", "TipoCambios", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.TipoCambios), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_Operaciones_Transportistas", "Transportistas", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Transportistas), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_Personal_TipoPersonal", "TipoPersonal", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.TipoPersonal), "Personal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Personal), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_Usuarios_Personal", "Personal", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Personal), "Usuarios", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Usuarios), true)]
-[assembly: EdmRelationshipAttribute("agrocomercioModel", "FK_Usuarios_Roles", "Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Roles), "Usuarios", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Usuarios), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Articulos_Proveedores", "Proveedores", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Proveedores), "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Articulos), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_ARTICULOS_UNIDADES", "Unidades", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Unidades), "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Articulos), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DetOperacion_Articulos", "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Articulos), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_LotesArt_Articulos", "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Articulos), "LotesArt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.LotesArt), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Operaciones_Clientes", "Clientes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Clientes), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "det_letra_fk", "letra", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.letra), "det_letra", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.det_letra), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_det_letra_letra", "letra", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.letra), "det_letra", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.det_letra), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DetOperacion_LotesArt", "LotesArt", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.LotesArt), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DetOperacion_Operaciones", "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.Operaciones), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DetOperacion_Unidades", "Unidades", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Unidades), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DocumenOperacion_Operaciones", "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.Operaciones), "DocumenOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DocumenOperacion), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "rel_notfactura_fk2", "Notas", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Notas), "rel_notfactura", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.rel_notfactura), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Operaciones_Personal", "Personal", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Personal), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Operaciones_Proveedores", "Proveedores", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Proveedores), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Operaciones_TipoCambios", "TipoCambios", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.TipoCambios), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Operaciones_Transportistas", "Transportistas", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Transportistas), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Personal_TipoPersonal", "TipoPersonal", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.TipoPersonal), "Personal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Personal), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Usuarios_Personal", "Personal", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Personal), "Usuarios", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Usuarios), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Usuarios_Roles", "Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Roles), "Usuarios", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Usuarios), true)]
 
 #endregion
 
@@ -205,22 +204,6 @@ namespace pryAgrocomercioDAL
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<ListaPrecios> ListaPrecios
-        {
-            get
-            {
-                if ((_ListaPrecios == null))
-                {
-                    _ListaPrecios = base.CreateObjectSet<ListaPrecios>("ListaPrecios");
-                }
-                return _ListaPrecios;
-            }
-        }
-        private ObjectSet<ListaPrecios> _ListaPrecios;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
         public ObjectSet<LotesArt> LotesArt
         {
             get
@@ -345,6 +328,22 @@ namespace pryAgrocomercioDAL
             }
         }
         private ObjectSet<Roles> _Roles;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<sysdiagrams> sysdiagrams
+        {
+            get
+            {
+                if ((_sysdiagrams == null))
+                {
+                    _sysdiagrams = base.CreateObjectSet<sysdiagrams>("sysdiagrams");
+                }
+                return _sysdiagrams;
+            }
+        }
+        private ObjectSet<sysdiagrams> _sysdiagrams;
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -715,6 +714,7 @@ namespace pryAgrocomercioDAL
         private ObjectSet<vwtodo_movimiento> _vwtodo_movimiento;
 
         #endregion
+
         #region Métodos AddTo
     
         /// <summary>
@@ -771,14 +771,6 @@ namespace pryAgrocomercioDAL
         public void AddToletra(letra letra)
         {
             base.AddObject("letra", letra);
-        }
-    
-        /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet ListaPrecios. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToListaPrecios(ListaPrecios listaPrecios)
-        {
-            base.AddObject("ListaPrecios", listaPrecios);
         }
     
         /// <summary>
@@ -843,6 +835,14 @@ namespace pryAgrocomercioDAL
         public void AddToRoles(Roles roles)
         {
             base.AddObject("Roles", roles);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet sysdiagrams. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddTosysdiagrams(sysdiagrams sysdiagrams)
+        {
+            base.AddObject("sysdiagrams", sysdiagrams);
         }
     
         /// <summary>
@@ -1030,17 +1030,17 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entidades
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Articulos")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Articulos")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Articulos : EntityObject
@@ -1067,6 +1067,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -1457,6 +1458,7 @@ namespace pryAgrocomercioDAL
         partial void OnArtStockIniChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -1466,16 +1468,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Articulos_Proveedores", "Proveedores")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Articulos_Proveedores", "Proveedores")]
         public Proveedores Proveedores
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("agrocomercioModel.FK_Articulos_Proveedores", "Proveedores").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("AgrocomercioModel.FK_Articulos_Proveedores", "Proveedores").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("agrocomercioModel.FK_Articulos_Proveedores", "Proveedores").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("AgrocomercioModel.FK_Articulos_Proveedores", "Proveedores").Value = value;
             }
         }
         /// <summary>
@@ -1487,13 +1489,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("agrocomercioModel.FK_Articulos_Proveedores", "Proveedores");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("AgrocomercioModel.FK_Articulos_Proveedores", "Proveedores");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Proveedores>("agrocomercioModel.FK_Articulos_Proveedores", "Proveedores", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Proveedores>("AgrocomercioModel.FK_Articulos_Proveedores", "Proveedores", value);
                 }
             }
         }
@@ -1504,16 +1506,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_ARTICULOS_UNIDADES", "Unidades")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_ARTICULOS_UNIDADES", "Unidades")]
         public Unidades Unidades
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("agrocomercioModel.FK_ARTICULOS_UNIDADES", "Unidades").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("AgrocomercioModel.FK_ARTICULOS_UNIDADES", "Unidades").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("agrocomercioModel.FK_ARTICULOS_UNIDADES", "Unidades").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("AgrocomercioModel.FK_ARTICULOS_UNIDADES", "Unidades").Value = value;
             }
         }
         /// <summary>
@@ -1525,13 +1527,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("agrocomercioModel.FK_ARTICULOS_UNIDADES", "Unidades");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("AgrocomercioModel.FK_ARTICULOS_UNIDADES", "Unidades");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Unidades>("agrocomercioModel.FK_ARTICULOS_UNIDADES", "Unidades", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Unidades>("AgrocomercioModel.FK_ARTICULOS_UNIDADES", "Unidades", value);
                 }
             }
         }
@@ -1542,18 +1544,18 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DetOperacion_Articulos", "DetOperacion")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_Articulos", "DetOperacion")]
         public EntityCollection<DetOperacion> DetOperacion
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetOperacion>("agrocomercioModel.FK_DetOperacion_Articulos", "DetOperacion");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetOperacion>("AgrocomercioModel.FK_DetOperacion_Articulos", "DetOperacion");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetOperacion>("agrocomercioModel.FK_DetOperacion_Articulos", "DetOperacion", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetOperacion>("AgrocomercioModel.FK_DetOperacion_Articulos", "DetOperacion", value);
                 }
             }
         }
@@ -1564,51 +1566,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_LISTAPRECIOS_ARTICULOS", "ListaPrecios")]
-        public EntityCollection<ListaPrecios> ListaPrecios
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ListaPrecios>("agrocomercioModel.FK_LISTAPRECIOS_ARTICULOS", "ListaPrecios");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ListaPrecios>("agrocomercioModel.FK_LISTAPRECIOS_ARTICULOS", "ListaPrecios", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_LotesArt_Articulos", "LotesArt")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_LotesArt_Articulos", "LotesArt")]
         public EntityCollection<LotesArt> LotesArt
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LotesArt>("agrocomercioModel.FK_LotesArt_Articulos", "LotesArt");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LotesArt>("AgrocomercioModel.FK_LotesArt_Articulos", "LotesArt");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LotesArt>("agrocomercioModel.FK_LotesArt_Articulos", "LotesArt", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LotesArt>("AgrocomercioModel.FK_LotesArt_Articulos", "LotesArt", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Atributos")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Atributos")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Atributos : EntityObject
@@ -1629,6 +1610,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -1758,13 +1740,14 @@ namespace pryAgrocomercioDAL
         partial void OnAtrEstadoChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="cab_letra")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="cab_letra")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class cab_letra : EntityObject
@@ -1783,6 +1766,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -2125,13 +2109,14 @@ namespace pryAgrocomercioDAL
         partial void OnctippagoChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Clientes")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Clientes")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Clientes : EntityObject
@@ -2152,6 +2137,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -2446,6 +2432,7 @@ namespace pryAgrocomercioDAL
         partial void OnCliCreAsigChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -2455,29 +2442,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_Clientes", "Operaciones")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_Clientes", "Operaciones")]
         public EntityCollection<Operaciones> Operaciones
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_Clientes", "Operaciones");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_Clientes", "Operaciones");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_Clientes", "Operaciones", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_Clientes", "Operaciones", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="det_letra")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="det_letra")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class det_letra : EntityObject
@@ -2500,6 +2488,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -2770,6 +2759,7 @@ namespace pryAgrocomercioDAL
         partial void OncnumletraChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -2779,16 +2769,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "det_letra_fk", "letra")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "det_letra_fk", "letra")]
         public letra letra
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("agrocomercioModel.det_letra_fk", "letra").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("AgrocomercioModel.det_letra_fk", "letra").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("agrocomercioModel.det_letra_fk", "letra").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("AgrocomercioModel.det_letra_fk", "letra").Value = value;
             }
         }
         /// <summary>
@@ -2800,13 +2790,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("agrocomercioModel.det_letra_fk", "letra");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("AgrocomercioModel.det_letra_fk", "letra");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<letra>("agrocomercioModel.det_letra_fk", "letra", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<letra>("AgrocomercioModel.det_letra_fk", "letra", value);
                 }
             }
         }
@@ -2817,16 +2807,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_det_letra_letra", "letra")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_det_letra_letra", "letra")]
         public letra letra1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("agrocomercioModel.FK_det_letra_letra", "letra").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("AgrocomercioModel.FK_det_letra_letra", "letra").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("agrocomercioModel.FK_det_letra_letra", "letra").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("AgrocomercioModel.FK_det_letra_letra", "letra").Value = value;
             }
         }
         /// <summary>
@@ -2838,24 +2828,25 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("agrocomercioModel.FK_det_letra_letra", "letra");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<letra>("AgrocomercioModel.FK_det_letra_letra", "letra");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<letra>("agrocomercioModel.FK_det_letra_letra", "letra", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<letra>("AgrocomercioModel.FK_det_letra_letra", "letra", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="detalle_pagos")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="detalle_pagos")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class detalle_pagos : EntityObject
@@ -2880,6 +2871,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -3495,13 +3487,14 @@ namespace pryAgrocomercioDAL
         partial void OnultChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="detalle_pagos_now")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="detalle_pagos_now")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class detalle_pagos_now : EntityObject
@@ -3526,6 +3519,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -4141,13 +4135,14 @@ namespace pryAgrocomercioDAL
         partial void OnultChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="DetOperacion")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="DetOperacion")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class DetOperacion : EntityObject
@@ -4168,6 +4163,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -4414,6 +4410,7 @@ namespace pryAgrocomercioDAL
         partial void OndtpEstadoChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -4423,16 +4420,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DetOperacion_Articulos", "Articulos")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_Articulos", "Articulos")]
         public Articulos Articulos
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("agrocomercioModel.FK_DetOperacion_Articulos", "Articulos").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("AgrocomercioModel.FK_DetOperacion_Articulos", "Articulos").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("agrocomercioModel.FK_DetOperacion_Articulos", "Articulos").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("AgrocomercioModel.FK_DetOperacion_Articulos", "Articulos").Value = value;
             }
         }
         /// <summary>
@@ -4444,13 +4441,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("agrocomercioModel.FK_DetOperacion_Articulos", "Articulos");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("AgrocomercioModel.FK_DetOperacion_Articulos", "Articulos");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Articulos>("agrocomercioModel.FK_DetOperacion_Articulos", "Articulos", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Articulos>("AgrocomercioModel.FK_DetOperacion_Articulos", "Articulos", value);
                 }
             }
         }
@@ -4461,16 +4458,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DetOperacion_LotesArt", "LotesArt")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_LotesArt", "LotesArt")]
         public LotesArt LotesArt
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("agrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("agrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt").Value = value;
             }
         }
         /// <summary>
@@ -4482,13 +4479,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("agrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<LotesArt>("agrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt", value);
                 }
             }
         }
@@ -4499,16 +4496,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DetOperacion_Operaciones", "Operaciones")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_Operaciones", "Operaciones")]
         public Operaciones Operaciones
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("agrocomercioModel.FK_DetOperacion_Operaciones", "Operaciones").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("AgrocomercioModel.FK_DetOperacion_Operaciones", "Operaciones").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("agrocomercioModel.FK_DetOperacion_Operaciones", "Operaciones").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("AgrocomercioModel.FK_DetOperacion_Operaciones", "Operaciones").Value = value;
             }
         }
         /// <summary>
@@ -4520,13 +4517,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("agrocomercioModel.FK_DetOperacion_Operaciones", "Operaciones");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("AgrocomercioModel.FK_DetOperacion_Operaciones", "Operaciones");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Operaciones>("agrocomercioModel.FK_DetOperacion_Operaciones", "Operaciones", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Operaciones>("AgrocomercioModel.FK_DetOperacion_Operaciones", "Operaciones", value);
                 }
             }
         }
@@ -4537,16 +4534,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DetOperacion_Unidades", "Unidades")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_Unidades", "Unidades")]
         public Unidades Unidades
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("agrocomercioModel.FK_DetOperacion_Unidades", "Unidades").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("AgrocomercioModel.FK_DetOperacion_Unidades", "Unidades").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("agrocomercioModel.FK_DetOperacion_Unidades", "Unidades").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("AgrocomercioModel.FK_DetOperacion_Unidades", "Unidades").Value = value;
             }
         }
         /// <summary>
@@ -4558,24 +4555,25 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("agrocomercioModel.FK_DetOperacion_Unidades", "Unidades");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Unidades>("AgrocomercioModel.FK_DetOperacion_Unidades", "Unidades");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Unidades>("agrocomercioModel.FK_DetOperacion_Unidades", "Unidades", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Unidades>("AgrocomercioModel.FK_DetOperacion_Unidades", "Unidades", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="DocumenOperacion")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="DocumenOperacion")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class DocumenOperacion : EntityObject
@@ -4598,6 +4596,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -4964,6 +4963,7 @@ namespace pryAgrocomercioDAL
         partial void OndopDocCompleChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -4973,16 +4973,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DocumenOperacion_Operaciones", "Operaciones")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DocumenOperacion_Operaciones", "Operaciones")]
         public Operaciones Operaciones
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("agrocomercioModel.FK_DocumenOperacion_Operaciones", "Operaciones").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("AgrocomercioModel.FK_DocumenOperacion_Operaciones", "Operaciones").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("agrocomercioModel.FK_DocumenOperacion_Operaciones", "Operaciones").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("AgrocomercioModel.FK_DocumenOperacion_Operaciones", "Operaciones").Value = value;
             }
         }
         /// <summary>
@@ -4994,24 +4994,25 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("agrocomercioModel.FK_DocumenOperacion_Operaciones", "Operaciones");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Operaciones>("AgrocomercioModel.FK_DocumenOperacion_Operaciones", "Operaciones");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Operaciones>("agrocomercioModel.FK_DocumenOperacion_Operaciones", "Operaciones", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Operaciones>("AgrocomercioModel.FK_DocumenOperacion_Operaciones", "Operaciones", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="fac_pnd_let")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="fac_pnd_let")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class fac_pnd_let : EntityObject
@@ -5030,6 +5031,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -5300,13 +5302,14 @@ namespace pryAgrocomercioDAL
         partial void OntranomChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="fac_x_letra")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="fac_x_letra")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class fac_x_letra : EntityObject
@@ -5329,6 +5332,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -5869,13 +5873,14 @@ namespace pryAgrocomercioDAL
         partial void OntipdocChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="letra")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="letra")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class letra : EntityObject
@@ -5894,6 +5899,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -6188,6 +6194,7 @@ namespace pryAgrocomercioDAL
         partial void OnnmntnotaChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -6197,18 +6204,18 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "det_letra_fk", "det_letra")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "det_letra_fk", "det_letra")]
         public EntityCollection<det_letra> det_letra
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<det_letra>("agrocomercioModel.det_letra_fk", "det_letra");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<det_letra>("AgrocomercioModel.det_letra_fk", "det_letra");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<det_letra>("agrocomercioModel.det_letra_fk", "det_letra", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<det_letra>("AgrocomercioModel.det_letra_fk", "det_letra", value);
                 }
             }
         }
@@ -6219,29 +6226,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_det_letra_letra", "det_letra")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_det_letra_letra", "det_letra")]
         public EntityCollection<det_letra> det_letra1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<det_letra>("agrocomercioModel.FK_det_letra_letra", "det_letra");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<det_letra>("AgrocomercioModel.FK_det_letra_letra", "det_letra");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<det_letra>("agrocomercioModel.FK_det_letra_letra", "det_letra", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<det_letra>("AgrocomercioModel.FK_det_letra_letra", "det_letra", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="list_detLetra")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="list_detLetra")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class list_detLetra : EntityObject
@@ -6266,6 +6274,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -6689,13 +6698,14 @@ namespace pryAgrocomercioDAL
         partial void OnidetletraChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="list_letra")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="list_letra")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class list_letra : EntityObject
@@ -6714,6 +6724,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -7152,255 +7163,14 @@ namespace pryAgrocomercioDAL
         partial void OnTraNombreChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="ListaPrecios")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class ListaPrecios : EntityObject
-    {
-        #region Método de generador
-    
-        /// <summary>
-        /// Crear un nuevo objeto ListaPrecios.
-        /// </summary>
-        /// <param name="lprCod">Valor inicial de la propiedad LprCod.</param>
-        /// <param name="artCod">Valor inicial de la propiedad ArtCod.</param>
-        /// <param name="lprEstado">Valor inicial de la propiedad LprEstado.</param>
-        public static ListaPrecios CreateListaPrecios(global::System.Int32 lprCod, global::System.Int32 artCod, global::System.Boolean lprEstado)
-        {
-            ListaPrecios listaPrecios = new ListaPrecios();
-            listaPrecios.LprCod = lprCod;
-            listaPrecios.ArtCod = artCod;
-            listaPrecios.LprEstado = lprEstado;
-            return listaPrecios;
-        }
-
-        #endregion
-        #region Propiedades primitivas
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 LprCod
-        {
-            get
-            {
-                return _LprCod;
-            }
-            set
-            {
-                if (_LprCod != value)
-                {
-                    OnLprCodChanging(value);
-                    ReportPropertyChanging("LprCod");
-                    _LprCod = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("LprCod");
-                    OnLprCodChanged();
-                }
-            }
-        }
-        private global::System.Int32 _LprCod;
-        partial void OnLprCodChanging(global::System.Int32 value);
-        partial void OnLprCodChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ArtCod
-        {
-            get
-            {
-                return _ArtCod;
-            }
-            set
-            {
-                OnArtCodChanging(value);
-                ReportPropertyChanging("ArtCod");
-                _ArtCod = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ArtCod");
-                OnArtCodChanged();
-            }
-        }
-        private global::System.Int32 _ArtCod;
-        partial void OnArtCodChanging(global::System.Int32 value);
-        partial void OnArtCodChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> LprFecRegis
-        {
-            get
-            {
-                return _LprFecRegis;
-            }
-            set
-            {
-                OnLprFecRegisChanging(value);
-                ReportPropertyChanging("LprFecRegis");
-                _LprFecRegis = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LprFecRegis");
-                OnLprFecRegisChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _LprFecRegis;
-        partial void OnLprFecRegisChanging(Nullable<global::System.DateTime> value);
-        partial void OnLprFecRegisChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> LprPrecio
-        {
-            get
-            {
-                return _LprPrecio;
-            }
-            set
-            {
-                OnLprPrecioChanging(value);
-                ReportPropertyChanging("LprPrecio");
-                _LprPrecio = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LprPrecio");
-                OnLprPrecioChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _LprPrecio;
-        partial void OnLprPrecioChanging(Nullable<global::System.Decimal> value);
-        partial void OnLprPrecioChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> LprDscto
-        {
-            get
-            {
-                return _LprDscto;
-            }
-            set
-            {
-                OnLprDsctoChanging(value);
-                ReportPropertyChanging("LprDscto");
-                _LprDscto = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LprDscto");
-                OnLprDsctoChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _LprDscto;
-        partial void OnLprDsctoChanging(Nullable<global::System.Decimal> value);
-        partial void OnLprDsctoChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean LprEstado
-        {
-            get
-            {
-                return _LprEstado;
-            }
-            set
-            {
-                OnLprEstadoChanging(value);
-                ReportPropertyChanging("LprEstado");
-                _LprEstado = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LprEstado");
-                OnLprEstadoChanged();
-            }
-        }
-        private global::System.Boolean _LprEstado;
-        partial void OnLprEstadoChanging(global::System.Boolean value);
-        partial void OnLprEstadoChanged();
-
-        #endregion
-    
-        #region Propiedades de navegación
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_LISTAPRECIOS_ARTICULOS", "Articulos")]
-        public Articulos Articulos
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("agrocomercioModel.FK_LISTAPRECIOS_ARTICULOS", "Articulos").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("agrocomercioModel.FK_LISTAPRECIOS_ARTICULOS", "Articulos").Value = value;
-            }
-        }
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Articulos> ArticulosReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("agrocomercioModel.FK_LISTAPRECIOS_ARTICULOS", "Articulos");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Articulos>("agrocomercioModel.FK_LISTAPRECIOS_ARTICULOS", "Articulos", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_LotesArt_ListaPrecios", "LotesArt")]
-        public EntityCollection<LotesArt> LotesArt
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LotesArt>("agrocomercioModel.FK_LotesArt_ListaPrecios", "LotesArt");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LotesArt>("agrocomercioModel.FK_LotesArt_ListaPrecios", "LotesArt", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No hay documentación de metadatos disponible.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="LotesArt")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="LotesArt")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class LotesArt : EntityObject
@@ -7423,6 +7193,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -7451,6 +7222,30 @@ namespace pryAgrocomercioDAL
         private global::System.Int32 _LotCod;
         partial void OnLotCodChanging(global::System.Int32 value);
         partial void OnLotCodChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ArtCod
+        {
+            get
+            {
+                return _ArtCod;
+            }
+            set
+            {
+                OnArtCodChanging(value);
+                ReportPropertyChanging("ArtCod");
+                _ArtCod = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ArtCod");
+                OnArtCodChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ArtCod;
+        partial void OnArtCodChanging(Nullable<global::System.Int32> value);
+        partial void OnArtCodChanged();
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -7499,6 +7294,54 @@ namespace pryAgrocomercioDAL
         private Nullable<global::System.Decimal> _LotStock;
         partial void OnLotStockChanging(Nullable<global::System.Decimal> value);
         partial void OnLotStockChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> LotPrecioCom
+        {
+            get
+            {
+                return _LotPrecioCom;
+            }
+            set
+            {
+                OnLotPrecioComChanging(value);
+                ReportPropertyChanging("LotPrecioCom");
+                _LotPrecioCom = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LotPrecioCom");
+                OnLotPrecioComChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _LotPrecioCom;
+        partial void OnLotPrecioComChanging(Nullable<global::System.Decimal> value);
+        partial void OnLotPrecioComChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> LotPrecioVen
+        {
+            get
+            {
+                return _LotPrecioVen;
+            }
+            set
+            {
+                OnLotPrecioVenChanging(value);
+                ReportPropertyChanging("LotPrecioVen");
+                _LotPrecioVen = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LotPrecioVen");
+                OnLotPrecioVenChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _LotPrecioVen;
+        partial void OnLotPrecioVenChanging(Nullable<global::System.Decimal> value);
+        partial void OnLotPrecioVenChanged();
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -7595,104 +7438,9 @@ namespace pryAgrocomercioDAL
         private global::System.Boolean _LotEstado;
         partial void OnLotEstadoChanging(global::System.Boolean value);
         partial void OnLotEstadoChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ArtCod
-        {
-            get
-            {
-                return _ArtCod;
-            }
-            set
-            {
-                OnArtCodChanging(value);
-                ReportPropertyChanging("ArtCod");
-                _ArtCod = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ArtCod");
-                OnArtCodChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _ArtCod;
-        partial void OnArtCodChanging(Nullable<global::System.Int32> value);
-        partial void OnArtCodChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> LotPrecioCom
-        {
-            get
-            {
-                return _LotPrecioCom;
-            }
-            set
-            {
-                OnLotPrecioComChanging(value);
-                ReportPropertyChanging("LotPrecioCom");
-                _LotPrecioCom = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LotPrecioCom");
-                OnLotPrecioComChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _LotPrecioCom;
-        partial void OnLotPrecioComChanging(Nullable<global::System.Decimal> value);
-        partial void OnLotPrecioComChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> LotPrecioVen
-        {
-            get
-            {
-                return _LotPrecioVen;
-            }
-            set
-            {
-                OnLotPrecioVenChanging(value);
-                ReportPropertyChanging("LotPrecioVen");
-                _LotPrecioVen = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LotPrecioVen");
-                OnLotPrecioVenChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _LotPrecioVen;
-        partial void OnLotPrecioVenChanging(Nullable<global::System.Decimal> value);
-        partial void OnLotPrecioVenChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> LprCod
-        {
-            get
-            {
-                return _LprCod;
-            }
-            set
-            {
-                OnLprCodChanging(value);
-                ReportPropertyChanging("LprCod");
-                _LprCod = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LprCod");
-                OnLprCodChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _LprCod;
-        partial void OnLprCodChanging(Nullable<global::System.Int32> value);
-        partial void OnLprCodChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -7702,16 +7450,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_LotesArt_Articulos", "Articulos")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_LotesArt_Articulos", "Articulos")]
         public Articulos Articulos
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("agrocomercioModel.FK_LotesArt_Articulos", "Articulos").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("AgrocomercioModel.FK_LotesArt_Articulos", "Articulos").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("agrocomercioModel.FK_LotesArt_Articulos", "Articulos").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("AgrocomercioModel.FK_LotesArt_Articulos", "Articulos").Value = value;
             }
         }
         /// <summary>
@@ -7723,13 +7471,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("agrocomercioModel.FK_LotesArt_Articulos", "Articulos");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Articulos>("AgrocomercioModel.FK_LotesArt_Articulos", "Articulos");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Articulos>("agrocomercioModel.FK_LotesArt_Articulos", "Articulos", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Articulos>("AgrocomercioModel.FK_LotesArt_Articulos", "Articulos", value);
                 }
             }
         }
@@ -7740,67 +7488,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DetOperacion_LotesArt", "DetOperacion")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_LotesArt", "DetOperacion")]
         public EntityCollection<DetOperacion> DetOperacion
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetOperacion>("agrocomercioModel.FK_DetOperacion_LotesArt", "DetOperacion");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetOperacion>("AgrocomercioModel.FK_DetOperacion_LotesArt", "DetOperacion");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetOperacion>("agrocomercioModel.FK_DetOperacion_LotesArt", "DetOperacion", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_LotesArt_ListaPrecios", "ListaPrecios")]
-        public ListaPrecios ListaPrecios
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ListaPrecios>("agrocomercioModel.FK_LotesArt_ListaPrecios", "ListaPrecios").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ListaPrecios>("agrocomercioModel.FK_LotesArt_ListaPrecios", "ListaPrecios").Value = value;
-            }
-        }
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ListaPrecios> ListaPreciosReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ListaPrecios>("agrocomercioModel.FK_LotesArt_ListaPrecios", "ListaPrecios");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ListaPrecios>("agrocomercioModel.FK_LotesArt_ListaPrecios", "ListaPrecios", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetOperacion>("AgrocomercioModel.FK_DetOperacion_LotesArt", "DetOperacion", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="nota_list")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="nota_list")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class nota_list : EntityObject
@@ -7821,6 +7532,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -8190,13 +7902,14 @@ namespace pryAgrocomercioDAL
         partial void OnletraChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Notas")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Notas")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Notas : EntityObject
@@ -8215,6 +7928,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -8485,6 +8199,7 @@ namespace pryAgrocomercioDAL
         partial void OnctipNotaChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -8494,29 +8209,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "rel_notfactura_fk2", "rel_notfactura")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "rel_notfactura_fk2", "rel_notfactura")]
         public EntityCollection<rel_notfactura> rel_notfactura
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<rel_notfactura>("agrocomercioModel.rel_notfactura_fk2", "rel_notfactura");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<rel_notfactura>("AgrocomercioModel.rel_notfactura_fk2", "rel_notfactura");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<rel_notfactura>("agrocomercioModel.rel_notfactura_fk2", "rel_notfactura", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<rel_notfactura>("AgrocomercioModel.rel_notfactura_fk2", "rel_notfactura", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Operaciones")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Operaciones")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Operaciones : EntityObject
@@ -8537,6 +8253,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -9143,6 +8860,7 @@ namespace pryAgrocomercioDAL
         partial void OnOpeCicloChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -9152,16 +8870,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_Clientes", "Clientes")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_Clientes", "Clientes")]
         public Clientes Clientes
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clientes>("agrocomercioModel.FK_Operaciones_Clientes", "Clientes").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clientes>("AgrocomercioModel.FK_Operaciones_Clientes", "Clientes").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clientes>("agrocomercioModel.FK_Operaciones_Clientes", "Clientes").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clientes>("AgrocomercioModel.FK_Operaciones_Clientes", "Clientes").Value = value;
             }
         }
         /// <summary>
@@ -9173,13 +8891,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clientes>("agrocomercioModel.FK_Operaciones_Clientes", "Clientes");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clientes>("AgrocomercioModel.FK_Operaciones_Clientes", "Clientes");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Clientes>("agrocomercioModel.FK_Operaciones_Clientes", "Clientes", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Clientes>("AgrocomercioModel.FK_Operaciones_Clientes", "Clientes", value);
                 }
             }
         }
@@ -9190,18 +8908,18 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DetOperacion_Operaciones", "DetOperacion")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_Operaciones", "DetOperacion")]
         public EntityCollection<DetOperacion> DetOperacion
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetOperacion>("agrocomercioModel.FK_DetOperacion_Operaciones", "DetOperacion");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetOperacion>("AgrocomercioModel.FK_DetOperacion_Operaciones", "DetOperacion");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetOperacion>("agrocomercioModel.FK_DetOperacion_Operaciones", "DetOperacion", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetOperacion>("AgrocomercioModel.FK_DetOperacion_Operaciones", "DetOperacion", value);
                 }
             }
         }
@@ -9212,18 +8930,18 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DocumenOperacion_Operaciones", "DocumenOperacion")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DocumenOperacion_Operaciones", "DocumenOperacion")]
         public EntityCollection<DocumenOperacion> DocumenOperacion
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DocumenOperacion>("agrocomercioModel.FK_DocumenOperacion_Operaciones", "DocumenOperacion");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DocumenOperacion>("AgrocomercioModel.FK_DocumenOperacion_Operaciones", "DocumenOperacion");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DocumenOperacion>("agrocomercioModel.FK_DocumenOperacion_Operaciones", "DocumenOperacion", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DocumenOperacion>("AgrocomercioModel.FK_DocumenOperacion_Operaciones", "DocumenOperacion", value);
                 }
             }
         }
@@ -9234,16 +8952,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_Personal", "Personal")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_Personal", "Personal")]
         public Personal Personal
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("agrocomercioModel.FK_Operaciones_Personal", "Personal").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("AgrocomercioModel.FK_Operaciones_Personal", "Personal").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("agrocomercioModel.FK_Operaciones_Personal", "Personal").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("AgrocomercioModel.FK_Operaciones_Personal", "Personal").Value = value;
             }
         }
         /// <summary>
@@ -9255,13 +8973,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("agrocomercioModel.FK_Operaciones_Personal", "Personal");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("AgrocomercioModel.FK_Operaciones_Personal", "Personal");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Personal>("agrocomercioModel.FK_Operaciones_Personal", "Personal", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Personal>("AgrocomercioModel.FK_Operaciones_Personal", "Personal", value);
                 }
             }
         }
@@ -9272,16 +8990,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_Proveedores", "Proveedores")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_Proveedores", "Proveedores")]
         public Proveedores Proveedores
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("agrocomercioModel.FK_Operaciones_Proveedores", "Proveedores").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("AgrocomercioModel.FK_Operaciones_Proveedores", "Proveedores").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("agrocomercioModel.FK_Operaciones_Proveedores", "Proveedores").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("AgrocomercioModel.FK_Operaciones_Proveedores", "Proveedores").Value = value;
             }
         }
         /// <summary>
@@ -9293,13 +9011,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("agrocomercioModel.FK_Operaciones_Proveedores", "Proveedores");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Proveedores>("AgrocomercioModel.FK_Operaciones_Proveedores", "Proveedores");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Proveedores>("agrocomercioModel.FK_Operaciones_Proveedores", "Proveedores", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Proveedores>("AgrocomercioModel.FK_Operaciones_Proveedores", "Proveedores", value);
                 }
             }
         }
@@ -9310,16 +9028,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_TipoCambios", "TipoCambios")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_TipoCambios", "TipoCambios")]
         public TipoCambios TipoCambios
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoCambios>("agrocomercioModel.FK_Operaciones_TipoCambios", "TipoCambios").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoCambios>("AgrocomercioModel.FK_Operaciones_TipoCambios", "TipoCambios").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoCambios>("agrocomercioModel.FK_Operaciones_TipoCambios", "TipoCambios").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoCambios>("AgrocomercioModel.FK_Operaciones_TipoCambios", "TipoCambios").Value = value;
             }
         }
         /// <summary>
@@ -9331,13 +9049,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoCambios>("agrocomercioModel.FK_Operaciones_TipoCambios", "TipoCambios");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoCambios>("AgrocomercioModel.FK_Operaciones_TipoCambios", "TipoCambios");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TipoCambios>("agrocomercioModel.FK_Operaciones_TipoCambios", "TipoCambios", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TipoCambios>("AgrocomercioModel.FK_Operaciones_TipoCambios", "TipoCambios", value);
                 }
             }
         }
@@ -9348,16 +9066,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_Transportistas", "Transportistas")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_Transportistas", "Transportistas")]
         public Transportistas Transportistas
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Transportistas>("agrocomercioModel.FK_Operaciones_Transportistas", "Transportistas").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Transportistas>("AgrocomercioModel.FK_Operaciones_Transportistas", "Transportistas").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Transportistas>("agrocomercioModel.FK_Operaciones_Transportistas", "Transportistas").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Transportistas>("AgrocomercioModel.FK_Operaciones_Transportistas", "Transportistas").Value = value;
             }
         }
         /// <summary>
@@ -9369,24 +9087,25 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Transportistas>("agrocomercioModel.FK_Operaciones_Transportistas", "Transportistas");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Transportistas>("AgrocomercioModel.FK_Operaciones_Transportistas", "Transportistas");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Transportistas>("agrocomercioModel.FK_Operaciones_Transportistas", "Transportistas", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Transportistas>("AgrocomercioModel.FK_Operaciones_Transportistas", "Transportistas", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Pag_letras")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Pag_letras")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Pag_letras : EntityObject
@@ -9405,6 +9124,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -9675,13 +9395,14 @@ namespace pryAgrocomercioDAL
         partial void OninumliqChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Pag_pendientes")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Pag_pendientes")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Pag_pendientes : EntityObject
@@ -9704,6 +9425,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -10148,13 +9870,14 @@ namespace pryAgrocomercioDAL
         partial void OncmonedaChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="pag_pendnow")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="pag_pendnow")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class pag_pendnow : EntityObject
@@ -10177,6 +9900,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -10621,13 +10345,14 @@ namespace pryAgrocomercioDAL
         partial void OncmonedaChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Personal")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Personal")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Personal : EntityObject
@@ -10648,6 +10373,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -10822,6 +10548,7 @@ namespace pryAgrocomercioDAL
         partial void OnperTelefonoChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -10831,18 +10558,18 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_Personal", "Operaciones")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_Personal", "Operaciones")]
         public EntityCollection<Operaciones> Operaciones
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_Personal", "Operaciones");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_Personal", "Operaciones");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_Personal", "Operaciones", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_Personal", "Operaciones", value);
                 }
             }
         }
@@ -10853,16 +10580,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Personal_TipoPersonal", "TipoPersonal")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Personal_TipoPersonal", "TipoPersonal")]
         public TipoPersonal TipoPersonal
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoPersonal>("agrocomercioModel.FK_Personal_TipoPersonal", "TipoPersonal").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoPersonal>("AgrocomercioModel.FK_Personal_TipoPersonal", "TipoPersonal").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoPersonal>("agrocomercioModel.FK_Personal_TipoPersonal", "TipoPersonal").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoPersonal>("AgrocomercioModel.FK_Personal_TipoPersonal", "TipoPersonal").Value = value;
             }
         }
         /// <summary>
@@ -10874,13 +10601,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoPersonal>("agrocomercioModel.FK_Personal_TipoPersonal", "TipoPersonal");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TipoPersonal>("AgrocomercioModel.FK_Personal_TipoPersonal", "TipoPersonal");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TipoPersonal>("agrocomercioModel.FK_Personal_TipoPersonal", "TipoPersonal", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TipoPersonal>("AgrocomercioModel.FK_Personal_TipoPersonal", "TipoPersonal", value);
                 }
             }
         }
@@ -10891,29 +10618,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Usuarios_Personal", "Usuarios")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Usuarios_Personal", "Usuarios")]
         public EntityCollection<Usuarios> Usuarios
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Usuarios>("agrocomercioModel.FK_Usuarios_Personal", "Usuarios");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Usuarios>("AgrocomercioModel.FK_Usuarios_Personal", "Usuarios");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Usuarios>("agrocomercioModel.FK_Usuarios_Personal", "Usuarios", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Usuarios>("AgrocomercioModel.FK_Usuarios_Personal", "Usuarios", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="proveedor_letra")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="proveedor_letra")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class proveedor_letra : EntityObject
@@ -10932,6 +10660,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -11322,13 +11051,14 @@ namespace pryAgrocomercioDAL
         partial void OnsalsolChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Proveedores")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Proveedores")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Proveedores : EntityObject
@@ -11353,6 +11083,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -11623,6 +11354,7 @@ namespace pryAgrocomercioDAL
         partial void OnPrvGananciaChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -11632,18 +11364,18 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Articulos_Proveedores", "Articulos")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Articulos_Proveedores", "Articulos")]
         public EntityCollection<Articulos> Articulos
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Articulos>("agrocomercioModel.FK_Articulos_Proveedores", "Articulos");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Articulos>("AgrocomercioModel.FK_Articulos_Proveedores", "Articulos");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Articulos>("agrocomercioModel.FK_Articulos_Proveedores", "Articulos", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Articulos>("AgrocomercioModel.FK_Articulos_Proveedores", "Articulos", value);
                 }
             }
         }
@@ -11654,29 +11386,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_Proveedores", "Operaciones")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_Proveedores", "Operaciones")]
         public EntityCollection<Operaciones> Operaciones
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_Proveedores", "Operaciones");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_Proveedores", "Operaciones");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_Proveedores", "Operaciones", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_Proveedores", "Operaciones", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="rel_not_fact")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="rel_not_fact")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class rel_not_fact : EntityObject
@@ -11695,6 +11428,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -11893,13 +11627,14 @@ namespace pryAgrocomercioDAL
         partial void OnicodletraChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="rel_notfactura")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="rel_notfactura")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class rel_notfactura : EntityObject
@@ -11918,6 +11653,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -12068,6 +11804,7 @@ namespace pryAgrocomercioDAL
         partial void OnirelnotfacChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -12077,16 +11814,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "rel_notfactura_fk2", "Notas")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "rel_notfactura_fk2", "Notas")]
         public Notas Notas
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Notas>("agrocomercioModel.rel_notfactura_fk2", "Notas").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Notas>("AgrocomercioModel.rel_notfactura_fk2", "Notas").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Notas>("agrocomercioModel.rel_notfactura_fk2", "Notas").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Notas>("AgrocomercioModel.rel_notfactura_fk2", "Notas").Value = value;
             }
         }
         /// <summary>
@@ -12098,24 +11835,25 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Notas>("agrocomercioModel.rel_notfactura_fk2", "Notas");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Notas>("AgrocomercioModel.rel_notfactura_fk2", "Notas");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Notas>("agrocomercioModel.rel_notfactura_fk2", "Notas", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Notas>("AgrocomercioModel.rel_notfactura_fk2", "Notas", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="RepNotDet")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="RepNotDet")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class RepNotDet : EntityObject
@@ -12138,6 +11876,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -12534,13 +12273,14 @@ namespace pryAgrocomercioDAL
         partial void OnmonedaChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="RepNotGen")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="RepNotGen")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class RepNotGen : EntityObject
@@ -12563,6 +12303,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -12911,13 +12652,14 @@ namespace pryAgrocomercioDAL
         partial void OnmonedaChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Roles")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Roles")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Roles : EntityObject
@@ -12936,6 +12678,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -13086,6 +12829,7 @@ namespace pryAgrocomercioDAL
         partial void OnrolMenuChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -13095,29 +12839,187 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Usuarios_Roles", "Usuarios")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Usuarios_Roles", "Usuarios")]
         public EntityCollection<Usuarios> Usuarios
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Usuarios>("agrocomercioModel.FK_Usuarios_Roles", "Usuarios");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Usuarios>("AgrocomercioModel.FK_Usuarios_Roles", "Usuarios");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Usuarios>("agrocomercioModel.FK_Usuarios_Roles", "Usuarios", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Usuarios>("AgrocomercioModel.FK_Usuarios_Roles", "Usuarios", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="tbliqCobranza")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="sysdiagrams")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class sysdiagrams : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto sysdiagrams.
+        /// </summary>
+        /// <param name="name">Valor inicial de la propiedad name.</param>
+        /// <param name="principal_id">Valor inicial de la propiedad principal_id.</param>
+        /// <param name="diagram_id">Valor inicial de la propiedad diagram_id.</param>
+        public static sysdiagrams Createsysdiagrams(global::System.String name, global::System.Int32 principal_id, global::System.Int32 diagram_id)
+        {
+            sysdiagrams sysdiagrams = new sysdiagrams();
+            sysdiagrams.name = name;
+            sysdiagrams.principal_id = principal_id;
+            sysdiagrams.diagram_id = diagram_id;
+            return sysdiagrams;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                OnnameChanging(value);
+                ReportPropertyChanging("name");
+                _name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("name");
+                OnnameChanged();
+            }
+        }
+        private global::System.String _name;
+        partial void OnnameChanging(global::System.String value);
+        partial void OnnameChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 principal_id
+        {
+            get
+            {
+                return _principal_id;
+            }
+            set
+            {
+                Onprincipal_idChanging(value);
+                ReportPropertyChanging("principal_id");
+                _principal_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("principal_id");
+                Onprincipal_idChanged();
+            }
+        }
+        private global::System.Int32 _principal_id;
+        partial void Onprincipal_idChanging(global::System.Int32 value);
+        partial void Onprincipal_idChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 diagram_id
+        {
+            get
+            {
+                return _diagram_id;
+            }
+            set
+            {
+                if (_diagram_id != value)
+                {
+                    Ondiagram_idChanging(value);
+                    ReportPropertyChanging("diagram_id");
+                    _diagram_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("diagram_id");
+                    Ondiagram_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _diagram_id;
+        partial void Ondiagram_idChanging(global::System.Int32 value);
+        partial void Ondiagram_idChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> version
+        {
+            get
+            {
+                return _version;
+            }
+            set
+            {
+                OnversionChanging(value);
+                ReportPropertyChanging("version");
+                _version = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("version");
+                OnversionChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _version;
+        partial void OnversionChanging(Nullable<global::System.Int32> value);
+        partial void OnversionChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] definition
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_definition);
+            }
+            set
+            {
+                OndefinitionChanging(value);
+                ReportPropertyChanging("definition");
+                _definition = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("definition");
+                OndefinitionChanged();
+            }
+        }
+        private global::System.Byte[] _definition;
+        partial void OndefinitionChanging(global::System.Byte[] value);
+        partial void OndefinitionChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="tbliqCobranza")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class tbliqCobranza : EntityObject
@@ -13136,6 +13038,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -13622,13 +13525,14 @@ namespace pryAgrocomercioDAL
         partial void OntotdolaresChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="TipoCambios")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="TipoCambios")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class TipoCambios : EntityObject
@@ -13647,6 +13551,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -13773,6 +13678,7 @@ namespace pryAgrocomercioDAL
         partial void OntcmfecmodChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -13782,29 +13688,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_TipoCambios", "Operaciones")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_TipoCambios", "Operaciones")]
         public EntityCollection<Operaciones> Operaciones
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_TipoCambios", "Operaciones");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_TipoCambios", "Operaciones");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_TipoCambios", "Operaciones", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_TipoCambios", "Operaciones", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="TipoPersonal")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="TipoPersonal")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class TipoPersonal : EntityObject
@@ -13823,6 +13730,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -13877,6 +13785,7 @@ namespace pryAgrocomercioDAL
         partial void OntpeDescripcionChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -13886,29 +13795,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Personal_TipoPersonal", "Personal")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Personal_TipoPersonal", "Personal")]
         public EntityCollection<Personal> Personal
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Personal>("agrocomercioModel.FK_Personal_TipoPersonal", "Personal");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Personal>("AgrocomercioModel.FK_Personal_TipoPersonal", "Personal");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Personal>("agrocomercioModel.FK_Personal_TipoPersonal", "Personal", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Personal>("AgrocomercioModel.FK_Personal_TipoPersonal", "Personal", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Transportistas")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Transportistas")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Transportistas : EntityObject
@@ -13931,6 +13841,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -14105,6 +14016,7 @@ namespace pryAgrocomercioDAL
         partial void OnTraEstadoChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -14114,29 +14026,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Operaciones_Transportistas", "Operaciones")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Operaciones_Transportistas", "Operaciones")]
         public EntityCollection<Operaciones> Operaciones
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_Transportistas", "Operaciones");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_Transportistas", "Operaciones");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("agrocomercioModel.FK_Operaciones_Transportistas", "Operaciones", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Operaciones>("AgrocomercioModel.FK_Operaciones_Transportistas", "Operaciones", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Ubigeos")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Ubigeos")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Ubigeos : EntityObject
@@ -14155,6 +14068,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -14209,13 +14123,14 @@ namespace pryAgrocomercioDAL
         partial void OnUbiDescripcionChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Unidades")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Unidades")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Unidades : EntityObject
@@ -14238,6 +14153,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -14412,6 +14328,7 @@ namespace pryAgrocomercioDAL
         partial void OnUniFecRegisChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -14421,18 +14338,18 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_ARTICULOS_UNIDADES", "Articulos")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_ARTICULOS_UNIDADES", "Articulos")]
         public EntityCollection<Articulos> Articulos
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Articulos>("agrocomercioModel.FK_ARTICULOS_UNIDADES", "Articulos");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Articulos>("AgrocomercioModel.FK_ARTICULOS_UNIDADES", "Articulos");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Articulos>("agrocomercioModel.FK_ARTICULOS_UNIDADES", "Articulos", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Articulos>("AgrocomercioModel.FK_ARTICULOS_UNIDADES", "Articulos", value);
                 }
             }
         }
@@ -14443,29 +14360,30 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_DetOperacion_Unidades", "DetOperacion")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_Unidades", "DetOperacion")]
         public EntityCollection<DetOperacion> DetOperacion
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetOperacion>("agrocomercioModel.FK_DetOperacion_Unidades", "DetOperacion");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DetOperacion>("AgrocomercioModel.FK_DetOperacion_Unidades", "DetOperacion");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetOperacion>("agrocomercioModel.FK_DetOperacion_Unidades", "DetOperacion", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DetOperacion>("AgrocomercioModel.FK_DetOperacion_Unidades", "DetOperacion", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="Usuarios")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="Usuarios")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Usuarios : EntityObject
@@ -14484,6 +14402,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -14610,6 +14529,7 @@ namespace pryAgrocomercioDAL
         partial void OnRolCodChanged();
 
         #endregion
+
     
         #region Propiedades de navegación
     
@@ -14619,16 +14539,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Usuarios_Personal", "Personal")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Usuarios_Personal", "Personal")]
         public Personal Personal
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("agrocomercioModel.FK_Usuarios_Personal", "Personal").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("AgrocomercioModel.FK_Usuarios_Personal", "Personal").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("agrocomercioModel.FK_Usuarios_Personal", "Personal").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("AgrocomercioModel.FK_Usuarios_Personal", "Personal").Value = value;
             }
         }
         /// <summary>
@@ -14640,13 +14560,13 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("agrocomercioModel.FK_Usuarios_Personal", "Personal");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Personal>("AgrocomercioModel.FK_Usuarios_Personal", "Personal");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Personal>("agrocomercioModel.FK_Usuarios_Personal", "Personal", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Personal>("AgrocomercioModel.FK_Usuarios_Personal", "Personal", value);
                 }
             }
         }
@@ -14657,16 +14577,16 @@ namespace pryAgrocomercioDAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("agrocomercioModel", "FK_Usuarios_Roles", "Roles")]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_Usuarios_Roles", "Roles")]
         public Roles Roles
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Roles>("agrocomercioModel.FK_Usuarios_Roles", "Roles").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Roles>("AgrocomercioModel.FK_Usuarios_Roles", "Roles").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Roles>("agrocomercioModel.FK_Usuarios_Roles", "Roles").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Roles>("AgrocomercioModel.FK_Usuarios_Roles", "Roles").Value = value;
             }
         }
         /// <summary>
@@ -14678,24 +14598,25 @@ namespace pryAgrocomercioDAL
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Roles>("agrocomercioModel.FK_Usuarios_Roles", "Roles");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Roles>("AgrocomercioModel.FK_Usuarios_Roles", "Roles");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Roles>("agrocomercioModel.FK_Usuarios_Roles", "Roles", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Roles>("AgrocomercioModel.FK_Usuarios_Roles", "Roles", value);
                 }
             }
         }
 
         #endregion
+
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="vwList_let_detalle")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="vwList_let_detalle")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class vwList_let_detalle : EntityObject
@@ -14714,6 +14635,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -15248,13 +15170,14 @@ namespace pryAgrocomercioDAL
         partial void OnTraNombreChanged();
 
         #endregion
+
     
     }
     
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="agrocomercioModel", Name="vwtodo_movimiento")]
+    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="vwtodo_movimiento")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class vwtodo_movimiento : EntityObject
@@ -15275,6 +15198,7 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
+
         #region Propiedades primitivas
     
         /// <summary>
@@ -15836,9 +15760,11 @@ namespace pryAgrocomercioDAL
         partial void OntipdocChanged();
 
         #endregion
+
     
     }
 
     #endregion
+
     
 }

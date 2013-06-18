@@ -210,7 +210,7 @@ namespace AgrocomercioWEB.Compras
                                     lsbArticulos_SelectedIndexChanged(sender, e);
                                     txtArtCant.Text = dgvDetalleVenta.Rows[_selectedIndex].Cells[6].Text;
                                     txtArtDescuento.Text = dgvDetalleVenta.Rows[_selectedIndex].Cells[8].Text;
-                                    ModalPopupAgregar.Show();
+                                    //ModalPopupAgregar.Show();
                                 //}
                             }
                             else
@@ -429,13 +429,11 @@ namespace AgrocomercioWEB.Compras
         protected void txtDesEspec_TextChanged(object sender, EventArgs e)
         {
             CalcularPago(g_dtDetOperacion);
-            ModalPopupGirarCompra.Show();
         }
 
         protected void txtFleteTra_TextChanged(object sender, EventArgs e)
         {
             CalcularPago(g_dtDetOperacion);
-            ModalPopupGirarCompra.Show();
         }
 
         protected void ddlTipoVenta_SelectedIndexChanged(object sender, EventArgs e)
@@ -471,20 +469,20 @@ namespace AgrocomercioWEB.Compras
                 }
                 else
                 {
-                    DataRow[] Filas = g_dtDetOperacion.Select("dtpSubTotal = 0");
-                    if (Filas.Count() > 0)
-                    {
-                        MessageBox("Tiene " + Filas.Count().ToString() + " Detalles con Precio 0, No se puede Canjear la Factura.");
-                        return;
-                    }
-                    else
-                    {
+                    //DataRow[] Filas = g_dtDetOperacion.Select("dtpSubTotal = 0");
+                    //if (Filas.Count() > 0)
+                    //{
+                    //    MessageBox("Tiene " + Filas.Count().ToString() + " Detalles con Precio 0, No se puede Canjear la Factura.");
+                    //    return;
+                    //}
+                    //else
+                    //{
                         txtNroDocu.Enabled = true;
                         txtNroSerie.Enabled = true;
                         nMainTipo = 4;
                         lblProceso.Value = "NEWDOC";
                         ddlTipoDocu.Enabled = false;
-                    }
+                    //}
                 }
 
                 if (ddlTipoDocu.Items.Count > 1)
@@ -624,7 +622,6 @@ namespace AgrocomercioWEB.Compras
                         lblNroPedido.Text = nOpeCod.ToString().PadLeft(10, '0');
                         txtDesEspec.Text = "0.0";
 
-                        ModalPopupGirarCompra.Show();
                     }
                     else if (lblProceso.Value == "EDIT")
                     {
@@ -633,7 +630,7 @@ namespace AgrocomercioWEB.Compras
                 }
                 else
                 {
-                    MessageBox(cMensaje);
+                    //MessageBox(cMensaje);
                 }
             }
             catch (Exception ex)
@@ -795,11 +792,12 @@ namespace AgrocomercioWEB.Compras
                     ddlLaboratorios.SelectedValue = ddlProveedor.SelectedValue;
                     ddlLaboratorios_SelectedIndexChanged(sender, e);
                 }
-                ModalPopupAgregar.Show();
             }
             else
+            {
                 MessageBox("Por Favor Primero debe Registrar articulos antes de Continuar!");
-
+                winArticulos.Visible = false;
+            }
         }
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
@@ -919,7 +917,6 @@ namespace AgrocomercioWEB.Compras
                 lblProceso.Value = "EDIT";
                 SetPanelDocumento((int)nOpeCod);
                 pnDocumentos.Visible = true;
-                ModalPopupGirarCompra.Hide();
                 
                 ConfigurarDocumento();
             }
@@ -1513,7 +1510,7 @@ namespace AgrocomercioWEB.Compras
                     }
                     if (double.Parse(txtArtPreUnitario.Text) <= 0)
                     {
-                        MessageBox("Esta Ingresando una Compra con Precio 0, Debera Actualizarlo para que la compra se Valorize. ");
+                        //MessageBox("Esta Ingresando una Compra con Precio 0, Debera Actualizarlo para que la compra se Valorize. ");
                         //cMensaje = "Debe Ingresar un Precio de Compra para el Articulo.";
                         //txtArtPreUnitario.Focus();
                         //return false;
@@ -1589,15 +1586,6 @@ namespace AgrocomercioWEB.Compras
                         return false;
                     }
                     
-
-                    
-                    // DataRow[] Filas = g_dtDetOperacion.Select("dtpSubTotal = 0");
-                    //if (Filas.Count() > 0)
-                    //{
-                    //    MessageBox("Tiene " + Filas.Count().ToString() + " Detalles con Precio 0, No se puede Procesar la Compra.");
-                    //    return false;
-                    //}
-
 
                     break;
                 default:
@@ -1934,7 +1922,7 @@ namespace AgrocomercioWEB.Compras
                 nTotal -= nTotal * (double.Parse(txtArtDescuento.Text) / 100);
                 txtImpTotal.Text = Math.Round(nTotal, 2).ToString();
             }
-            ModalPopupAgregar.Show();
+            //ModalPopupAgregar.Show();
         }
         private Boolean BuscarArticulo(int ArtCod, ref int LotNro, ref double LprPrecio, ref double LprDscto)
         {
@@ -2049,7 +2037,7 @@ namespace AgrocomercioWEB.Compras
                 ddlProveedor_SelectedIndexChanged(sender, e);
             }
             
-            ModalPopupAgregar.Show();
+            //ModalPopupAgregar.Show();
         }
         protected void btnGuardarPrecio_Click(object sender, EventArgs e)
         {
@@ -2095,7 +2083,7 @@ namespace AgrocomercioWEB.Compras
                 }
                 else
                 {
-                    ModalPopupAgregar.Show();
+                    //ModalPopupAgregar.Show();
                     MessageBox(cMensaje);
                 }
 
@@ -2177,11 +2165,6 @@ namespace AgrocomercioWEB.Compras
                     //LIMPIAR BUSQUEDA
                     txtBuscarArt.Text = string.Empty;
                 }
-                else
-                {
-                    ModalPopupAgregar.Show();
-                    MessageBox(cMensaje);
-                }
 
             }
             catch (Exception ex)
@@ -2230,6 +2213,8 @@ namespace AgrocomercioWEB.Compras
         }
 
         #endregion
+
+
 
     }
 }

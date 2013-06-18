@@ -72,22 +72,41 @@ namespace pryAgrocomercioBLL.EntityCollection
         #region FUNCIONES DE CONSULTA
         public LotesArt GetLoteArt(int ArtCod, string cTipReg = "FIRST")
         {
-            var result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
-                .OrderBy(Lot => Lot.LotNro);
-            if (cTipReg == "FIRST")
+            try
             {
-                 result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
-                .OrderBy(Lot => Lot.LotNro);
+                List<LotesArt> result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
+                                   .OrderBy(Lot => Lot.LotNro).ToList();
+
+                if (result.Count() > 0)
+                {
+                    if (cTipReg == "FIRST")
+                        return result.First();
+                    else
+                        return result.OrderByDescending(Lot => Lot.LotNro).First();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                 result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
-                    .OrderByDescending(Lot => Lot.LotNro);
+                throw ex;
             }
-            if (result.Count() > 0)
-            {    
-                return result.First();                
-            }
+
+        
+           
+
+            //if (cTipReg == "FIRST")
+            //{
+            //     result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
+            //    .OrderBy(Lot => Lot.LotNro);
+            //}
+            //else
+            //{
+            //     result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
+            //        .OrderByDescending(Lot => Lot.LotNro);
+            //}
+            //if (result.Count() > 0)
+            //{    
+            //    return result.First();                
+            //}
 
             return null;
         }

@@ -1,11 +1,14 @@
 ﻿<%@ Page Title=".:Registro de Ventas:." Language="C#" MasterPageFile="~/Site.Master"
     AutoEventWireup="true" CodeBehind="wfrmVentas.aspx.cs" Inherits="AgrocomercioWEB.Ventas.wfrmVentas" %>
 
+<%@ Register Assembly="obout_Window_NET" Namespace="OboutInc.Window" TagPrefix="obout" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="../App_Themes/TemaAgrocomercio/ventas.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
-
+        function isFireFox() {
+            return navigator.appName == "Netscape";
+        }
         function dgvDetalleVentaClickEvent(event, rowindex) {
 
             document.getElementById('lblEstado').value = "DGVCOM_" + event;
@@ -72,7 +75,174 @@
 
             document.getElementById('<%= txtImpTotal.ClientID %>').value = Math.round(nTotal * 100) / 100;
         }
+        var cMensaje = "";
+        function AbrirwinGuardarOperacion() {
+            var lblProceso = document.getElementById('<%= lblProceso.ClientID %>').value;
+            if (ValidarDatos("OPE")) {
+                if (lblProceso == "NEW") {
+                    winGuardarOperacion.Open();
+                    winGuardarOperacion.screenCenter();
+                }
+            }
+            else {
+                alert(cMensaje);
+            }
+        }
+        function GuardarOperacion() {
+            //if (ValidarDatos("OPE")) {
+            window.parent.winGuardarOperacion.Close();
+            //}
+            //else
+            //    alert(cMensaje);
 
+        }
+
+
+        function AbrirWinArticulos() {
+            winArticulos.Open();
+            winArticulos.screenCenter();
+        }
+        function AgregarArticulos() {
+            if (ValidarDatos("ART")) {
+                window.parent.winArticulos.Close();
+            }
+            else
+                alert(cMensaje);
+        }
+        function GuardarPrecio() {
+            window.parent.winArticulos.Close();
+        }
+
+
+        function ValidarDatos(cTipo, pcTipoEsp) {
+            var bRes = true;
+
+            var lsbArticulos = document.getElementById('<%= lsbArticulos.ClientID %>');
+            var txtArtPreUnitario = document.getElementById('<%= txtArtPreUnitario.ClientID %>').value;
+            var txtArtDescuento = document.getElementById('<%= txtArtDescuento.ClientID %>').value;
+            var ddlTipDcto = document.getElementById('<%= ddlTipDcto.ClientID %>');
+            var txtArtPreUnitario = document.getElementById('<%= txtArtPreUnitario.ClientID %>').value;
+            var txtArtCant = document.getElementById('<%= txtArtCant.ClientID %>').value;
+            var txtStockFis = document.getElementById('<%= txtStockFis.ClientID %>').value;
+            var hideStockLote = document.getElementById('<%= hideStockLote.ClientID %>').value;
+            var txtLotVenci = document.getElementById('<%= txtLotVenci.ClientID %>').value;
+
+            var ddlMoneda = document.getElementById('<%= ddlMoneda.ClientID %>');
+            var ddlTipoVenta = document.getElementById('<%= ddlTipoVenta.ClientID %>');
+            var ddlZonas = document.getElementById('<%= ddlZonas.ClientID %>');
+            var ddlClientes = document.getElementById('<%= ddlClientes.ClientID %>');
+            var txtCiclo = document.getElementById('<%= txtCiclo.ClientID %>');
+            var lblTipoDoc = document.getElementById('<%= lblTipoDoc.ClientID %>').value;
+            var txtFecTraslado = document.getElementById('<%= txtFecTraslado.ClientID %>');
+
+
+            if (txtCiclo == null)
+                txtCiclo = "";
+            else
+                txtCiclo = txtCiclo.value;
+
+            if (txtFecTraslado == null)
+                txtFecTraslado = "";
+            else
+                txtFecTraslado = txtFecTraslado.value;
+
+
+            switch (cTipo) {
+                case "ART":
+                    if (lsbArticulos.length == 1 && lsbArticulos.options[0].text == "0") {
+                        cMensaje = "Por favor Debe Registrar Algun articulo antes de Continuar.";
+                        lsbArticulos.focus();
+                        return false;
+                    }
+                    if (lsbArticulos.options.selectedIndex < 0) {
+                        cMensaje = "Debe Escoger un Articulo.";
+                        lsbArticulos.focus();
+
+                        return false;
+                    }
+                    if (txtArtPreUnitario == "") {
+                        cMensaje = "Debe Ingresar un Precio de Compra para el Articulo.";
+                        txtArtPreUnitario.focus();
+                        return false;
+                    }
+                    if (parseFloat(txtArtPreUnitario) <= 0) {
+                        cMensaje = "La Cantidad a Vender debe se mayor a 0.";
+                        return false;
+                    }
+                    if (parseFloat(txtStockFis) <= 0)
+                    {
+                        cMensaje = "Este Articulo se encuentra SIN STOCK.";
+                        txtStockFis.focus();
+                        return false;
+                    }
+                    if (parseFloat(txtArtCant) > parseFloat(txtStockFis))
+                    {
+                        cMensaje = "No puede Vender esta Cantidad ya que sobrepasa el STOCK.";
+                        txtArtCant.focus();
+                        return false;
+                    }
+                    if (parseFloat(txtArtPreUnitario.Text) <= 0)
+                    {
+                        cMensaje = "Debe Ingresar un Precio de Venta para el Articulo.";
+                        txtArtPreUnitario.focus();
+                        return false;
+                    }
+                    if (parseFloat(txtArtDescuento.Text) > 100)
+                    {
+                        cMensaje = "El Descuento no Puede superar el 100%.";
+                        txtArtDescuento.focus();
+                        return false;
+                    }
+                    if (parseFloat(txtStockFis) != parseFloat(hideStockLote)) {
+                        cMensaje = "El Stock Fisico (" + txtStockFis + ") y el Stock de Lotes (" + hideStockLote + ") son Diferentes, Primero debe Ajustar Estas diferencias para Continuar.";
+                        txtStockFis.focus();
+                        return false;
+                    }
+                    if (txtLotVenci == "") {
+                        cMensaje = "Debe Ingresar una Fecha de Vencimiento.";
+                        txtLotVenci.focus();
+                        return false;
+                    }
+                    break;
+                case "OPE":
+                    if ((ddlMoneda.length == 1 && ddlMoneda.options[0].Value == "000") ||
+                    (ddlTipoVenta.length == 1 && ddlTipoVenta.options[0].Value == "000") ||
+                    (ddlZonas.length == 0)) {
+                        cMensaje = "Por favor Registrar los tipos de Moneda, Tipo de Zonas y Tipo de Pago antes de Continuar. ";
+                        return false;
+                    }
+                    if (ddlClientes.options[ddlClientes.selectedIndex].value == "000") {
+                        cMensaje = "Debe Escoger un Cliente";
+                        ddlClientes.focus();
+                        return false;
+                    }
+                    if (ddlMoneda.options[ddlMoneda.selectedIndex].value == "000") {
+                        cMensaje = "Debe Escoger la Moneda";
+                        ddlMoneda.focus();
+                        return false;
+                    }
+                    if (ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "000") {
+                        cMensaje = "Debe Escoger el Tipo de Pago";
+                        ddlTipoVenta.focus();
+                        return false;
+                    }
+                    if (pcTipoEsp == "PROC" && ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "CR" && txtCiclo == "") {
+                        cMensaje = "Debe Indicar el Ciclo de la Compra";
+                        txtCiclo.focus();
+                        return false;
+                    }
+                    if (lblTipoDoc == "2" && txtFecTraslado == "") {
+                        cMensaje = "Ingrese una Fecha de Traslado";
+                        txtFecTraslado.focus();
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return bRes;
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -316,10 +486,9 @@
                                                     </asp:TextBoxWatermarkExtender>
                                                 </td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td colspan="6" align="right">
-                                                    <asp:CheckBox ID="chkletra" Checked=true  Text ="Generar Letra automaticamente"
-                                                     runat="server" />
+                                                    <asp:CheckBox ID="chkletra" Checked="true" Text="Generar Letra automaticamente" runat="server" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -423,7 +592,7 @@
                                                         <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" ToolTip="Nuevo" CssClass="clsBtnNuevo"
                                                             OnClick="btnNuevo_Click" CausesValidation="False" />
                                                         <asp:Button ID="btnGuardar" runat="server" Text="Guardar" ToolTip="Guardar" CssClass="clsBtnGuardar"
-                                                            OnClick="btnGuardar_Click" />
+                                                            OnClick="btnGuardar_Click"   OnClientClick="AbrirwinGuardarOperacion()" />
                                                     </td>
                                                     <td valign="top">
                                                         <asp:Button ID="btnSalir" runat="server" Text="Salir" ToolTip="Regresar" CssClass="clsBtnRegresar"
@@ -478,7 +647,7 @@
                                                 <tr>
                                                     <td valign="top">
                                                         <asp:Button ID="btnAgregar" runat="server" Text="Agregar" ToolTip="Agregar" CssClass="clsBtnAgregar"
-                                                            OnClick="btnAgregar_Click" />
+                                                            OnClick="btnAgregar_Click" OnClientClick="AbrirWinArticulos()"  />
                                                     </td>
                                                     <td valign="top">
                                                         <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" ToolTip="Eliminar" CssClass="clsBtnEliminar"
@@ -623,20 +792,20 @@
                                                 <tr>
                                                     <td valign="top">
                                                         <asp:GridView ID="dgvNotas" runat="server" AutoGenerateColumns="False" GridLines="None"
-                                                        CssClass="mGrid mGrid2" ShowHeaderWhenEmpty="True" Style="margin-top: 0px; padding-top: 0px;">
+                                                            CssClass="mGrid mGrid2" ShowHeaderWhenEmpty="True" Style="margin-top: 0px; padding-top: 0px;">
                                                             <AlternatingRowStyle CssClass="alt" />
                                                             <Columns>
                                                                 <asp:BoundField DataField="tiponota" HeaderText="tiponota" SortExpression="tiponota" />
                                                                 <asp:BoundField DataField="moneda" HeaderText="moneda" SortExpression="moneda" />
                                                                 <asp:BoundField DataField="nmontoNota" HeaderText="nmontoNota" SortExpression="nmontoNota" />
                                                             </Columns>
-                                                             <EmptyDataTemplate>
+                                                            <EmptyDataTemplate>
                                                                 <i>
                                                                     <div class="clsError1" id="lblError1" runat="server">
                                                                         No tiene Notas pendientes</div>
                                                                 </i>
                                                             </EmptyDataTemplate>
-                                                        </asp:GridView>                                                       
+                                                        </asp:GridView>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -781,300 +950,10 @@
                         </asp:Panel>
                     </td>
                     <td>
-                        <div style="display: none;">
-                            <asp:Button ID="btnAgregarTMP" runat="server" Text="Nuevo Cliente" />
-                        </div>
-                        <asp:ModalPopupExtender ID="ModalPopupAgregar" runat="server" CancelControlID="btnClose2"
-                            TargetControlID="btnAgregarTMP" PopupControlID="pnPopAgregarArticulo" BackgroundCssClass="ModalPopupBG"
-                            Enabled="True" DynamicServicePath="">
-                        </asp:ModalPopupExtender>
-                        <asp:Panel ID="pnPopAgregarArticulo" Style="display: none;" runat="server" DefaultButton="btnAgregarArticulo">
-                            <div class="clsModalPopup">
-                                <div class="PopupHeader" id="Div1">
-                                    AGREGAR UN ARTICULO</div>
-                                <div class="PopupClose" id="Div2">
-                                    <asp:Button ID="btnClose2" runat="server" Text="X" CssClass="clsBtnCerrar2" /></div>
-                                <div class="PopupBody">
-                                    <table class="TablePopupBody">
-                                        <tr>
-                                            <td class="BodyContent">
-                                                <asp:Panel ID="pnDatosArticulo" runat="server">
-                                                    <table>
-                                                        <tr>
-                                                            <td valign="top">
-                                                                <table style="width: 220px; height: 100%;">
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top">
-                                                                            Laboratorio:
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:DropDownList ID="ddlLaboratorios" runat="server" Width="200px" AutoPostBack="True"
-                                                                                DataTextField="PrvRazon" DataValueField="PrvCod" OnSelectedIndexChanged="ddlLaboratorios_SelectedIndexChanged">
-                                                                            </asp:DropDownList>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top">
-                                                                            Articulos:
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:TextBox ID="txtBuscarArt" runat="server" Width="196px"></asp:TextBox>
-                                                                            <asp:TextBoxWatermarkExtender ID="txtBuscarArt_waterMark" runat="server" TargetControlID="txtBuscarArt"
-                                                                                WatermarkCssClass="clsWaterMark" WatermarkText="Busqueda de Articulos..." Enabled="true">
-                                                                            </asp:TextBoxWatermarkExtender>
-                                                                            <div id="listPlacement" class="cls_listPlacement">
-                                                                            </div>
-                                                                            <asp:AutoCompleteExtender ID="txtBuscarArt_AutoCompleteExtender" MinimumPrefixLength="2"
-                                                                                TargetControlID="txtBuscarArt" EnableCaching="true" ShowOnlyCurrentWordInCompletionListItem="true"
-                                                                                CompletionSetCount="10" CompletionInterval="100" ServiceMethod="BuscarArticulos"
-                                                                                runat="server" OnClientItemSelected="setArtCod" CompletionListElementID="listPlacement">
-                                                                            </asp:AutoCompleteExtender>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top">
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:ListBox ID="lsbArticulos" runat="server" Width="200px" Height="150px" DataTextField="ArtDescripcion"
-                                                                                DataValueField="ArtCod" OnSelectedIndexChanged="lsbArticulos_SelectedIndexChanged"
-                                                                                AutoPostBack="True"></asp:ListBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                            <td valign="top">
-                                                                <table style="width: 220px; height: 100%;">
-                                                                    <tr>
-                                                                        <td style="width: 54%;">
-                                                                        </td>
-                                                                        <td style="width: 46%;">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top">
-                                                                            Codigo : &nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:TextBox ID="txtArtCod" runat="server" Width="100px" Enabled="false"></asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top">
-                                                                            Unidad de Med. : &nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:TextBox ID="txtArtUniMed" runat="server" Width="100px" Enabled="false"></asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top">
-                                                                            Stock Fact : &nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:TextBox ID="txtStockFact" runat="server" Width="100px" Enabled="false"></asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top">
-                                                                            Stock Fisico : &nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:TextBox ID="txtStockFis" runat="server" Width="100px" Enabled="false" ForeColor="Red"></asp:TextBox>
-                                                                            <asp:HiddenField ID="hideStockLote" runat="server" />
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" style="color: #444444;">
-                                                                            Nro Lote : &nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2">
-                                                                            <asp:TextBox ID="txtLotNro" runat="server" Width="100px"></asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" style="color: #444444;">
-                                                                            Stock Lote : &nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2">
-                                                                            <asp:TextBox ID="txtLotStock" runat="server" Width="100px"></asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" style="color: #444444;">
-                                                                            Vencim. Lote : &nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2">
-                                                                            <asp:TextBox ID="txtLotVenci" runat="server" Width="100px" Enabled="false"></asp:TextBox>
-                                                                            <asp:CalendarExtender ID="txtLotVenci_CalendarExtender" runat="server" TargetControlID="txtLotVenci"
-                                                                                Format="yyyy-MM-dd" PopupButtonID="Image2" Enabled="True">
-                                                                            </asp:CalendarExtender>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="2">
-                                                                            <hr />
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top">
-                                                                            <asp:Label ID="lblArtPreUnitario" runat="server" Text="P.Unitario (S/.) : "></asp:Label>
-                                                                            &nbsp;&nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:TextBox ID="txtArtPreUnitario" runat="server" Width="100px" onkeyup="CalcularTotalArticulo();"></asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top" style="font-weight: bold; color: #444444;">
-                                                                            Cantidad : &nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:TextBox ID="txtArtCant" runat="server" Width="100px" onkeyup="CalcularTotalArticulo();"></asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top" style="font-weight: bold; color: #444444;">
-                                                                            Descuento(%) : &nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:DropDownList ID="ddlTipDcto" runat="server" Height="18px" Width="35px" ClientIDMode="Static">
-                                                                                <asp:ListItem>%</asp:ListItem>
-                                                                                <asp:ListItem>S/.</asp:ListItem>
-                                                                            </asp:DropDownList>
-                                                                            <asp:TextBox ID="txtArtDescuento" runat="server" Width="61px" onkeyup="CalcularTotalArticulo();"
-                                                                                Enabled="False"></asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="clsCellTituloDatos2" valign="top" style="font-weight: bold; color: #444444;">
-                                                                            <asp:Label ID="lblImpTotal" runat="server" Text="Importe Total (S/.) : "></asp:Label>&nbsp;
-                                                                        </td>
-                                                                        <td class="clsCellDatos2" valign="top">
-                                                                            <asp:TextBox ID="txtImpTotal" runat="server" Width="100px" Enabled="false"></asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </asp:Panel>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="Controls">
-                                                <div style="text-align: center;">
-                                                    <asp:Button ID="btnAgregarArticulo" runat="server" Text="Agregar" ToolTip="Agregar"
-                                                        CssClass="clsBtnAgregar" OnClick="btnAgregarArticulo_Click" />
-                                                    &nbsp;
-                                                    <asp:Button ID="btnCancelarArticulo" runat="server" Text="Cancelar" ToolTip="Cancelar"
-                                                        CssClass="clsBtnCancelar" />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </asp:Panel>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div style="display: none;">
-                            <asp:Button ID="btnGirarCompraTMP" runat="server" Text="Girar Compra" />
-                        </div>
-                        <asp:ModalPopupExtender ID="ModalPopupGirarCompra" runat="server" CancelControlID="btnClose3"
-                            TargetControlID="btnGirarCompraTMP" PopupControlID="pnPopGirarCompra" BackgroundCssClass="ModalPopupBG"
-                            Enabled="True" DynamicServicePath="">
-                        </asp:ModalPopupExtender>
-                        <asp:Panel ID="pnPopGirarCompra" Style="display: none" runat="server">
-                            <div class="clsModalPopup">
-                                <div class="PopupHeader" id="Div3">
-                                    DATOS ADICIONALES DE LA VENTA</div>
-                                <div class="PopupClose" id="Div4">
-                                    <asp:Button ID="btnClose3" runat="server" Text="X" CssClass="clsBtnCerrar2" /></div>
-                                <div class="PopupBody">
-                                    <table class="TablePopupBody">
-                                        <tr>
-                                            <td class="BodyContent">
-                                                <asp:Panel ID="pnDatosAdicionales" runat="server">
-                                                    <table style="width: 450px; height: 100%;">
-                                                        <tr>
-                                                            <td class="clsCellTituloDatos2" valign="top" style="width: 23%;">
-                                                                Nro Pedido:
-                                                            </td>
-                                                            <td class="clsCellDatos2" valign="top" colspan="3">
-                                                                <asp:Label ID="lblNroPedido" runat="server" Text="999999"></asp:Label>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="clsCellTituloDatos2" valign="top">
-                                                                Transportista:
-                                                            </td>
-                                                            <td class="clsCellDatos2" valign="top" colspan="3">
-                                                                <asp:DropDownList ID="ddlTransportistas" runat="server" Width="220px" DataTextField="TraRazonSocial"
-                                                                    DataValueField="TraCod" AutoPostBack="True" OnSelectedIndexChanged="ddlTransportistas_SelectedIndexChanged">
-                                                                </asp:DropDownList>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="clsCellTituloDatos2" valign="top">
-                                                                Ruc trans:
-                                                            </td>
-                                                            <td class="clsCellDatos2" valign="top" colspan="3">
-                                                                <asp:TextBox ID="txtRucTrans" runat="server" Width="100px" ReadOnly="True"></asp:TextBox>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="clsCellTituloDatos2">
-                                                                Descuento Esp:
-                                                            </td>
-                                                            <td class="clsCellDatos2">
-                                                                <asp:TextBox ID="txtDesEspec" runat="server" Width="120px"></asp:TextBox>
-                                                            </td>
-                                                            <td class="clsCellTituloDatos2">
-                                                                Flete de Trans:
-                                                            </td>
-                                                            <td class="clsCellDatos2">
-                                                                <asp:TextBox ID="txtFleteTra" runat="server" Width="100px" OnTextChanged="txtFleteTra_TextChanged"></asp:TextBox>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="clsCellTituloDatos2">
-                                                                Vendedor:
-                                                            </td>
-                                                            <td class="clsCellDatos2">
-                                                                <asp:DropDownList ID="ddlVendedores" runat="server" Width="120px" DataTextField="PerNombres"
-                                                                    DataValueField="PerCod">
-                                                                </asp:DropDownList>
-                                                            </td>
-                                                            <td class="clsCellTituloDatos2">
-                                                                Zona:
-                                                            </td>
-                                                            <td class="clsCellDatos2">
-                                                                <asp:DropDownList ID="ddlZonas" runat="server" Width="120px" DataTextField="AtrDescripcion"
-                                                                    DataValueField="AtrCodigo">
-                                                                </asp:DropDownList>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </asp:Panel>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="Controls">
-                                                <div style="text-align: center;">
-                                                    <asp:Button ID="btnGuardarDocu" runat="server" Text="Guardar" ToolTip="Guardar" CssClass="clsBtnGuardar"
-                                                        OnClick="btnGuardarDocu_Click" />
-                                                    &nbsp;
-                                                    <asp:Button ID="btnCancelDocu" runat="server" Text="Cancelar" ToolTip="Cancelar"
-                                                        CssClass="clsBtnCancelar" />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </asp:Panel>
                     </td>
                     <td>
                         <div style="display: none;">
@@ -1146,4 +1025,258 @@
             </table>
         </ContentTemplate>
     </asp:UpdatePanel>
+    <obout:Window ID="winArticulos" runat="server" IsModal="True" IsResizable="False"
+        ShowStatusBar="False" Title="AGREGAR UN ARTICULO" StyleFolder="~/App_Themes/TemaAgrocomercio/Windows/aura"
+        VisibleOnLoad="False" Width="520" Height="370" DebugMode="True" PageOpacity="70"
+        OnClientInit="window.winArticulos = winArticulos;">
+        <asp:UpdatePanel ID="updatePanelArticulos" runat="server" ClientIDMode="Static">
+            <ContentTemplate>
+                <asp:Panel ID="pnDatosArticulo" runat="server">
+                    <table>
+                        <tr>
+                            <td valign="top">
+                                <table style="width: 220px; height: 100%;">
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top">
+                                            Laboratorio:
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:DropDownList ID="ddlLaboratorios" runat="server" Width="200px" AutoPostBack="True"
+                                                DataTextField="PrvRazon" DataValueField="PrvCod" OnSelectedIndexChanged="ddlLaboratorios_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top">
+                                            Articulos:
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:TextBox ID="txtBuscarArt" runat="server" Width="196px"></asp:TextBox>
+                                            <asp:TextBoxWatermarkExtender ID="txtBuscarArt_waterMark" runat="server" TargetControlID="txtBuscarArt"
+                                                WatermarkCssClass="clsWaterMark" WatermarkText="Busqueda de Articulos..." Enabled="true">
+                                            </asp:TextBoxWatermarkExtender>
+                                            <div id="listPlacement" class="cls_listPlacement">
+                                            </div>
+                                            <asp:AutoCompleteExtender ID="txtBuscarArt_AutoCompleteExtender" MinimumPrefixLength="2"
+                                                TargetControlID="txtBuscarArt" EnableCaching="true" ShowOnlyCurrentWordInCompletionListItem="true"
+                                                CompletionSetCount="10" CompletionInterval="100" ServiceMethod="BuscarArticulos"
+                                                runat="server" OnClientItemSelected="setArtCod" CompletionListElementID="listPlacement">
+                                            </asp:AutoCompleteExtender>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top">
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:ListBox ID="lsbArticulos" runat="server" Width="200px" Height="150px" DataTextField="ArtDescripcion"
+                                                DataValueField="ArtCod" OnSelectedIndexChanged="lsbArticulos_SelectedIndexChanged"
+                                                AutoPostBack="True"></asp:ListBox>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td valign="top">
+                                <table style="width: 220px; height: 100%;">
+                                    <tr>
+                                        <td style="width: 54%;">
+                                        </td>
+                                        <td style="width: 46%;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top">
+                                            Codigo : &nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:TextBox ID="txtArtCod" runat="server" Width="100px" Enabled="false"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top">
+                                            Unidad de Med. : &nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:TextBox ID="txtArtUniMed" runat="server" Width="100px" Enabled="false"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top">
+                                            Stock Fact : &nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:TextBox ID="txtStockFact" runat="server" Width="100px" Enabled="false"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top">
+                                            Stock Fisico : &nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:TextBox ID="txtStockFis" runat="server" Width="100px" Enabled="false" ForeColor="Red"></asp:TextBox>
+                                            <asp:HiddenField ID="hideStockLote" runat="server" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" style="color: #444444;">
+                                            Nro Lote : &nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2">
+                                            <asp:TextBox ID="txtLotNro" runat="server" Width="100px"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" style="color: #444444;">
+                                            Stock Lote : &nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2">
+                                            <asp:TextBox ID="txtLotStock" runat="server" Width="100px"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" style="color: #444444;">
+                                            Vencim. Lote : &nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2">
+                                            <asp:TextBox ID="txtLotVenci" runat="server" Width="100px" Enabled="false"></asp:TextBox>
+                                            <asp:CalendarExtender ID="txtLotVenci_CalendarExtender" runat="server" TargetControlID="txtLotVenci"
+                                                Format="yyyy-MM-dd" PopupButtonID="Image2" Enabled="True">
+                                            </asp:CalendarExtender>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <hr />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top">
+                                            <asp:Label ID="lblArtPreUnitario" runat="server" Text="P.Unitario (S/.) : "></asp:Label>
+                                            &nbsp;&nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:TextBox ID="txtArtPreUnitario" runat="server" Width="100px" onkeyup="CalcularTotalArticulo();"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top" style="font-weight: bold; color: #444444;">
+                                            Cantidad : &nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:TextBox ID="txtArtCant" runat="server" Width="100px" onkeyup="CalcularTotalArticulo();"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top" style="font-weight: bold; color: #444444;">
+                                            Descuento(%) : &nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:DropDownList ID="ddlTipDcto" runat="server" Height="18px" Width="35px" ClientIDMode="Static">
+                                                <asp:ListItem>%</asp:ListItem>
+                                                <asp:ListItem>S/.</asp:ListItem>
+                                            </asp:DropDownList>
+                                            <asp:TextBox ID="txtArtDescuento" runat="server" Width="61px" onkeyup="CalcularTotalArticulo();"
+                                                Enabled="False"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="clsCellTituloDatos2" valign="top" style="font-weight: bold; color: #444444;">
+                                            <asp:Label ID="lblImpTotal" runat="server" Text="Importe Total (S/.) : "></asp:Label>&nbsp;
+                                        </td>
+                                        <td class="clsCellDatos2" valign="top">
+                                            <asp:TextBox ID="txtImpTotal" runat="server" Width="100px" Enabled="false"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </asp:Panel>
+                <div style="text-align: center;">
+                    <asp:Button ID="btnAgregarArticulo" runat="server" Text="Agregar" ToolTip="Agregar"
+                        CssClass="clsBtnAgregar" OnClick="btnAgregarArticulo_Click" OnClientClick="AgregarArticulos();" />
+                    &nbsp;
+                    <asp:Button ID="btnCancelarArticulo" runat="server" Text="Cancelar" ToolTip="Cancelar"
+                        CssClass="clsBtnCancelar" OnClientClick="window.parent.winArticulos.Close();" />
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </obout:Window>
+    <obout:Window ID="winGuardarOperacion" runat="server" IsModal="True" IsResizable="False"
+        ShowStatusBar="False" Title="DATOS ADICIONALES DE LA COMPRA" StyleFolder="~/App_Themes/TemaAgrocomercio/Windows/aura"
+        VisibleOnLoad="False" Width="450" Height="200" DebugMode="True" PageOpacity="70"
+        OnClientInit="window.winGuardarOperacion = winGuardarOperacion;">
+        <asp:UpdatePanel ID="updatePanelGuardarOperacion" runat="server" ClientIDMode="Static">
+            <ContentTemplate>
+                <asp:Panel ID="pnDatosAdicionales" runat="server">
+                    <table style="width: 450px; height: 100%;">
+                        <tr>
+                            <td class="clsCellTituloDatos2" valign="top" style="width: 23%;">
+                                Nro Pedido:
+                            </td>
+                            <td class="clsCellDatos2" valign="top" colspan="3">
+                                <asp:Label ID="lblNroPedido" runat="server" Text="999999"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="clsCellTituloDatos2" valign="top">
+                                Transportista:
+                            </td>
+                            <td class="clsCellDatos2" valign="top" colspan="3">
+                                <asp:DropDownList ID="ddlTransportistas" runat="server" Width="220px" DataTextField="TraRazonSocial"
+                                    DataValueField="TraCod" AutoPostBack="True" OnSelectedIndexChanged="ddlTransportistas_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="clsCellTituloDatos2" valign="top">
+                                Ruc trans:
+                            </td>
+                            <td class="clsCellDatos2" valign="top" colspan="3">
+                                <asp:TextBox ID="txtRucTrans" runat="server" Width="100px" ReadOnly="True"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="clsCellTituloDatos2">
+                                Descuento Esp:
+                            </td>
+                            <td class="clsCellDatos2">
+                                <asp:TextBox ID="txtDesEspec" runat="server" Width="120px"></asp:TextBox>
+                            </td>
+                            <td class="clsCellTituloDatos2">
+                                Flete de Trans:
+                            </td>
+                            <td class="clsCellDatos2">
+                                <asp:TextBox ID="txtFleteTra" runat="server" Width="100px" OnTextChanged="txtFleteTra_TextChanged"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="clsCellTituloDatos2">
+                                Vendedor:
+                            </td>
+                            <td class="clsCellDatos2">
+                                <asp:DropDownList ID="ddlVendedores" runat="server" Width="120px" DataTextField="PerNombres"
+                                    DataValueField="PerCod">
+                                </asp:DropDownList>
+                            </td>
+                            <td class="clsCellTituloDatos2">
+                                Zona:
+                            </td>
+                            <td class="clsCellDatos2">
+                                <asp:DropDownList ID="ddlZonas" runat="server" Width="120px" DataTextField="AtrDescripcion"
+                                    DataValueField="AtrCodigo">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                    </table>
+                </asp:Panel>
+                <div style="text-align: center;">
+                    <asp:Button ID="btnGuardarDocu" runat="server" Text="Guardar" ToolTip="Guardar" CssClass="clsBtnGuardar"
+                        OnClick="btnGuardarDocu_Click" OnClientClick="GuardarOperacion();" />
+                    &nbsp;
+                    <asp:Button ID="btnCancelDocu" runat="server" Text="Cancelar" ToolTip="Cancelar"
+                        CssClass="clsBtnCancelar" OnClientClick="window.parent.winGuardarOperacion.Close();" />
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </obout:Window>
 </asp:Content>

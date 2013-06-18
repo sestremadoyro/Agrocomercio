@@ -357,7 +357,6 @@ namespace AgrocomercioWEB.Ventas
             int nTraCod = 0;
             nTraCod = int.Parse(ddlTransportistas.SelectedValue);
 
-            ModalPopupGirarCompra.Show();
             if (nTraCod != 0)
             {
                 clsTransportistas lstTransportistas = new clsTransportistas();
@@ -450,7 +449,6 @@ namespace AgrocomercioWEB.Ventas
         protected void txtFleteTra_TextChanged(object sender, EventArgs e)
         {
             CalcularPago(g_dtDetOperacion);
-            ModalPopupGirarCompra.Show();
         }
         #endregion
 
@@ -632,7 +630,6 @@ namespace AgrocomercioWEB.Ventas
                         ddlVendedores.SelectedValue = ddlListaVendedores.SelectedValue;
                         ddlVendedores.Enabled = false;
 
-                        ModalPopupGirarCompra.Show();
 
                     }
                     else if (lblProceso.Value == "EDIT")
@@ -799,7 +796,6 @@ namespace AgrocomercioWEB.Ventas
             IniciarCamposArticulos();
             if (lsbArticulos.Items.Count > 0 && lsbArticulos.Items[0].Value != "0")
             {
-                ModalPopupAgregar.Show();
             }
             else
                 MessageBox("Por Favor Primero debe Registrar articulos antes de Continuar!");
@@ -926,7 +922,6 @@ namespace AgrocomercioWEB.Ventas
                 {
                     MessageBox("La Operacion de Venta se Guardo con Exito ");
                 }
-                ModalPopupGirarCompra.Hide();
                 ConfigurarDocumento();
             }
             catch (Exception ex)
@@ -1933,7 +1928,6 @@ namespace AgrocomercioWEB.Ventas
                 txtImpTotal.Text = nTotal.ToString("0.00");
             }
 
-            ModalPopupAgregar.Show();
         }
         private Boolean BuscarArticulo(int ArtCod, ref int LotNro, ref double LprPrecio, ref double LprDscto)
         {
@@ -2072,7 +2066,6 @@ namespace AgrocomercioWEB.Ventas
 
             if (lsbArticulos.SelectedIndex >= 0)
                 lsbArticulos_SelectedIndexChanged(sender, e);
-            ModalPopupAgregar.Show();
         }
 
         protected void btnAgregarArticulo_Click(object sender, EventArgs e)
@@ -2145,7 +2138,6 @@ namespace AgrocomercioWEB.Ventas
                 }
                 else
                 {
-                    ModalPopupAgregar.Show();
                     MessageBox(cMensaje);
                 }
 

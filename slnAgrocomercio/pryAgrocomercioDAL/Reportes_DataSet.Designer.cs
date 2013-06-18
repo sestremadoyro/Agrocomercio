@@ -921,7 +921,7 @@ namespace pryAgrocomercioDAL.Reportes_DataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::pryAgrocomercioDAL.Properties.Settings.Default.agrocomercioConnectionString1;
+            this._connection.ConnectionString = global::pryAgrocomercioDAL.Properties.Settings.Default.AgrocomercioConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

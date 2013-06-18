@@ -75,6 +75,9 @@
     <Reference Include="obout_ListBox">
       <HintPath>Dlls\obout_ListBox.dll</HintPath>
     </Reference>
+    <Reference Include="obout_Window_NET, Version=1.6.2.4, Culture=neutral, PublicKeyToken=67a4511cc2f909f5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
