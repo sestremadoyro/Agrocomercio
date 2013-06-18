@@ -9,23 +9,25 @@
         {
             return navigator.appName == "Netscape";
         }
-        function dgvDetalleVentaClickEvent(event, rowindex) {
-
+        function dgvDetalleVentaClickEvent(event, rowindex) {            
             document.getElementById('lblEstado').value = "DGVCOM_" + event;
-//            if (event = "DOUBLECLICK") {
+            __doPostBack('MainUpdatePanel', rowindex);
+            if (event == "DOUBLECLICK") {
+            
 //                var grid = document.getElementById("<%= dgvDetalleVenta.ClientID %>");
 //                var num = 0;
+//                var n = parseInt(rowindex) + 1;
+                
 //                if (isFireFox()) {
-//                    num = grid.rows[rowindex + 1].cells[7].textContent;
+//                    num = grid.rows[grid.selected].cells[7].textContent;
 //                } else {
 //                    num = grid.rows[rowindex + 1].cells[7].innerText;
 //                }
-//                if (num == 0) {
-//                    AbrirWinArticulos();
-//                }
-//            }
-            __doPostBack('MainUpdatePanel', rowindex);
-            
+                //if (num == 0) {
+                AbrirWinArticulos("ESPECIAL");
+                //                }
+                
+            }            
         }
         function dgvListOperComprasClickEvent(event, rowindex) {
 
@@ -124,10 +126,14 @@
             //else
             //    alert(cMensaje);
 
-            }
+        }
 
+        function AbrirWinArticulos(tipo) {
+            if (tipo == "ESPECIAL")
+                 winArticulos.setSize(300,360);
+            else
+                winArticulos.setSize(520, 360); 
 
-        function AbrirWinArticulos() {
             winArticulos.Open();
             winArticulos.screenCenter();
         }
@@ -1036,9 +1042,10 @@
             </table>
         </ContentTemplate>
     </asp:UpdatePanel>
-    <obout:Window ID="winArticulos" runat="server" IsModal="True" IsResizable="False"
+    <obout:Window ID="winArticulos" runat="server" IsModal="True" IsResizable="True"
         ShowStatusBar="False" Title="AGREGAR UN ARTICULO" StyleFolder="~/App_Themes/TemaAgrocomercio/Windows/aura"
-        VisibleOnLoad="False" Width="520" Height="330" DebugMode="True" PageOpacity="70"
+        VisibleOnLoad="False" Width="520" Height="360" MinHeight="360" MinWidth="300"
+        DebugMode="True" PageOpacity="70"
         OnClientInit="window.winArticulos = winArticulos;">
         <asp:UpdatePanel ID="updatePanelArticulos" runat="server" ClientIDMode="Static">
             <ContentTemplate>

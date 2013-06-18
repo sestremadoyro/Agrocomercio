@@ -1898,6 +1898,7 @@ namespace AgrocomercioWEB.Compras
                 txtLotVenci.Enabled = false;
                 btnGuardarPrecio.Visible = true;
                 btnAgregarArticulo.Visible = false;
+                winArticulos.Width = 300;
             }
             else
             {
@@ -1907,6 +1908,7 @@ namespace AgrocomercioWEB.Compras
                 txtLotVenci.Enabled = true;
                 btnGuardarPrecio.Visible = false;
                 btnAgregarArticulo.Visible = true;
+                winArticulos.Width = 520;                
             }
         }
         private void CalcularTotalArticulo()
