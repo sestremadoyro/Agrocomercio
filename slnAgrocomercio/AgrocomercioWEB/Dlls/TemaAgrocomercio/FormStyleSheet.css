@@ -1,0 +1,228 @@
+﻿body {
+}
+#FichaEtiquetas
+{
+	background-color:#5783B6; 
+	width:300px;
+
+}
+#FichaEtiquetas ul
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:14px;
+	color:#FFFFFF;
+	text-align:left;
+	vertical-align:middle ;
+	font-weight:bold;
+}
+#FichaEtiquetas ul li
+{
+	font-family: Trebuchet MS,Arial;
+	font-size: 11px;
+	color: Yellow;
+	text-align: left;
+	vertical-align: middle;
+	font-weight: normal;
+	background-color: #668EBD;
+	padding: 2px 2px 2px 2px;
+	border: solid 2px #5783B6;
+}
+
+.clsFichaEtiqueta
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:12px;
+	color:#FFFFFF;
+	text-align:left;
+	vertical-align:middle ;
+	font-weight:normal ;
+}
+.clsFormTituloEtiquetas
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:14px;
+	background-color: #668EBD;
+	color:White;
+	padding: 2px 2px 2px 2px;
+	border: solid 2px #5783B6;
+	text-align:left;
+	vertical-align:middle ;
+	font-weight:bold;
+}
+.clsNodoRoot
+{
+	font-family:Trebuchet MS,Arial;
+    font-size:13px;
+    color: #000000;
+}
+.clsNodoParent
+{
+	font-family:Trebuchet MS,Arial;
+    font-size:12px;
+    color: #000000;
+}
+.clsNodoLeaf
+{
+	font-family:Trebuchet MS,Arial;
+    font-size:11px;
+    color: #000000;
+}
+.clsNodoSelected
+{
+    background-color: #D2E9FF;
+    color: #003366;
+    font-family:Trebuchet MS,Arial;
+    font-size:12px;
+}
+.clsEtiquetas
+{
+    font-family:Trebuchet MS,Arial;
+    font-size:13px;
+    text-align:right;
+}
+.clsEtiquetaPregunta
+{
+	font-family:Trebuchet MS,Arial;
+	color:#990000; 
+	font-size:14pt; 
+}
+.clsBotonesOpciones
+{
+    font-family:Trebuchet MS,Arial;        	
+    font-size:13px;
+    color:Blue;
+}
+
+    
+.clsTituloPrincipal,.clsTituloPrincipal2
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:20px;
+	color:#990000;
+	text-align:center;
+	font-weight:bold;
+}
+.clsTituloPrincipal2
+{
+	border:1px solid #cccccc;
+	background:#ececec;
+	padding: 5px 10px;
+
+}
+.clsTituloInterior
+{
+    font-family: Trebuchet MS,Arial;
+    font-size: 19px;
+    text-align: center;
+    color: #20480A;
+    font-weight:bold;
+    width: 895px;
+}
+.clsTituloInterior2
+{
+    font-family: Trebuchet MS,Arial;
+    font-size: 19px;
+    text-align: center;
+    color: #20480A;
+    font-weight:bold;
+    width: 650px;
+    margin:0 auto;
+}
+
+.clsSubTituloInterior
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:15px;
+	color:#2D5B13;
+}
+.clsCellDatos
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:13px;
+	color:#000000;
+	text-align:left;
+	vertical-align:top;
+}
+.clsFormEtiquetas
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:13px;
+	color:#FFFFFF;
+	text-align:right;
+	vertical-align:middle ;
+}
+.clsFormSmallEtiquetas
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:11px;
+	color:#FFFFFF;
+	text-align:right;
+	vertical-align:middle ;
+}
+
+.clsFormEtiquetasOscuras
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:13px;
+	color:#024E99;
+	text-align:right;
+	vertical-align:middle ;
+}
+.clsFormTextMayusculas
+{
+	text-transform:uppercase;
+}
+.clsError
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:13px;
+	color:#990000;
+}
+.clsVinculo
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:13px;
+	color:#990000;
+}
+.clsVinculoBoton
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:11px;
+	color:#990000;
+}
+.clsBotones
+{
+	font-family:Trebuchet MS,Arial;
+	font-size:13px;
+	color:#000000;
+	text-align:center;
+	vertical-align:middle ;
+	height:30px;
+	padding : 2px 3px 3px 2px;
+}
+
+/*
+para GRILLAS
+*/
+.clsCabeceraGrilla
+{
+	background-color:#5783B6;
+	color:White;
+	font-family: Trebuchet MS,Arial;
+	font-size: 11px;
+}
+.clsCuerpoGrilla
+{
+	font-family: Trebuchet MS,Arial;
+	font-size: 11px;
+}
+.clsFilaAlternativaGrilla
+{
+	background-color:#eeeeee;
+}
+.clsFechaGrilla
+{
+	font-family: Trebuchet MS,Arial;
+	font-size: 9px;
+	color: #990000;
+}
