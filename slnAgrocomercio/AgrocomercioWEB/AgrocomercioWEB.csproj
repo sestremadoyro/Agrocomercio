@@ -624,6 +624,7 @@
     <Content Include="pagos\wfrmPagxLetra.aspx" />
     <Content Include="pagos\wfrmRepNotasCompras.aspx" />
     <Content Include="pagos\wfrmRepNotasVentas.aspx" />
+    <Content Include="Reportes\ImpresionSaldos.aspx" />
     <Content Include="Reportes\wfrmRepSaldos.aspx" />
     <Content Include="Reportes\wfrmTotalPorProveedor.aspx" />
     <Content Include="Reportes\ImpresionBoleta.aspx" />
@@ -913,6 +914,13 @@
     <Compile Include="Reportes\Clases\clsRepCabeceraDoc.cs" />
     <Compile Include="Reportes\Clases\clsRepDetalleFactura.cs" />
     <Compile Include="Reportes\Clases\clsRepCompras.cs" />
+    <Compile Include="Reportes\ImpresionSaldos.aspx.cs">
+      <DependentUpon>ImpresionSaldos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ImpresionSaldos.aspx.designer.cs">
+      <DependentUpon>ImpresionSaldos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\rpt\crSaldos1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

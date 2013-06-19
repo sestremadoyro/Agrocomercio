@@ -16,7 +16,7 @@ namespace AgrocomercioWEB.Reportes
             try
             {
                 DataTable _dtSaldos = null;
-                Int32 nPrvCod = 0;
+                //Int32 nPrvCod = 0;
                 _dtSaldos = (DataTable)Session["dtSaldos"];
                 //nPrvCod = Int32.Parse((String)Session["nPrvCod"]);
 

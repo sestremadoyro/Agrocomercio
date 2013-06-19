@@ -18,7 +18,7 @@ namespace AgrocomercioWEB.Reportes.rpt
             clsProveedores lstProveedores = new clsProveedores();
             ddlProveedor.DataSource = lstProveedores.GetAll();
             ddlProveedor.DataBind();
-            ddlProveedor.Items.Insert(0, new ListItem("[TODOS]", "9999"));
+            ddlProveedor.Items.Insert(0, new ListItem("[Seleccione]", "9999"));
             ddlProveedor.Items.Add(new ListItem("<< SIN RESULTADOS >>", "8888"));
             lstProveedores = null;
         }
