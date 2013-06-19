@@ -101,7 +101,7 @@
         }
 
 
-        function AbrirWinArticulos() {
+        function AbrirWinArticulos(tipo) {
             if (tipo == "ESPECIAL")
                 winArticulos.setSize(300, 360);
             else
