@@ -625,6 +625,7 @@
     <Content Include="pagos\wfrmRepNotasCompras.aspx" />
     <Content Include="pagos\wfrmRepNotasVentas.aspx" />
     <Content Include="Reportes\wfrmKardex_ant.aspx" />
+    <Content Include="Reportes\ImpresionSaldos.aspx" />
     <Content Include="Reportes\wfrmRepSaldos.aspx" />
     <Content Include="Reportes\wfrmTotalPorProveedor.aspx" />
     <Content Include="Reportes\ImpresionBoleta.aspx" />
@@ -920,6 +921,12 @@
     </Compile>
     <Compile Include="Reportes\wfrmKardex_ant.aspx.designer.cs">
       <DependentUpon>wfrmKardex_ant.aspx</DependentUpon>
+    <Compile Include="Reportes\ImpresionSaldos.aspx.cs">
+      <DependentUpon>ImpresionSaldos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ImpresionSaldos.aspx.designer.cs">
+      <DependentUpon>ImpresionSaldos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\rpt\crSaldos1.cs">
       <AutoGen>True</AutoGen>

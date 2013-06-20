@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ImpresionSaldos.aspx.cs" 
+﻿<%@ Page Language="C#" AutoEventWireup="true" 
+CodeBehind="ImpresionSaldos.aspx.cs" 
 Inherits="AgrocomercioWEB.Reportes.ImpresionSaldos" %>
 
 <%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
