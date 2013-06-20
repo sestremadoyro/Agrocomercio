@@ -1983,7 +1983,7 @@ namespace AgrocomercioWEB.Compras
                 else
                 {
                     txtArtPreUnitario.Text = Math.Round(((Double)oLoteArt.LotPrecioCom / nTipCam), 2).ToString();
-                    LotNro = oLoteArt.LotNro;
+                    LotNro = lstLotesArt.MaxLotNroAvaliable(ArtCod);
                 }
 
                 if (BuscarArticulo(oArticulo.ArtCod, ref LotNro, ref LprPrecio, ref LprDscto))

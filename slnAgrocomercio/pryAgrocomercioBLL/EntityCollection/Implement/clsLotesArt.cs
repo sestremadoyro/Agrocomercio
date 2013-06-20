@@ -51,7 +51,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                     {
                         nCantidad -= (decimal)oLote.LotStock;
                         oLote.LotStock = 0;
-                        oLote.LotEstado = "I";
+                        oLote.LotEstado = "0";
                     }
                     else
                     {
@@ -74,7 +74,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         {
             try
             {
-                List<LotesArt> result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == "A")
+                List<LotesArt> result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado != "I")
                                    .OrderBy(Lot => Lot.LotNro).ToList();
 
                 if (result.Count() > 0)
@@ -90,24 +90,6 @@ namespace pryAgrocomercioBLL.EntityCollection
                 throw ex;
             }
 
-        
-           
-
-            //if (cTipReg == "FIRST")
-            //{
-            //     result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
-            //    .OrderBy(Lot => Lot.LotNro);
-            //}
-            //else
-            //{
-            //     result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
-            //        .OrderByDescending(Lot => Lot.LotNro);
-            //}
-            //if (result.Count() > 0)
-            //{    
-            //    return result.First();                
-            //}
-
             return null;
         }
         public LotesArt GetLoteArt(int ArtCod, int LotCod)
@@ -122,7 +104,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         public decimal GetLoteArtStock(int ArtCod)
         {
             decimal nTotalStock = 0;
-            var result = this.Find(Lot => Lot.LotEstado == "A" && Lot.ArtCod == ArtCod);
+            var result = this.Find(Lot => Lot.LotEstado != "I" && Lot.ArtCod == ArtCod);
 
             if (result.Count() > 0)
                 nTotalStock += (decimal)result.Select(Lot => Lot.LotStock).Sum();
@@ -152,6 +134,16 @@ namespace pryAgrocomercioBLL.EntityCollection
         public int MaxLotNro(int ArtCod)
         {
             var result = this.Find(Lot => Lot.ArtCod == ArtCod);
+
+            if (result.Count() > 0)
+            {
+                return result.Max(Lot => Lot.LotNro);
+            }
+            return 0;
+        }
+        public int MaxLotNroAvaliable(int ArtCod)
+        {
+            var result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotEstado != "I");
 
             if (result.Count() > 0)
             {

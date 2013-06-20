@@ -181,158 +181,158 @@ namespace AgrocomercioWEB.Reportes
 
         protected void gridKardex_RowCreated(object sender, GridViewRowEventArgs e)
         {
-            bool IsSubTotalRowNeedToAdd = false;
-            bool IsGrandTotalRowNeedtoAdd = false;
+            //bool IsSubTotalRowNeedToAdd = false;
+            //bool IsGrandTotalRowNeedtoAdd = false;
 
-            if ((strPreviousRowID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CustomerID") != null))
-                if (strPreviousRowID != DataBinder.Eval(e.Row.DataItem, "CustomerID").ToString())
-                    IsSubTotalRowNeedToAdd = true;
+            //if ((strPreviousRowID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CustomerID") != null))
+            //    if (strPreviousRowID != DataBinder.Eval(e.Row.DataItem, "CustomerID").ToString())
+            //        IsSubTotalRowNeedToAdd = true;
 
-            if ((strPreviousRowID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CustomerID") == null))
-            {
-                IsSubTotalRowNeedToAdd = true;
-                IsGrandTotalRowNeedtoAdd = true;
-                intSubTotalIndex = 0;
-            }
+            //if ((strPreviousRowID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CustomerID") == null))
+            //{
+            //    IsSubTotalRowNeedToAdd = true;
+            //    IsGrandTotalRowNeedtoAdd = true;
+            //    intSubTotalIndex = 0;
+            //}
 
-            #region Inserting first Row and populating fist Group Header details
-            if ((strPreviousRowID == string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CustomerID") != null))
-            {
-                GridView grdViewOrders = (GridView)sender;
+            //#region Inserting first Row and populating fist Group Header details
+            //if ((strPreviousRowID == string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CustomerID") != null))
+            //{
+            //    GridView grdViewOrders = (GridView)sender;
 
-                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+            //    GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
 
-                TableCell cell = new TableCell();
-                cell.Text = "Customer Name : " + DataBinder.Eval(e.Row.DataItem, "CompanyName").ToString();
-                cell.ColumnSpan = 6;
-                cell.CssClass = "GroupHeaderStyle";
-                row.Cells.Add(cell);
+            //    TableCell cell = new TableCell();
+            //    cell.Text = "Customer Name : " + DataBinder.Eval(e.Row.DataItem, "CompanyName").ToString();
+            //    cell.ColumnSpan = 6;
+            //    cell.CssClass = "GroupHeaderStyle";
+            //    row.Cells.Add(cell);
 
-                grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
-                intSubTotalIndex++;
-            }
-            #endregion
+            //    grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
+            //    intSubTotalIndex++;
+            //}
+            //#endregion
 
-            if (IsSubTotalRowNeedToAdd)
-            {
-                #region Adding Sub Total Row
-                GridView grdViewOrders = (GridView)sender;
+            //if (IsSubTotalRowNeedToAdd)
+            //{
+            //    #region Adding Sub Total Row
+            //    GridView grdViewOrders = (GridView)sender;
 
-                // Creating a Row
-                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+            //    // Creating a Row
+            //    GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
 
-                //Adding Total Cell 
-                TableCell cell = new TableCell();
-                cell.Text = "Sub Total";
-                cell.HorizontalAlign = HorizontalAlign.Left;
-                cell.ColumnSpan = 2;
-                cell.CssClass = "SubTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Total Cell 
+            //    TableCell cell = new TableCell();
+            //    cell.Text = "Sub Total";
+            //    cell.HorizontalAlign = HorizontalAlign.Left;
+            //    cell.ColumnSpan = 2;
+            //    cell.CssClass = "SubTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding Unit Price Column
-                cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblSubTotalUnitPrice);
-                cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.CssClass = "SubTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Unit Price Column
+            //    cell = new TableCell();
+            //    cell.Text = string.Format("{0:0.00}", dblSubTotalUnitPrice);
+            //    cell.HorizontalAlign = HorizontalAlign.Right;
+            //    cell.CssClass = "SubTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding Quantity Column
-                cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblSubTotalQuantity);
-                cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.CssClass = "SubTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Quantity Column
+            //    cell = new TableCell();
+            //    cell.Text = string.Format("{0:0.00}", dblSubTotalQuantity);
+            //    cell.HorizontalAlign = HorizontalAlign.Right;
+            //    cell.CssClass = "SubTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding Discount Column
-                cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblSubTotalDiscount);
-                cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.CssClass = "SubTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Discount Column
+            //    cell = new TableCell();
+            //    cell.Text = string.Format("{0:0.00}", dblSubTotalDiscount);
+            //    cell.HorizontalAlign = HorizontalAlign.Right;
+            //    cell.CssClass = "SubTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding Amount Column
-                cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblSubTotalAmount);
-                cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.CssClass = "SubTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Amount Column
+            //    cell = new TableCell();
+            //    cell.Text = string.Format("{0:0.00}", dblSubTotalAmount);
+            //    cell.HorizontalAlign = HorizontalAlign.Right;
+            //    cell.CssClass = "SubTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding the Row at the RowIndex position in the Grid
-                grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
-                intSubTotalIndex++;
-                #endregion
+            //    //Adding the Row at the RowIndex position in the Grid
+            //    grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
+            //    intSubTotalIndex++;
+            //    #endregion
 
-                #region Adding Next Group Header Details
-                if (DataBinder.Eval(e.Row.DataItem, "CustomerID") != null)
-                {
-                    row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+            //    #region Adding Next Group Header Details
+            //    if (DataBinder.Eval(e.Row.DataItem, "CustomerID") != null)
+            //    {
+            //        row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
 
-                    cell = new TableCell();
-                    cell.Text = "Customer Name : " + DataBinder.Eval(e.Row.DataItem, "CompanyName").ToString();
-                    cell.ColumnSpan = 6;
-                    cell.CssClass = "GroupHeaderStyle";
-                    row.Cells.Add(cell);
+            //        cell = new TableCell();
+            //        cell.Text = "Customer Name : " + DataBinder.Eval(e.Row.DataItem, "CompanyName").ToString();
+            //        cell.ColumnSpan = 6;
+            //        cell.CssClass = "GroupHeaderStyle";
+            //        row.Cells.Add(cell);
 
-                    grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
-                    intSubTotalIndex++;
-                }
-                #endregion
+            //        grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
+            //        intSubTotalIndex++;
+            //    }
+            //    #endregion
 
-                #region Reseting the Sub Total Variables
-                dblSubTotalUnitPrice = 0;
-                dblSubTotalQuantity = 0;
-                dblSubTotalDiscount = 0;
-                dblSubTotalAmount = 0;
-                #endregion
-            }
-            if (IsGrandTotalRowNeedtoAdd)
-            {
-                #region Grand Total Row
-                GridView grdViewOrders = (GridView)sender;
+            //    #region Reseting the Sub Total Variables
+            //    dblSubTotalUnitPrice = 0;
+            //    dblSubTotalQuantity = 0;
+            //    dblSubTotalDiscount = 0;
+            //    dblSubTotalAmount = 0;
+            //    #endregion
+            //}
+            //if (IsGrandTotalRowNeedtoAdd)
+            //{
+            //    #region Grand Total Row
+            //    GridView grdViewOrders = (GridView)sender;
 
-                // Creating a Row
-                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+            //    // Creating a Row
+            //    GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
 
-                //Adding Total Cell 
-                TableCell cell = new TableCell();
-                cell.Text = "Grand Total";
-                cell.HorizontalAlign = HorizontalAlign.Left;
-                cell.ColumnSpan = 2;
-                cell.CssClass = "GrandTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Total Cell 
+            //    TableCell cell = new TableCell();
+            //    cell.Text = "Grand Total";
+            //    cell.HorizontalAlign = HorizontalAlign.Left;
+            //    cell.ColumnSpan = 2;
+            //    cell.CssClass = "GrandTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding Unit Price Column
-                cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblGrandTotalUnitPrice);
-                cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.CssClass = "GrandTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Unit Price Column
+            //    cell = new TableCell();
+            //    cell.Text = string.Format("{0:0.00}", dblGrandTotalUnitPrice);
+            //    cell.HorizontalAlign = HorizontalAlign.Right;
+            //    cell.CssClass = "GrandTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding Quantity Column
-                cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblGrandTotalQuantity);
-                cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.CssClass = "GrandTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Quantity Column
+            //    cell = new TableCell();
+            //    cell.Text = string.Format("{0:0.00}", dblGrandTotalQuantity);
+            //    cell.HorizontalAlign = HorizontalAlign.Right;
+            //    cell.CssClass = "GrandTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding Discount Column
-                cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblGrandTotalDiscount);
-                cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.CssClass = "GrandTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Discount Column
+            //    cell = new TableCell();
+            //    cell.Text = string.Format("{0:0.00}", dblGrandTotalDiscount);
+            //    cell.HorizontalAlign = HorizontalAlign.Right;
+            //    cell.CssClass = "GrandTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding Amount Column
-                cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblGrandTotalAmount);
-                cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.CssClass = "GrandTotalRowStyle";
-                row.Cells.Add(cell);
+            //    //Adding Amount Column
+            //    cell = new TableCell();
+            //    cell.Text = string.Format("{0:0.00}", dblGrandTotalAmount);
+            //    cell.HorizontalAlign = HorizontalAlign.Right;
+            //    cell.CssClass = "GrandTotalRowStyle";
+            //    row.Cells.Add(cell);
 
-                //Adding the Row at the RowIndex position in the Grid
-                grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex, row);
-                #endregion
-            }
+            //    //Adding the Row at the RowIndex position in the Grid
+            //    grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex, row);
+            //    #endregion
+            //}
         }
 
    
