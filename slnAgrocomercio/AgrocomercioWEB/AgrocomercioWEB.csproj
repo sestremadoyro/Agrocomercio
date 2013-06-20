@@ -624,6 +624,7 @@
     <Content Include="pagos\wfrmPagxLetra.aspx" />
     <Content Include="pagos\wfrmRepNotasCompras.aspx" />
     <Content Include="pagos\wfrmRepNotasVentas.aspx" />
+    <Content Include="Reportes\wfrmKardex_ant.aspx" />
     <Content Include="Reportes\wfrmRepSaldos.aspx" />
     <Content Include="Reportes\wfrmTotalPorProveedor.aspx" />
     <Content Include="Reportes\ImpresionBoleta.aspx" />
@@ -913,6 +914,13 @@
     <Compile Include="Reportes\Clases\clsRepCabeceraDoc.cs" />
     <Compile Include="Reportes\Clases\clsRepDetalleFactura.cs" />
     <Compile Include="Reportes\Clases\clsRepCompras.cs" />
+    <Compile Include="Reportes\wfrmKardex_ant.aspx.cs">
+      <DependentUpon>wfrmKardex_ant.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\wfrmKardex_ant.aspx.designer.cs">
+      <DependentUpon>wfrmKardex_ant.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\rpt\crSaldos1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1101,6 +1109,7 @@
     <Folder Include="bin\zh-CHS\" />
     <Folder Include="bin\zh-CHT\" />
     <Folder Include="Maestros\DataSet\" />
+    <Folder Include="Reportes\Data\" />
     <Folder Include="TmpExports\" />
   </ItemGroup>
   <ItemGroup>
