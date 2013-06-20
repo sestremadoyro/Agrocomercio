@@ -921,6 +921,7 @@
     </Compile>
     <Compile Include="Reportes\wfrmKardex_ant.aspx.designer.cs">
       <DependentUpon>wfrmKardex_ant.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\ImpresionSaldos.aspx.cs">
       <DependentUpon>ImpresionSaldos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
