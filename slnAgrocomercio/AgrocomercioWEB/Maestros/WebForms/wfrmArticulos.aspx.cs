@@ -400,7 +400,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 oLotesArt.LotNro = Convert.ToInt32(txtLote.Text);
                 oLotesArt.LotFecModi = DateTime.Today;
                 oLotesArt.LotFecRegis = DateTime.Today;
-                oLotesArt.LotEstado = true;
+                oLotesArt.LotEstado = "A";
 
                 try
                 {
@@ -756,7 +756,11 @@ namespace AgrocomercioWEB.Maestros.WebForms
                     FechaVenci = oLotesArt.LotFecVenci.Value;
 
                     txtFecVenceLote.Text = FechaVenci.ToString("yyyy-MM-dd");
-                    chkEstadoPrecio.Checked = oLotesArt.LotEstado;
+                    if (oLotesArt.LotEstado == "A")
+                        chkEstadoPrecio.Checked = true;
+                    else
+                        chkEstadoPrecio.Checked = false;
+
                     lblCodigoLote.Text = oLotesArt.LotCod.ToString();
 
                     pnlBusqueda.Visible = false;
@@ -778,7 +782,10 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 clsLotesArt oLotesArtList = new clsLotesArt();
                 LotesArt oLotesArt = new LotesArt();
                 oLotesArt = oLotesArtList.GetLoteArt(linProCodigo, LoteCodigo);
-                oLotesArt.LotEstado = false;
+                oLotesArt.LotEstado = "I";
+                oLotesArt.LotStock = 0;
+                oLotesArt.LotPrecioCom = 0;
+                oLotesArt.LotPrecioVen = 0;
 
                 try
                 {

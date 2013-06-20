@@ -8,13 +8,12 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.Data.EntityClient;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region Metadatos de relaciones en EDM
@@ -22,11 +21,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Articulos_Proveedores", "Proveedores", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Proveedores), "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Articulos), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_ARTICULOS_UNIDADES", "Unidades", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Unidades), "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Articulos), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DetOperacion_Articulos", "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Articulos), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
-[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_LotesArt_Articulos", "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Articulos), "LotesArt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.LotesArt), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Operaciones_Clientes", "Clientes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Clientes), "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Operaciones), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "det_letra_fk", "letra", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.letra), "det_letra", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.det_letra), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_det_letra_letra", "letra", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.letra), "det_letra", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.det_letra), true)]
-[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DetOperacion_LotesArt", "LotesArt", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.LotesArt), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DetOperacion_Operaciones", "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.Operaciones), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DetOperacion_Unidades", "Unidades", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Unidades), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DocumenOperacion_Operaciones", "Operaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.Operaciones), "DocumenOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DocumenOperacion), true)]
@@ -38,6 +35,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Personal_TipoPersonal", "TipoPersonal", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(pryAgrocomercioDAL.TipoPersonal), "Personal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Personal), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Usuarios_Personal", "Personal", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Personal), "Usuarios", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Usuarios), true)]
 [assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_Usuarios_Roles", "Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Roles), "Usuarios", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.Usuarios), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_LotesArt_Articulos", "Articulos", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.Articulos), "LotesArt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.LotesArt), true)]
+[assembly: EdmRelationshipAttribute("AgrocomercioModel", "FK_DetOperacion_LotesArt", "LotesArt", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(pryAgrocomercioDAL.LotesArt), "DetOperacion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(pryAgrocomercioDAL.DetOperacion), true)]
 
 #endregion
 
@@ -204,22 +203,6 @@ namespace pryAgrocomercioDAL
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        public ObjectSet<LotesArt> LotesArt
-        {
-            get
-            {
-                if ((_LotesArt == null))
-                {
-                    _LotesArt = base.CreateObjectSet<LotesArt>("LotesArt");
-                }
-                return _LotesArt;
-            }
-        }
-        private ObjectSet<LotesArt> _LotesArt;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
         public ObjectSet<Notas> Notas
         {
             get
@@ -328,22 +311,6 @@ namespace pryAgrocomercioDAL
             }
         }
         private ObjectSet<Roles> _Roles;
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        public ObjectSet<sysdiagrams> sysdiagrams
-        {
-            get
-            {
-                if ((_sysdiagrams == null))
-                {
-                    _sysdiagrams = base.CreateObjectSet<sysdiagrams>("sysdiagrams");
-                }
-                return _sysdiagrams;
-            }
-        }
-        private ObjectSet<sysdiagrams> _sysdiagrams;
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -712,9 +679,24 @@ namespace pryAgrocomercioDAL
             }
         }
         private ObjectSet<vwtodo_movimiento> _vwtodo_movimiento;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<LotesArt> LotesArt
+        {
+            get
+            {
+                if ((_LotesArt == null))
+                {
+                    _LotesArt = base.CreateObjectSet<LotesArt>("LotesArt");
+                }
+                return _LotesArt;
+            }
+        }
+        private ObjectSet<LotesArt> _LotesArt;
 
         #endregion
-
         #region Métodos AddTo
     
         /// <summary>
@@ -774,14 +756,6 @@ namespace pryAgrocomercioDAL
         }
     
         /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet LotesArt. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddToLotesArt(LotesArt lotesArt)
-        {
-            base.AddObject("LotesArt", lotesArt);
-        }
-    
-        /// <summary>
         /// Método desusado para agregar un nuevo objeto al EntitySet Notas. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
         /// </summary>
         public void AddToNotas(Notas notas)
@@ -835,14 +809,6 @@ namespace pryAgrocomercioDAL
         public void AddToRoles(Roles roles)
         {
             base.AddObject("Roles", roles);
-        }
-    
-        /// <summary>
-        /// Método desusado para agregar un nuevo objeto al EntitySet sysdiagrams. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
-        /// </summary>
-        public void AddTosysdiagrams(sysdiagrams sysdiagrams)
-        {
-            base.AddObject("sysdiagrams", sysdiagrams);
         }
     
         /// <summary>
@@ -1028,13 +994,21 @@ namespace pryAgrocomercioDAL
         {
             base.AddObject("vwtodo_movimiento", vwtodo_movimiento);
         }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet LotesArt. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToLotesArt(LotesArt lotesArt)
+        {
+            base.AddObject("LotesArt", lotesArt);
+        }
 
         #endregion
-
     }
+    
 
     #endregion
-
+    
     #region Entidades
     
     /// <summary>
@@ -1067,7 +1041,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -1458,7 +1431,6 @@ namespace pryAgrocomercioDAL
         partial void OnArtStockIniChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -1583,7 +1555,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1610,7 +1581,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -1740,7 +1710,6 @@ namespace pryAgrocomercioDAL
         partial void OnAtrEstadoChanged();
 
         #endregion
-
     
     }
     
@@ -1766,7 +1735,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -2109,7 +2077,6 @@ namespace pryAgrocomercioDAL
         partial void OnctippagoChanged();
 
         #endregion
-
     
     }
     
@@ -2137,7 +2104,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -2432,7 +2398,6 @@ namespace pryAgrocomercioDAL
         partial void OnCliCreAsigChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -2459,7 +2424,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2488,7 +2452,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -2759,7 +2722,6 @@ namespace pryAgrocomercioDAL
         partial void OncnumletraChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -2840,7 +2802,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2871,7 +2832,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -3487,7 +3447,6 @@ namespace pryAgrocomercioDAL
         partial void OnultChanged();
 
         #endregion
-
     
     }
     
@@ -3519,7 +3478,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -4135,7 +4093,6 @@ namespace pryAgrocomercioDAL
         partial void OnultChanged();
 
         #endregion
-
     
     }
     
@@ -4163,7 +4120,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -4410,7 +4366,6 @@ namespace pryAgrocomercioDAL
         partial void OndtpEstadoChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -4448,44 +4403,6 @@ namespace pryAgrocomercioDAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Articulos>("AgrocomercioModel.FK_DetOperacion_Articulos", "Articulos", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_LotesArt", "LotesArt")]
-        public LotesArt LotesArt
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt").Value = value;
-            }
-        }
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<LotesArt> LotesArtReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt", value);
                 }
             }
         }
@@ -4565,9 +4482,46 @@ namespace pryAgrocomercioDAL
                 }
             }
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AgrocomercioModel", "FK_DetOperacion_LotesArt", "LotesArt")]
+        public LotesArt LotesArt
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<LotesArt> LotesArtReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<LotesArt>("AgrocomercioModel.FK_DetOperacion_LotesArt", "LotesArt", value);
+                }
+            }
+        }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4596,7 +4550,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -4963,7 +4916,6 @@ namespace pryAgrocomercioDAL
         partial void OndopDocCompleChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -5006,7 +4958,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -5031,7 +4982,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -5302,7 +5252,6 @@ namespace pryAgrocomercioDAL
         partial void OntranomChanged();
 
         #endregion
-
     
     }
     
@@ -5332,7 +5281,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -5873,7 +5821,6 @@ namespace pryAgrocomercioDAL
         partial void OntipdocChanged();
 
         #endregion
-
     
     }
     
@@ -5899,7 +5846,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -6194,7 +6140,6 @@ namespace pryAgrocomercioDAL
         partial void OnnmntnotaChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -6243,7 +6188,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -6274,7 +6218,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -6698,7 +6641,6 @@ namespace pryAgrocomercioDAL
         partial void OnidetletraChanged();
 
         #endregion
-
     
     }
     
@@ -6724,7 +6666,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -7163,7 +7104,6 @@ namespace pryAgrocomercioDAL
         partial void OnTraNombreChanged();
 
         #endregion
-
     
     }
     
@@ -7183,7 +7123,7 @@ namespace pryAgrocomercioDAL
         /// <param name="lotCod">Valor inicial de la propiedad LotCod.</param>
         /// <param name="lotNro">Valor inicial de la propiedad LotNro.</param>
         /// <param name="lotEstado">Valor inicial de la propiedad LotEstado.</param>
-        public static LotesArt CreateLotesArt(global::System.Int32 lotCod, global::System.Int32 lotNro, global::System.Boolean lotEstado)
+        public static LotesArt CreateLotesArt(global::System.Int32 lotCod, global::System.Int32 lotNro, global::System.String lotEstado)
         {
             LotesArt lotesArt = new LotesArt();
             lotesArt.LotCod = lotCod;
@@ -7193,7 +7133,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -7222,30 +7161,6 @@ namespace pryAgrocomercioDAL
         private global::System.Int32 _LotCod;
         partial void OnLotCodChanging(global::System.Int32 value);
         partial void OnLotCodChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ArtCod
-        {
-            get
-            {
-                return _ArtCod;
-            }
-            set
-            {
-                OnArtCodChanging(value);
-                ReportPropertyChanging("ArtCod");
-                _ArtCod = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ArtCod");
-                OnArtCodChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _ArtCod;
-        partial void OnArtCodChanging(Nullable<global::System.Int32> value);
-        partial void OnArtCodChanged();
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -7294,54 +7209,6 @@ namespace pryAgrocomercioDAL
         private Nullable<global::System.Decimal> _LotStock;
         partial void OnLotStockChanging(Nullable<global::System.Decimal> value);
         partial void OnLotStockChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> LotPrecioCom
-        {
-            get
-            {
-                return _LotPrecioCom;
-            }
-            set
-            {
-                OnLotPrecioComChanging(value);
-                ReportPropertyChanging("LotPrecioCom");
-                _LotPrecioCom = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LotPrecioCom");
-                OnLotPrecioComChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _LotPrecioCom;
-        partial void OnLotPrecioComChanging(Nullable<global::System.Decimal> value);
-        partial void OnLotPrecioComChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> LotPrecioVen
-        {
-            get
-            {
-                return _LotPrecioVen;
-            }
-            set
-            {
-                OnLotPrecioVenChanging(value);
-                ReportPropertyChanging("LotPrecioVen");
-                _LotPrecioVen = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LotPrecioVen");
-                OnLotPrecioVenChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _LotPrecioVen;
-        partial void OnLotPrecioVenChanging(Nullable<global::System.Decimal> value);
-        partial void OnLotPrecioVenChanged();
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -7420,7 +7287,7 @@ namespace pryAgrocomercioDAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean LotEstado
+        public global::System.String LotEstado
         {
             get
             {
@@ -7430,17 +7297,112 @@ namespace pryAgrocomercioDAL
             {
                 OnLotEstadoChanging(value);
                 ReportPropertyChanging("LotEstado");
-                _LotEstado = StructuralObject.SetValidValue(value);
+                _LotEstado = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LotEstado");
                 OnLotEstadoChanged();
             }
         }
-        private global::System.Boolean _LotEstado;
-        partial void OnLotEstadoChanging(global::System.Boolean value);
+        private global::System.String _LotEstado;
+        partial void OnLotEstadoChanging(global::System.String value);
         partial void OnLotEstadoChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ArtCod
+        {
+            get
+            {
+                return _ArtCod;
+            }
+            set
+            {
+                OnArtCodChanging(value);
+                ReportPropertyChanging("ArtCod");
+                _ArtCod = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ArtCod");
+                OnArtCodChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ArtCod;
+        partial void OnArtCodChanging(Nullable<global::System.Int32> value);
+        partial void OnArtCodChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> LotPrecioCom
+        {
+            get
+            {
+                return _LotPrecioCom;
+            }
+            set
+            {
+                OnLotPrecioComChanging(value);
+                ReportPropertyChanging("LotPrecioCom");
+                _LotPrecioCom = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LotPrecioCom");
+                OnLotPrecioComChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _LotPrecioCom;
+        partial void OnLotPrecioComChanging(Nullable<global::System.Decimal> value);
+        partial void OnLotPrecioComChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> LotPrecioVen
+        {
+            get
+            {
+                return _LotPrecioVen;
+            }
+            set
+            {
+                OnLotPrecioVenChanging(value);
+                ReportPropertyChanging("LotPrecioVen");
+                _LotPrecioVen = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LotPrecioVen");
+                OnLotPrecioVenChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _LotPrecioVen;
+        partial void OnLotPrecioVenChanging(Nullable<global::System.Decimal> value);
+        partial void OnLotPrecioVenChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> LprCod
+        {
+            get
+            {
+                return _LprCod;
+            }
+            set
+            {
+                OnLprCodChanging(value);
+                ReportPropertyChanging("LprCod");
+                _LprCod = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LprCod");
+                OnLprCodChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _LprCod;
+        partial void OnLprCodChanging(Nullable<global::System.Int32> value);
+        partial void OnLprCodChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -7505,7 +7467,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -7532,7 +7493,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -7902,7 +7862,6 @@ namespace pryAgrocomercioDAL
         partial void OnletraChanged();
 
         #endregion
-
     
     }
     
@@ -7928,7 +7887,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -8199,7 +8157,6 @@ namespace pryAgrocomercioDAL
         partial void OnctipNotaChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -8226,7 +8183,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -8253,7 +8209,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -8860,7 +8815,6 @@ namespace pryAgrocomercioDAL
         partial void OnOpeCicloChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -9099,7 +9053,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -9124,7 +9077,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -9395,7 +9347,6 @@ namespace pryAgrocomercioDAL
         partial void OninumliqChanged();
 
         #endregion
-
     
     }
     
@@ -9425,7 +9376,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -9870,7 +9820,6 @@ namespace pryAgrocomercioDAL
         partial void OncmonedaChanged();
 
         #endregion
-
     
     }
     
@@ -9900,7 +9849,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -10345,7 +10293,6 @@ namespace pryAgrocomercioDAL
         partial void OncmonedaChanged();
 
         #endregion
-
     
     }
     
@@ -10373,7 +10320,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -10548,7 +10494,6 @@ namespace pryAgrocomercioDAL
         partial void OnperTelefonoChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -10635,7 +10580,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -10660,7 +10604,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -11051,7 +10994,6 @@ namespace pryAgrocomercioDAL
         partial void OnsalsolChanged();
 
         #endregion
-
     
     }
     
@@ -11083,7 +11025,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -11354,7 +11295,6 @@ namespace pryAgrocomercioDAL
         partial void OnPrvGananciaChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -11403,7 +11343,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -11428,7 +11367,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -11627,7 +11565,6 @@ namespace pryAgrocomercioDAL
         partial void OnicodletraChanged();
 
         #endregion
-
     
     }
     
@@ -11653,7 +11590,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -11804,7 +11740,6 @@ namespace pryAgrocomercioDAL
         partial void OnirelnotfacChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -11847,7 +11782,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -11876,7 +11810,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -12273,7 +12206,6 @@ namespace pryAgrocomercioDAL
         partial void OnmonedaChanged();
 
         #endregion
-
     
     }
     
@@ -12303,7 +12235,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -12652,7 +12583,6 @@ namespace pryAgrocomercioDAL
         partial void OnmonedaChanged();
 
         #endregion
-
     
     }
     
@@ -12678,7 +12608,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -12829,7 +12758,6 @@ namespace pryAgrocomercioDAL
         partial void OnrolMenuChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -12856,164 +12784,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
-    }
-    
-    /// <summary>
-    /// No hay documentación de metadatos disponible.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="AgrocomercioModel", Name="sysdiagrams")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class sysdiagrams : EntityObject
-    {
-        #region Método de generador
-    
-        /// <summary>
-        /// Crear un nuevo objeto sysdiagrams.
-        /// </summary>
-        /// <param name="name">Valor inicial de la propiedad name.</param>
-        /// <param name="principal_id">Valor inicial de la propiedad principal_id.</param>
-        /// <param name="diagram_id">Valor inicial de la propiedad diagram_id.</param>
-        public static sysdiagrams Createsysdiagrams(global::System.String name, global::System.Int32 principal_id, global::System.Int32 diagram_id)
-        {
-            sysdiagrams sysdiagrams = new sysdiagrams();
-            sysdiagrams.name = name;
-            sysdiagrams.principal_id = principal_id;
-            sysdiagrams.diagram_id = diagram_id;
-            return sysdiagrams;
-        }
-
-        #endregion
-
-        #region Propiedades primitivas
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                OnnameChanging(value);
-                ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("name");
-                OnnameChanged();
-            }
-        }
-        private global::System.String _name;
-        partial void OnnameChanging(global::System.String value);
-        partial void OnnameChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 principal_id
-        {
-            get
-            {
-                return _principal_id;
-            }
-            set
-            {
-                Onprincipal_idChanging(value);
-                ReportPropertyChanging("principal_id");
-                _principal_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("principal_id");
-                Onprincipal_idChanged();
-            }
-        }
-        private global::System.Int32 _principal_id;
-        partial void Onprincipal_idChanging(global::System.Int32 value);
-        partial void Onprincipal_idChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 diagram_id
-        {
-            get
-            {
-                return _diagram_id;
-            }
-            set
-            {
-                if (_diagram_id != value)
-                {
-                    Ondiagram_idChanging(value);
-                    ReportPropertyChanging("diagram_id");
-                    _diagram_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("diagram_id");
-                    Ondiagram_idChanged();
-                }
-            }
-        }
-        private global::System.Int32 _diagram_id;
-        partial void Ondiagram_idChanging(global::System.Int32 value);
-        partial void Ondiagram_idChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> version
-        {
-            get
-            {
-                return _version;
-            }
-            set
-            {
-                OnversionChanging(value);
-                ReportPropertyChanging("version");
-                _version = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("version");
-                OnversionChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _version;
-        partial void OnversionChanging(Nullable<global::System.Int32> value);
-        partial void OnversionChanged();
-    
-        /// <summary>
-        /// No hay documentación de metadatos disponible.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.Byte[] definition
-        {
-            get
-            {
-                return StructuralObject.GetValidValue(_definition);
-            }
-            set
-            {
-                OndefinitionChanging(value);
-                ReportPropertyChanging("definition");
-                _definition = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("definition");
-                OndefinitionChanged();
-            }
-        }
-        private global::System.Byte[] _definition;
-        partial void OndefinitionChanging(global::System.Byte[] value);
-        partial void OndefinitionChanged();
-
-        #endregion
-
-    
     }
     
     /// <summary>
@@ -13038,7 +12808,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -13525,7 +13294,6 @@ namespace pryAgrocomercioDAL
         partial void OntotdolaresChanged();
 
         #endregion
-
     
     }
     
@@ -13551,7 +13319,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -13678,7 +13445,6 @@ namespace pryAgrocomercioDAL
         partial void OntcmfecmodChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -13705,7 +13471,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -13730,7 +13495,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -13785,7 +13549,6 @@ namespace pryAgrocomercioDAL
         partial void OntpeDescripcionChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -13812,7 +13575,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -13841,7 +13603,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -14016,7 +13777,6 @@ namespace pryAgrocomercioDAL
         partial void OnTraEstadoChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -14043,7 +13803,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -14068,7 +13827,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -14123,7 +13881,6 @@ namespace pryAgrocomercioDAL
         partial void OnUbiDescripcionChanged();
 
         #endregion
-
     
     }
     
@@ -14153,7 +13910,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -14328,7 +14084,6 @@ namespace pryAgrocomercioDAL
         partial void OnUniFecRegisChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -14377,7 +14132,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -14402,7 +14156,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -14529,7 +14282,6 @@ namespace pryAgrocomercioDAL
         partial void OnRolCodChanged();
 
         #endregion
-
     
         #region Propiedades de navegación
     
@@ -14610,7 +14362,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -14635,7 +14386,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -15170,7 +14920,6 @@ namespace pryAgrocomercioDAL
         partial void OnTraNombreChanged();
 
         #endregion
-
     
     }
     
@@ -15198,7 +14947,6 @@ namespace pryAgrocomercioDAL
         }
 
         #endregion
-
         #region Propiedades primitivas
     
         /// <summary>
@@ -15760,11 +15508,9 @@ namespace pryAgrocomercioDAL
         partial void OntipdocChanged();
 
         #endregion
-
     
     }
 
     #endregion
-
     
 }

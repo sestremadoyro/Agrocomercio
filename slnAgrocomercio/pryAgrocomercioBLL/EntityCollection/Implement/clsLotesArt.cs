@@ -40,7 +40,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         {
             try
             {
-                var Lotes = this.Find(Lot => Lot.ArtCod == nArtCod && Lot.LotEstado && Lot.LotStock > 0).
+                var Lotes = this.Find(Lot => Lot.ArtCod == nArtCod && Lot.LotEstado == "A" && Lot.LotStock > 0).
                     OrderBy(Lot => Lot.LotNro);
 
                 foreach (LotesArt Lot in Lotes)
@@ -51,7 +51,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                     {
                         nCantidad -= (decimal)oLote.LotStock;
                         oLote.LotStock = 0;
-                        oLote.LotEstado = false;
+                        oLote.LotEstado = "I";
                     }
                     else
                     {
@@ -74,7 +74,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         {
             try
             {
-                List<LotesArt> result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == true)
+                List<LotesArt> result = this.Find(Lot => Lot.ArtCod == ArtCod && Lot.LotStock > 0 && Lot.LotEstado == "A")
                                    .OrderBy(Lot => Lot.LotNro).ToList();
 
                 if (result.Count() > 0)
@@ -122,7 +122,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         public decimal GetLoteArtStock(int ArtCod)
         {
             decimal nTotalStock = 0;
-            var result = this.Find(Lot => Lot.LotEstado == true && Lot.ArtCod == ArtCod);
+            var result = this.Find(Lot => Lot.LotEstado == "A" && Lot.ArtCod == ArtCod);
 
             if (result.Count() > 0)
                 nTotalStock += (decimal)result.Select(Lot => Lot.LotStock).Sum();
@@ -213,7 +213,7 @@ namespace pryAgrocomercioBLL.EntityCollection
 
         public List<LotesArt> GetListaLotes(int pArtCod)
         {
-            var lstPreciosTmp = Find(Pre => Pre.ArtCod == pArtCod && Pre.LotEstado == true);
+            var lstPreciosTmp = Find(Pre => Pre.ArtCod == pArtCod && Pre.LotEstado == "A");
             return lstPreciosTmp.ToList();
         }
 

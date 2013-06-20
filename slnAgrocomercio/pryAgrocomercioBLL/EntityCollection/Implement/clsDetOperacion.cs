@@ -79,7 +79,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                             DetOper.LotesArt.LotFecRegis = DateTime.Today;
                             DetOper.LotesArt.LotFecVenci = DateTime.Parse(row["LotFecVenci"].ToString());
                             DetOper.LotesArt.LotFecModi = DateTime.Now;
-                            DetOper.LotesArt.LotEstado = false;
+                            DetOper.LotesArt.LotEstado = "I";
                         }
                         else
                             DetOper.LotCod = lstLotesArt.GetLotCod(lnArtCod);
@@ -113,7 +113,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                     if (Operacion.OpeTipo == "C") // PARA COMPRAS
                     {
                         oDetOperacion.Articulos.ArtStock += (decimal)Det.dtpCantidad;
-                        oDetOperacion.LotesArt.LotEstado = true;                        
+                        oDetOperacion.LotesArt.LotEstado = "A";                        
                     }                        
                     else // PARA VENTAS
                     {
@@ -128,7 +128,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                         else
                         {
                             oDetOperacion.LotesArt.LotStock -= (decimal)Det.dtpCantidad;
-                            oDetOperacion.LotesArt.LotEstado = (oDetOperacion.LotesArt.LotStock > 0);
+                            oDetOperacion.LotesArt.LotEstado = (oDetOperacion.LotesArt.LotStock > 0)?"A":"I";
                         }
                         
                     }

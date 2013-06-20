@@ -191,7 +191,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                     
                     <tr>
                         <td class="clsFormEtiquetas">
-                            <asp:Label ID="lblCostoPromedio" runat="server" Text="Costo Promedio :" 
+                            <asp:Label ID="lblCostoPromedio" runat="server" Text="Precio Venta :" 
                                 ForeColor="Black" ></asp:Label>
                         </td>
                         <td>
@@ -401,7 +401,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                         </td>
                         <td>
                             <asp:TextBox ID="txtPrecio" runat="server" Width="120px"
-                             CssClass="clsFormTextMayusculas"></asp:TextBox>
+                             CssClass="clsFormTextMayusculas" Enabled="False"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                                 ControlToValidate="txtPrecio" Display="Dynamic" 
                                 ErrorMessage="RequiredFieldValidator">*</asp:RequiredFieldValidator>

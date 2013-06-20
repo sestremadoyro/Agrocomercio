@@ -171,12 +171,12 @@ namespace pryAgrocomercioBLL.EntityCollection
                     DetalleOpe.dtpEstado = false;
                     if (Operacion.OpeTipo == "C") // PARA COMPRAS
                     {
-                        DetalleOpe.LotesArt.LotEstado = false;
+                        DetalleOpe.LotesArt.LotEstado = "I";
                         DetalleOpe.LotesArt.LotStock = 0;
                     }                    
                     else // PARA VENTAS
                     {
-                        DetalleOpe.LotesArt.LotEstado = true;
+                        DetalleOpe.LotesArt.LotEstado = "A";
                         DetalleOpe.LotesArt.LotStock += (decimal)Det.dtpCantidad;
                     }
                     
