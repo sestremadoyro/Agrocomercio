@@ -136,60 +136,6 @@ namespace AgrocomercioWEB.Reportes {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Obout.Grid.Grid gridKardex;
-        
-        /// <summary>
-        /// Control Between_OpeFecEmision.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::Obout.Grid.CustomFilterOption Between_OpeFecEmision;
-        
-        /// <summary>
-        /// Control OpeFecEmisionBetweenFilter.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::Obout.Grid.GridTemplate OpeFecEmisionBetweenFilter;
-        
-        /// <summary>
-        /// Control ZonasFilter.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::Obout.Grid.GridTemplate ZonasFilter;
-        
-        /// <summary>
-        /// Control VendedorFilter.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::Obout.Grid.GridTemplate VendedorFilter;
-        
-        /// <summary>
-        /// Control odsZonas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsZonas;
-        
-        /// <summary>
-        /// Control odsVendedor.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsVendedor;
+        protected global::System.Web.UI.WebControls.GridView gridKardex;
     }
 }
