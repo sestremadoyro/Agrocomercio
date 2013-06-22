@@ -60,7 +60,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                         DetOper.dtpDscto = decimal.Parse(row["dtpDscto"].ToString());
                         DetOper.dtpSubTotal = decimal.Parse(row["dtpSubTotal"].ToString());
                         DetOper.UniCod = lstArticulos.GetUnidadCod((int)DetOper.ArtCod);
-                        DetOper.dtpEstado = false;
+                        DetOper.dtpEstado = (Operacion.OpeEstado == "P");
 
                         if (Operacion.OpeTipo == "C")
                         {
@@ -79,7 +79,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                             DetOper.LotesArt.LotFecRegis = DateTime.Today;
                             DetOper.LotesArt.LotFecVenci = DateTime.Parse(row["LotFecVenci"].ToString());
                             DetOper.LotesArt.LotFecModi = DateTime.Now;
-                            DetOper.LotesArt.LotEstado = "I";
+                            DetOper.LotesArt.LotEstado = (Operacion.OpeEstado == "P"?"A":"I");
                         }
                         else
                             DetOper.LotCod = lstLotesArt.GetLotCod(lnArtCod);

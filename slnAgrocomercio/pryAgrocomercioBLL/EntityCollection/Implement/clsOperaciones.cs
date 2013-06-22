@@ -99,7 +99,8 @@ namespace pryAgrocomercioBLL.EntityCollection
                 Operacion.OpeImpuesto = (Decimal)drForm["nOpeImpuesto"];
                 Operacion.OpeFlete = (Decimal)drForm["nOpeFlete"];
                 Operacion.OpeTotal = (Decimal)drForm["nOpeTotal"];
-                Operacion.OpeEstado = "R";
+                if (Operacion.OpeEstado != "P")
+                    Operacion.OpeEstado = "R";
                 Operacion.OpeModifica = DateTime.Now;
                 Operacion.UsrCod = gcUsrCod;
                                 

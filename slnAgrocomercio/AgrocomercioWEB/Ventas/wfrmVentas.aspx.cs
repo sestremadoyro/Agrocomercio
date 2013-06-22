@@ -1985,6 +1985,8 @@ namespace AgrocomercioWEB.Ventas
 
             if (oLoteArt.LotPrecioVen.HasValue)
                 nLprPrecio = (double)oLoteArt.LotPrecioVen;
+
+            nLprPrecio = (double)oArticulo.ArtCostoProm;
             
             oArticulo = lstArticulos.GetArticulo(ArtCod);
             if (oArticulo != null)
