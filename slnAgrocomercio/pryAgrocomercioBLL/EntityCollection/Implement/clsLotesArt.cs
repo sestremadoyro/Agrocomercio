@@ -166,14 +166,11 @@ namespace pryAgrocomercioBLL.EntityCollection
             Decimal nIGV = (Decimal)(nTasIGV + 1);
             List<Decimal> lstPre = null;
 
-            var result = this.Find(Pre => Pre.ArtCod == ArtCod && Pre.LotPrecioVen > 0);
+            var result = this.Find(Pre => Pre.ArtCod == ArtCod && Pre.LotPrecioCom > 0);
 
             if (result.Count() > 0)
             {
-                //lstPre = result.Select(Pre => (Decimal)((((Pre.LprPrecio - (Pre.LprPrecio * Pre.LprDscto / 100)) * nIGV) +
-                //        (Pre.LprPrecio / 100)) * (Pre.Articulos.Proveedores.PrvGanancia > 0 ? Pre.Articulos.Proveedores.PrvGanancia : 1))).ToList();
-
-                lstPre = result.Select(Pre => (Decimal)Pre.LotPrecioVen).ToList();
+                lstPre = result.Select(Pre => (Decimal)Pre.LotPrecioCom).ToList();
 
                 if (pnPrecio > 0)
                 {

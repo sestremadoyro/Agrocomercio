@@ -370,6 +370,23 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td class="clsCellTituloDatos2">
+                                                    <asp:CheckBox ID="chkPorDocumento" runat="server" Text="Por Nro Documento:  " 
+                                                        AutoPostBack="True" oncheckedchanged="chkPorDocumento_CheckedChanged" />
+                                                </td>
+                                                <td class="clsCellDatos2" colspan="2">
+                                                    <asp:TextBox ID="txtNroSerieBus" runat="server" Width="30px" MaxLength="3" 
+                                                        ToolTip="Nro de Serie del documento" Enabled="False"></asp:TextBox>&nbsp;
+                                                    - &nbsp;
+                                                    <asp:TextBox ID="txtNroDocumBus" runat="server" Width="80px" MaxLength="10" 
+                                                        Enabled="False" ontextchanged="txtNroDocumBus_TextChanged"></asp:TextBox>
+                                                                
+                                                </td>
+                                                <td class="clsCellDatos2">
+                                                   
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td colspan="4">
                                                     <asp:Panel ID="pnListOperaciones" runat="server" Height="325px" ScrollBars="Auto">
                                                         <asp:GridView ID="dgvListOperCompras" runat="server" AutoGenerateColumns="False"
@@ -1268,4 +1285,5 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </obout:Window>
+
 </asp:Content>

@@ -148,6 +148,33 @@ namespace AgrocomercioWEB.Ventas {
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender_txtFecFin;
         
         /// <summary>
+        /// Control chkPorDocumento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkPorDocumento;
+        
+        /// <summary>
+        /// Control txtNroSerieBus.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNroSerieBus;
+        
+        /// <summary>
+        /// Control txtNroDocumBus.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNroDocumBus;
+        
+        /// <summary>
         /// Control pnListOperaciones.
         /// </summary>
         /// <remarks>

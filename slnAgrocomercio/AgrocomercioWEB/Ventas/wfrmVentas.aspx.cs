@@ -406,11 +406,22 @@ namespace AgrocomercioWEB.Ventas
         {
             CargarListaOpeVenta(nNroDetPed);
         }
+
+        protected void txtNroDocumBus_TextChanged(object sender, EventArgs e)
+        {
+            CargarListaOpeVenta(nNroDetPed);
+        }
         protected void chkPorCliente_CheckedChanged(object sender, EventArgs e)
         {
             ddlClienteFiltro.Enabled = chkPorCliente.Checked;
             CargarListaOpeVenta(nNroDetPed);
         }
+        protected void chkPorDocumento_CheckedChanged(object sender, EventArgs e)
+        {
+            txtNroDocumBus.Enabled = chkPorDocumento.Checked;
+            txtNroSerieBus.Enabled = chkPorDocumento.Checked;
+        }
+
         protected void ddlMoneda_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlMoneda.SelectedValue == "USD")
@@ -1063,6 +1074,8 @@ namespace AgrocomercioWEB.Ventas
             DataTable dtOpeVenta;
             string cEstado = "";
             int nCliCod = 0;
+            string cNroSerie = "";
+            string cNroDoc = "";
             DateTime dFecIni = DateTime.Today;
             DateTime dFecFin = DateTime.Today;
 
@@ -1080,7 +1093,13 @@ namespace AgrocomercioWEB.Ventas
                 if (chkPorCliente.Checked)
                     nCliCod = int.Parse(ddlClienteFiltro.SelectedValue);
 
-                dtOpeVenta = lstOperaciones.GetListOperaciones(gcOpeTipo, chkPorFecha.Checked, dFecIni, dFecFin, cEstado, 0, nCliCod);
+                if (chkPorDocumento.Checked)
+                {
+                    cNroSerie = txtNroSerieBus.Text.Trim();
+                    cNroDoc = txtNroDocumBus.Text.Trim();
+                }
+
+                dtOpeVenta = lstOperaciones.GetListOperaciones(gcOpeTipo, chkPorFecha.Checked, dFecIni, dFecFin, cEstado, 0, nCliCod, cNroSerie, cNroDoc);
 
                 if (dtOpeVenta.Rows.Count == 0)
                     dtOpeVenta = CreatDTListaOpeVenta();
@@ -1979,16 +1998,21 @@ namespace AgrocomercioWEB.Ventas
 
             oLoteArt = lstLotesArt.GetLoteArt(ArtCod);
 
-            nLotNro = oLoteArt.LotNro;
-            if (oLoteArt.LotFecModi.HasValue)
-                dLotFecRegis = oLoteArt.LotFecRegis.Value;
+            if (oLoteArt != null)
+            {
+                nLotNro = oLoteArt.LotNro;
+                if (oLoteArt.LotFecModi.HasValue)
+                    dLotFecRegis = oLoteArt.LotFecRegis.Value;
 
-            if (oLoteArt.LotPrecioVen.HasValue)
-                nLprPrecio = (double)oLoteArt.LotPrecioVen;
+                if (oLoteArt.LotPrecioVen.HasValue)
+                    nLprPrecio = (double)oLoteArt.LotPrecioVen;
+            }
+            else
+                nLotNro = 0;
 
+            oArticulo = lstArticulos.GetArticulo(ArtCod);
             nLprPrecio = (double)oArticulo.ArtCostoProm;
             
-            oArticulo = lstArticulos.GetArticulo(ArtCod);
             if (oArticulo != null)
             {
                 txtArtCod.Text = oArticulo.ArtCod.ToString();
@@ -2191,6 +2215,8 @@ namespace AgrocomercioWEB.Ventas
 
         #endregion
 
+
+        
 
     }
 }

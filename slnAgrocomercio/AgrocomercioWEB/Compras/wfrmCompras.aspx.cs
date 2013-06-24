@@ -210,6 +210,7 @@ namespace AgrocomercioWEB.Compras
                                     lsbArticulos_SelectedIndexChanged(sender, e);
                                     txtArtCant.Text = dgvDetalleVenta.Rows[_selectedIndex].Cells[6].Text;
                                     txtArtDescuento.Text = dgvDetalleVenta.Rows[_selectedIndex].Cells[8].Text;
+                                    txtImpTotal.Text = dgvDetalleVenta.Rows[_selectedIndex].Cells[9].Text;
                                     //ModalPopupAgregar.Show();
                                 //}
                             }
@@ -384,6 +385,10 @@ namespace AgrocomercioWEB.Compras
             }
             CargarListaOpeCompra(nNroDetPed);
         }
+        protected void txtNroDocumBus_TextChanged(object sender, EventArgs e)
+        {
+            CargarListaOpeCompra(nNroDetPed);
+        }
         protected void txtFecIni_TextChanged(object sender, EventArgs e)
         {
             CargarListaOpeCompra(nNroDetPed);
@@ -400,6 +405,11 @@ namespace AgrocomercioWEB.Compras
         {
             ddlProveedorFiltro.Enabled = chkPorProveedor.Checked;
             CargarListaOpeCompra(nNroDetPed);
+        }
+        protected void chkPorDocumento_CheckedChanged(object sender, EventArgs e)
+        {
+            txtNroDocumBus.Enabled = chkPorDocumento.Checked;
+            txtNroSerieBus.Enabled = chkPorDocumento.Checked;
         }
         protected void ddlMoneda_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1022,6 +1032,8 @@ namespace AgrocomercioWEB.Compras
             DataTable dtOpeCompra;
             string cEstado = "";
             int nPrvCod = 0;
+            string cNroSerie = "";
+            string cNroDoc = "";
             DateTime dFecIni = DateTime.Today;
             DateTime dFecFin = DateTime.Today;
 
@@ -1039,8 +1051,12 @@ namespace AgrocomercioWEB.Compras
                 if (chkPorProveedor.Checked)
                     nPrvCod = int.Parse(ddlProveedorFiltro.SelectedValue);
 
+                if (chkPorDocumento.Checked) {
+                    cNroSerie = txtNroSerieBus.Text.Trim();
+                    cNroDoc = txtNroDocumBus.Text.Trim();
+                }
 
-                dtOpeCompra = lstOperaciones.GetListOperaciones(gcOpeTipo, chkPorFecha.Checked, dFecIni, dFecFin, cEstado, nPrvCod);
+                dtOpeCompra = lstOperaciones.GetListOperaciones(gcOpeTipo, chkPorFecha.Checked, dFecIni, dFecFin, cEstado, nPrvCod, 0, cNroSerie, cNroDoc);
 
                 if (dtOpeCompra.Rows.Count == 0)
                     dtOpeCompra = CreatDTListaOpeCompra();
@@ -2215,6 +2231,10 @@ namespace AgrocomercioWEB.Compras
         }
 
         #endregion
+
+        
+
+      
 
 
 

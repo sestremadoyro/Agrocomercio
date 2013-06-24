@@ -437,9 +437,9 @@ namespace AgrocomercioWEB
                     //var nIgv = nPrecio - Math.Round((nPrecio * 100 / 118), 2);
                     //nSubTotal = nPrecio - nIgv;
                     //var nIgv = Math.Round((nPrecio * 100 / 118), 2);
-                    nSubTotal = Math.Round((nPrecio / (nTasIGV+1)), 2);
+                    nSubTotal = (nPrecio / (nTasIGV+1));
                     nPrecioFin = nSubTotal - pnDescuentoEsp;
-                    nSubTotal = Math.Round(nPrecioFin + pnFlete, 2);                   
+                    nSubTotal = nPrecioFin + pnFlete;                   
                     nCostoTotal = Math.Round(nSubTotal * (nTasIGV + 1), 2);
                     nIGV = Math.Round(nCostoTotal-nSubTotal, 2);
 

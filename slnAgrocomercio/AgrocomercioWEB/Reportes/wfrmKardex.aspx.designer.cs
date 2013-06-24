@@ -76,24 +76,6 @@ namespace AgrocomercioWEB.Reportes {
         protected global::System.Web.UI.WebControls.HiddenField lblEstado;
         
         /// <summary>
-        /// Control cbProveedores.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::Obout.ComboBox.ComboBox cbProveedores;
-        
-        /// <summary>
-        /// Control cbArticulos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::Obout.ComboBox.ComboBox cbArticulos;
-        
-        /// <summary>
         /// Control pnBotones.
         /// </summary>
         /// <remarks>
@@ -101,15 +83,6 @@ namespace AgrocomercioWEB.Reportes {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnBotones;
-        
-        /// <summary>
-        /// Control Button3.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
         
         /// <summary>
         /// Control Button4.

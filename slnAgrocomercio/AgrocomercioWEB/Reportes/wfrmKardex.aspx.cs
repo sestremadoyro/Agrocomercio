@@ -4,7 +4,6 @@ using System.IO;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Web.Caching;
@@ -16,36 +15,39 @@ using System.Collections.Generic;
 using AgrocomercioWEB;
 using Obout.Grid;
 using System.Collections;
+using System.Web.UI.WebControls;
+
+
 
 namespace AgrocomercioWEB.Reportes
 {
 
     public partial class wfrmKardex : BasePage
     {
-        double tempTotalCOM = 0;
-        double tempTotalVEN = 0;
-        double tempTotal = 0;
-
-        Dictionary<int, double> totalCOM = new Dictionary<int, double>();
-        Dictionary<int, double> totalVEN = new Dictionary<int, double>();
-        Dictionary<int, double> total = new Dictionary<int, double>();
-        Dictionary<int, GridRow> lastGroupHeaders = new Dictionary<int, GridRow>();
-        GridRow lastGroupHeader;
+        string GroupBy = "PrvRazon,ArtCod";
+        string GroupHeaderFormat = "";
+        string GroupFooterFormat = "";
 
         // To keep track of the previous row Group Identifier
-        string strPreviousRowID = string.Empty;
+        string strPreviousRowPrvID = string.Empty;
+        string strPreviousRowArtID = string.Empty;
         // To keep track the Index of Group Total
         int intSubTotalIndex = 1;
 
         // To temporarily store Sub Total
-        double dblSubTotalCOM = 0;
-        double dblSubTotalVEN = 0;
-        double dblSubTotal = 0;
+        double dblSubTotalPrvCOM = 0;
+        double dblSubTotalPrvVEN = 0;
+        double dblSubTotalPrv = 0;
+
+        // To temporarily store Sub Total
+        double dblSubTotalArtCOM = 0;
+        double dblSubTotalArtVEN = 0;
+        double dblSubTotalArt = 0;
 
         // To temporarily store Grand Total
-        double dblGrandTotalCOM = 0;
-        double dblGrandTotalVEN = 0;
-        double dblGrandTotal = 0;
+        double dblTotalCOM = 0;
+        double dblTotalVEN = 0;
+        double dblTotal = 0;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -53,7 +55,8 @@ namespace AgrocomercioWEB.Reportes
             if (!Page.IsPostBack)
             {
                 CargarProveedor();
-                CargarArticulos();
+                //CargarArticulos();
+                CreateGrid();
             }
         }
 
@@ -71,8 +74,8 @@ namespace AgrocomercioWEB.Reportes
         {
             clsProveedores colProveedores = new clsProveedores();
 
-            cbProveedores.DataSource = colProveedores.GetProveedoresConArticulos();
-            cbProveedores.DataBind();
+            //cbProveedores.DataSource = colProveedores.GetProveedoresConArticulos();
+            //cbProveedores.DataBind();
             //ddlClientes.Items.Insert(0, new ListItem("[TODOS]", "0"));
 
             colProveedores = null;
@@ -82,260 +85,312 @@ namespace AgrocomercioWEB.Reportes
         {
             clsArticulos colArticulos = new clsArticulos();
 
-            cbArticulos.DataSource = colArticulos.GetAll();
-            cbArticulos.DataBind();
+            //cbArticulos.DataSource = colArticulos.GetAll();
+            //cbArticulos.DataBind();
             //ddlClientes.Items.Insert(0, new ListItem("[TODOS]", "0"));
 
             colArticulos = null;
         }
+        
 
-
-
-        protected void gridVentasxCobrar_RowDataBound(object sender, GridRowEventArgs e)
-        {
-            if (e.Row.RowType == GridRowType.DataRow)
-            {
-                tempTotalCOM += e.Row.Cells[10].Text == "" ? 0.0 : double.Parse(e.Row.Cells[10].Text);
-                tempTotalVEN += e.Row.Cells[14].Text == "" ? 0.0 : double.Parse(e.Row.Cells[14].Text);
-                tempTotal += e.Row.Cells[17].Text == "" ? 0.0 : double.Parse(e.Row.Cells[17].Text);
-
-                if (lastGroupHeader != null)
-                {
-                    Literal textContainer = lastGroupHeader.Cells[0].Controls[0].Controls[lastGroupHeader.Cells[0].Controls[0].Controls.Count - 1].Controls[0] as Literal;
-                    textContainer.Text = "<div style='margin-right:100px; float:left;' >Articulo: " + ((GridDataControlFieldCell)e.Row.Cells[1]).Text + " - " + ((GridDataControlFieldCell)e.Row.Cells[2]).Text;
-                    textContainer.Text += "</div><div style='float:left;'>";
-                    textContainer.Text += "Stock Inicial: " + ((GridDataControlFieldCell)e.Row.Cells[3]).Text + "</div>";
-
-                    lastGroupHeader = null;
-                } 
-            }
-            else if (e.Row.RowType == GridRowType.GroupHeader)
-            {
-                //Literal textContainer = e.Row.Cells[0].Controls[0].Controls[1].Controls[0] as Literal;
-                if (!lastGroupHeaders.ContainsKey(e.Row.GroupLevel))
-                {
-                    lastGroupHeaders.Add(e.Row.GroupLevel, null);
-                }
-                lastGroupHeaders[e.Row.GroupLevel] = e.Row;
-
-                if (e.Row.GroupLevel == 1)
-                {
-                    lastGroupHeader = e.Row;
-                }
-            }
-            else if (e.Row.RowType == GridRowType.GroupFooter)
-            {
-                if (e.Row.GroupLevel > 0)
-                {
-                    for (int level = e.Row.GroupLevel - 1; level >= 0; level--)
-                    {
-                        if (!totalCOM.ContainsKey(level))
-                        {
-                            totalCOM.Add(level, 0);
-                            totalVEN.Add(level, 0);
-                            total.Add(level, 0);
-                        }
-
-                        totalCOM[level] += tempTotalCOM;
-                        totalVEN[level] += tempTotalVEN;
-                        total[level] += tempTotal;
-                    }
-                }
-
-                double totalCOMToDisplay = 0;
-                double totalVENToDisplay = 0;
-                double totalToDisplay = 0;
-
-                if (totalCOM.ContainsKey(e.Row.GroupLevel))
-                {
-                    totalCOMToDisplay = totalCOM[e.Row.GroupLevel];
-                    totalVENToDisplay = totalVEN[e.Row.GroupLevel];
-                    totalToDisplay = total[e.Row.GroupLevel];
-
-                    totalCOM[e.Row.GroupLevel] = 0;
-                    totalVEN[e.Row.GroupLevel] = 0;
-                    total[e.Row.GroupLevel] = 0;
-                }
-                else
-                {
-                    totalCOMToDisplay = tempTotalCOM;
-                    totalVENToDisplay = tempTotalVEN;
-                    totalToDisplay = tempTotal;
-                }
-
-                // Display information in Group footer            
-                e.Row.Cells[10].Text = "S/." + totalCOMToDisplay.ToString();
-                e.Row.Cells[14].Text = "S/." + totalVENToDisplay.ToString();
-                //e.Row.Cells[17].Text = "S/." + totalToDisplay.ToString();
-
-                tempTotalCOM = 0;
-                tempTotalVEN = 0;
-                tempTotal = 0;
-            }
-        }
-
+     
         protected void gridKardex_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            // This is for cumulating the values
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                strPreviousRowPrvID = DataBinder.Eval(e.Row.DataItem, "PrvRazon").ToString();
+                strPreviousRowArtID = DataBinder.Eval(e.Row.DataItem, "ArtCod").ToString();                
 
+                double dblCOM = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "nCom_Costo").ToString());
+                double dblVEN = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "nVen_Costo").ToString());
+                double dblTOTAL = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "nSal_CostoTotal").ToString());
+
+                //Acumulating Sub Total Proveedor
+                dblSubTotalPrvCOM += dblCOM;
+                dblSubTotalPrvVEN += dblVEN;
+                dblSubTotalPrv += dblTOTAL;
+
+                //Acumulating Sub Total Articulos
+                dblSubTotalArtCOM += dblCOM;
+                dblSubTotalArtVEN += dblVEN;
+                dblSubTotalArt += dblTOTAL;
+
+                //Acumulating Grand Total
+                dblTotalCOM += dblCOM;
+                dblTotalVEN += dblVEN;
+                dblTotal += dblTOTAL;
+            }
         }
 
         protected void gridKardex_RowCreated(object sender, GridViewRowEventArgs e)
         {
-            //bool IsSubTotalRowNeedToAdd = false;
-            //bool IsGrandTotalRowNeedtoAdd = false;
+            bool IsSubTotalPrvRowNeedToAdd = false;
+            bool IsSubTotalArtRowNeedToAdd = false;
+            bool IsTotalRowNeedtoAdd = false;
 
-            //if ((strPreviousRowID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CustomerID") != null))
-            //    if (strPreviousRowID != DataBinder.Eval(e.Row.DataItem, "CustomerID").ToString())
-            //        IsSubTotalRowNeedToAdd = true;
+            if ((strPreviousRowPrvID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "PrvRazon") != null))
+                if (strPreviousRowPrvID != DataBinder.Eval(e.Row.DataItem, "PrvRazon").ToString())
+                    IsSubTotalPrvRowNeedToAdd = true;
 
-            //if ((strPreviousRowID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CustomerID") == null))
-            //{
-            //    IsSubTotalRowNeedToAdd = true;
-            //    IsGrandTotalRowNeedtoAdd = true;
-            //    intSubTotalIndex = 0;
-            //}
+            if ((strPreviousRowPrvID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "PrvRazon") == null))
+            {
+                IsSubTotalPrvRowNeedToAdd = true;
+                IsTotalRowNeedtoAdd = true;
+                intSubTotalIndex = 0;
+            }
+            
 
-            //#region Inserting first Row and populating fist Group Header details
-            //if ((strPreviousRowID == string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CustomerID") != null))
-            //{
-            //    GridView grdViewOrders = (GridView)sender;
+            if ((strPreviousRowArtID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "ArtCod") != null))
+                if (strPreviousRowArtID != DataBinder.Eval(e.Row.DataItem, "ArtCod").ToString())
+                    IsSubTotalArtRowNeedToAdd = true;
 
-            //    GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+            if ((strPreviousRowArtID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "ArtCod") == null))
+            {
+                IsSubTotalArtRowNeedToAdd = true;
+                IsTotalRowNeedtoAdd = true;
+                intSubTotalIndex = 0;
+            }
 
-            //    TableCell cell = new TableCell();
-            //    cell.Text = "Customer Name : " + DataBinder.Eval(e.Row.DataItem, "CompanyName").ToString();
-            //    cell.ColumnSpan = 6;
-            //    cell.CssClass = "GroupHeaderStyle";
-            //    row.Cells.Add(cell);
+            //Agregar primera agrupacion por proveedor
+            if ((strPreviousRowPrvID == string.Empty) && (DataBinder.Eval(e.Row.DataItem, "PrvRazon") != null))
+            {
+                GridView grdViewOrders = (GridView)sender;
 
-            //    grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
-            //    intSubTotalIndex++;
-            //}
-            //#endregion
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
 
-            //if (IsSubTotalRowNeedToAdd)
-            //{
-            //    #region Adding Sub Total Row
-            //    GridView grdViewOrders = (GridView)sender;
+                TableCell cell = new TableCell();
+                cell.Text = "Proveedor: " + DataBinder.Eval(e.Row.DataItem, "PrvRazon").ToString();
+                cell.ColumnSpan = 14;
+                cell.CssClass = "GroupHeader1Style";
+                row.Cells.Add(cell);
 
-            //    // Creating a Row
-            //    GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+                grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
+                intSubTotalIndex++;
+            }
+            
+            //Agregar la primera fila de articulos
+            if ((strPreviousRowArtID == string.Empty) && (DataBinder.Eval(e.Row.DataItem, "ArtCod") != null))
+            {
+                GridView grdViewOrders = (GridView)sender;
 
-            //    //Adding Total Cell 
-            //    TableCell cell = new TableCell();
-            //    cell.Text = "Sub Total";
-            //    cell.HorizontalAlign = HorizontalAlign.Left;
-            //    cell.ColumnSpan = 2;
-            //    cell.CssClass = "SubTotalRowStyle";
-            //    row.Cells.Add(cell);
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
 
-            //    //Adding Unit Price Column
-            //    cell = new TableCell();
-            //    cell.Text = string.Format("{0:0.00}", dblSubTotalUnitPrice);
-            //    cell.HorizontalAlign = HorizontalAlign.Right;
-            //    cell.CssClass = "SubTotalRowStyle";
-            //    row.Cells.Add(cell);
+                TableCell cell = new TableCell();
+                cell.Text = "Articulo: " + DataBinder.Eval(e.Row.DataItem, "ArtCod").ToString() + " - " + DataBinder.Eval(e.Row.DataItem, "ArtDescripcion").ToString();
+                cell.ColumnSpan = 4;
+                cell.CssClass = "GroupHeader2Style";
+                row.Cells.Add(cell);
 
-            //    //Adding Quantity Column
-            //    cell = new TableCell();
-            //    cell.Text = string.Format("{0:0.00}", dblSubTotalQuantity);
-            //    cell.HorizontalAlign = HorizontalAlign.Right;
-            //    cell.CssClass = "SubTotalRowStyle";
-            //    row.Cells.Add(cell);
+                TableCell cell2 = new TableCell();
+                cell2.Text = "Stock Inicial: " + DataBinder.Eval(e.Row.DataItem, "ArtStockIni").ToString();
+                cell2.ColumnSpan = 10;
+                cell2.CssClass = "GroupHeader2Style";
+                row.Cells.Add(cell2);
 
-            //    //Adding Discount Column
-            //    cell = new TableCell();
-            //    cell.Text = string.Format("{0:0.00}", dblSubTotalDiscount);
-            //    cell.HorizontalAlign = HorizontalAlign.Right;
-            //    cell.CssClass = "SubTotalRowStyle";
-            //    row.Cells.Add(cell);
+                grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
+                intSubTotalIndex++;
+            }
 
-            //    //Adding Amount Column
-            //    cell = new TableCell();
-            //    cell.Text = string.Format("{0:0.00}", dblSubTotalAmount);
-            //    cell.HorizontalAlign = HorizontalAlign.Right;
-            //    cell.CssClass = "SubTotalRowStyle";
-            //    row.Cells.Add(cell);
+            if (IsSubTotalPrvRowNeedToAdd)
+            {
+                #region Agregar Row de Sub Totales por Proveedor
+                GridView grdViewOrders = (GridView)sender;
 
-            //    //Adding the Row at the RowIndex position in the Grid
-            //    grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
-            //    intSubTotalIndex++;
-            //    #endregion
+                // Creating a Row
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
 
-            //    #region Adding Next Group Header Details
-            //    if (DataBinder.Eval(e.Row.DataItem, "CustomerID") != null)
-            //    {
-            //        row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+                //Adding Total Cell 
+                TableCell cell = new TableCell();
+                cell.Text = "Sub Total Proveedor : ";
+                cell.HorizontalAlign = HorizontalAlign.Left;
+                cell.ColumnSpan = 3;
+                cell.CssClass = "SubTotalRow1Style";
+                row.Cells.Add(cell);
 
-            //        cell = new TableCell();
-            //        cell.Text = "Customer Name : " + DataBinder.Eval(e.Row.DataItem, "CompanyName").ToString();
-            //        cell.ColumnSpan = 6;
-            //        cell.CssClass = "GroupHeaderStyle";
-            //        row.Cells.Add(cell);
+                //Adding Unit Price Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalPrvCOM);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 4;
+                cell.CssClass = "SubTotalRow1Style";
+                row.Cells.Add(cell);
 
-            //        grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
-            //        intSubTotalIndex++;
-            //    }
-            //    #endregion
+                //Adding Quantity Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalPrvVEN);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 4;
+                cell.CssClass = "SubTotalRow1Style";
+                row.Cells.Add(cell);
 
-            //    #region Reseting the Sub Total Variables
-            //    dblSubTotalUnitPrice = 0;
-            //    dblSubTotalQuantity = 0;
-            //    dblSubTotalDiscount = 0;
-            //    dblSubTotalAmount = 0;
-            //    #endregion
-            //}
-            //if (IsGrandTotalRowNeedtoAdd)
-            //{
-            //    #region Grand Total Row
-            //    GridView grdViewOrders = (GridView)sender;
+                //Adding Discount Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalPrv);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 3;
+                cell.CssClass = "SubTotalRow1Style";
+                row.Cells.Add(cell);
 
-            //    // Creating a Row
-            //    GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+                //Adding the Row at the RowIndex position in the Grid
+                grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
+                intSubTotalIndex++;
+                #endregion
 
-            //    //Adding Total Cell 
-            //    TableCell cell = new TableCell();
-            //    cell.Text = "Grand Total";
-            //    cell.HorizontalAlign = HorizontalAlign.Left;
-            //    cell.ColumnSpan = 2;
-            //    cell.CssClass = "GrandTotalRowStyle";
-            //    row.Cells.Add(cell);
+                #region Agregar La siguiente Cabecera de Proveedor
+                if (DataBinder.Eval(e.Row.DataItem, "PrvRazon") != null)
+                {
+                    row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
 
-            //    //Adding Unit Price Column
-            //    cell = new TableCell();
-            //    cell.Text = string.Format("{0:0.00}", dblGrandTotalUnitPrice);
-            //    cell.HorizontalAlign = HorizontalAlign.Right;
-            //    cell.CssClass = "GrandTotalRowStyle";
-            //    row.Cells.Add(cell);
+                    cell = new TableCell();
+                    cell.Text = "Proveedor: " + DataBinder.Eval(e.Row.DataItem, "PrvRazon").ToString();
+                    cell.ColumnSpan = 14;
+                    cell.CssClass = "GroupHeader1Style";
+                    row.Cells.Add(cell);
 
-            //    //Adding Quantity Column
-            //    cell = new TableCell();
-            //    cell.Text = string.Format("{0:0.00}", dblGrandTotalQuantity);
-            //    cell.HorizontalAlign = HorizontalAlign.Right;
-            //    cell.CssClass = "GrandTotalRowStyle";
-            //    row.Cells.Add(cell);
+                    grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
+                    intSubTotalIndex++;
+                }
+                #endregion
 
-            //    //Adding Discount Column
-            //    cell = new TableCell();
-            //    cell.Text = string.Format("{0:0.00}", dblGrandTotalDiscount);
-            //    cell.HorizontalAlign = HorizontalAlign.Right;
-            //    cell.CssClass = "GrandTotalRowStyle";
-            //    row.Cells.Add(cell);
+                #region Resetear Variables de Totales
+                dblSubTotalPrvCOM = 0;
+                dblSubTotalPrvVEN = 0;
+                dblSubTotalPrv = 0;
+                dblSubTotalArtCOM = 0;
+                dblSubTotalArtVEN = 0;
+                dblSubTotalArt = 0;
+                dblTotalCOM = 0;
+                dblTotalVEN = 0;
+                dblTotal = 0;
 
-            //    //Adding Amount Column
-            //    cell = new TableCell();
-            //    cell.Text = string.Format("{0:0.00}", dblGrandTotalAmount);
-            //    cell.HorizontalAlign = HorizontalAlign.Right;
-            //    cell.CssClass = "GrandTotalRowStyle";
-            //    row.Cells.Add(cell);
+                #endregion
+            }
 
-            //    //Adding the Row at the RowIndex position in the Grid
-            //    grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex, row);
-            //    #endregion
-            //}
+
+            if (IsSubTotalArtRowNeedToAdd)
+            {
+                #region Agregar Fila de Sub Totales por Articulo
+                GridView grdViewOrders = (GridView)sender;
+
+                // Creating a Row
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+
+                //Adding Total Cell 
+                TableCell cell = new TableCell();
+                cell.Text = "Sub Total Articulo : ";
+                cell.HorizontalAlign = HorizontalAlign.Left;
+                cell.ColumnSpan = 3;
+                cell.CssClass = "SubTotalRow2Style";
+                row.Cells.Add(cell);
+
+                //Adding Unit Price Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalArtCOM);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 4;
+                cell.CssClass = "SubTotalRow2Style";
+                row.Cells.Add(cell);
+
+                //Adding Quantity Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalArtVEN);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 4;
+                cell.CssClass = "SubTotalRow2Style";
+                row.Cells.Add(cell);
+
+                //Adding Discount Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalArt);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 3;
+                cell.CssClass = "SubTotalRow2Style";
+                row.Cells.Add(cell);
+                
+                //Adding the Row at the RowIndex position in the Grid
+                grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
+                intSubTotalIndex++;
+                #endregion
+
+                #region Agregar Siguiente Cabecera de Articulo
+                if (DataBinder.Eval(e.Row.DataItem, "ArtCod") != null)
+                {
+                    row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+
+                    cell = new TableCell();
+                    cell.Text = "Articulo: " + DataBinder.Eval(e.Row.DataItem, "ArtCod").ToString() + " - " + DataBinder.Eval(e.Row.DataItem, "ArtDescripcion").ToString();
+                    cell.ColumnSpan = 4;
+                    cell.CssClass = "GroupHeader2Style";
+                    row.Cells.Add(cell);
+
+                    TableCell cell2 = new TableCell();
+                    cell2.Text = "Stock Inicial: " + DataBinder.Eval(e.Row.DataItem, "ArtStockIni").ToString();
+                    cell2.ColumnSpan = 10;
+                    cell2.CssClass = "GroupHeader2Style";
+                    row.Cells.Add(cell2);
+
+                    grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex + intSubTotalIndex, row);
+                    intSubTotalIndex++;
+                }
+                #endregion
+
+                #region Resetear Variables de Totales
+                dblSubTotalArtCOM = 0;
+                dblSubTotalArtVEN = 0;
+                dblSubTotalArt = 0;
+                dblTotalCOM = 0;
+                dblTotalVEN = 0;
+                dblTotal = 0;
+
+                #endregion
+            }
+            if (IsTotalRowNeedtoAdd)
+            {
+                #region Grand Total Row
+                GridView grdViewOrders = (GridView)sender;
+
+                // Creating a Row
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+
+                //Adding Total Cell 
+                TableCell cell = new TableCell();
+                cell.Text = "Total : ";
+                cell.HorizontalAlign = HorizontalAlign.Left;
+                cell.ColumnSpan = 3;
+                cell.CssClass = "GrandTotalRowStyle";
+                row.Cells.Add(cell);
+
+                //Adding Unit Price Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblTotalCOM);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 4;
+                cell.CssClass = "GrandTotalRowStyle";
+                row.Cells.Add(cell);
+
+                //Adding Quantity Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblTotalVEN);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 4;
+                cell.CssClass = "GrandTotalRowStyle";
+                row.Cells.Add(cell);
+
+                //Adding Discount Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblTotal);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 3;
+                cell.CssClass = "GrandTotalRowStyle";
+                row.Cells.Add(cell);
+                
+                //Adding the Row at the RowIndex position in the Grid
+                grdViewOrders.Controls[0].Controls.AddAt(e.Row.RowIndex, row);
+                #endregion
+            }
         }
 
-   
 
         
     }

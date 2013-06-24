@@ -257,7 +257,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         {
             return this.Find(Ope => Ope.OpeCod == OpeCod).First<Operaciones>();
         }
-        public DataTable GetListOperaciones(string _OpeTipo, Boolean bPorFechas, DateTime _dFecIni, DateTime _dFecFin, string _OpeEstado = "", int _nPrvCod = 0, int _nCliCod = 0)
+        public DataTable GetListOperaciones(string _OpeTipo, Boolean bPorFechas, DateTime _dFecIni, DateTime _dFecFin, string _OpeEstado = "", int _nPrvCod = 0, int _nCliCod = 0, string _cNroSerie = "", string _cNroDoc = "")
         {
             clsAtributos lstAtributos = new clsAtributos(AgroEntidades);
 
@@ -269,7 +269,9 @@ namespace pryAgrocomercioBLL.EntityCollection
                     ((bPorFechas && (DateTime)Ope.OpeFecEmision >= _dFecIni && (DateTime)Ope.OpeFecEmision <= _dFecFin) || (!bPorFechas)) &&
                     ((_OpeEstado == "" && Ope.OpeEstado != "C" && Ope.OpeEstado != "A") || (_OpeEstado != "" && Ope.OpeEstado == _OpeEstado)) &&
                     ((_nPrvCod != 0 && Ope.PrvCod == _nPrvCod) || (_nPrvCod == 0)) &&
-                    ((_nCliCod != 0 && Ope.CliCod == _nCliCod) || (_nCliCod == 0))
+                    ((_nCliCod != 0 && Ope.CliCod == _nCliCod) || (_nCliCod == 0)) &&
+                    ((_cNroSerie != "" && Ope.DocumenOperacion.Any(Doc => Doc.dopNroSerie == _cNroSerie)) || (_cNroSerie == "")) &&
+                    ((_cNroDoc != "" && Ope.DocumenOperacion.Any(Doc => Doc.dopNumero == _cNroDoc)) || (_cNroDoc == ""))
                     ));
 
                 var result = from Ope in lstOpe
@@ -572,10 +574,15 @@ namespace pryAgrocomercioBLL.EntityCollection
             int nNumCor = 0;
             try
             {
-                var lstDetOperaciones = colDetOpera.Find(Det => (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList();
+                var lstDetOperaciones = colDetOpera.Find(Det => Det.Operaciones.DocumenOperacion.All(Doc => Doc.tdoCod != 0) && (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList();
+                var lstDocumentos = colDocumentos.Find(Det => Det.tdoCod == 2 && (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList();
+
+                //Det.Operaciones.DocumenOperacion.OrderByDescending(Doc => Doc.dopCod).Select(Doc => new { Document = Doc.dopNroSerie.ToString() + "-"+ Doc.dopNumero.ToString() } ).First().Document,
 
                 var lstTemporal = (from Det in lstDetOperaciones
-                                orderby Det.ArtCod, Det.Operaciones.OpeFecEmision, Det.dtpCod
+                                   join Doc in lstDocumentos on Det.OpeCod equals Doc.OpeCod into dGru
+                                   from Doc2 in dGru.DefaultIfEmpty()
+                                   orderby Det.Articulos.PrvCod, Det.ArtCod, Det.Operaciones.OpeFecEmision, Det.dtpCod
                                 select new
                                 {
                                     nCorrela = ++nNumCor,
@@ -586,16 +593,16 @@ namespace pryAgrocomercioBLL.EntityCollection
                                     Det.Articulos.ArtStockIni,
                                     CostoInicial = Det.Articulos.ArtStockIni * Det.Articulos.ArtCostoProm,
                                     Det.Operaciones.OpeFecEmision,
-                                    Documento = Det.Operaciones.DocumenOperacion.OrderByDescending(Doc => Doc.dopCod).Select(Doc => new { Document = Doc.dopNroSerie.ToString() + "-"+ Doc.dopNumero.ToString() } ).First().Document,
+                                    Documento = Doc2 == null ? "-" : (Doc2.dopNroSerie.ToString() + "-" + Doc2.dopNumero.ToString()),
                                     Decripcion = (Det.Operaciones.OpeTipo == "C" ? "Compra " : "Venta ") + Det.Articulos.ArtDescripcion,
-                                    nCom_Cantidad = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpCantidad),
+                                    nCom_Cantidad = (Det.Operaciones.OpeTipo == "V" ? 0 : Det.dtpCantidad),
                                     nCom_Unidad = (Det.Operaciones.OpeTipo == "V" ? "" : Det.Articulos.Unidades.UniDescripcion),
-                                    nCom_PreUnitario = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpPrecioVen),
-                                    nCom_Costo = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpSubTotal),
-                                    nVen_Cantidad = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpCantidad),
+                                    nCom_PreUnitario = (Det.Operaciones.OpeTipo == "V" ? 0 : Det.dtpPrecioVen),
+                                    nCom_Costo = (Det.Operaciones.OpeTipo == "V" ? 0 : Det.dtpSubTotal),
+                                    nVen_Cantidad = (Det.Operaciones.OpeTipo == "C" ? 0 : Det.dtpCantidad),
                                     nVen_Unidad = (Det.Operaciones.OpeTipo == "C" ? "" : Det.Articulos.Unidades.UniDescripcion),
-                                    nVen_PreUnitario = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpPrecioVen),
-                                    nVen_Costo = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpSubTotal)
+                                    nVen_PreUnitario = (Det.Operaciones.OpeTipo == "C" ? 0 : Det.dtpPrecioVen),
+                                    nVen_Costo = (Det.Operaciones.OpeTipo == "C" ? 0 : Det.dtpSubTotal)
                                 }).ToList();
 
 

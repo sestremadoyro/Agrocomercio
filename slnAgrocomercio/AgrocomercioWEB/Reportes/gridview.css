@@ -1,0 +1,100 @@
+
+/* INICIO STYLOS DE LA GRIDVEW */
+.mGrid {   
+    width: 100%;   
+    background-color: #fff;   
+    margin: 5px 0 10px 0;   
+    border: solid 1px #525252;
+    border-collapse:collapse;   
+}  
+.mGrid td {   
+    padding: 2px;   
+    border: solid 1px #c1c1c1;
+    border-bottom:solid 1px #dddddd;
+    border-top:solid 1px #dddddd;
+    color: #717171;
+    cursor: pointer;
+    font-size: 0.6em; 
+}  
+.mGrid2 td
+{
+	font-size: 11px; 
+	font-family:Calibri;
+}
+.mGrid3 td
+{
+	font-size: 11px; 
+	font-family:Calibri;
+	padding-left:5px;
+}
+.mGrid tr:hover
+{
+	background:#aeddff;    
+}  
+.mGrid tr:hover td
+{
+	color: #333333;
+}  
+
+.mGrid th {   
+    padding: 4px 2px;   
+    color: #fff;   
+    background: #424242 url(images/grd_head.png) repeat-x top;   
+    border-left: solid 1px #525252;   
+    font-size: 0.8em;   
+}  
+.mGrid .alt { background: #fcfcfc url(images/grd_alt.png) repeat-x top; }  
+.mGrid .pgr { background: #424242 url(images/grd_pgr.png) repeat-x top; }  
+.mGrid .pgr table { margin: 5px 0; }  
+.mGrid .pgr td {   
+    border-width: 0;   
+    padding: 0 6px;   
+    border-left: solid 1px #666;   
+    font-weight: bold;   
+    color: #fff;   
+    line-height: 12px;   
+ }     
+.mGrid .selrow { background:#90d0ff; font-weight:bold; }
+.mGrid .selrow, .mGrid .selrow td {color: #000; }
+
+
+.mGrid td.GroupHeader1Style,.mGrid td.GroupHeader2Style, .mGrid td.SubTotalRow1Style, .mGrid td.SubTotalRow2Style
+{
+    padding: 6px;   
+    height:20px;
+    border: solid 1px #c1c1c1;
+    border-bottom:none;
+    color: #fff;   
+    cursor: pointer;
+    background:#787878;
+    font-size: 0.95em; 
+    font-weight:bold; 
+}
+/*.mGrid td.GroupHeader1Style, .mGrid td.SubTotalRow1Style { color: #fff; font-size: 0.95em; font-weight:bold;  }*/
+.mGrid tr:hover td.GroupHeader1Style, .mGrid tr:hover td.SubTotalRow1Style { color: #fff; font-size: 0.95em; font-weight:bold;  }
+.mGrid td.GroupHeader2Style, .mGrid td.SubTotalRow2Style
+{
+    color: #717171;
+    padding: 3px;   
+    font-size: 0.9em; 
+    background:#dcdcdc;
+    border-bottom:solid 1px #ffffff;
+    border-top:solid 1px #ffffff;
+}
+.mGrid td.SubTotalRow1Style, .mGrid td.SubTotalRow2Style
+{
+    height:15px;
+    text-align:right;
+    margin-bottom:4px;
+}
+.mGrid td.SubTotalRow1Style
+{
+    border-bottom:1px solid #ffffff;
+    margin-bottom:8px;
+}
+
+
+
+
+/* FIN STYLOS DE LA GRIDVEW */
+

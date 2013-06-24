@@ -164,6 +164,7 @@
     <Content Include="App_Themes\TemaAgrocomercio\Calendar\styles\style10\arrow_right.gif" />
     <Content Include="App_Themes\TemaAgrocomercio\Calendar\styles\style10\border.gif" />
     <Content Include="App_Themes\TemaAgrocomercio\Calendar\styles\style10\style.css" />
+    <Content Include="Reportes\gridview.css" />
     <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\margin.gif" />
     <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\mid.gif" />
     <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\mid_over.gif" />
@@ -912,6 +913,11 @@
     <Compile Include="pagos\wfrmRepNotasVentas.aspx.designer.cs">
       <DependentUpon>wfrmRepNotasVentas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\Clases\clsRepCabeceraDoc.cs" />
     <Compile Include="Reportes\Clases\clsRepDetalleFactura.cs" />
     <Compile Include="Reportes\Clases\clsRepCompras.cs" />
@@ -1117,7 +1123,6 @@
     <Folder Include="bin\zh-CHS\" />
     <Folder Include="bin\zh-CHT\" />
     <Folder Include="Maestros\DataSet\" />
-    <Folder Include="Reportes\Data\" />
     <Folder Include="TmpExports\" />
   </ItemGroup>
   <ItemGroup>
@@ -1202,6 +1207,10 @@
     <None Include="App_Themes\TemaAgrocomercio\Interface\styles\grand_gray\OboutButton\images\Thumbs.db" />
     <None Include="App_Themes\TemaAgrocomercio\Interface\styles\grand_gray\OboutTextBox\images\Thumbs.db" />
     <Content Include="WebFacturacion.sitemap" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
