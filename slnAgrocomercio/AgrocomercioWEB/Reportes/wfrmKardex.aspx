@@ -132,16 +132,21 @@
                                             <tr>
                                                 <td class="clsCellTituloDatos2">Proveedor: </td>
                                                 <td >
-                                                   
+                                                    <asp:ComboBox ID="cboxProveedores" runat="server" AutoPostBack="True" DropDownStyle="DropDownList" 
+                                                    AutoCompleteMode="SuggestAppend" DataTextField="PrvRazon" 
+                                                        DataValueField="PrvCod" Font-Size="9px" Width="150px" 
+                                                        onselectedindexchanged="cboxProveedores_SelectedIndexChanged">
+                                                    </asp:ComboBox>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="clsCellTituloDatos2">Articulos: </td>
                                                 <td >
-                                                    <div class="comboBoxMaster">
-                                                        
-                                                    </div>
-                                                    
+                                                    <asp:ComboBox ID="cboxArticulos" runat="server" AutoPostBack="True" DropDownStyle="DropDownList" 
+                                                    AutoCompleteMode="SuggestAppend" DataTextField="ArtDescripcion" 
+                                                        DataValueField="ArtCod" Font-Size="9px" Width="150px" 
+                                                        onselectedindexchanged="cboxArticulos_SelectedIndexChanged">
+                                                    </asp:ComboBox>
                                                 </td>
                                             </tr>
                                         </table>
@@ -181,7 +186,7 @@
                                             <td>
                                                 <div id="divGridView" style="position: relative; width: 875px; height:430px; overflow:scroll;">
                                                 <asp:GridView ID="gridKardex" runat="server" AutoGenerateColumns="False"  
-                                                    CellPadding="4" GridLines="Vertical" 
+                                                    CellPadding="4" GridLines="Vertical" Width="1300px" 
                                                             CssClass="mGrid mGrid3" ShowHeaderWhenEmpty="True" 
                                                         onrowcreated="gridKardex_RowCreated" onrowdatabound="gridKardex_RowDataBound" >
                                                             <AlternatingRowStyle CssClass="alt" />
@@ -199,46 +204,46 @@
                                                                 <ItemStyle HorizontalAlign="Left" Width="150px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="OpeFecEmision" HeaderText="Fec.Emision"  DataFormatString="{0:d}" >
-                                                                <ItemStyle HorizontalAlign="Left" Width="90px" />
+                                                                <ItemStyle HorizontalAlign="Left" Width="55px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="Documento" HeaderText="Nro Guia" >
-                                                                <ItemStyle HorizontalAlign="Left" Width="100px" />
+                                                                <ItemStyle HorizontalAlign="Left" Width="55px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="Decripcion" HeaderText="Descripcion" >
-                                                                <ItemStyle HorizontalAlign="Left" Width="180px" />
+                                                                <ItemStyle HorizontalAlign="Left" Width="220px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="nCom_Cantidad" HeaderText="Comp.Cantidad" >
-                                                                <ItemStyle HorizontalAlign="Right" Width="95px" />
+                                                                <ItemStyle HorizontalAlign="Right" Width="75px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="nCom_Unidad" HeaderText="Comp.Unidad" >
-                                                                <ItemStyle HorizontalAlign="Left" Width="90px" />
+                                                                <ItemStyle HorizontalAlign="Left" Width="70px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="nCom_PreUnitario" HeaderText="Comp.Precio.Unit" >
-                                                                <ItemStyle HorizontalAlign="Center" Width="105px" />
+                                                            <asp:BoundField DataField="nCom_PreUnitario" HeaderText="Comp.Precio.Unit" DataFormatString="{0:n}">
+                                                                <ItemStyle HorizontalAlign="Center" Width="85px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="nCom_Costo" HeaderText="Comp.Costo" >
-                                                                <ItemStyle HorizontalAlign="Right" Width="90px" />
+                                                            <asp:BoundField DataField="nCom_Costo" HeaderText="Comp.Costo" DataFormatString="{0:n}">
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="nVen_Cantidad" HeaderText="Venta.Cantidad" >
-                                                                <ItemStyle HorizontalAlign="Right" Width="95px" />
+                                                                <ItemStyle HorizontalAlign="Right" Width="75px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="nVen_Unidad" HeaderText="Venta.Unidad" >
-                                                                <ItemStyle HorizontalAlign="Center" Width="90px" />
+                                                                <ItemStyle HorizontalAlign="Center" Width="70px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="nVen_PreUnitario" HeaderText="Venta.Precio.Unit" >
-                                                                <ItemStyle HorizontalAlign="Right" Width="105px" />
+                                                            <asp:BoundField DataField="nVen_PreUnitario" HeaderText="Venta.Precio.Unit" DataFormatString="{0:n}">
+                                                                <ItemStyle HorizontalAlign="Right" Width="85px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="nVen_Costo" HeaderText="Venta.Costo" >
-                                                                <ItemStyle HorizontalAlign="Right" Width="90px" />
+                                                            <asp:BoundField DataField="nVen_Costo" HeaderText="Venta.Costo" DataFormatString="{0:n}">
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="nSal_Cantidad" HeaderText="Saldo.Cantidad" >
-                                                                <ItemStyle HorizontalAlign="Right" Width="95px" />
+                                                                <ItemStyle HorizontalAlign="Right" Width="75px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="nSal_Unidad" HeaderText="Saldo.Unidad">
-                                                                <ItemStyle HorizontalAlign="Right" Width="90px" />
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="nSal_CostoTotal" HeaderText="Saldo.Costo Total" >
-                                                                <ItemStyle HorizontalAlign="Right" Width="110px" />
+                                                            <asp:BoundField DataField="nSal_CostoTotal" HeaderText="Saldo.Costo Total" DataFormatString="{0:n}" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="90px" />
                                                             </asp:BoundField>
                                                             </Columns>
                                                             <EmptyDataTemplate>

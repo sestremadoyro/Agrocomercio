@@ -141,8 +141,10 @@
             if (ValidarDatos("ART")) {
                 window.parent.winArticulos.Close();
             }
-            else
+            else {
                 alert(cMensaje);
+            }
+            
         }
         function GuardarPrecio() {
             window.parent.winArticulos.Close();
@@ -187,99 +189,100 @@
                 txtNotaPedidoVen = txtNotaPedidoVen.value;
 
             //alert(txtNotaPedidoVen);
-            
-            switch (cTipo) {
-                case "ART":
-                    if (lsbArticulos.length == 1 && lsbArticulos.options[0].text == "0") {
-                        cMensaje = "Por favor Debe Registrar Algun articulo antes de Continuar.";
-                        lsbArticulos.focus();
-                        return false;
-                    }
-                    if (lsbArticulos.options.selectedIndex < 0) {
-                        cMensaje = "Debe Escoger un Articulo.";
-                        lsbArticulos.focus();
 
-                        return false;
-                    }
-                    if (txtArtPreUnitario == "") {
-                        cMensaje = "Debe Ingresar un Precio de Compra para el Articulo.";
-                        txtArtPreUnitario.focus();
-                        return false;
-                    }
-                    if (parseFloat(txtArtPreUnitario) <= 0) {
-                        alert("Esta Ingresando una Compra con Precio 0, Debera Actualizarlo para que la compra se Valorize. ");
-                        return true;
-                    }
-                    if (ddlTipDcto.options[ddlTipDcto.selectedIndex].value == "%" && parseFloat(txtArtDescuento) > 100) {
-                        cMensaje = "El Descuento no Puede superar el 100%.";
-                        txtArtDescuento.focus();
-                        return false;
-                    }
-                    if (ddlTipDcto.options[ddlTipDcto.selectedIndex].value == "S/." && parseFloat(txtArtDescuento) > parseFloat(txtArtPreUnitario) * parseFloat(txtArtCant)) {
-                        cMensaje = "El Descuento no Puede el total de la compra.";
-                        txtArtDescuento.focus();
-                        return false;
-                    }
-                    if (parseFloat(txtStockFis) != parseFloat(hideStockLote)) {
-                        cMensaje = "El Stock Fisico (" + txtStockFis + ") y el Stock de Lotes (" + hideStockLote + ") son Diferentes, Primero debe Ajustar Estas diferencias para Continuar.";
-                        txtStockFis.focus();
-                        return false;
-                    }
-                    if (txtLotVenci == "") {
-                        cMensaje = "Debe Ingresar una Fecha de Vencimiento.";
-                        txtLotVenci.focus();
-                        return false;
-                    }
-                    break;
-                case "OPE":
-                    if ((ddlMoneda.length == 1 && ddlMoneda.options[0].Value == "000") ||
+            try {
+                switch (cTipo) {
+                    case "ART":
+                        if (lsbArticulos.length == 1 && lsbArticulos.options[0].text == "0") {
+                            cMensaje = "Por favor Debe Registrar Algun articulo antes de Continuar.";
+                            lsbArticulos.focus();
+                            return false;
+                        }
+                        if (lsbArticulos.options.selectedIndex < 0) {
+                            cMensaje = "Debe Escoger un Articulo.";
+                            lsbArticulos.focus();
+
+                            return false;
+                        }
+                        if (txtArtPreUnitario == "") {
+                            cMensaje = "Debe Ingresar un Precio de Compra para el Articulo.";
+                            txtArtPreUnitario.focus();
+                            return false;
+                        }
+                        if (parseFloat(txtArtPreUnitario) <= 0) {
+                            alert("Esta Ingresando una Compra con Precio 0, Debera Actualizarlo para que la compra se Valorize. ");
+                            return true;
+                        }
+                        if (ddlTipDcto.options[ddlTipDcto.selectedIndex].value == "%" && parseFloat(txtArtDescuento) > 100) {
+                            cMensaje = "El Descuento no Puede superar el 100%.";
+                            txtArtDescuento.focus();
+                            return false;
+                        }
+                        if (ddlTipDcto.options[ddlTipDcto.selectedIndex].value == "S/." && parseFloat(txtArtDescuento) > parseFloat(txtArtPreUnitario) * parseFloat(txtArtCant)) {
+                            cMensaje = "El Descuento no Puede el total de la compra.";
+                            txtArtDescuento.focus();
+                            return false;
+                        }
+
+                        if (parseFloat(txtStockFis) != parseFloat(hideStockLote)) {
+                            cMensaje = "El Stock Fisico (" + txtStockFis + ") y el Stock de Lotes (" + hideStockLote + ") son Diferentes, Primero debe Ajustar Estas diferencias para Continuar.";
+                            txtStockFis.focus();
+                            return false;
+                        }
+                        if (txtLotVenci == "") {
+                            cMensaje = "Debe Ingresar una Fecha de Vencimiento.";
+                            txtLotVenci.focus();
+                            return false;
+                        }
+                        break;
+                    case "OPE":
+                        if ((ddlMoneda.length == 1 && ddlMoneda.options[0].Value == "000") ||
                     (ddlTipoVenta.length == 1 && ddlTipoVenta.options[0].Value == "000") ||
-                    (ddlZonas.length == 0))
-                    {
-                        cMensaje = "Por favor Registrar los tipos de Moneda, Tipo de Zonas y Tipo de Pago antes de Continuar. ";
-                        return false;
-                    }
-                    if (ddlProveedor.options[ddlProveedor.selectedIndex].value == "000")
-                    {
-                        cMensaje = "Debe Escoger un Proveedor";
-                        ddlProveedor.focus();
-                        return false;
-                    }
-                    if (ddlMoneda.options[ddlMoneda.selectedIndex].value == "000")
-                    {
-                        cMensaje = "Debe Escoger la Moneda";
-                        ddlMoneda.focus();
-                        return false;
-                    }
-                    if (ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "000")
-                    {
-                        cMensaje = "Debe Escoger el Tipo de Pago";
-                        ddlTipoVenta.focus();
-                        return false;
-                    }
-                    if (pcTipoEsp == "PROC" && ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "CR" && txtCiclo == "")
-                    {
-                        cMensaje = "Debe Indicar el Ciclo de la Compra";
-                        txtCiclo.focus();
-                        return false;
-                    }
-                    if (lblTipoDoc == "2" && txtFecTraslado == "")
-                    {
-                        cMensaje = "Ingrese una Fecha de Traslado";
-                        txtFecTraslado.focus();
-                        return false;
-                    }
-                    if ((lblTipoDoc == "4" || lblTipoDoc == "5") && txtNotaPedidoVen == "")
-                    {
-                        cMensaje = "Debe Ingresar el Numero de Pedido del Vendedor";
-                        txtNotaPedidoVen.focus();
-                        return false;
-                    }
-                    break;
-                default:
-                    break;
+                    (ddlZonas.length == 0)) {
+                            cMensaje = "Por favor Registrar los tipos de Moneda, Tipo de Zonas y Tipo de Pago antes de Continuar. ";
+                            return false;
+                        }
+                        if (ddlProveedor.options[ddlProveedor.selectedIndex].value == "000") {
+                            cMensaje = "Debe Escoger un Proveedor";
+                            ddlProveedor.focus();
+                            return false;
+                        }
+                        if (ddlMoneda.options[ddlMoneda.selectedIndex].value == "000") {
+                            cMensaje = "Debe Escoger la Moneda";
+                            ddlMoneda.focus();
+                            return false;
+                        }
+                        if (ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "000") {
+                            cMensaje = "Debe Escoger el Tipo de Pago";
+                            ddlTipoVenta.focus();
+                            return false;
+                        }
+                        if (pcTipoEsp == "PROC" && ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "CR" && txtCiclo == "") {
+                            cMensaje = "Debe Indicar el Ciclo de la Compra";
+                            txtCiclo.focus();
+                            return false;
+                        }
+                        if (lblTipoDoc == "2" && txtFecTraslado == "") {
+                            cMensaje = "Ingrese una Fecha de Traslado";
+                            txtFecTraslado.focus();
+                            return false;
+                        }
+                        if ((lblTipoDoc == "4" || lblTipoDoc == "5") && txtNotaPedidoVen == "") {
+                            cMensaje = "Debe Ingresar el Numero de Pedido del Vendedor";
+                            txtNotaPedidoVen.focus();
+                            return false;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+            } catch (e) {
+                //alert("Error: " + e);
+                return false;
             }
 
+            
             return bRes;
         }
 

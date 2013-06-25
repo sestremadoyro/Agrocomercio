@@ -154,99 +154,104 @@
             else
                 txtFecTraslado = txtFecTraslado.value;
 
+            try {
+                switch (cTipo) {
+                    case "ART":
+                        if (lsbArticulos.length == 1 && lsbArticulos.options[0].text == "0") {
+                            cMensaje = "Por favor Debe Registrar Algun articulo antes de Continuar.";
+                            lsbArticulos.focus();
+                            return false;
+                        }
+                        if (lsbArticulos.options.selectedIndex < 0) {
+                            cMensaje = "Debe Escoger un Articulo.";
+                            lsbArticulos.focus();
 
-            switch (cTipo) {
-                case "ART":
-                    if (lsbArticulos.length == 1 && lsbArticulos.options[0].text == "0") {
-                        cMensaje = "Por favor Debe Registrar Algun articulo antes de Continuar.";
-                        lsbArticulos.focus();
-                        return false;
-                    }
-                    if (lsbArticulos.options.selectedIndex < 0) {
-                        cMensaje = "Debe Escoger un Articulo.";
-                        lsbArticulos.focus();
+                            return false;
+                        }
+                        if (txtArtPreUnitario == "") {
+                            cMensaje = "Debe Ingresar un Precio de Compra para el Articulo.";
+                            txtArtPreUnitario.focus();
+                            return false;
+                        }
+                        if (parseFloat(txtArtPreUnitario) <= 0) {
+                            cMensaje = "La Cantidad a Vender debe se mayor a 0.";
+                            return false;
+                        }
+                        if (parseFloat(txtStockFis) <= 0)
+                        {
+                            cMensaje = "Este Articulo se encuentra SIN STOCK.";
+                            txtStockFis.focus();
+                            return false;
+                        }
+                        if (parseFloat(txtArtCant) > parseFloat(txtStockFis))
+                        {
+                            cMensaje = "No puede Vender esta Cantidad ya que sobrepasa el STOCK.";
+                            txtArtCant.focus();
+                            return false;
+                        }
+                        if (parseFloat(txtArtPreUnitario.Text) <= 0)
+                        {
+                            cMensaje = "Debe Ingresar un Precio de Venta para el Articulo.";
+                            txtArtPreUnitario.focus();
+                            return false;
+                        }
+                        if (parseFloat(txtArtDescuento.Text) > 100)
+                        {
+                            cMensaje = "El Descuento no Puede superar el 100%.";
+                            txtArtDescuento.focus();
+                            return false;
+                        }
+                        if (parseFloat(txtStockFis) != parseFloat(hideStockLote)) {
+                            cMensaje = "El Stock Fisico (" + txtStockFis + ") y el Stock de Lotes (" + hideStockLote + ") son Diferentes, Primero debe Ajustar Estas diferencias para Continuar.";
+                            txtStockFis.focus();
+                            return false;
+                        }
+                        if (txtLotVenci == "") {
+                            cMensaje = "Debe Ingresar una Fecha de Vencimiento.";
+                            txtLotVenci.focus();
+                            return false;
+                        }
+                        break;
+                    case "OPE":
+                        if ((ddlMoneda.length == 1 && ddlMoneda.options[0].Value == "000") ||
+                        (ddlTipoVenta.length == 1 && ddlTipoVenta.options[0].Value == "000") ||
+                        (ddlZonas.length == 0)) {
+                            cMensaje = "Por favor Registrar los tipos de Moneda, Tipo de Zonas y Tipo de Pago antes de Continuar. ";
+                            return false;
+                        }
+                        if (ddlClientes.options[ddlClientes.selectedIndex].value == "000") {
+                            cMensaje = "Debe Escoger un Cliente";
+                            ddlClientes.focus();
+                            return false;
+                        }
+                        if (ddlMoneda.options[ddlMoneda.selectedIndex].value == "000") {
+                            cMensaje = "Debe Escoger la Moneda";
+                            ddlMoneda.focus();
+                            return false;
+                        }
+                        if (ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "000") {
+                            cMensaje = "Debe Escoger el Tipo de Pago";
+                            ddlTipoVenta.focus();
+                            return false;
+                        }
+                        if (pcTipoEsp == "PROC" && ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "CR" && txtCiclo == "") {
+                            cMensaje = "Debe Indicar el Ciclo de la Compra";
+                            txtCiclo.focus();
+                            return false;
+                        }
+                        if (lblTipoDoc == "2" && txtFecTraslado == "") {
+                            cMensaje = "Ingrese una Fecha de Traslado";
+                            txtFecTraslado.focus();
+                            return false;
+                        }
+                        break;
+                    default:
+                        break;
+                }
 
-                        return false;
-                    }
-                    if (txtArtPreUnitario == "") {
-                        cMensaje = "Debe Ingresar un Precio de Compra para el Articulo.";
-                        txtArtPreUnitario.focus();
-                        return false;
-                    }
-                    if (parseFloat(txtArtPreUnitario) <= 0) {
-                        cMensaje = "La Cantidad a Vender debe se mayor a 0.";
-                        return false;
-                    }
-                    if (parseFloat(txtStockFis) <= 0)
-                    {
-                        cMensaje = "Este Articulo se encuentra SIN STOCK.";
-                        txtStockFis.focus();
-                        return false;
-                    }
-                    if (parseFloat(txtArtCant) > parseFloat(txtStockFis))
-                    {
-                        cMensaje = "No puede Vender esta Cantidad ya que sobrepasa el STOCK.";
-                        txtArtCant.focus();
-                        return false;
-                    }
-                    if (parseFloat(txtArtPreUnitario.Text) <= 0)
-                    {
-                        cMensaje = "Debe Ingresar un Precio de Venta para el Articulo.";
-                        txtArtPreUnitario.focus();
-                        return false;
-                    }
-                    if (parseFloat(txtArtDescuento.Text) > 100)
-                    {
-                        cMensaje = "El Descuento no Puede superar el 100%.";
-                        txtArtDescuento.focus();
-                        return false;
-                    }
-                    if (parseFloat(txtStockFis) != parseFloat(hideStockLote)) {
-                        cMensaje = "El Stock Fisico (" + txtStockFis + ") y el Stock de Lotes (" + hideStockLote + ") son Diferentes, Primero debe Ajustar Estas diferencias para Continuar.";
-                        txtStockFis.focus();
-                        return false;
-                    }
-                    if (txtLotVenci == "") {
-                        cMensaje = "Debe Ingresar una Fecha de Vencimiento.";
-                        txtLotVenci.focus();
-                        return false;
-                    }
-                    break;
-                case "OPE":
-                    if ((ddlMoneda.length == 1 && ddlMoneda.options[0].Value == "000") ||
-                    (ddlTipoVenta.length == 1 && ddlTipoVenta.options[0].Value == "000") ||
-                    (ddlZonas.length == 0)) {
-                        cMensaje = "Por favor Registrar los tipos de Moneda, Tipo de Zonas y Tipo de Pago antes de Continuar. ";
-                        return false;
-                    }
-                    if (ddlClientes.options[ddlClientes.selectedIndex].value == "000") {
-                        cMensaje = "Debe Escoger un Cliente";
-                        ddlClientes.focus();
-                        return false;
-                    }
-                    if (ddlMoneda.options[ddlMoneda.selectedIndex].value == "000") {
-                        cMensaje = "Debe Escoger la Moneda";
-                        ddlMoneda.focus();
-                        return false;
-                    }
-                    if (ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "000") {
-                        cMensaje = "Debe Escoger el Tipo de Pago";
-                        ddlTipoVenta.focus();
-                        return false;
-                    }
-                    if (pcTipoEsp == "PROC" && ddlTipoVenta.options[ddlTipoVenta.selectedIndex].value == "CR" && txtCiclo == "") {
-                        cMensaje = "Debe Indicar el Ciclo de la Compra";
-                        txtCiclo.focus();
-                        return false;
-                    }
-                    if (lblTipoDoc == "2" && txtFecTraslado == "") {
-                        cMensaje = "Ingrese una Fecha de Traslado";
-                        txtFecTraslado.focus();
-                        return false;
-                    }
-                    break;
-                default:
-                    break;
+            } catch (e) {
+                //alert("Error: " + e);
+                return false;
             }
 
             return bRes;

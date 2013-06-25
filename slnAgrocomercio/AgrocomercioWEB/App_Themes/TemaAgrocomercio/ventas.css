@@ -204,7 +204,7 @@ table.tabPedidos tr td.tabDerecha3{
 }
 /*.mGrid td.GroupHeader1Style, .mGrid td.SubTotalRow1Style { color: #fff; font-size: 0.95em; font-weight:bold;  }*/
 .mGrid tr:hover td.GroupHeader1Style, .mGrid tr:hover td.SubTotalRow1Style { color: #fff; font-size: 0.95em; font-weight:bold;  }
-.mGrid td.GroupHeader2Style, .mGrid td.SubTotalRow2Style
+.mGrid td.GroupHeader2Style, .mGrid td.SubTotalRow2Style, .mGrid td.GrandTotalRowStyle
 {
     color: #717171;
     padding: 3px;   
@@ -213,7 +213,7 @@ table.tabPedidos tr td.tabDerecha3{
     border-bottom:solid 1px #ffffff;
     border-top:solid 1px #ffffff;
 }
-.mGrid td.SubTotalRow1Style, .mGrid td.SubTotalRow2Style
+.mGrid td.SubTotalRow1Style, .mGrid td.SubTotalRow2Style, .mGrid td.GrandTotalRowStyle
 {
     height:15px;
     text-align:right;
@@ -223,6 +223,14 @@ table.tabPedidos tr td.tabDerecha3{
 {
     border-bottom:1px solid #ffffff;
     margin-bottom:8px;
+}
+.mGrid td.GrandTotalRowStyle
+{
+     background:#5dad30;
+     height:20px;
+     color: #fff; 
+     font-size: 1.1em; 
+     font-weight:bold; 
 }
 
 

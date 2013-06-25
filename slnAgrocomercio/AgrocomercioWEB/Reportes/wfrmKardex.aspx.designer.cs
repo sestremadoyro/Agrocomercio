@@ -76,6 +76,24 @@ namespace AgrocomercioWEB.Reportes {
         protected global::System.Web.UI.WebControls.HiddenField lblEstado;
         
         /// <summary>
+        /// Control cboxProveedores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ComboBox cboxProveedores;
+        
+        /// <summary>
+        /// Control cboxArticulos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ComboBox cboxArticulos;
+        
+        /// <summary>
         /// Control pnBotones.
         /// </summary>
         /// <remarks>

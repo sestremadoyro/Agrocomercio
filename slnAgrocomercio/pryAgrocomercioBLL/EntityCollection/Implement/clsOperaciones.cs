@@ -566,7 +566,7 @@ namespace pryAgrocomercioBLL.EntityCollection
         }
 
         
-        public DataTable ReporteKardex()
+        public DataTable ReporteKardex(int pPrvCod = 0, int pArtCod = 0)
         {
             clsDocumenOperacion colDocumentos = new clsDocumenOperacion();
             clsdetletra colDetLetras = new clsdetletra();
@@ -582,6 +582,8 @@ namespace pryAgrocomercioBLL.EntityCollection
                 var lstTemporal = (from Det in lstDetOperaciones
                                    join Doc in lstDocumentos on Det.OpeCod equals Doc.OpeCod into dGru
                                    from Doc2 in dGru.DefaultIfEmpty()
+                                   where (pPrvCod == 0 || (pPrvCod != 0 && pPrvCod == Det.Articulos.PrvCod)) &&
+                                   (pArtCod == 0 || (pArtCod != 0 && pArtCod == Det.ArtCod))
                                    orderby Det.Articulos.PrvCod, Det.ArtCod, Det.Operaciones.OpeFecEmision, Det.dtpCod
                                 select new
                                 {
