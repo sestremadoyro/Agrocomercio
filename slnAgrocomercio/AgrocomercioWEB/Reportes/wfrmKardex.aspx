@@ -15,17 +15,17 @@
     </style>
     <script type="text/javascript">
 
-        document.getElementById("ob_ctl00$MainContent$cbArticulosTrialDiv").style.color = "blue";
-
-        function exportToExcel() {
-//            gridKardex.exportToExcel();
-//            return false;
-        }
-
-        function exportToPdf() {
-//            gridKardex.exportToWord();
-//            return false;
-        }
+     var tableToExcel = (function () {
+         var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+    , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+         return function (table, name) {
+             if (!table.nodeType) table = document.getElementById(table)
+             var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+             window.location.href = uri + base64(format(template, ctx))
+         }
+     })()
 
         function onChangePrv(sender, index) {
             gridKardex.addFilterCriteria('PrvRazon', OboutGridFilterCriteria.EqualTo, sender.options[index].text);
@@ -62,18 +62,7 @@
 
         }
 
-        function ExportarXLS() {
-            //var strCopy = document.getElementById("MainContent_gridKardex").innerHTML;
     
-            
-//            var prtContent = document.getElementById('divGridView');
-//            var pop1 = window.open ("", "import.xls", "letf=0,top=0,width=800%,height=600,toolbar=1,scrollbars=1,status=1");
-//            var doc = pop1.document.open("application/vnd-msexcel");
-//            doc.write(prtContent.innerHTML);
-//            doc.close();
-//            pop1.focus();
-
-        }
     </script>
     <style type="text/css">
         
@@ -98,8 +87,10 @@
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
+
     <asp:UpdatePanel ID="MainUpdatePanel" runat="server" ClientIDMode="Static">
         <ContentTemplate>
+
             <table class="MainContent">
                 <tr>
                     <td colspan="2">
@@ -167,11 +158,10 @@
                                                         <input id="Button1" type="button" value="Imprimir" onclick="printGrid2()" class="clsBtnImprimir"   />
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="Button4" runat="server" Text="Excel" ToolTip="Excel" CssClass="clsBtnExcel"
-                                                            OnClientClick="ExportarXLS()" />
+                                                        <input type="button" onclick="tableToExcel('MainContent_gridKardex', 'REPORTE KARDEX')" value="Excel"  class="clsBtnExcel" >
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="Button5" runat="server" Text="A Pdf" ToolTip="Pdf" CssClass="clsBtnPdf" />
+                                                        <asp:Button ID="Button5" runat="server" Text="A Pdf" ToolTip="Pdf" CssClass="clsBtnPdf" Visible="false" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -181,7 +171,7 @@
                             </tr>
                             <tr>
                                 <td class="tablaDerecha" valign="top" colspan="2"  >
-                                    <table class="tablaDerecha"  >
+                                    <table class="tablaDerecha" >
                                         <tr>
                                             <td>
                                                 <div id="divGridView" style="position: relative; width: 875px; height:430px; overflow:scroll;">

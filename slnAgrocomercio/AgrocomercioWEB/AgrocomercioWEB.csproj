@@ -529,8 +529,6 @@
     <Content Include="bin\AgrocomercioWEB.dll" />
     <Content Include="bin\AgrocomercioWEB.pdb" />
     <Content Include="bin\AjaxControlToolkit.dll" />
-    <Content Include="bin\itextsharp.dll" />
-    <Content Include="bin\itextsharp.xml" />
     <Content Include="bin\obout_AJAXPage.dll" />
     <Content Include="bin\obout_Calendar2_Net.dll" />
     <Content Include="bin\obout_ComboBox.dll" />
