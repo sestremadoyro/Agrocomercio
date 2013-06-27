@@ -27,16 +27,6 @@
          }
      })()
 
-        function onChangePrv(sender, index) {
-            gridKardex.addFilterCriteria('PrvRazon', OboutGridFilterCriteria.EqualTo, sender.options[index].text);
-            gridKardex.executeFilter();
-        }
-
-        function onChangeArt(sender, index) {
-            gridKardex.addFilterCriteria('ArtDescripcion', OboutGridFilterCriteria.EqualTo, sender.options[index].text);
-            gridKardex.executeFilter();
-        }
-
 
         var gridBodyStyle = null;
         function printGrid() {

@@ -10,7 +10,7 @@
 namespace AgrocomercioWEB.Reportes {
     
     
-    public partial class wfrmTotalPorProveedor {
+    public partial class wfrmTotalPorProveedor_ant {
         
         /// <summary>
         /// Control updateProgress.
@@ -76,22 +76,22 @@ namespace AgrocomercioWEB.Reportes {
         protected global::System.Web.UI.WebControls.HiddenField lblEstado;
         
         /// <summary>
-        /// Control cboxProveedores.
+        /// Control cbProveedores.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::AjaxControlToolkit.ComboBox cboxProveedores;
+        protected global::Obout.ComboBox.ComboBox cbProveedores;
         
         /// <summary>
-        /// Control cboxArticulos.
+        /// Control cbArticulos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::AjaxControlToolkit.ComboBox cboxArticulos;
+        protected global::Obout.ComboBox.ComboBox cbArticulos;
         
         /// <summary>
         /// Control pnBotones.
@@ -103,6 +103,24 @@ namespace AgrocomercioWEB.Reportes {
         protected global::System.Web.UI.WebControls.Panel pnBotones;
         
         /// <summary>
+        /// Control Button3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button3;
+        
+        /// <summary>
+        /// Control Button4.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button4;
+        
+        /// <summary>
         /// Control Button5.
         /// </summary>
         /// <remarks>
@@ -112,12 +130,12 @@ namespace AgrocomercioWEB.Reportes {
         protected global::System.Web.UI.WebControls.Button Button5;
         
         /// <summary>
-        /// Control gridKardex.
+        /// Control gridTotales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridKardex;
+        protected global::Obout.Grid.Grid gridTotales;
     }
 }

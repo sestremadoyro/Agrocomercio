@@ -105,8 +105,7 @@ namespace AgrocomercioWEB.Reportes
             cboxArticulos.DataBind();
             cboxArticulos.Items.Insert(0, new ListItem("[TODOS]", "0"));
             colArticulos = null;
-        }
-        
+        }       
 
      
         protected void gridKardex_RowDataBound(object sender, GridViewRowEventArgs e)

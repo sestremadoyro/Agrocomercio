@@ -635,7 +635,7 @@ namespace pryAgrocomercioBLL.EntityCollection
             }
         }
 
-        public IEnumerable<object> ReporteTotalProveedor()
+        public IEnumerable<object> ReporteTotalProveedor(int pPrvCod = 0, int pArtCod = 0)
         {
             clsdetletra colDetLetras = new clsdetletra();
             clsDetOperacion colDetOpera = new clsDetOperacion();
@@ -657,6 +657,8 @@ namespace pryAgrocomercioBLL.EntityCollection
 
 
                 var lstResult = from Art in colArticulos.GetAll().ToList()
+                                where (pPrvCod == 0 || (pPrvCod != 0 && pPrvCod == Art.PrvCod)) &&
+                                   (pArtCod == 0 || (pArtCod != 0 && pArtCod == Art.ArtCod))
                                 orderby Art.Proveedores.PrvRazon, Art.ArtDescripcion
                                 join Ope in lstOperaciones on Art.ArtCod equals Ope.ArtCod into dGru
                                     from Ope2 in dGru.DefaultIfEmpty()

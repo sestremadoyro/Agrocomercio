@@ -164,6 +164,7 @@
     <Content Include="App_Themes\TemaAgrocomercio\Calendar\styles\style10\arrow_right.gif" />
     <Content Include="App_Themes\TemaAgrocomercio\Calendar\styles\style10\border.gif" />
     <Content Include="App_Themes\TemaAgrocomercio\Calendar\styles\style10\style.css" />
+    <Content Include="Reportes\wfrmTotalPorProveedor_ant.aspx" />
     <Content Include="Reportes\gridview.css" />
     <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\margin.gif" />
     <Content Include="App_Themes\TemaAgrocomercio\EasyMenu\Horizontal1\mid.gif" />
@@ -919,6 +920,13 @@
     <Compile Include="Reportes\Clases\clsRepCabeceraDoc.cs" />
     <Compile Include="Reportes\Clases\clsRepDetalleFactura.cs" />
     <Compile Include="Reportes\Clases\clsRepCompras.cs" />
+    <Compile Include="Reportes\wfrmTotalPorProveedor_ant.aspx.cs">
+      <DependentUpon>wfrmTotalPorProveedor_ant.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\wfrmTotalPorProveedor_ant.aspx.designer.cs">
+      <DependentUpon>wfrmTotalPorProveedor_ant.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\wfrmKardex_ant.aspx.cs">
       <DependentUpon>wfrmKardex_ant.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

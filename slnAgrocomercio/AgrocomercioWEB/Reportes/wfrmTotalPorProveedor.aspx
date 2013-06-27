@@ -15,33 +15,41 @@
     </style>
     <script type="text/javascript">
 
-        function exportToExcel() {
-            gridTotales.exportToExcel();
-            return false;
-        }
+        var tableToExcel = (function () {
+            var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+    , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+            return function (table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
 
-        function exportToPdf() {
-            gridTotales.exportToWord();
-            return false;
-        }
 
-        function onChangePrv(sender, index) {
-            gridTotales.addFilterCriteria('PrvRazon', OboutGridFilterCriteria.EqualTo, sender.options[index].text);
-            gridTotales.executeFilter();
-        }
-
-        function onChangeArt(sender, index) {
-            gridTotales.addFilterCriteria('ArtDescripcion', OboutGridFilterCriteria.EqualTo, sender.options[index].text);
-            gridTotales.executeFilter();
-        }
-
+        var gridBodyStyle = null;
         function printGrid() {
-            gridBodyStyle = gridTotales.GridBodyContainer.getAttribute('style');
-            gridTotales.GridBodyContainer.style.maxHeight = '';
-            gridTotales.print();
+            gridBodyStyle = gridKardex.GridBodyContainer.getAttribute('style');
+            gridKardex.GridBodyContainer.style.maxHeight = '';
+            gridKardex.GridMainContainer.style.width = gridKardex.HorizontalScroller.firstChild.firstChild.offsetWidth + 'px';
+            gridKardex.HorizontalScroller.style.display = 'none';
+
+            gridKardex.print();
 
             window.setTimeout("gridKardex.GridBodyContainer.setAttribute('style', gridBodyStyle);", 250);
             return false;
+        }
+        function printGrid2() {
+            var div, imp;
+            div = document.getElementById("divGridView"); //seleccionamos el objeto
+            imp = window.open(" ", "Impresion de Reporte", 'toolbar=0,scrollbars=0,status=0'); //damos un titulo
+            imp.document.write('<HTML>\n<HEAD>\n<link href="gridview.css" rel="stylesheet" type="text/css" />\n</HEAD>\n<BODY>\n'); //tambien podriamos agregarle un <link ...
+            imp.document.write(div.innerHTML + '\n</BODY>\n</HTML>'); //agregamos el objeto
+            imp.document.close();
+            imp.print();   //Abrimos la opcion de imprimir
+            imp.close(); //cerramos la ventana nueva
+
         }
 
         
@@ -76,7 +84,7 @@
                 <tr>
                     <td colspan="2">
                         <h1 class="clsTituloPrincipal2">
-                            KARDEX FISICO Y VALORADO AGROCOMERCIO S.R.L.</h1>
+                            REPORTE VALORIZADO POR PROVEEDORES agrocomercio S.R.L.</h1>
                     </td>
                 </tr>
                 <tr>
@@ -89,7 +97,7 @@
                                             <tr>
                                                 <td colspan="4">
                                                     <h3>
-                                                        <asp:Label ID="lblSubTitulo" runat="server" Text="Label">Reportes de Kardex Fisico y Valorado</asp:Label></h3>
+                                                        <asp:Label ID="lblSubTitulo" runat="server" Text="Label">Reportes Valorado por Proveedor</asp:Label></h3>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -104,27 +112,21 @@
                                             <tr>
                                                 <td class="clsCellTituloDatos2">Proveedor: </td>
                                                 <td >
-                                                    <obout:ComboBox ID="cbProveedores" runat="server" Width="300" 
-                                                    FilterType="StartsWith" EmptyText="Buscar Proveedores ..."
-                                                    DataTextField="prvRazon" DataValueField="prvRazon" >
-                                                        <ClientSideEvents OnSelectedIndexChanged="onChangePrv" />
-                                                    </obout:ComboBox>
+                                                    <asp:ComboBox ID="cboxProveedores" runat="server" AutoPostBack="True" DropDownStyle="DropDownList" 
+                                                    AutoCompleteMode="SuggestAppend" DataTextField="PrvRazon" 
+                                                        DataValueField="PrvCod" Font-Size="9px" Width="150px" 
+                                                        onselectedindexchanged="cboxProveedores_SelectedIndexChanged">
+                                                    </asp:ComboBox>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="clsCellTituloDatos2">Articulos: </td>
                                                 <td >
-                                                    <div class="comboBoxMaster">
-                                                        <obout:ComboBox ID="cbArticulos" runat="server" Width="300" Height="150" 
-                                                        FilterType="StartsWith" EmptyText="Buscar Articulos ..."
-                                                        DataTextField="ArtDescripcion" DataValueField="ArtCod" 
-                                                            style="top: 0px; left: 0px" >
-                                                            <ClientSideEvents OnSelectedIndexChanged="onChangeArt" />
-                                                        </obout:ComboBox>
-                                                        <div class="comboBoxOver"></div>
-                                                        <div class="comboBoxOver1"></div>
-                                                        <div class="comboBoxOver2"></div>
-                                                    </div>
+                                                     <asp:ComboBox ID="cboxArticulos" runat="server" AutoPostBack="True" DropDownStyle="DropDownList" 
+                                                    AutoCompleteMode="SuggestAppend" DataTextField="ArtDescripcion" 
+                                                        DataValueField="ArtCod" Font-Size="9px" Width="150px" 
+                                                        onselectedindexchanged="cboxArticulos_SelectedIndexChanged">
+                                                    </asp:ComboBox>
                                                     
                                                 </td>
                                             </tr>
@@ -142,16 +144,14 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td valign="top">
-                                                        <asp:Button ID="Button3" runat="server" Text="Imprimir" ToolTip="Imprimir" CssClass="clsBtnImprimir"
-                                                            OnClientClick="printGrid()" />
+                                                     <td valign="top">
+                                                        <input id="Button1" type="button" value="Imprimir" onclick="printGrid2()" class="clsBtnImprimir"   />
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="Button4" runat="server" Text="Excel" ToolTip="Excel" CssClass="clsBtnExcel"
-                                                            OnClientClick="exportToExcel()" />
+                                                        <input type="button" onclick="tableToExcel('MainContent_gridKardex', 'REPORTE VALORADO PROVEEDORES')" value="Excel"  class="clsBtnExcel" >
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="Button5" runat="server" Text="A Pdf" ToolTip="Pdf" CssClass="clsBtnPdf" />
+                                                        <asp:Button ID="Button5" runat="server" Text="A Pdf" ToolTip="Pdf" CssClass="clsBtnPdf" Visible="false" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -164,51 +164,56 @@
                                     <table class="tablaDerecha" >
                                         <tr>
                                             <td>
-                                                <div id="Div1" style="position: relative; width: 875px; height:430px; overflow:hidden;">
-
-                                                    <obout:Grid ID="gridTotales" runat="server" CallbackMode="true" Serialize="true"
-                                                        AutoGenerateColumns="false" PageSize="-1" AllowAddingRecords="false" ShowMultiPageGroupsInfo="false"
-                                                        AllowColumnResizing="true"
-                                                        ShowGroupFooter="true" OnRowDataBound="gridTotales_RowDataBound"
-                                                        AllowGrouping="true" GroupBy="PrvRazon" AllowFiltering="True" 
-                                                        Width="100%" HideColumnsWhenGrouping="True"
-                                                        FolderLocalization="~/App_Themes/TemaAgrocomercio/Grid/localization" Language="es"
-                                                        FolderStyle="~/App_Themes/TemaAgrocomercio/Grid/style_6" 
-                                                        FilterType="ProgrammaticOnly" >
-                                                        <Columns>
-                                                            <obout:Column DataField="PrvRazon" HeaderText="Proveedor" Index="0" >
-                                                            </obout:Column>
-                                                            <obout:Column DataField="ArtCod" HeaderText="Art.Codigo" Index="1" Width="50" Visible="false" >
-                                                            </obout:Column>
-                                                            <obout:Column DataField="ArtDescripcion" HeaderText="Articulo" Index="2" AllowGroupBy="False" Width="150">
-                                                            </obout:Column>
-                                                            <obout:Column DataField="ArtStockIni" HeaderText="Stock.Inicial" Index="3" AllowGroupBy="False" Width="80">
-                                                            </obout:Column>
-                                                            <obout:Column DataField="nTotalIni" HeaderText="Total.Inicial" Index="4" AllowGroupBy="False" Width="80">
-                                                            </obout:Column>
-                                                            <obout:Column DataField="nCom_Cantidad" HeaderText="Compras.Cant" Index="5" AllowGroupBy="False" Width="90">
-                                                            </obout:Column>
-                                                            <obout:Column DataField="nCom_Total" HeaderText="Compras.Total" Index="6" AllowGroupBy="False" Width="90">
-                                                            </obout:Column>
-                                                            <obout:Column DataField="nVen_Cantidad" HeaderText="Venta.Cant" Index="7" AllowGroupBy="False" Width="90">
-                                                            </obout:Column>
-                                                            <obout:Column DataField="nVen_Total" HeaderText="Venta.Costo" Index="8" AllowGroupBy="False" Width="90">
-                                                            </obout:Column>
-                                                            <obout:Column DataField="ArtStock" HeaderText="Stock.Final" Index="9" AllowGroupBy="False" Width="80">
-                                                            </obout:Column>
-                                                            <obout:Column DataField="nTotalFin" HeaderText="Total.Final" Index="10" AllowGroupBy="False" Width="80">
-                                                            </obout:Column>
-                                                        </Columns>
-                                                        <GroupingSettings AllowChanges="False" />
-                                                        <ScrollingSettings ScrollWidth="870" ScrollHeight="350" />
-                                                        <ExportingSettings Encoding="UTF8" ExportAllPages="True" FileName="Total Proveedor"
-                                                            KeepColumnSettings="True" ExportGroupFooter="true"  />
-                                                        <CssSettings 
-                                                             CSSExportHeaderCellStyle="font-weight: bold; color: #000000;  border:1px solid #222; background:#ddd;"
-                                                             CSSExportCellStyle="font-weight: normal; color: #111111; border:1px solid #444;"/>
-                                                        
-                                                    </obout:Grid>
-                                                    
+                                                <div id="divGridView" style="position: relative; width: 875px; height:430px; overflow:scroll;">
+                                                <asp:GridView ID="gridKardex" runat="server" AutoGenerateColumns="False"  
+                                                    CellPadding="4" GridLines="Vertical" Width="855px" 
+                                                            CssClass="mGrid mGrid3" ShowHeaderWhenEmpty="True" 
+                                                        onrowcreated="gridKardex_RowCreated" onrowdatabound="gridKardex_RowDataBound" >
+                                                            <AlternatingRowStyle CssClass="alt" />
+                                                            <Columns>
+                                                                <asp:BoundField DataField="PrvRazon" HeaderText="Proveedor" Visible="False" >
+                                                                    <ItemStyle HorizontalAlign="Left" Width="150px" />
+                                                                </asp:BoundField>
+                                                            <asp:BoundField DataField="ArtCod" HeaderText="Art.Codigo" >
+                                                                <ItemStyle HorizontalAlign="Left" Width="20px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="ArtDescripcion" HeaderText="Articulo" >
+                                                                <ItemStyle HorizontalAlign="Left" Width="200px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="ArtStockIni" HeaderText="Stock.Inicial"   >
+                                                                <ItemStyle HorizontalAlign="Left" Width="60px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nTotalIni" HeaderText="Total.Inicial"  DataFormatString="{0:n}">
+                                                                <ItemStyle HorizontalAlign="Right" Width="60px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nCom_Cantidad" HeaderText="Compras.Cant" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nCom_Total" HeaderText="Compras.Total" DataFormatString="{0:n}">
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nVen_Cantidad" HeaderText="Venta.Cantidad" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nVen_Total" HeaderText="Venta.Total" DataFormatString="{0:n}">
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="ArtStock" HeaderText="Stock.Final" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nTotalFin" HeaderText="Total.Final" DataFormatString="{0:n}" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="90px" />
+                                                            </asp:BoundField>
+                                                            </Columns>
+                                                            <EmptyDataTemplate>
+                                                                <i>
+                                                                    <div class="clsError1" id="lblError1" runat="server">
+                                                                        No se ha Registrado ninguna operacion</div>
+                                                                </i>
+                                                            </EmptyDataTemplate>
+                                                            <PagerStyle CssClass="pgr" />
+                                                            <SelectedRowStyle CssClass="selrow" />
+                                                        </asp:GridView>
                                                      
                                                 </div>
                                             </td>
