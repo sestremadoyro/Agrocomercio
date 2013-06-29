@@ -42,6 +42,11 @@ namespace pryAgrocomercioBLL.EntityCollection
             int ntcmCod = 0;
             try
             {
+                Operacion = GetOperacion(nOpeCod);
+
+                if (Operacion != null)
+                    cProceso = "EDIT";
+                
                 if (cProceso == "NEW")
                 {
                     Operacion = new Operaciones();
@@ -255,7 +260,7 @@ namespace pryAgrocomercioBLL.EntityCollection
 #region FUNCIONES DE CONSULTA
         public Operaciones GetOperacion(long OpeCod)
         {
-            return this.Find(Ope => Ope.OpeCod == OpeCod).First<Operaciones>();
+            return this.Find(Ope => Ope.OpeCod == OpeCod).FirstOrDefault();
         }
         public DataTable GetListOperaciones(string _OpeTipo, Boolean bPorFechas, DateTime _dFecIni, DateTime _dFecFin, string _OpeEstado = "", int _nPrvCod = 0, int _nCliCod = 0, string _cNroSerie = "", string _cNroDoc = "")
         {

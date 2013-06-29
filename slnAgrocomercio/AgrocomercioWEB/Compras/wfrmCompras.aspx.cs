@@ -440,12 +440,10 @@ namespace AgrocomercioWEB.Compras
         {
             CalcularPago(g_dtDetOperacion);
         }
-
         protected void txtFleteTra_TextChanged(object sender, EventArgs e)
         {
             CalcularPago(g_dtDetOperacion);
         }
-
         protected void ddlTipoVenta_SelectedIndexChanged(object sender, EventArgs e)
         {
             ddlTipCiclo.Visible = ddlTipoVenta.SelectedValue == "CR";
@@ -935,6 +933,10 @@ namespace AgrocomercioWEB.Compras
                 oThread.Abort();
                 MessageBox("Error Interno: " + ex.Message + ex.InnerException );
             }
+        }
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            CargarListaOpeCompra(nNroDetPed);
         }
 
         #endregion
@@ -2051,8 +2053,11 @@ namespace AgrocomercioWEB.Compras
             oArticulos = null;
             if (lblTipoDoc.Value != "4" && lblTipoDoc.Value != "5")
             {
-                ddlProveedor.SelectedValue = ddlLaboratorios.SelectedValue;
-                ddlProveedor_SelectedIndexChanged(sender, e);
+                if (ddlLaboratorios.SelectedValue != "-1")
+                {
+                    ddlProveedor.SelectedValue = ddlLaboratorios.SelectedValue;
+                    ddlProveedor_SelectedIndexChanged(sender, e);
+                }                
             }
             
             //ModalPopupAgregar.Show();
@@ -2093,11 +2098,12 @@ namespace AgrocomercioWEB.Compras
                     dtDetOper = CambiarMonedaDetOperacion(dtDetOper);
                     RellenarGrilla(ref dgvDetalleVenta, dtDetOper, this.nNroDetPed);
 
-                    colDetOper.UpdatePrecio(this.nOpeCod, int.Parse(txtArtCod.Text), (Decimal)(Double.Parse(txtArtPreUnitario.Text) * nTipCam));
-
                     colOper.Guardar(this, gcOpeTipo, ref ndopCod, ref ntcmCod);  //GUARDAR OPERACION    
+                    colDetOper.UpdatePrecio(this.nOpeCod, int.Parse(txtArtCod.Text), (Decimal)(Double.Parse(txtArtPreUnitario.Text) * nTipCam));
                     lbldopCod.Value = ndopCod.ToString();
                     lbltcmCod.Value = ntcmCod.ToString();
+                    HabilitarBtn(btnGuardar, false);
+                    HabilitarBtn(btnProcesar, false);
                 }
                 else
                 {
@@ -2232,11 +2238,7 @@ namespace AgrocomercioWEB.Compras
 
         #endregion
 
-        
-
-      
-
-
+       
 
     }
 }

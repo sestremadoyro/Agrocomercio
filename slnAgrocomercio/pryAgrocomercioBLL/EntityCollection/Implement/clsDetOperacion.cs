@@ -64,18 +64,16 @@ namespace pryAgrocomercioBLL.EntityCollection
 
                         if (Operacion.OpeTipo == "C")
                         {
-                            DetOper.LotCod = nLotCod;
-
                             decimal nPrecioCom = (decimal)DetOper.dtpPrecioVen - ((decimal)DetOper.dtpPrecioVen * (decimal)DetOper.dtpDscto / 100);
-                            decimal nPrecioVen = nPrecioVen = (decimal)lstLotesArt.GetCostoPromedio(lnArtCod, 0.18, (Double)nPrecioCom);
 
+                            DetOper.LotCod = nLotCod;
                             DetOper.LotesArt = new LotesArt();
                             DetOper.LotesArt.LotCod = nLotCod;
                             DetOper.LotesArt.ArtCod = lnArtCod;
                             DetOper.LotesArt.LotNro = int.Parse(row["LotNro"].ToString());
                             DetOper.LotesArt.LotStock = DetOper.dtpCantidad;
                             DetOper.LotesArt.LotPrecioCom = nPrecioCom;
-                            DetOper.LotesArt.LotPrecioVen = nPrecioVen;
+                            DetOper.LotesArt.LotPrecioVen = 0;
                             DetOper.LotesArt.LotFecRegis = DateTime.Today;
                             DetOper.LotesArt.LotFecVenci = DateTime.Parse(row["LotFecVenci"].ToString());
                             DetOper.LotesArt.LotFecModi = DateTime.Now;
@@ -113,9 +111,12 @@ namespace pryAgrocomercioBLL.EntityCollection
                     oDetOperacion.dtpEstado = true;
                     if (Operacion.OpeTipo == "C") // PARA COMPRAS
                     {
+                        decimal nPrecioVen = (decimal)colLotesArt.GetCostoPromedio((int)oDetOperacion.ArtCod, 0.18, (Double)oDetOperacion.LotesArt.LotPrecioCom);
+
                         oDetOperacion.Articulos.ArtStock += (decimal)Det.dtpCantidad;
-                        oDetOperacion.Articulos.ArtCostoProm = oDetOperacion.LotesArt.LotPrecioVen;
-                        oDetOperacion.LotesArt.LotEstado = "A";                        
+                        oDetOperacion.Articulos.ArtCostoProm = nPrecioVen;
+                        oDetOperacion.LotesArt.LotEstado = "A";
+                        oDetOperacion.LotesArt.LotPrecioVen = nPrecioVen;   
                     }                        
                     else // PARA VENTAS
                     {
@@ -168,8 +169,12 @@ namespace pryAgrocomercioBLL.EntityCollection
         }
         public Boolean UpdatePrecio(long nOpeCod, int nArtCod, decimal nPrecio)
         {
+            clsLotesArt colLotesArt = new clsLotesArt(AgroEntidades);
             DetOperacion DetOper = GetDetOperacion((int)nOpeCod, nArtCod);
-            DetOper.LotesArt.LotPrecioVen = nPrecio;
+            decimal nPrecioVen = (decimal)colLotesArt.GetCostoPromedio((int)DetOper.ArtCod, 0.18);
+
+            DetOper.LotesArt.LotPrecioVen = nPrecioVen;
+            DetOper.Articulos.ArtCostoProm = nPrecioVen;
             Update(DetOper);
             SaveChanges();
 

@@ -941,6 +941,10 @@ namespace AgrocomercioWEB.Ventas
                 MessageBox("Error Interno: " + ex.Message);
             }
         }
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            CargarListaOpeVenta(nNroDetPed);
+        }
         #endregion
 
         #region FUNCIONES DE CARGA DE LISTAS DE DATOS

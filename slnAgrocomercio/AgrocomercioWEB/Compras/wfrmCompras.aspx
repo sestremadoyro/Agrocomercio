@@ -324,7 +324,7 @@
                         <table class="tabPedidos">
                             <tr>
                                 <td class="tabIzquierda" valign="top">
-                                    <asp:Panel ID="pnListOperCompras" runat="server">
+                                    <asp:Panel ID="pnListOperCompras" runat="server" DefaultButton="btnBuscar">
                                         <table class="tableIzquierda">
                                             <tr>
                                                 <td colspan="4">
@@ -386,6 +386,8 @@
                                                                 
                                                 </td>
                                                 <td class="clsCellDatos2">
+                                                    <div style=" visibility:hidden;"><asp:Button ID="btnBuscar" runat="server" Text="Button" 
+                                                            onclick="btnBuscar_Click" /></div>
                                                    
                                                 </td>
                                             </tr>

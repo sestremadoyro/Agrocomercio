@@ -72,6 +72,8 @@ table.tabPedidos tr td.tabDerecha3{
 {
 	text-align:right;
 	font-size:11px;
+	padding:0;
+	margin:0;
 }
 .clsCellDatos2, .clsCellDatos3, .clsCellDatosPago
 {
@@ -79,6 +81,8 @@ table.tabPedidos tr td.tabDerecha3{
 	font-size:11px;
 	font-weight:bold;
 	color:#333333;
+	padding:0;
+	margin:0;
 }
 .clsCellDatosPago input
 {

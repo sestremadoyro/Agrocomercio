@@ -173,7 +173,7 @@
                             txtArtPreUnitario.focus();
                             return false;
                         }
-                        if (parseFloat(txtArtPreUnitario) <= 0) {
+                        if (parseFloat(txtArtCant) <= 0) {
                             cMensaje = "La Cantidad a Vender debe se mayor a 0.";
                             return false;
                         }
@@ -294,7 +294,7 @@
                         <table class="tabPedidos">
                             <tr>
                                 <td class="tabIzquierda" valign="top">
-                                    <asp:Panel ID="pnListOperVentas" runat="server">
+                                    <asp:Panel ID="pnListOperVentas" runat="server"  DefaultButton="btnBuscar">
                                         <table class="tableIzquierda">
                                             <tr>
                                                 <td colspan="4">
@@ -356,6 +356,8 @@
                                                                 
                                                 </td>
                                                 <td class="clsCellDatos2">
+                                                   <div style=" visibility:hidden;"><asp:Button ID="btnBuscar" runat="server" Text="Button" 
+                                                            onclick="btnBuscar_Click" /></div>
                                                    
                                                 </td>
                                             </tr>

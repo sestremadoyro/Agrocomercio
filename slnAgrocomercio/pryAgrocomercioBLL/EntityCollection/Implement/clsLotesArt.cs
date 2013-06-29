@@ -164,26 +164,28 @@ namespace pryAgrocomercioBLL.EntityCollection
         {
             Double nCostoProm = 0;
             Decimal nIGV = (Decimal)(nTasIGV + 1);
-            List<Decimal> lstPre = null;
+            List<Decimal> lstPre = new List<Decimal>();
 
-            var result = this.Find(Pre => Pre.ArtCod == ArtCod && Pre.LotPrecioCom > 0);
+            var result = this.Find(Pre => Pre.ArtCod == ArtCod && Pre.LotPrecioCom > 0 && Pre.LotEstado != "I");
+            Double prGanancia = (Double)this.Find(Pre => Pre.ArtCod == ArtCod).Select(Pre => Pre.Articulos.Proveedores.PrvGanancia).FirstOrDefault();
+            prGanancia = prGanancia > 0 ? prGanancia : 1;
 
             if (result.Count() > 0)
             {
-                lstPre = result.Select(Pre => (Decimal)Pre.LotPrecioCom).ToList();
-
-                if (pnPrecio > 0)
-                {
-                    pnPrecio = (pnPrecio * (Double)nIGV) + pnPrecio / 100;
-                    Double prGanancia = (Double)result.Select(Pre => Pre.Articulos.Proveedores.PrvGanancia).FirstOrDefault();
-                    pnPrecio *= prGanancia > 0 ? prGanancia : 1;
-                    lstPre.Add((Decimal)pnPrecio);
-                }
+                lstPre = result.Select(Pre => (((Decimal)Pre.LotPrecioCom * nIGV) + (Decimal)Pre.LotPrecioCom / 100) * (Decimal)prGanancia).ToList();
             }
-            if (lstPre != null)
+
+            if (pnPrecio > 0)
+            {
+                pnPrecio = ((pnPrecio * (Double)nIGV) + pnPrecio / 100) * prGanancia;
+                lstPre.Add((Decimal)pnPrecio);
+            }
+
+            if (lstPre.Count() > 0)
                 nCostoProm = Math.Round((Double)lstPre.Average(), 2);
             else
                 nCostoProm = 0.0;
+
             return nCostoProm;
         }
 
