@@ -332,7 +332,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                         <HeaderStyle Font-Size="10px" Width="8px" />
                         <ItemStyle Font-Size="8pt" Width="8px"  HorizontalAlign="Center"/>
                     </asp:TemplateField>
-                    <asp:TemplateField>
+                   <%-- <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton ID="lnbEliminaPrecio" runat="server"
                             CommandName="EliminaPrecio" 
@@ -340,7 +340,7 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
                         </ItemTemplate>
                         <HeaderStyle Font-Size="10px" Width="8px" />
                         <ItemStyle Font-Size="8pt" Width="8px"  HorizontalAlign="Center"/>
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                         <asp:BoundField DataField="LotCod" HeaderText="#" InsertVisible="False" ReadOnly="True"
                             SortExpression="artCod"  ItemStyle-Font-Size="10pt">
                             <ItemStyle Width="20px" />
