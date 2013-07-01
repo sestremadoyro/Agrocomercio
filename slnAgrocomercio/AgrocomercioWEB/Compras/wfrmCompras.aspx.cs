@@ -2099,7 +2099,12 @@ namespace AgrocomercioWEB.Compras
                     RellenarGrilla(ref dgvDetalleVenta, dtDetOper, this.nNroDetPed);
 
                     colOper.Guardar(this, gcOpeTipo, ref ndopCod, ref ntcmCod);  //GUARDAR OPERACION    
-                    colDetOper.UpdatePrecio(this.nOpeCod, int.Parse(txtArtCod.Text), (Decimal)(Double.Parse(txtArtPreUnitario.Text) * nTipCam));
+
+                    foreach (DataRow row in dtDetalleCompra.Rows)
+                    {
+                        colDetOper.UpdatePrecio(this.nOpeCod, int.Parse(row["ArtCod"].ToString()), (Decimal)(Double.Parse(row["dtpPrecioVen"].ToString())));
+                    }
+                    
                     lbldopCod.Value = ndopCod.ToString();
                     lbltcmCod.Value = ntcmCod.ToString();
                     HabilitarBtn(btnGuardar, false);

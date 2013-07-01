@@ -26,7 +26,15 @@ namespace pryAgrocomercioBLL.EntityCollection
 
         public List<Atributos> ListAtributos(int pcAtrTipoCod)
         {
-            return this.Find(Atr => Atr.AtrTipoCod == pcAtrTipoCod && Atr.AtrNivel == 1 && Atr.AtrEstado == true).ToList<Atributos>()  ;
+            try
+            {
+                return this.Find(Atr => Atr.AtrTipoCod == pcAtrTipoCod && Atr.AtrNivel == 1 && Atr.AtrEstado == true).ToList<Atributos>();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, true)]
