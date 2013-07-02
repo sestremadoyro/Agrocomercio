@@ -1,8 +1,8 @@
 ﻿<%@ Page Title=".:Reportes de Kardex Fisico y Valorado:." Language="C#" MasterPageFile="~/Site.Master"
     AutoEventWireup="true" CodeBehind="wfrmKardex.aspx.cs" Inherits="AgrocomercioWEB.Reportes.wfrmKardex" %>
 
-<%@ Register Assembly="Infragistics35.Web.v10.1, Version=10.1.20101.1011, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb"
-    Namespace="Infragistics.Web.UI.GridControls" TagPrefix="ig" %>
+<%--<%@ Register Assembly="Infragistics35.Web.v10.1, Version=10.1.20101.1011, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb"
+    Namespace="Infragistics.Web.UI.GridControls" TagPrefix="ig" %>--%>
 
 <%@ Register Assembly="obout_Interface" Namespace="Obout.Interface" TagPrefix="obout" %>
 
