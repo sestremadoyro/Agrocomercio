@@ -694,7 +694,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 //AGREGAR CONFIRMACION DE ELIMINAR
                 e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#f0fff0';this.style.color='#3496bb'");
                 LinkButton lbtEliminar = (LinkButton)e.Row.FindControl("lnbEliminaPrecio");
-                lbtEliminar.Attributes.Add("onclick", "return confirm('El Registro elegido será eliminado. ¿Desea Continuar?');");
+                //lbtEliminar.Attributes.Add("onclick", "return confirm('El Registro elegido será eliminado. ¿Desea Continuar?');");
 
             }
             //Agregando atributos a los gridview para entorno grafico
