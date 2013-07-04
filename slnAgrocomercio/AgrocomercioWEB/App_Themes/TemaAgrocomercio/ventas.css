@@ -236,6 +236,22 @@ table.tabPedidos tr td.tabDerecha3{
      font-size: 1.1em; 
      font-weight:bold; 
 }
+.mGrid td.GridTitlesEmpty, .mGrid tr:hover td.GridTitlesEmpty
+{
+    background:none;
+    border:0px 0px;
+}
+.mGrid td.GridTitles, .mGrid tr:hover td.GridTitles
+{
+    padding: 4px 2px;   
+    color: #fff;   
+    background: #424242 url(images/grd_head.png) repeat-x top;   
+    border-left: solid 1px #525252;   
+    font-size: 1em;
+    text-align:center;
+    font-weight:bold;   
+}
+
 
 
 

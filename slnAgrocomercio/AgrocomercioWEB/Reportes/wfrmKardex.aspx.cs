@@ -24,9 +24,9 @@ namespace AgrocomercioWEB.Reportes
 
     public partial class wfrmKardex : BasePage
     {
-        string GroupBy = "PrvRazon,ArtCod";
-        string GroupHeaderFormat = "";
-        string GroupFooterFormat = "";
+        //string GroupBy = "PrvRazon,ArtCod";
+        //string GroupHeaderFormat = "";
+        //string GroupFooterFormat = "";
 
         // To keep track of the previous row Group Identifier
         string strPreviousRowPrvID = string.Empty;
@@ -37,17 +37,28 @@ namespace AgrocomercioWEB.Reportes
         // To temporarily store Sub Total
         double dblSubTotalPrvCOM = 0;
         double dblSubTotalPrvVEN = 0;
+        double dblSubTotalCantPrvCOM = 0;
+        double dblSubTotalCantPrvVEN = 0;
+        double dblSubTotalCantPrv = 0;
         double dblSubTotalPrv = 0;
 
         // To temporarily store Sub Total
         double dblSubTotalArtCOM = 0;
-        double dblSubTotalArtVEN = 0;
+        double dblSubTotalArtVEN = 0;        
+        double dblSubTotalCantArtCOM = 0;
+        double dblSubTotalCantArtVEN = 0;
         double dblSubTotalArt = 0;
 
         // To temporarily store Grand Total
         double dblTotalCOM = 0;
-        double dblTotalVEN = 0;
+        double dblTotalVEN = 0;        
+        double dblTotalCantCOM = 0;
+        double dblTotalCantVEN = 0;
+        double dblTotalCant = 0;
         double dblTotal = 0;
+
+        double nStockIni = 0;
+        double nCostoPromedio = 0;
 
         int LastRowIndex = 0;
 
@@ -114,31 +125,49 @@ namespace AgrocomercioWEB.Reportes
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 strPreviousRowPrvID = DataBinder.Eval(e.Row.DataItem, "PrvRazon").ToString();
-                strPreviousRowArtID = DataBinder.Eval(e.Row.DataItem, "ArtCod").ToString();                
+                strPreviousRowArtID = DataBinder.Eval(e.Row.DataItem, "ArtCod").ToString();
 
-                double dblCOM = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "nCom_Costo").ToString());
-                double dblVEN = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "nVen_Costo").ToString());
-                double dblTOTAL = Convert.ToDouble(DataBinder.Eval(e.Row.DataItem, "nSal_CostoTotal").ToString());
+                string clCOM = DataBinder.Eval(e.Row.DataItem, "nCom_Costo").ToString();
+                string clVEN = DataBinder.Eval(e.Row.DataItem, "nVen_Costo").ToString();
+                string clTOTAL = DataBinder.Eval(e.Row.DataItem, "nSal_CostoTotal").ToString();
+                string clCantCOM = DataBinder.Eval(e.Row.DataItem, "nCom_Cantidad").ToString();
+                string clCantVEN = DataBinder.Eval(e.Row.DataItem, "nVen_Cantidad").ToString();
+
+                double dblCOM = clCOM == "" ? 0 : Convert.ToDouble(clCOM);
+                double dblVEN = clVEN == "" ? 0 : Convert.ToDouble(clVEN);
+                double dblTOTAL = clTOTAL == "" ? 0 : Convert.ToDouble(clTOTAL);
+                double dblCantCOM = clCantCOM == "" ? 0 : Convert.ToDouble(clCantCOM);
+                double dblCantVEN = clCantVEN == "" ? 0 : Convert.ToDouble(clCantVEN);
 
                 //Acumulating Sub Total Proveedor
                 dblSubTotalPrvCOM += dblCOM;
                 dblSubTotalPrvVEN += dblVEN;
-                dblSubTotalPrv += dblTOTAL;
+                dblSubTotalCantPrvCOM += dblCantCOM;
+                dblSubTotalCantPrvVEN += dblCantVEN;
 
                 //Acumulating Sub Total Articulos
                 dblSubTotalArtCOM += dblCOM;
                 dblSubTotalArtVEN += dblVEN;
                 dblSubTotalArt += dblTOTAL;
+                dblSubTotalCantArtCOM += dblCantCOM;
+                dblSubTotalCantArtVEN += dblCantVEN;
 
                 //Acumulating Grand Total
                 dblTotalCOM += dblCOM;
                 dblTotalVEN += dblVEN;
-                dblTotal += dblTOTAL;
+                //dblTotal += dblTOTAL;
+                dblTotalCantCOM += dblCantCOM;
+                dblTotalCantVEN += dblCantVEN;
             }
         }
 
         protected void gridKardex_RowCreated(object sender, GridViewRowEventArgs e)
         {
+            if (gridKardex.DataSource == null)
+            {
+                return;
+            }
+
             LastRowIndex = e.Row.RowIndex >= 0 ? e.Row.RowIndex : LastRowIndex;
             bool IsSubTotalPrvRowNeedToAdd = false;
             bool IsSubTotalArtRowNeedToAdd = false;
@@ -162,6 +191,40 @@ namespace AgrocomercioWEB.Reportes
                 RowIndex = LastRowIndex + 1;
             }
 
+            //Agregar primera fila 
+            if (intSubTotalIndex <= 1)
+            {
+                GridView grdViewOrders = (GridView)sender;
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+
+                TableCell cell = new TableCell();
+                cell.Text = "";
+                cell.ColumnSpan = 4;
+                cell.CssClass = "GridTitlesEmpty";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "COMPRAS";
+                cell.ColumnSpan = 3;
+                cell.CssClass = "GridTitles";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "VENTAS";
+                cell.ColumnSpan = 3;
+                cell.CssClass = "GridTitles";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "SALDOS";
+                cell.ColumnSpan = 2;
+                cell.CssClass = "GridTitles";
+                row.Cells.Add(cell);
+
+                grdViewOrders.Controls[0].Controls.AddAt(0, row);
+                intSubTotalIndex++;
+            }
+
             //Agregar primera agrupacion por proveedor
             if ((strPreviousRowPrvID == string.Empty) && (DataBinder.Eval(e.Row.DataItem, "PrvRazon") != null))
             {
@@ -171,7 +234,7 @@ namespace AgrocomercioWEB.Reportes
 
                 TableCell cell = new TableCell();
                 cell.Text = "Proveedor: " + DataBinder.Eval(e.Row.DataItem, "PrvRazon").ToString();
-                cell.ColumnSpan = 14;
+                cell.ColumnSpan = 12;
                 cell.CssClass = "GroupHeader1Style";
                 row.Cells.Add(cell);
 
@@ -188,13 +251,17 @@ namespace AgrocomercioWEB.Reportes
 
                 TableCell cell = new TableCell();
                 cell.Text = "Articulo: " + DataBinder.Eval(e.Row.DataItem, "ArtCod").ToString() + " - " + DataBinder.Eval(e.Row.DataItem, "ArtDescripcion").ToString();
-                cell.ColumnSpan = 4;
+                cell.ColumnSpan = 3;
                 cell.CssClass = "GroupHeader2Style";
                 row.Cells.Add(cell);
 
                 TableCell cell2 = new TableCell();
                 cell2.Text = "Stock Inicial: " + DataBinder.Eval(e.Row.DataItem, "ArtStockIni").ToString();
-                cell2.ColumnSpan = 10;
+                if (DataBinder.Eval(e.Row.DataItem, "ArtStockIni") != null)
+                    nStockIni = double.Parse(DataBinder.Eval(e.Row.DataItem, "ArtStockIni").ToString());
+                if (DataBinder.Eval(e.Row.DataItem, "ArtCostoProm") != null)
+                    nCostoPromedio = double.Parse(DataBinder.Eval(e.Row.DataItem, "ArtCostoProm").ToString());
+                cell2.ColumnSpan = 9;
                 cell2.CssClass = "GroupHeader2Style";
                 row.Cells.Add(cell2);
 
@@ -215,33 +282,59 @@ namespace AgrocomercioWEB.Reportes
                 TableCell cell = new TableCell();
                 cell.Text = "Sub Total Articulo : ";
                 cell.HorizontalAlign = HorizontalAlign.Left;
-                cell.ColumnSpan = 3;
+                cell.ColumnSpan = 4;
                 cell.CssClass = "SubTotalRow2Style";
                 row.Cells.Add(cell);
 
-                //Adding Unit Price Column
+                //Adding Sub Total Cantidad Compra
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalCantArtCOM);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 1;
+                cell.CssClass = "SubTotalRow2Style";
+                row.Cells.Add(cell);
+
+                //Adding Sub Total Compra
                 cell = new TableCell();
                 cell.Text = string.Format("{0:0.00}", dblSubTotalArtCOM);
                 cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.ColumnSpan = 4;
+                cell.ColumnSpan = 2;
                 cell.CssClass = "SubTotalRow2Style";
                 row.Cells.Add(cell);
 
-                //Adding Quantity Column
+                //Adding Sub Total Cantidad venta
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalCantArtVEN);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 1;
+                cell.CssClass = "SubTotalRow2Style";
+                row.Cells.Add(cell);
+
+                //Adding Sub Total Venta
                 cell = new TableCell();
                 cell.Text = string.Format("{0:0.00}", dblSubTotalArtVEN);
                 cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.ColumnSpan = 4;
+                cell.ColumnSpan = 2;
                 cell.CssClass = "SubTotalRow2Style";
                 row.Cells.Add(cell);
 
-                //Adding Discount Column
+                //Adding Sub Total Cantidad venta
                 cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblSubTotalArtCOM - dblSubTotalArtVEN);
+                cell.Text = string.Format("{0:0.00}", nStockIni + dblSubTotalCantArtCOM - dblSubTotalCantArtVEN);
                 cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.ColumnSpan = 3;
+                cell.ColumnSpan = 1;
                 cell.CssClass = "SubTotalRow2Style";
                 row.Cells.Add(cell);
+                dblSubTotalCantPrv += (nStockIni + dblSubTotalCantArtCOM - dblSubTotalCantArtVEN); 
+
+                //Adding Discount Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", (nStockIni + dblSubTotalCantArtCOM - dblSubTotalCantArtVEN)*nCostoPromedio);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 1;
+                cell.CssClass = "SubTotalRow2Style";
+                row.Cells.Add(cell);
+                dblSubTotalPrv += ((nStockIni + dblSubTotalCantArtCOM - dblSubTotalCantArtVEN) * nCostoPromedio);
 
                 //Adding the Row at the RowIndex position in the Grid
                 grdViewOrders.Controls[0].Controls.AddAt(RowIndex + intSubTotalIndex, row);
@@ -252,6 +345,10 @@ namespace AgrocomercioWEB.Reportes
                 dblSubTotalArtCOM = 0;
                 dblSubTotalArtVEN = 0;
                 dblSubTotalArt = 0;
+                dblSubTotalCantArtCOM = 0;
+                dblSubTotalCantArtVEN = 0;
+                nStockIni = 0;
+                nCostoPromedio = 0;
                 #endregion
             }
 
@@ -268,7 +365,15 @@ namespace AgrocomercioWEB.Reportes
                 TableCell cell = new TableCell();
                 cell.Text = "Sub Total Proveedor : ";
                 cell.HorizontalAlign = HorizontalAlign.Left;
-                cell.ColumnSpan = 3;
+                cell.ColumnSpan = 4;
+                cell.CssClass = "SubTotalRow1Style";
+                row.Cells.Add(cell);
+
+                //Adding Unit Price Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalCantPrvCOM);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 1;
                 cell.CssClass = "SubTotalRow1Style";
                 row.Cells.Add(cell);
 
@@ -276,7 +381,15 @@ namespace AgrocomercioWEB.Reportes
                 cell = new TableCell();
                 cell.Text = string.Format("{0:0.00}", dblSubTotalPrvCOM);
                 cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.ColumnSpan = 4;
+                cell.ColumnSpan = 2;
+                cell.CssClass = "SubTotalRow1Style";
+                row.Cells.Add(cell);
+
+                //Adding Quantity Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalCantPrvVEN);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 1;
                 cell.CssClass = "SubTotalRow1Style";
                 row.Cells.Add(cell);
 
@@ -284,17 +397,28 @@ namespace AgrocomercioWEB.Reportes
                 cell = new TableCell();
                 cell.Text = string.Format("{0:0.00}", dblSubTotalPrvVEN);
                 cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.ColumnSpan = 4;
+                cell.ColumnSpan = 2;
                 cell.CssClass = "SubTotalRow1Style";
                 row.Cells.Add(cell);
 
                 //Adding Discount Column
                 cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblSubTotalPrvCOM - dblSubTotalPrvVEN);
+                cell.Text = string.Format("{0:0.00}", dblSubTotalCantPrv);
                 cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.ColumnSpan = 3;
+                cell.ColumnSpan = 1;
                 cell.CssClass = "SubTotalRow1Style";
                 row.Cells.Add(cell);
+                dblTotalCant += dblSubTotalCantPrv;
+                
+
+                //Adding Discount Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblSubTotalPrv);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 1;
+                cell.CssClass = "SubTotalRow1Style";
+                row.Cells.Add(cell);
+                dblTotal += dblSubTotalPrv;
 
                 //Adding the Row at the RowIndex position in the Grid
                 grdViewOrders.Controls[0].Controls.AddAt(RowIndex + intSubTotalIndex, row);
@@ -308,7 +432,7 @@ namespace AgrocomercioWEB.Reportes
 
                     cell = new TableCell();
                     cell.Text = "Proveedor: " + DataBinder.Eval(e.Row.DataItem, "PrvRazon").ToString();
-                    cell.ColumnSpan = 14;
+                    cell.ColumnSpan = 12;
                     cell.CssClass = "GroupHeader1Style";
                     row.Cells.Add(cell);
 
@@ -320,11 +444,18 @@ namespace AgrocomercioWEB.Reportes
                 #region Resetear Variables de Totales
                 dblSubTotalPrvCOM = 0;
                 dblSubTotalPrvVEN = 0;
-                dblSubTotalPrv = 0;
+                dblSubTotalCantPrvCOM = 0;
+                dblSubTotalCantPrvVEN = 0;
+                dblSubTotalCantPrv = 0;
+                dblSubTotalPrv = 0;                
+
                 dblSubTotalArtCOM = 0;
                 dblSubTotalArtVEN = 0;
                 dblSubTotalArt = 0;
-
+                dblSubTotalCantArtCOM = 0;
+                dblSubTotalCantArtVEN = 0;
+                nStockIni = 0;
+                nCostoPromedio = 0;
                 #endregion
             }
 
@@ -340,13 +471,17 @@ namespace AgrocomercioWEB.Reportes
 
                     TableCell cell = new TableCell();
                     cell.Text = "Articulo: " + DataBinder.Eval(e.Row.DataItem, "ArtCod").ToString() + " - " + DataBinder.Eval(e.Row.DataItem, "ArtDescripcion").ToString();
-                    cell.ColumnSpan = 4;
+                    cell.ColumnSpan = 3;
                     cell.CssClass = "GroupHeader2Style";
                     row.Cells.Add(cell);
 
                     TableCell cell2 = new TableCell();
                     cell2.Text = "Stock Inicial: " + DataBinder.Eval(e.Row.DataItem, "ArtStockIni").ToString();
-                    cell2.ColumnSpan = 10;
+                    if (DataBinder.Eval(e.Row.DataItem, "ArtStockIni") != null)
+                        nStockIni = double.Parse(DataBinder.Eval(e.Row.DataItem, "ArtStockIni").ToString());
+                    if (DataBinder.Eval(e.Row.DataItem, "ArtCostoProm") != null)
+                        nCostoPromedio = double.Parse(DataBinder.Eval(e.Row.DataItem, "ArtCostoProm").ToString());
+                    cell2.ColumnSpan = 9;
                     cell2.CssClass = "GroupHeader2Style";
                     row.Cells.Add(cell2);
 
@@ -368,7 +503,15 @@ namespace AgrocomercioWEB.Reportes
                 TableCell cell = new TableCell();
                 cell.Text = "Total : ";
                 cell.HorizontalAlign = HorizontalAlign.Left;
-                cell.ColumnSpan = 3;
+                cell.ColumnSpan = 4;
+                cell.CssClass = "GrandTotalRowStyle";
+                row.Cells.Add(cell);
+
+                //Adding Unit Price Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblTotalCantCOM);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 1;
                 cell.CssClass = "GrandTotalRowStyle";
                 row.Cells.Add(cell);
 
@@ -376,7 +519,15 @@ namespace AgrocomercioWEB.Reportes
                 cell = new TableCell();
                 cell.Text = string.Format("{0:0.00}", dblTotalCOM);
                 cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.ColumnSpan = 4;
+                cell.ColumnSpan = 2;
+                cell.CssClass = "GrandTotalRowStyle";
+                row.Cells.Add(cell);
+
+                //Adding Quantity Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblTotalCantVEN);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 1;
                 cell.CssClass = "GrandTotalRowStyle";
                 row.Cells.Add(cell);
 
@@ -384,15 +535,23 @@ namespace AgrocomercioWEB.Reportes
                 cell = new TableCell();
                 cell.Text = string.Format("{0:0.00}", dblTotalVEN);
                 cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.ColumnSpan = 4;
+                cell.ColumnSpan = 2;
                 cell.CssClass = "GrandTotalRowStyle";
                 row.Cells.Add(cell);
 
                 //Adding Discount Column
                 cell = new TableCell();
-                cell.Text = string.Format("{0:0.00}", dblTotalCOM - dblTotalVEN);
+                cell.Text = string.Format("{0:0.00}", dblTotalCant);
                 cell.HorizontalAlign = HorizontalAlign.Right;
-                cell.ColumnSpan = 3;
+                cell.ColumnSpan = 1;
+                cell.CssClass = "GrandTotalRowStyle";
+                row.Cells.Add(cell);
+
+                //Adding Discount Column
+                cell = new TableCell();
+                cell.Text = string.Format("{0:0.00}", dblTotal);
+                cell.HorizontalAlign = HorizontalAlign.Right;
+                cell.ColumnSpan = 1;
                 cell.CssClass = "GrandTotalRowStyle";
                 row.Cells.Add(cell);
                 

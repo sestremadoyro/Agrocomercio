@@ -186,16 +186,16 @@
                                                             <asp:BoundField DataField="nTotalIni" HeaderText="Total.Inicial"  DataFormatString="{0:n}">
                                                                 <ItemStyle HorizontalAlign="Right" Width="60px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="nCom_Cantidad" HeaderText="Compras.Cant" >
+                                                            <asp:BoundField DataField="nCom_Cantidad" HeaderText="Cantidad" >
                                                                 <ItemStyle HorizontalAlign="Right" Width="70px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="nCom_Total" HeaderText="Compras.Total" DataFormatString="{0:n}">
+                                                            <asp:BoundField DataField="nCom_Total" HeaderText="Total" DataFormatString="{0:n}">
                                                                 <ItemStyle HorizontalAlign="Right" Width="70px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="nVen_Cantidad" HeaderText="Venta.Cantidad" >
+                                                            <asp:BoundField DataField="nVen_Cantidad" HeaderText="Cantidad" >
                                                                 <ItemStyle HorizontalAlign="Right" Width="70px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="nVen_Total" HeaderText="Venta.Total" DataFormatString="{0:n}">
+                                                            <asp:BoundField DataField="nVen_Total" HeaderText="Total" DataFormatString="{0:n}">
                                                                 <ItemStyle HorizontalAlign="Right" Width="70px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="ArtStock" HeaderText="Stock.Final" >

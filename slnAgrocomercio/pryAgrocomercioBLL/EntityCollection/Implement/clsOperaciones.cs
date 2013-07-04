@@ -579,7 +579,7 @@ namespace pryAgrocomercioBLL.EntityCollection
             int nNumCor = 0;
             try
             {
-                var lstDetOperaciones = colDetOpera.Find(Det => Det.Operaciones.DocumenOperacion.All(Doc => Doc.tdoCod != 0) && (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList();
+                var lstDetOperaciones = colDetOpera.Find(Det => Det.Operaciones.DocumenOperacion.All(Doc => Doc.tdoCod != 0) && (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C") && (bool)Det.dtpEstado).ToList();
                 var lstDocumentos = colDocumentos.Find(Det => Det.tdoCod == 2 && (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList();
 
                 //Det.Operaciones.DocumenOperacion.OrderByDescending(Doc => Doc.dopCod).Select(Doc => new { Document = Doc.dopNroSerie.ToString() + "-"+ Doc.dopNumero.ToString() } ).First().Document,
@@ -598,18 +598,18 @@ namespace pryAgrocomercioBLL.EntityCollection
                                     Det.ArtCod,
                                     Det.Articulos.ArtDescripcion,
                                     Det.Articulos.ArtStockIni,
+                                    Unidad = Det.Articulos.Unidades.UniDescripcion,
+                                    Det.Articulos.ArtCostoProm,
                                     CostoInicial = Det.Articulos.ArtStockIni * Det.Articulos.ArtCostoProm,
                                     Det.Operaciones.OpeFecEmision,
                                     Documento = Doc2 == null ? "-" : (Doc2.dopNroSerie.ToString() + "-" + Doc2.dopNumero.ToString()),
                                     Decripcion = (Det.Operaciones.OpeTipo == "C" ? "Compra " : "Venta ") + Det.Articulos.ArtDescripcion,
-                                    nCom_Cantidad = (Det.Operaciones.OpeTipo == "V" ? 0 : Det.dtpCantidad),
-                                    nCom_Unidad = (Det.Operaciones.OpeTipo == "V" ? "" : Det.Articulos.Unidades.UniDescripcion),
-                                    nCom_PreUnitario = (Det.Operaciones.OpeTipo == "V" ? 0 : Det.dtpPrecioVen),
-                                    nCom_Costo = (Det.Operaciones.OpeTipo == "V" ? 0 : Det.dtpSubTotal),
-                                    nVen_Cantidad = (Det.Operaciones.OpeTipo == "C" ? 0 : Det.dtpCantidad),
-                                    nVen_Unidad = (Det.Operaciones.OpeTipo == "C" ? "" : Det.Articulos.Unidades.UniDescripcion),
-                                    nVen_PreUnitario = (Det.Operaciones.OpeTipo == "C" ? 0 : Det.dtpPrecioVen),
-                                    nVen_Costo = (Det.Operaciones.OpeTipo == "C" ? 0 : Det.dtpSubTotal)
+                                    nCom_Cantidad = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpCantidad),
+                                    nCom_PreUnitario = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpPrecioVen),
+                                    nCom_Costo = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpSubTotal),
+                                    nVen_Cantidad = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpCantidad),
+                                    nVen_PreUnitario = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpPrecioVen),
+                                    nVen_Costo = (Det.Operaciones.OpeTipo == "C" ? null : Det.dtpSubTotal)
                                 }).ToList();
 
 
@@ -617,18 +617,22 @@ namespace pryAgrocomercioBLL.EntityCollection
                                 select new
                                 {
                                     Kar.PrvCod, Kar.PrvRazon,
-                                    Kar.ArtCod, Kar.ArtDescripcion, Kar.ArtStockIni, Kar.OpeFecEmision, Kar.Documento, Kar.Decripcion,
-                                    Kar.nCom_Cantidad, Kar.nCom_Unidad, Kar.nCom_PreUnitario, Kar.nCom_Costo, Kar.nVen_Cantidad,
-                                    Kar.nVen_Unidad, Kar.nVen_PreUnitario, Kar.nVen_Costo,
+                                    Kar.ArtCod, Kar.ArtDescripcion, Kar.ArtStockIni, Kar.Unidad, Kar.OpeFecEmision, 
+                                    Kar.Documento, Kar.Decripcion, Kar.ArtCostoProm,
+                                    Kar.nCom_Cantidad, Kar.nCom_PreUnitario, Kar.nCom_Costo, Kar.nVen_Cantidad,
+                                    Kar.nVen_PreUnitario, Kar.nVen_Costo,
                                     nSal_Cantidad = (decimal)Kar.ArtStockIni +
                                                     (lstTemporal.Where(De => Kar.ArtCod == De.ArtCod && De.nCorrela <= Kar.nCorrela)
                                                                      .Select(De => (De.nCom_Cantidad == null ? 0 : De.nCom_Cantidad) - (De.nVen_Cantidad == null ? 0 : De.nVen_Cantidad)).Sum()),
-                                    nSal_Unidad = Kar.nCom_Unidad==""? Kar.nVen_Unidad : Kar.nCom_Unidad,
-                                    nSal_CostoTotal = (decimal)Kar.CostoInicial +
+                                    nSal_CostoTotal = ((decimal)Kar.ArtStockIni +
                                                     (lstTemporal.Where(De => Kar.ArtCod == De.ArtCod && De.nCorrela <= Kar.nCorrela)
-                                                                     .Select(De => (De.nCom_Costo == null ? 0 : De.nCom_Costo) - (De.nVen_Costo == null ? 0 : De.nVen_Costo)).Sum())
+                                                                     .Select(De => (De.nCom_Cantidad == null ? 0 : De.nCom_Cantidad) - (De.nVen_Cantidad == null ? 0 : De.nVen_Cantidad)).Sum())) * Kar.ArtCostoProm
                                 };
 
+
+                //nSal_CostoTotal = (decimal)Kar.CostoInicial +
+                //                                    (lstTemporal.Where(De => Kar.ArtCod == De.ArtCod && De.nCorrela <= Kar.nCorrela)
+                //                                                     .Select(De => (De.nCom_Costo == null ? 0 : De.nCom_Costo) - (De.nVen_Costo == null ? 0 : De.nVen_Costo)).Sum())
 
 
 
@@ -647,7 +651,7 @@ namespace pryAgrocomercioBLL.EntityCollection
             clsArticulos colArticulos = new clsArticulos();
             try
             {
-                var lstDetOperaciones = colDetOpera.Find(Det => (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList();
+                var lstDetOperaciones = colDetOpera.Find(Det => Det.Operaciones.DocumenOperacion.All(Doc => Doc.tdoCod != 0) && (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C") && (bool)Det.dtpEstado).ToList();
 
                 var lstOperaciones = (from Det in lstDetOperaciones
                                       group Det by Det.ArtCod into GroupDet
@@ -680,8 +684,9 @@ namespace pryAgrocomercioBLL.EntityCollection
                                     nVen_Cantidad = Ope2 == null ? 0 : (Ope2.nVen_Cantidad),
                                     nVen_Total = Ope2 == null ? 0 : (Ope2.nVen_Total),
                                     Art.ArtStock,
-                                    nTotalFin = Math.Round((decimal)((Art.ArtStockIni * Art.ArtCostoProm) + (Ope2 == null ? 0 : (Ope2.nCom_Total - Ope2.nVen_Total ))), 2),
+                                    nTotalFin = Math.Round((decimal)((Art.ArtStock * Art.ArtCostoProm)), 2),
                                 };
+                //nTotalFin = Math.Round((decimal)((Art.ArtStockIni * Art.ArtCostoProm) + (Ope2 == null ? 0 : (Ope2.nCom_Total - Ope2.nVen_Total ))), 2),
 
                 return lstResult.ToList();
             }

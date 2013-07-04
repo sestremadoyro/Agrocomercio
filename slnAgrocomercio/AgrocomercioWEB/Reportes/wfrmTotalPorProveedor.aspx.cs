@@ -142,6 +142,10 @@ namespace AgrocomercioWEB.Reportes
 
         protected void gridKardex_RowCreated(object sender, GridViewRowEventArgs e)
         {
+            if (gridKardex.DataSource == null) {
+                return;
+            }
+
             LastRowIndex = e.Row.RowIndex >= 0 ? e.Row.RowIndex : LastRowIndex;
             bool IsSubTotalPrvRowNeedToAdd = false;
             bool IsTotalRowNeedtoAdd = false;
@@ -156,6 +160,40 @@ namespace AgrocomercioWEB.Reportes
                 IsSubTotalPrvRowNeedToAdd = true;
                 IsTotalRowNeedtoAdd = true;
                 RowIndex = LastRowIndex + 1;
+            }
+
+            //Agregar primera fila 
+            if (intSubTotalIndex <= 1)
+            {
+                GridView grdViewOrders = (GridView)sender;
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+
+                TableCell cell = new TableCell();
+                cell.Text = "";
+                cell.ColumnSpan = 4;
+                cell.CssClass = "GridTitlesEmpty";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "COMPRAS";
+                cell.ColumnSpan = 2;
+                cell.CssClass = "GridTitles";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "VENTAS";
+                cell.ColumnSpan = 2;
+                cell.CssClass = "GridTitles";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "SALDOS";
+                cell.ColumnSpan = 2;
+                cell.CssClass = "GridTitles";
+                row.Cells.Add(cell);
+
+                grdViewOrders.Controls[0].Controls.AddAt(0, row);
+                intSubTotalIndex++;
             }
 
             //Agregar primera agrupacion por proveedor
