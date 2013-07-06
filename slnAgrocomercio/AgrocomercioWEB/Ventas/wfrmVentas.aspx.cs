@@ -107,6 +107,11 @@ namespace AgrocomercioWEB.Ventas
         {
             get { return txtTipCambio.Text == "" ? 0.0 : Convert.ToDouble(txtTipCambio.Text); }
         }
+        public int bDetallesChanged
+        {
+            get { return lblDetallesChanged.Value == "true" ? 1 : 0; }
+            set { lblDetallesChanged.Value = (value == 1 ? "true" : "false"); }
+        }
 
         /// PROPIEDADES DE LA DOCUMENTOS OPERACION
         public string cdopNroSerie
@@ -467,6 +472,7 @@ namespace AgrocomercioWEB.Ventas
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             int nMainTipo = 0;
+            lblNroPedido.Text = "";
             try
             {
                 clsDocumenOperacion lstDocumentos = new clsDocumenOperacion();
@@ -563,7 +569,7 @@ namespace AgrocomercioWEB.Ventas
 
                 lblProceso.Value = lblOpeEstado.Value == "C" ? "CLOSE" : "EDIT";
                 SetBotones(lblProceso.Value);
-
+                bDetallesChanged = 0;
                 ConfigurarDocumento();
 
                 GuardarDtCabeceraDocumento();
@@ -630,8 +636,12 @@ namespace AgrocomercioWEB.Ventas
                     if (lblProceso.Value == "NEW")
                     {
                         clsOperaciones lstOperaciones = new clsOperaciones();
-                        long nOpeCod = lstOperaciones.MaxOpeCod() + 1;
-                        lblNroPedido.Text = nOpeCod.ToString().PadLeft(10, '0');
+
+                        if (lblNroPedido.Text.Trim() == "")
+                        {
+                            long nOpeCod = lstOperaciones.MaxOpeCod() + 1;
+                            lblNroPedido.Text = nOpeCod.ToString().PadLeft(10, '0');
+                        }                            
                         if (ddlTransportistas.Items.Count == 2)
                         {
                             ddlTransportistas.SelectedIndex = 1;
@@ -682,6 +692,7 @@ namespace AgrocomercioWEB.Ventas
                     lbldopCod.Value = ndopCod.ToString();
                     lbltcmCod.Value = ntcmCod.ToString();
                     lblOpeEstado.Value = "P";
+                    bDetallesChanged = 0;
 
                     GuardarDtCabeceraDocumento();
                     MessageBox("La Operacion fue Procesada con Exito, Ahora puede imprimir.");
@@ -835,6 +846,7 @@ namespace AgrocomercioWEB.Ventas
                 RellenarGrilla(ref dgvDetalleVenta, dtDetalleCompra, this.nNroDetPed);
                 dgvDetalleVenta.SelectedIndex = -1;
                 HabilitarBtn(btnEliminar, false);
+                bDetallesChanged = 1;
             }
             catch (Exception ex)
             {
@@ -845,6 +857,16 @@ namespace AgrocomercioWEB.Ventas
         {
             try
             {
+                clsDocumenOperacion colDocumenOpe = new clsDocumenOperacion();
+
+                if (colDocumenOpe.ValidarDocumento(txtNroSerie.Text, txtNroDocu.Text))
+                {
+                    MessageBox("Este Nro de Documento Ya se Registro");
+                    ModalPopupNuevoDocumento.Show();
+                    return;
+                }
+
+
                 if (txtNroDocu.Text != "")
                 {
                     lblTipoDoc.Value = ddlTipoDocu.SelectedValue;
@@ -872,7 +894,7 @@ namespace AgrocomercioWEB.Ventas
                         txtFlete.Text = "0.00";
                         txtIgv.Text = "0.00";
                         txtTotal.Text = "0.00";
-
+                        bDetallesChanged = 0;
                         txtFecha.Text = DateTime.Today.ToString("yyyy-MM-dd");
                         SetBotones(lblProceso.Value);
                         ConfigurarDocumento();
@@ -880,12 +902,10 @@ namespace AgrocomercioWEB.Ventas
                     }
                     else if (lblProceso.Value == "NEWDOC")
                     {
-                        clsDocumenOperacion lstDocumenOpe = new clsDocumenOperacion();
-
                         long ndopCod = 0;
                         int OpeCod = int.Parse(lblNroPedido.Text);
 
-                        lstDocumenOpe.Guardar(this, ref ndopCod);
+                        colDocumenOpe.Guardar(this, ref ndopCod);
                         lbldopCod.Value = ndopCod.ToString();
                         
                         SetPanelDocumento(OpeCod);
@@ -923,6 +943,7 @@ namespace AgrocomercioWEB.Ventas
 
                 HabilitarBtn(btnProcesar, true);
                 oThread.Join();
+                bDetallesChanged = 0;
                 
                 lblProceso.Value = "EDIT";
                 SetPanelDocumento((int)nOpeCod);
@@ -2162,7 +2183,7 @@ namespace AgrocomercioWEB.Ventas
                     DataTable dtDetOper = CopiarDT(dtDetalleCompra);
                     dtDetOper = CambiarMonedaDetOperacion(dtDetOper);
                     RellenarGrilla(ref dgvDetalleVenta, dtDetOper, this.nNroDetPed);
-
+                    bDetallesChanged = 1;
                     //LIMPIAR BUSQUEDA
                     txtBuscarArt.Text = string.Empty;
                 }

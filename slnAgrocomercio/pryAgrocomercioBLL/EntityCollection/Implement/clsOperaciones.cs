@@ -39,6 +39,8 @@ namespace pryAgrocomercioBLL.EntityCollection
             long nOpeCod = Convert.ToInt64(drForm["nOpeCod"]);
             long _nDopCod = pnDopCod;
             String cProceso = drForm["cProceso"].ToString();
+            int nDetallesChanged = int.Parse(drForm["bDetallesChanged"].ToString());
+            Boolean bDetallesChanged = nDetallesChanged==1?true:false;
             int ntcmCod = 0;
             try
             {
@@ -53,10 +55,14 @@ namespace pryAgrocomercioBLL.EntityCollection
                 }
                 else if (cProceso == "EDIT")
                 {
-                    if (_OpeTipo == "C") //PARA COMPRAS
-                        lstDetOperacion.DeleteDetOperacion((int)nOpeCod, "ALL");
-                    else //PARA VENTAS
-                        lstDetOperacion.DeleteDetOperacion((int)nOpeCod);                    
+                    if (bDetallesChanged)
+                    {
+                        if (_OpeTipo == "C") //PARA COMPRAS
+                            lstDetOperacion.DeleteDetOperacion((int)nOpeCod, "ALL");
+                        else //PARA VENTAS
+                            lstDetOperacion.DeleteDetOperacion((int)nOpeCod);                     
+                    }
+                    
                     Operacion = GetOperacion(nOpeCod);
                 }
 
@@ -119,7 +125,8 @@ namespace pryAgrocomercioBLL.EntityCollection
                     Operacion.OpeCiclo = 0;
                 }
                 
-                lstDetOperacion.Guardar(ref Operacion);
+                if (bDetallesChanged)
+                    lstDetOperacion.Guardar(ref Operacion);
 
                 if (cProceso == "NEW")
                     Add(Operacion);

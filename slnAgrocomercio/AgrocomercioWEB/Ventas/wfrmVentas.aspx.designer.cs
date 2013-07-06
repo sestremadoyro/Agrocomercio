@@ -481,6 +481,15 @@ namespace AgrocomercioWEB.Ventas {
         protected global::System.Web.UI.WebControls.HiddenField lblDescuentoEsp;
         
         /// <summary>
+        /// Control lblDetallesChanged.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField lblDetallesChanged;
+        
+        /// <summary>
         /// Control pnGridPedido.
         /// </summary>
         /// <remarks>

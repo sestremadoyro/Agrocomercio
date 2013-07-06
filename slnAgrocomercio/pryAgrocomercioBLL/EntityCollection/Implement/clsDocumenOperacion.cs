@@ -34,10 +34,16 @@ namespace pryAgrocomercioBLL.EntityCollection
             DocumenOperacion DocumenOpe = new DocumenOperacion();
 
             long nOpeCod = Convert.ToInt64(drForm["nOpeCod"]);
+            int ntdoCod = Convert.ToInt32(drForm["ntdoCod"]);
             int NroImpre = 0;
             String cProceso = drForm["cProceso"].ToString();
             try
             {
+                DocumenOpe = GetDocumenOperacion((int)nOpeCod, ntdoCod);
+
+                if (DocumenOpe != null)
+                    cProceso = "EDIT";
+
                 //DATOS DEL DOCUMENTO DE LA OPERACION
                 if (cProceso == "NEW" || cProceso == "NEWDOC")
                 {
@@ -48,7 +54,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 else if (cProceso == "EDIT")
                 {
                     pnDopCod = long.Parse(drForm["nDopCod"].ToString());
-                    DocumenOpe = GetDocumenOperacion(pnDopCod);
+                    DocumenOpe = GetDocumenOperacion((int)nOpeCod, ntdoCod);
                     NroImpre = (int)DocumenOpe.dopNroImpre;
                 }
 
@@ -57,7 +63,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                 DocumenOpe.dopNroSerie = drForm["cdopNroSerie"].ToString();
                 DocumenOpe.dopNumero = drForm["cdopNumero"].ToString();
                 DocumenOpe.OpeCod = nOpeCod;
-                DocumenOpe.tdoCod = Convert.ToInt32(drForm["ntdoCod"]);
+                DocumenOpe.tdoCod = ntdoCod;
                 DocumenOpe.dopMoneda = drForm["cOpeMoneda"].ToString();
                 DocumenOpe.dopNroImpre = NroImpre;
                 DocumenOpe.dopFecEmision = Convert.ToDateTime(drForm["dOpeFecEmision"]);
@@ -108,7 +114,7 @@ namespace pryAgrocomercioBLL.EntityCollection
 #region FUNCIONES DE CONSULTA
         public DocumenOperacion GetDocumenOperacion(long dopCod)
         {
-            return this.Find(Doc => Doc.dopCod == dopCod).First<DocumenOperacion>();
+            return this.Find(Doc => Doc.dopCod == dopCod).FirstOrDefault<DocumenOperacion>();
         }
         public DocumenOperacion GetDocumenOperacion(int _OpeCod, int _tdoCod)
         {
@@ -218,6 +224,14 @@ namespace pryAgrocomercioBLL.EntityCollection
                     obj.dopNumero = Convert.ToString(row[11]);
             }
             return obj;
+        }
+
+        public bool ValidarDocumento(string p_dopNroSerie, string p_dopNumero)
+        {
+            p_dopNroSerie = p_dopNroSerie.Trim();
+            p_dopNumero = p_dopNumero.Trim();
+            return this.GetAll().Any(Doc => Doc.dopNroSerie == p_dopNroSerie && Doc.dopNumero == p_dopNumero && Doc.dopEstado == "A" && Doc.Operaciones.OpeTipo =="V");
+ 
         }
 #endregion
 

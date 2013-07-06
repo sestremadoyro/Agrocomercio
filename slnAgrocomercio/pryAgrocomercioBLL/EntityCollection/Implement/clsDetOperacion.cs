@@ -43,6 +43,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                     DataTable dtDetOperacion = (DataTable)(contexto.Session["dtDetOperacion"]);
                     nDtpCod = MaxDtpCod();
                     nLotCod = lstLotesArt.MaxLotCod();
+                    int nLotNro = 0;
                     
                     //DATOS DEL DETALLE DE LA OPERACION
                     foreach (DataRow row in dtDetOperacion.Rows)
@@ -65,12 +66,12 @@ namespace pryAgrocomercioBLL.EntityCollection
                         if (Operacion.OpeTipo == "C")
                         {
                             decimal nPrecioCom = (decimal)DetOper.dtpPrecioVen - ((decimal)DetOper.dtpPrecioVen * (decimal)DetOper.dtpDscto / 100);
-
+                            nLotNro = lstLotesArt.MaxLotNroAvaliable(lnArtCod);
                             DetOper.LotCod = nLotCod;
                             DetOper.LotesArt = new LotesArt();
                             DetOper.LotesArt.LotCod = nLotCod;
                             DetOper.LotesArt.ArtCod = lnArtCod;
-                            DetOper.LotesArt.LotNro = int.Parse(row["LotNro"].ToString());
+                            DetOper.LotesArt.LotNro = nLotNro+1;
                             DetOper.LotesArt.LotStock = DetOper.dtpCantidad;
                             DetOper.LotesArt.LotPrecioCom = nPrecioCom;
                             DetOper.LotesArt.LotPrecioVen = 0;

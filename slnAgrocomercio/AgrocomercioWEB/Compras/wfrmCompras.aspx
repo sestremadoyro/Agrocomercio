@@ -580,6 +580,7 @@
                                                 <td colspan="6" style="margin-left: 40px">
                                                     &nbsp;&nbsp;
                                                     <asp:HiddenField ID="lblDescuentoEsp" runat="server" Value="0.0" />
+                                                    <asp:HiddenField ID="lblDetallesChanged" runat="server" Value="false" />
                                                 </td>
                                             </tr>
                                             <tr>

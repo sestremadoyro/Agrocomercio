@@ -139,14 +139,14 @@ namespace pryAgrocomercioBLL.EntityCollection
                 if ((colType.IsGenericType) && (colType.GetGenericTypeDefinition() == typeof(Nullable<>)))
                     colType = colType.GetGenericArguments()[0];
 
-                if (pi.Name.StartsWith("c") || pi.Name.StartsWith("d") || pi.Name.StartsWith("n"))
+                if (pi.Name.StartsWith("c") || pi.Name.StartsWith("d") || pi.Name.StartsWith("n") || pi.Name.StartsWith("b"))
                     dtReturn.Columns.Add(new DataColumn(pi.Name, colType));
             }
                 
             DataRow dr = dtReturn.NewRow();                
             foreach (PropertyInfo pi in oProps)
             {
-                if (pi.Name.StartsWith("c") || pi.Name.StartsWith("d") || pi.Name.StartsWith("n"))
+                if (pi.Name.StartsWith("c") || pi.Name.StartsWith("d") || pi.Name.StartsWith("n") || pi.Name.StartsWith("b"))
                     dr[pi.Name] = pi.GetValue(oForm, null) == null ? DBNull.Value : pi.GetValue(oForm, null);
             }
             dtReturn.Rows.Add(dr);
