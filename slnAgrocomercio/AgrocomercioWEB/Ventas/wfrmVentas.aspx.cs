@@ -472,13 +472,14 @@ namespace AgrocomercioWEB.Ventas
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             int nMainTipo = 0;
-            lblNroPedido.Text = "";
+            
             try
             {
                 clsDocumenOperacion lstDocumentos = new clsDocumenOperacion();
 
                 if (((Button)sender).ToolTip == btnNuevo.ToolTip)
                 {
+                    lblNroPedido.Text = "";
                     HabilitarCampos(true);
                     CargarCombos();
                     CargarTransportistas();

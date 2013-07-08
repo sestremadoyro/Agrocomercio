@@ -466,13 +466,13 @@ namespace AgrocomercioWEB.Compras
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             int nMainTipo = 0;
-            lblNroPedido.Text = "";
             try
             {
                 clsDocumenOperacion lstDocumentos = new clsDocumenOperacion();
 
                 if (((Button)sender).ToolTip == btnNuevo.ToolTip)
                 {
+                    lblNroPedido.Text = "";
                     HabilitarCampos(true);
                     CargarCombos();
                     nMainTipo = 2;
@@ -2111,11 +2111,13 @@ namespace AgrocomercioWEB.Compras
                     dtDetOper = CambiarMonedaDetOperacion(dtDetOper);
                     RellenarGrilla(ref dgvDetalleVenta, dtDetOper, this.nNroDetPed);
 
+                    
+
                     colOper.Guardar(this, gcOpeTipo, ref ndopCod, ref ntcmCod);  //GUARDAR OPERACION    
 
                     foreach (DataRow row in dtDetalleCompra.Rows)
                     {
-                        colDetOper.UpdatePrecio(this.nOpeCod, int.Parse(row["ArtCod"].ToString()), (Decimal)(Double.Parse(row["dtpPrecioVen"].ToString())));
+                        colDetOper.UpdatePrecio(this.nOpeCod, int.Parse(row["ArtCod"].ToString()), (Decimal)(Double.Parse(row["dtpPrecioVen"].ToString())), (Decimal)(Double.Parse(row["dtpSubTotal"].ToString())));
                     }
                     
                     lbldopCod.Value = ndopCod.ToString();

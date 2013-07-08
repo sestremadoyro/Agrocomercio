@@ -168,12 +168,15 @@ namespace pryAgrocomercioBLL.EntityCollection
                 return false;
             }
         }
-        public Boolean UpdatePrecio(long nOpeCod, int nArtCod, decimal nPrecio)
+        public Boolean UpdatePrecio(long nOpeCod, int nArtCod, decimal nPrecio, decimal nSubTotal)
         {
             clsLotesArt colLotesArt = new clsLotesArt(AgroEntidades);
             DetOperacion DetOper = GetDetOperacion((int)nOpeCod, nArtCod);
-            decimal nPrecioVen = (decimal)colLotesArt.GetCostoPromedio((int)DetOper.ArtCod, 0.18);
+            decimal nPrecioVen = (decimal)colLotesArt.GetCostoPromedio((int)DetOper.ArtCod, 0.18, (Double)nPrecio);
 
+            DetOper.dtpPrecioVen = nPrecio;
+            DetOper.dtpSubTotal = nSubTotal;
+            DetOper.LotesArt.LotPrecioCom = nPrecio;
             DetOper.LotesArt.LotPrecioVen = nPrecioVen;
             DetOper.Articulos.ArtCostoProm = nPrecioVen;
             Update(DetOper);
