@@ -13,9 +13,9 @@
 
             document.getElementById('lblEstado').value = "DGVCOM_" + event;
             __doPostBack('MainUpdatePanel', rowindex);
-            if (event == "DOUBLECLICK") {
-                AbrirWinArticulos("ESPECIAL");
-            }        
+//            if (event == "DOUBLECLICK") {
+//                AbrirWinArticulos("ESPECIAL");
+//            }        
         }
         function dgvListOperVentasClickEvent(event, rowindex) {
 
