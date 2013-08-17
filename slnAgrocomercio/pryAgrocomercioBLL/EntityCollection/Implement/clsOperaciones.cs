@@ -91,6 +91,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                         Operacion.PerCod = (Int32)drForm["nOpePrvCod"];
                     else
                         Operacion.PrvCod = Convert.ToInt32(drForm["nOpePrvCod"]);
+                    Operacion.OpeOrdCompra = "";
                 }
                 else
                 {
@@ -100,7 +101,8 @@ namespace pryAgrocomercioBLL.EntityCollection
                     {
                         Operacion.CliCod = Convert.ToInt32(drForm["nOpeCliCod"]);
                         Operacion.PerCod = (Int32)drForm["nOpeVendedor"];
-                    }                    
+                    }
+                    Operacion.OpeOrdCompra = drForm["COpeOrdCompra"].ToString();
                 }
                 Operacion.OpeMoneda = drForm["cOpeMoneda"].ToString();
                 Operacion.OpeTipPago = drForm["cOpeTipPago"].ToString();
@@ -587,7 +589,9 @@ namespace pryAgrocomercioBLL.EntityCollection
             try
             {
                 var lstDetOperaciones = colDetOpera.Find(Det => Det.Operaciones.DocumenOperacion.All(Doc => Doc.tdoCod != 0) && (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C") && (bool)Det.dtpEstado).ToList();
-                var lstDocumentos = colDocumentos.Find(Det => Det.tdoCod == 2 && (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList();
+                var lstDocumentos = from doc in colDocumentos.Find(Det => (Det.Operaciones.OpeEstado == "P" || Det.Operaciones.OpeEstado == "C")).ToList()
+                                    group doc by doc.OpeCod into GroupDet
+                                    select new { OpeCod = GroupDet.Key, GroupDet };
 
                 //Det.Operaciones.DocumenOperacion.OrderByDescending(Doc => Doc.dopCod).Select(Doc => new { Document = Doc.dopNroSerie.ToString() + "-"+ Doc.dopNumero.ToString() } ).First().Document,
 
@@ -596,7 +600,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                                    from Doc2 in dGru.DefaultIfEmpty()
                                    where (pPrvCod == 0 || (pPrvCod != 0 && pPrvCod == Det.Articulos.PrvCod)) &&
                                    (pArtCod == 0 || (pArtCod != 0 && pArtCod == Det.ArtCod))
-                                   orderby Det.Articulos.PrvCod, Det.ArtCod, Det.Operaciones.OpeFecEmision, Det.dtpCod
+                                   orderby Det.Articulos.PrvCod, Det.Articulos.ArtDescripcion, Det.Operaciones.OpeFecEmision, Det.dtpCod
                                 select new
                                 {
                                     nCorrela = ++nNumCor,
@@ -609,7 +613,7 @@ namespace pryAgrocomercioBLL.EntityCollection
                                     Det.Articulos.ArtCostoProm,
                                     CostoInicial = Det.Articulos.ArtStockIni * Det.Articulos.ArtCostoProm,
                                     Det.Operaciones.OpeFecEmision,
-                                    Documento = Doc2 == null ? "-" : (Doc2.dopNroSerie.ToString() + "-" + Doc2.dopNumero.ToString()),
+                                    Documento = Doc2 == null ? "-" : (Doc2.GroupDet.OrderByDescending(p => p.dopFecEmision).FirstOrDefault().dopNroSerie.ToString() + "-" + Doc2.GroupDet.OrderByDescending(p => p.dopFecEmision).FirstOrDefault().dopNumero.ToString()),
                                     Decripcion = (Det.Operaciones.OpeTipo == "C" ? "Compra " : "Venta ") + Det.Articulos.ArtDescripcion,
                                     nCom_Cantidad = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpCantidad),
                                     nCom_PreUnitario = (Det.Operaciones.OpeTipo == "V" ? null : Det.dtpPrecioVen),

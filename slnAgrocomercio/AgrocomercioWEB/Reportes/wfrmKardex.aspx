@@ -184,7 +184,7 @@
                                                             <asp:BoundField DataField="OpeFecEmision" HeaderText="Fec.Emision"  DataFormatString="{0:d}" >
                                                                 <ItemStyle HorizontalAlign="Left" Width="55px" />
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="Documento" HeaderText="Nro Guia" >
+                                                            <asp:BoundField DataField="Documento" HeaderText="Documento" >
                                                                 <ItemStyle HorizontalAlign="Left" Width="55px" />
                                                             </asp:BoundField>
                                                             <asp:BoundField DataField="Decripcion" HeaderText="Descripcion" >

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 namespace AgrocomercioWEB.Reportes
 {
@@ -32,9 +33,19 @@ namespace AgrocomercioWEB.Reportes
                         
                         CrystalReportViewer1.ReportSource = rpt;
                         CrystalReportViewer1.ReuseParameterValuesOnRefresh = true;
+
+
+                        // bloque de código donde exportamos el reporte a pdf directamente
+                        using (var mStream = (MemoryStream)rpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat))
+                        {
+                            Response.Clear();
+                            Response.Buffer = true;
+                            Response.ContentType = "application/pdf";
+                            Response.BinaryWrite(mStream.ToArray());
+                        }
+                        Response.End();
                     }
                 }
-                
             }
             catch (Exception ex)
             {

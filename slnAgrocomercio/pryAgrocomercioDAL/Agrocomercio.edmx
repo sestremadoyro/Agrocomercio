@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AgrocomercioModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="AgrocomercioModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="AgrocomercioModelStoreContainer">
           <EntitySet Name="Articulos" EntityType="AgrocomercioModel.Store.Articulos" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Atributos" EntityType="AgrocomercioModel.Store.Atributos" store:Type="Tables" Schema="dbo" />
@@ -14,20 +14,6 @@
           <EntitySet Name="DocumenOperacion" EntityType="AgrocomercioModel.Store.DocumenOperacion" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="letra" EntityType="AgrocomercioModel.Store.letra" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LotesArt" EntityType="AgrocomercioModel.Store.LotesArt" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="LotesArt_TMP" EntityType="AgrocomercioModel.Store.LotesArt_TMP" store:Type="Tables" store:Schema="dbo" store:Name="LotesArt_TMP">
-            <DefiningQuery>SELECT 
-      [LotesArt_TMP].[LotCod] AS [LotCod], 
-      [LotesArt_TMP].[ArtCod] AS [ArtCod], 
-      [LotesArt_TMP].[LotNro] AS [LotNro], 
-      [LotesArt_TMP].[LotStock] AS [LotStock], 
-      [LotesArt_TMP].[LotPrecioCom] AS [LotPrecioCom], 
-      [LotesArt_TMP].[LotPrecioVen] AS [LotPrecioVen], 
-      [LotesArt_TMP].[LotFecRegis] AS [LotFecRegis], 
-      [LotesArt_TMP].[LotFecVenci] AS [LotFecVenci], 
-      [LotesArt_TMP].[LotFecModi] AS [LotFecModi], 
-      [LotesArt_TMP].[LotEstado] AS [LotEstado]
-      FROM [dbo].[LotesArt_TMP] AS [LotesArt_TMP]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Notas" EntityType="AgrocomercioModel.Store.Notas" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Operaciones" EntityType="AgrocomercioModel.Store.Operaciones" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Pag_letras" EntityType="AgrocomercioModel.Store.Pag_letras" store:Type="Tables" Schema="dbo" />
@@ -35,7 +21,6 @@
           <EntitySet Name="Proveedores" EntityType="AgrocomercioModel.Store.Proveedores" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="rel_notfactura" EntityType="AgrocomercioModel.Store.rel_notfactura" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Roles" EntityType="AgrocomercioModel.Store.Roles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="AgrocomercioModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbliqCobranza" EntityType="AgrocomercioModel.Store.tbliqCobranza" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TipoCambios" EntityType="AgrocomercioModel.Store.TipoCambios" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TipoPersonal" EntityType="AgrocomercioModel.Store.TipoPersonal" store:Type="Tables" Schema="dbo" />
@@ -594,26 +579,6 @@
           <Property Name="LotFecModi" Type="datetime" />
           <Property Name="LotEstado" Type="char" Nullable="false" MaxLength="1" />
         </EntityType>
-        <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Agrocomercio.dbo.LotesArt_TMP' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
-      -->
-        <EntityType Name="LotesArt_TMP">
-          <Key>
-            <PropertyRef Name="LotCod" />
-            <PropertyRef Name="LotNro" />
-            <PropertyRef Name="LotEstado" />
-          </Key>
-          <Property Name="LotCod" Type="int" Nullable="false" />
-          <Property Name="ArtCod" Type="int" />
-          <Property Name="LotNro" Type="int" Nullable="false" />
-          <Property Name="LotStock" Type="numeric" Scale="2" />
-          <Property Name="LotPrecioCom" Type="numeric" Scale="2" />
-          <Property Name="LotPrecioVen" Type="numeric" Scale="2" />
-          <Property Name="LotFecRegis" Type="date" />
-          <Property Name="LotFecVenci" Type="date" />
-          <Property Name="LotFecModi" Type="datetime" />
-          <Property Name="LotEstado" Type="char" Nullable="false" MaxLength="1" />
-        </EntityType>
         <EntityType Name="Notas">
           <Key>
             <PropertyRef Name="inota" />
@@ -659,6 +624,7 @@
           <Property Name="tcmCod" Type="int" Nullable="false" />
           <Property Name="OpeTipCiclo" Type="char" MaxLength="1" />
           <Property Name="OpeCiclo" Type="int" />
+          <Property Name="OpeOrdCompra" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Pag_letras">
           <Key>
@@ -725,16 +691,6 @@
           <Property Name="rolOpcionModificar" Type="bit" />
           <Property Name="rolOpcionEliminar" Type="bit" />
           <Property Name="rolMenu" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="tbliqCobranza">
           <Key>
@@ -1466,8 +1422,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AgrocomercioModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -1480,7 +1435,6 @@
           <EntitySet Name="DocumenOperacion" EntityType="AgrocomercioModel.DocumenOperacion" />
           <EntitySet Name="letra" EntityType="AgrocomercioModel.letra" />
           <EntitySet Name="LotesArt" EntityType="AgrocomercioModel.LotesArt" />
-          <EntitySet Name="LotesArt_TMP" EntityType="AgrocomercioModel.LotesArt_TMP" />
           <EntitySet Name="Notas" EntityType="AgrocomercioModel.Notas" />
           <EntitySet Name="Operaciones" EntityType="AgrocomercioModel.Operaciones" />
           <EntitySet Name="Pag_letras" EntityType="AgrocomercioModel.Pag_letras" />
@@ -1488,7 +1442,6 @@
           <EntitySet Name="Proveedores" EntityType="AgrocomercioModel.Proveedores" />
           <EntitySet Name="rel_notfactura" EntityType="AgrocomercioModel.rel_notfactura" />
           <EntitySet Name="Roles" EntityType="AgrocomercioModel.Roles" />
-          <EntitySet Name="sysdiagrams" EntityType="AgrocomercioModel.sysdiagrams" />
           <EntitySet Name="tbliqCobranza" EntityType="AgrocomercioModel.tbliqCobranza" />
           <EntitySet Name="TipoCambios" EntityType="AgrocomercioModel.TipoCambios" />
           <EntitySet Name="TipoPersonal" EntityType="AgrocomercioModel.TipoPersonal" />
@@ -1731,23 +1684,6 @@
           <NavigationProperty Name="Articulos" Relationship="AgrocomercioModel.FK_LotesArt_Articulos" FromRole="LotesArt" ToRole="Articulos" />
           <NavigationProperty Name="DetOperacion" Relationship="AgrocomercioModel.FK_DetOperacion_LotesArt" FromRole="LotesArt" ToRole="DetOperacion" />
         </EntityType>
-        <EntityType Name="LotesArt_TMP">
-          <Key>
-            <PropertyRef Name="LotCod" />
-            <PropertyRef Name="LotNro" />
-            <PropertyRef Name="LotEstado" />
-          </Key>
-          <Property Name="LotCod" Type="Int32" Nullable="false" />
-          <Property Name="ArtCod" Type="Int32" />
-          <Property Name="LotNro" Type="Int32" Nullable="false" />
-          <Property Name="LotStock" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="LotPrecioCom" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="LotPrecioVen" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="LotFecRegis" Type="DateTime" />
-          <Property Name="LotFecVenci" Type="DateTime" />
-          <Property Name="LotFecModi" Type="DateTime" />
-          <Property Name="LotEstado" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
-        </EntityType>
         <EntityType Name="Notas">
           <Key>
             <PropertyRef Name="inota" />
@@ -1801,6 +1737,7 @@
           <NavigationProperty Name="Proveedores" Relationship="AgrocomercioModel.FK_Operaciones_Proveedores" FromRole="Operaciones" ToRole="Proveedores" />
           <NavigationProperty Name="TipoCambios" Relationship="AgrocomercioModel.FK_Operaciones_TipoCambios" FromRole="Operaciones" ToRole="TipoCambios" />
           <NavigationProperty Name="Transportistas" Relationship="AgrocomercioModel.FK_Operaciones_Transportistas" FromRole="Operaciones" ToRole="Transportistas" />
+          <Property Type="String" Name="OpeOrdCompra" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Pag_letras">
           <Key>
@@ -1874,16 +1811,6 @@
           <Property Name="rolOpcionEliminar" Type="Boolean" />
           <Property Name="rolMenu" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Usuarios" Relationship="AgrocomercioModel.FK_Usuarios_Roles" FromRole="Roles" ToRole="Usuarios" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="tbliqCobranza">
           <Key>
@@ -2719,22 +2646,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LotesArt_TMP">
-            <EntityTypeMapping TypeName="AgrocomercioModel.LotesArt_TMP">
-              <MappingFragment StoreEntitySet="LotesArt_TMP">
-                <ScalarProperty Name="LotCod" ColumnName="LotCod" />
-                <ScalarProperty Name="ArtCod" ColumnName="ArtCod" />
-                <ScalarProperty Name="LotNro" ColumnName="LotNro" />
-                <ScalarProperty Name="LotStock" ColumnName="LotStock" />
-                <ScalarProperty Name="LotPrecioCom" ColumnName="LotPrecioCom" />
-                <ScalarProperty Name="LotPrecioVen" ColumnName="LotPrecioVen" />
-                <ScalarProperty Name="LotFecRegis" ColumnName="LotFecRegis" />
-                <ScalarProperty Name="LotFecVenci" ColumnName="LotFecVenci" />
-                <ScalarProperty Name="LotFecModi" ColumnName="LotFecModi" />
-                <ScalarProperty Name="LotEstado" ColumnName="LotEstado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Notas">
             <EntityTypeMapping TypeName="AgrocomercioModel.Notas">
               <MappingFragment StoreEntitySet="Notas">
@@ -2755,6 +2666,7 @@
           <EntitySetMapping Name="Operaciones">
             <EntityTypeMapping TypeName="AgrocomercioModel.Operaciones">
               <MappingFragment StoreEntitySet="Operaciones">
+                <ScalarProperty Name="OpeOrdCompra" ColumnName="OpeOrdCompra" />
                 <ScalarProperty Name="OpeCod" ColumnName="OpeCod" />
                 <ScalarProperty Name="OpeTipo" ColumnName="OpeTipo" />
                 <ScalarProperty Name="OpeFecEmision" ColumnName="OpeFecEmision" />
@@ -2851,17 +2763,6 @@
                 <ScalarProperty Name="rolOpcionModificar" ColumnName="rolOpcionModificar" />
                 <ScalarProperty Name="rolOpcionEliminar" ColumnName="rolOpcionEliminar" />
                 <ScalarProperty Name="rolMenu" ColumnName="rolMenu" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="AgrocomercioModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3362,7 +3263,6 @@
         <EntityTypeShape EntityType="AgrocomercioModel.DocumenOperacion" Width="1.5" PointX="8.25" PointY="9.125" Height="4.0956022135416674" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.letra" Width="1.5" PointX="10.75" PointY="6.75" Height="3.5186979166666674" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.LotesArt" Width="1.5" PointX="5.25" PointY="16" Height="3.3263964843750014" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgrocomercioModel.LotesArt_TMP" Width="1.5" PointX="10.75" PointY="11.5" Height="2.9417936197916674" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.Notas" Width="1.5" PointX="8.75" PointY="2.75" Height="3.3263964843750031" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.Operaciones" Width="1.5" PointX="6" PointY="7.625" Height="7.1724251302083317" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.Pag_letras" Width="1.5" PointX="0.75" PointY="14.5" Height="3.1340950520833317" IsExpanded="true" />
@@ -3370,7 +3270,6 @@
         <EntityTypeShape EntityType="AgrocomercioModel.Proveedores" Width="1.5" PointX="0.75" PointY="9.5" Height="3.5186979166666674" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.rel_notfactura" Width="1.5" PointX="11" PointY="3.25" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.Roles" Width="1.5" PointX="3.75" PointY="27.375" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgrocomercioModel.sysdiagrams" Width="1.5" PointX="12.75" PointY="11.5" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.tbliqCobranza" Width="1.5" PointX="12.75" PointY="14.5" Height="4.8648079427083388" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.TipoCambios" Width="1.5" PointX="3.75" PointY="20.5" Height="2.1725878906250031" IsExpanded="true" />
         <EntityTypeShape EntityType="AgrocomercioModel.TipoPersonal" Width="1.5" PointX="1.5" PointY="2.625" Height="1.5956835937500031" IsExpanded="true" />

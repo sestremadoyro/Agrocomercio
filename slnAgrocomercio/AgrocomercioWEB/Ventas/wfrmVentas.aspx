@@ -1235,7 +1235,7 @@
         </asp:UpdatePanel>
     </obout:Window>
     <obout:Window ID="winGuardarOperacion" runat="server" IsModal="True" IsResizable="False"
-        ShowStatusBar="False" Title="DATOS ADICIONALES DE LA COMPRA" StyleFolder="~/App_Themes/TemaAgrocomercio/Windows/aura"
+        ShowStatusBar="False" Title="DATOS ADICIONALES DE LA VENTA" StyleFolder="~/App_Themes/TemaAgrocomercio/Windows/aura"
         VisibleOnLoad="False" Width="450" Height="200" DebugMode="True" PageOpacity="70"
         OnClientInit="window.winGuardarOperacion = winGuardarOperacion;">
         <asp:UpdatePanel ID="updatePanelGuardarOperacion" runat="server" ClientIDMode="Static">
@@ -1264,8 +1264,14 @@
                             <td class="clsCellTituloDatos2" valign="top">
                                 Ruc trans:
                             </td>
-                            <td class="clsCellDatos2" valign="top" colspan="3">
+                            <td class="clsCellDatos2" valign="top" >
                                 <asp:TextBox ID="txtRucTrans" runat="server" Width="100px" ReadOnly="True"></asp:TextBox>
+                            </td>
+                            <td class="clsCellTituloDatos2" valign="top">
+                                Nro Orden de Compra:
+                            </td>
+                            <td class="clsCellDatos2" valign="top" colspan="3">
+                                <asp:TextBox ID="txtOpeOrdCompra" runat="server" Width="100px" ></asp:TextBox>
                             </td>
                         </tr>
                         <tr>

@@ -112,6 +112,11 @@ namespace AgrocomercioWEB.Ventas
             get { return lblDetallesChanged.Value == "true" ? 1 : 0; }
             set { lblDetallesChanged.Value = (value == 1 ? "true" : "false"); }
         }
+        public string cOpeOrdCompra
+        {
+            get { return txtOpeOrdCompra.Text; }
+        }
+        
 
         /// PROPIEDADES DE LA DOCUMENTOS OPERACION
         public string cdopNroSerie
@@ -1169,6 +1174,7 @@ namespace AgrocomercioWEB.Ventas
             txtDocCli.Text = "";
             txtNroDocu.Text = "";
             txtFecha.Text = "";
+            txtOpeOrdCompra.Text = "";
             txtDireccion.Enabled = false;
             txtDocCli.Enabled = false;
             txtTelefono.Enabled = false;
@@ -1487,12 +1493,19 @@ namespace AgrocomercioWEB.Ventas
                     cFecTraslado = ((DateTime)DocumenOpe.dopFecEmision).ToString("yyyy-MM-dd");
 
             }
-            DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 4);
-            if (DocumenOpe != null)
+
+            if (txtOpeOrdCompra.Text != "")
+                NroPedido = txtOpeOrdCompra.Text;
+            else
             {
-                NroPedido = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
-               
+                DocumenOpe = lstDocumenOpe.GetDocumenOperacion(OpeCod, 4);
+                if (DocumenOpe != null)
+                {
+                    NroPedido = DocumenOpe.dopNroSerie.ToString() + " - " + DocumenOpe.dopNumero.ToString();
+
+                }
             }
+            
             if (ddlMoneda.SelectedValue == "PEN")
                 moneda = " Nuevos Soles";
             else
