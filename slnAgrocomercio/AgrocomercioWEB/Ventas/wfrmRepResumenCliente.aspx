@@ -6,33 +6,35 @@
 <%@ Register Assembly="obout_ComboBox" Namespace="Obout.ComboBox" TagPrefix="cc4" %>
 <%@ Register Assembly="obout_Calendar2_Net" Namespace="OboutInc.Calendar2" TagPrefix="obout" %>
 <%@ Register Assembly="obout_ListBox" Namespace="Obout.ListBox" TagPrefix="cc2" %>
-<%@ Register Assembly="obout_Grid_NET" Namespace="Obout.Grid" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="../App_Themes/TemaAgrocomercio/ventas.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
 
 
-        function exportToExcel() {
-            gridVentasxCobrar.exportToExcel();
-            return false;
-        }
+        var tableToExcel = (function () {
+            var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+    , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+            return function (table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
 
-        function exportToPdf() {
-            gridVentasxCobrar.exportToWord();
-            return false;
-        }
 
-        function printGrid() {
-            gridBodyStyle = gridVentasxCobrar.GridBodyContainer.getAttribute('style');
-            gridVentasxCobrar.GridBodyContainer.style.maxHeight = '';
-            gridVentasxCobrar.GridMainContainer.style.width = gridVentasxCobrar.HorizontalScroller.firstChild.firstChild.offsetWidth + 'px';
-            gridVentasxCobrar.HorizontalScroller.style.display = 'none';
+         function printGrid2() {
+            var div, imp;
+            div = document.getElementById("divGridView"); //seleccionamos el objeto
+            imp = window.open(" ", "Impresion de Reporte", 'toolbar=0,scrollbars=0,status=0'); //damos un titulo
+            imp.document.write('<HTML>\n<HEAD>\n<link href="gridview.css" rel="stylesheet" type="text/css" />\n</HEAD>\n<BODY>\n'); //tambien podriamos agregarle un <link ...
+            imp.document.write(div.innerHTML + '\n</BODY>\n</HTML>'); //agregamos el objeto
+            imp.document.close();
+            imp.print();   //Abrimos la opcion de imprimir
+            imp.close(); //cerramos la ventana nueva
 
-            gridVentasxCobrar.print();
-
-            window.setTimeout("gridVentasxCobrar.GridBodyContainer.setAttribute('style', gridBodyStyle);", 250);
-            return false;
         }
     </script>
 </asp:Content>
@@ -100,21 +102,13 @@
                                                 </tr>
                                                 <tr>
                                                     <td valign="top">
-                                                        <asp:Button ID="btnProcesar" runat="server" Text="Procesar" ToolTip="Procesar" CssClass="clsBtnProcesar"
-                                                            OnClick="btnProcesar_Click" />
+                                                        <input id="Button1" type="button" value="Imprimir" onclick="printGrid2()" class="clsBtnImprimir"   />
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="btnImprimir" runat="server" Text="Imprimir" ToolTip="Imprimir" CssClass="clsBtnImprimir"
-                                                            OnClientClick="printGrid()" OnClick="btnImprimir_Click" />
-                                                    </td>
-                                                   <td valign="top">
-                                                        <asp:Button ID="btnExcel" runat="server" Text="Excel" ToolTip="Excel" CssClass="clsBtnExcel"
-                                                            OnClick="btnExcel_Click" />
+                                                        <input type="button" onclick="tableToExcel('MainContent_gridVentasxCobrar', 'REPORTE RESUMEN POR CLIENTES')" value="Excel"  class="clsBtnExcel" >
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="btnPdf" runat="server" Text="A Pdf" ToolTip="Pdf" 
-                                                            CssClass="clsBtnPdf" onclick="btnPdf_Click"
-                                                             />
+                                                        <asp:Button ID="Button5" runat="server" Text="A Pdf" ToolTip="Pdf" CssClass="clsBtnPdf" Visible="false" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -125,7 +119,7 @@
                             <tr>
                                 <td colspan="4">
                                     <div style="text-align: center; color: Green; font-size: 14px; font-weight: bold;">
-                                        <asp:Label ID="lblExito" runat="server" Text="El Reporte de Proceso Correctamente."
+                                        <asp:Label ID="lblExito" runat="server" Text=" PROCESO TERMINADO !"
                                             Visible="false"></asp:Label></div>
                                     <div style="text-align: center; color: Red; font-size: 14px; font-weight: bold;">
                                         <asp:Label ID="lblError" runat="server" Text="No hay Registros para Procesar el Reporte"
@@ -137,89 +131,74 @@
                                     <table class="tablaDerecha">
                                         <tr>
                                             <td>
-                                                <div id="container" style="position: relative; width: 875px; height:430px; overflow:hidden;">
-                                                        <cc1:Grid ID="gridVentasxCobrar" runat="server" AllowAddingRecords="False" AllowColumnResizing="False"
-                                                            CallbackMode="true" Serialize="true" AllowFiltering="True" AutoGenerateColumns="False"
-                                                            Width="100%"  FolderStyle="~/App_Themes/TemaAgrocomercio/Grid/style_6"
-                                                            FolderLocalization="~/App_Themes/TemaAgrocomercio/Grid/localization" Language="es" PageSize="-1" AllowPaging="false"
-                                                            OnFiltering="gridVentasxCobrar_Filtering" FolderExports="~/TmpExports/" oncolumnscreated="gridVentasxCobrar_ColumnsCreated"
-                                                             >
-                                                            <Columns>
-                                                                <cc1:Column DataField="OpeCod" HeaderText="Codigo" Index="0" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="60">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="Anio" HeaderText="Año" Index="1" AllowGroupBy="False" AllowFilter="False"
-                                                                    Width="50">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="Mes" HeaderText="Mes" Index="2" AllowGroupBy="False" AllowFilter="False"
-                                                                    Width="70">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="Dia_mes" HeaderText="Dia-Mes" Index="3" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="60">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="NroFactura" HeaderText="Nro Fatura" Index="4" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="90">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="NroNota" HeaderText="Nro Pedido" Index="5" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="90">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="Zona" HeaderText="Zona" Index="6" Width="80" ShowFilterCriterias="false">
-                                                                    <TemplateSettings FilterTemplateId="ZonasFilter" />
-                                                                    <TemplateSettings FilterTemplateId="ZonasFilter" />
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="dFecPago" HeaderText="Fec.Pago" Index="7" DataFormatString="{0:d/M/yyyy}"
-                                                                    AllowGroupBy="False" AllowFilter="False" Width="80">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="nVentaUSD" HeaderText="Venta USD" Index="8" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="80">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="nPagoUSD" HeaderText="Pago USD" Index="9" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="80">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="nVentaPEN" HeaderText="Venta PEN" Index="10" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="80">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="nPagoPEN" HeaderText="Pago PEN" Index="11" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="80">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="nSaldoUSD" HeaderText="Saldo USD" Index="12" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="80">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="nSaldoPEN" HeaderText="Saldo PEN" Index="13" AllowGroupBy="False"
-                                                                    AllowFilter="False" Width="80">
-                                                                </cc1:Column>
-                                                                <cc1:Column DataField="nSaldo" HeaderText="Saldo Total" Index="14" AllowGroupBy="False"
-                                                                    Width="100">
-                                                                </cc1:Column>
+                                                <div id="divGridView" style="position: relative; width: 1080px; height:430px; overflow:scroll;">
+                                                <asp:GridView ID="gridVentasxCobrar" runat="server" AutoGenerateColumns="False"  
+                                                    CellPadding="4" GridLines="Vertical" Width="1060px" 
+                                                    CssClass="mGrid mGrid3" ShowHeaderWhenEmpty="True" 
+                                                        onrowcreated="gridVentasxCobrar_RowCreated" 
+                                                        onrowdatabound="gridVentasxCobrar_RowDataBound" >
+                                                    <AlternatingRowStyle CssClass="alt" />
+                                                    <Columns>
+                                                            <asp:BoundField DataField="OpeCod" HeaderText="Codigo" >
+                                                                <ItemStyle HorizontalAlign="Left" Width="40px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="CliNombre" HeaderText="Nombre" Visible="false" >
+                                                                <ItemStyle HorizontalAlign="Left" Width="240px" />
+                                                            </asp:BoundField>                                                                
+                                                            <asp:BoundField DataField="Anio" HeaderText="Año" >
+                                                                <ItemStyle HorizontalAlign="Left" Width="40px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="Mes" HeaderText="Mes" >
+                                                                <ItemStyle HorizontalAlign="Left" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="Dia_mes" HeaderText="Dia-Mes"   >
+                                                                <ItemStyle HorizontalAlign="Center" Width="50px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="NroFactura" HeaderText="Nro Fatura" >
+                                                                <ItemStyle HorizontalAlign="Center" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="NroNota" HeaderText="Nro Pedido" >
+                                                                <ItemStyle HorizontalAlign="Center" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="Zona" HeaderText="Zona" >
+                                                                <ItemStyle HorizontalAlign="Left" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="dFecPago" HeaderText="Fec.Pago"  DataFormatString="{0:d}" >
+                                                                <ItemStyle HorizontalAlign="Center" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nVentaUSD" HeaderText="Venta" DataFormatString="{0:n}">
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nPagoUSD" HeaderText="Pago"  DataFormatString="{0:n}" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nSaldoUSD" HeaderText="Saldo" DataFormatString="{0:n}" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>                                                            
+                                                            <asp:BoundField DataField="nVentaPEN" HeaderText="Venta" DataFormatString="{0:n}" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nPagoPEN" HeaderText="Pago" DataFormatString="{0:n}" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nSaldoPEN" HeaderText="Saldo" DataFormatString="{0:n}" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="70px" />
+                                                            </asp:BoundField>
+                                                            <asp:BoundField DataField="nSaldo" HeaderText="Saldo Total" DataFormatString="{0:n}" >
+                                                                <ItemStyle HorizontalAlign="Right" Width="80px" />
+                                                            </asp:BoundField>
                                                             </Columns>
-                                                            <ScrollingSettings ScrollWidth="870" ScrollHeight="250" />
-                                                            <MasterDetailSettings LoadingMode="OnCallback" />
-                                                            <Templates>
-                                                                <cc1:GridTemplate runat="server" ID="Template1">
-                                                                    <Template><span><%# Container.Value %></span></Template>
-                                                                </cc1:GridTemplate>
-                                                                <cc1:GridTemplate runat="server" ID="ZonasFilter" ControlID="ddlZonas" ControlPropertyName="value">
-                                                                    <Template>
-                                                                        <cc3:OboutDropDownList runat="server" ID="ddlZonas" Width="100%" MenuWidth="100"
-                                                                            FolderStyle="styles/premiere_blue/interface/OboutDropDownList" DataSourceID="odsZonas"
-                                                                            DataTextField="AtrDescripcion" DataValueField="AtrCodigo" />
-                                                                    </Template>
-                                                                </cc1:GridTemplate>
-                                                            </Templates>
-                                                            <ExportingSettings ExportAllPages="True" ExportColumnsFooter="True" ExportDetails="True"
-                                                            ExportGroupFooter="True" ExportGroupHeader="True" FileName="ResumenCliente"
-                                                            KeepColumnSettings="True" />
-                                                        </cc1:Grid>
-                                                        <asp:ObjectDataSource ID="odsZonas" runat="server" SelectMethod="ListDataAtributos"
-                                                            TypeName="pryAgrocomercioBLL.EntityCollection.clsAtributos">
-                                                            <SelectParameters>
-                                                                <asp:Parameter DefaultValue="4" Name="pcAtrTipoCod" />
-                                                            </SelectParameters>
-                                                        </asp:ObjectDataSource>
-                                                   
-                                         
-
-                                                    </div>
+                                                            <EmptyDataTemplate>
+                                                                <i>
+                                                                    <div class="clsError1" id="lblError1" runat="server">
+                                                                        No se ha Registrado ninguna operacion</div>
+                                                                </i>
+                                                            </EmptyDataTemplate>
+                                                            <PagerStyle CssClass="pgr" />
+                                                            <SelectedRowStyle CssClass="selrow" />
+                                                        </asp:GridView>
+                                                     
+                                                </div>                                           
                                             </td>
                                         </tr>
                                     </table>
@@ -229,88 +208,6 @@
                     </td>
                 </tr>
             </table>
-            
-            <script type="text/javascript">
-
-                var applyFilterTimeout = null;
-
-                function applyFilter() {
-                    if (applyFilterTimeout) {
-                        window.clearTimeout(applyFilterTimeout);
-                    }
-
-                    applyFilterTimeout = window.setTimeout(doFiltering, 500);
-                }
-
-                function doFiltering() {
-                    gridVentasxCobrar.filter();
-                }
-
-
-                oboutGrid.prototype._assignBodyEvents = oboutGrid.prototype.assignBodyEvents;
-                oboutGrid.prototype.assignBodyEvents = function () {
-                    this._assignBodyEvents();
-
-                    this._autoResizeColumns();
-                }
-
-                oboutGrid.prototype._getColumnWidth = function () {
-                    var totalWidth = 0;
-                    for (var i = 0; i < this.ColumnsCollection.length; i++) {
-                        if (this.ColumnsCollection[i].Visible) {
-                            totalWidth += this.ColumnsCollection[i].Width;
-                        }
-                    }
-
-                    return totalWidth;
-                }
-
-                oboutGrid.prototype._autoResizeColumns = function () {
-                    var columnWidths = new Array();
-                    var body = this.getBodyTableBody();
-
-                    for (var i = 0; i < this.ColumnsCollection.length; i++) {
-                        var headerCell = this.getHeaderCell(i);
-                        var extraWidth = headerCell.firstChild.offsetWidth - headerCell.firstChild.firstChild.offsetWidth;
-                        var maxWidth = headerCell.firstChild.firstChild.firstChild.offsetWidth + extraWidth;
-
-                        for (j = 0; j < body.childNodes.length; j++) {
-                            var bodyCell = body.childNodes[j].childNodes[i];
-                            var extraWidth = 0;
-                            var cellWidth = 0;
-
-                            if (bodyCell != null) {
-                                if (bodyCell.firstChild != null)
-                                    extraWidth = bodyCell.firstChild.offsetWidth;
-
-                                if (bodyCell.firstChild.firstChild != null)
-                                    extraWidth -= bodyCell.firstChild.firstChild.offsetWidth;
-
-                                cellWidth = extraWidth;
-                                if (bodyCell.firstChild.firstChild.firstChild != null)
-                                    cellWidth += bodyCell.firstChild.firstChild.firstChild.offsetWidth;
-
-                            }
-
-                            if (cellWidth > maxWidth) {
-                                maxWidth = cellWidth;
-                            }
-                        }
-
-                        columnWidths.push(maxWidth - this.ColumnsCollection[i].Width);
-                    }
-
-                    for (var i = 0; i < columnWidths.length; i++) {
-                        this.resizeColumn(i, columnWidths[i] + 20, false);
-                    }
-
-                    //            var width = this._getColumnWidth();
-                    //            if (width <= 0)
-                    //                width = 10;
-                    //            this.GridMainContainer.style.width = width + 'px';
-                }
-    </script>
-
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

@@ -29,45 +29,30 @@ namespace AgrocomercioWEB.Reportes
     public partial class wfrmRepResumenCliente : BasePage
     {
         public String _click = "";
+        public int intSubTotalIndex = 1;
+        string strPreviousRowID = string.Empty;
+        int LastRowIndex = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
            SetEstado("INI");
-            if (Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
-                
+                CreateGrid();   
             }
             
         }
 
+       
 #region FUNCIONES DEL FORMULARIO
 
-      
-        
+             
         protected void btnProcesar_Click(object sender, EventArgs e)
         {
-            DataTable dtResultado = null;
             clsOperaciones colOperaciones = new clsOperaciones();
-            DateTime dFecIni = DateTime.Today;
-            DateTime dFecFin = DateTime.Today;
             try
             {
-                dtResultado = colOperaciones.RepResumenCliente();
-
-                if (dtResultado.Rows.Count > 0)
-                {
-                    SetEstado("PRO");
-
-                    gridVentasxCobrar.DataSource = dtResultado;
-                    gridVentasxCobrar.DataBind();
-
-                    AgregarVariableSession("dtRepClientes", dtResultado);
-                    AgregarVariableSession("nTipCam", txtTipCam.Text);
-
-                    
-                }
-                else
-                    SetEstado("ERR");
+                CreateGrid();                
             }
             catch (Exception ex)
             {
@@ -80,8 +65,109 @@ namespace AgrocomercioWEB.Reportes
         {
             SetEstado("PRO");
         }
-     
 
+        protected void gridVentasxCobrar_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            // This is for cumulating the values
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                strPreviousRowID = DataBinder.Eval(e.Row.DataItem, "CliNombre").ToString();
+            }
+        }
+
+        protected void gridVentasxCobrar_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            if (gridVentasxCobrar.DataSource == null)
+            {
+                return;
+            }
+
+            LastRowIndex = e.Row.RowIndex >= 0 ? e.Row.RowIndex : LastRowIndex;
+            bool IsSubTotalPrvRowNeedToAdd = false;
+            int RowIndex = e.Row.RowIndex;
+
+            if ((strPreviousRowID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CliNombre") != null))
+                if (strPreviousRowID != DataBinder.Eval(e.Row.DataItem, "CliNombre").ToString())
+                    IsSubTotalPrvRowNeedToAdd = true;
+
+            if ((strPreviousRowID != string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CliNombre") == null))
+            {
+                IsSubTotalPrvRowNeedToAdd = true;
+                RowIndex = LastRowIndex + 1;
+            }
+
+            //Agregar primera fila 
+            if (intSubTotalIndex <= 1)
+            {
+                GridView grdViewOrders = (GridView)sender;
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+
+                TableCell cell = new TableCell();
+                cell.Text = "";
+                cell.ColumnSpan = 8;
+                cell.CssClass = "GridTitlesEmpty";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "DOLARES";
+                cell.ColumnSpan = 3;
+                cell.CssClass = "GridTitles";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "SOLES";
+                cell.ColumnSpan = 3;
+                cell.CssClass = "GridTitles";
+                row.Cells.Add(cell);
+
+                cell = new TableCell();
+                cell.Text = "TOTAL";
+                cell.ColumnSpan = 1;
+                cell.CssClass = "GridTitles";
+                row.Cells.Add(cell);
+
+                grdViewOrders.Controls[0].Controls.AddAt(0, row);
+                intSubTotalIndex++;
+            }
+
+            //Agregar primera agrupacion por proveedor
+            if ((strPreviousRowID == string.Empty) && (DataBinder.Eval(e.Row.DataItem, "CliNombre") != null))
+            {
+                GridView grdViewOrders = (GridView)sender;
+
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+
+                TableCell cell = new TableCell();
+                cell.Text = "Cliente: " + DataBinder.Eval(e.Row.DataItem, "CliNombre").ToString();
+                cell.ColumnSpan = 15;
+                cell.CssClass = "GroupHeader1Style";
+                row.Cells.Add(cell);
+
+                grdViewOrders.Controls[0].Controls.AddAt(RowIndex + intSubTotalIndex, row);
+                intSubTotalIndex++;
+            }
+
+            //AGREGAMOS SUBTOTAL POR PROVEEDOR
+            if (IsSubTotalPrvRowNeedToAdd)
+            {
+                #region Agregar La siguiente Cabecera de Proveedor
+                if (DataBinder.Eval(e.Row.DataItem, "CliNombre") != null)
+                {
+                    GridView grdViewOrders = (GridView)sender;
+                    GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
+
+                    TableCell cell = new TableCell();
+                    cell.Text = "Cliente: " + DataBinder.Eval(e.Row.DataItem, "CliNombre").ToString();
+                    cell.ColumnSpan = 15;
+                    cell.CssClass = "GroupHeader1Style";
+                    row.Cells.Add(cell);
+
+                    grdViewOrders.Controls[0].Controls.AddAt(RowIndex + intSubTotalIndex, row);
+                    intSubTotalIndex++;
+                }
+                #endregion                
+            }
+        }
         
 
 #endregion
@@ -93,10 +179,6 @@ namespace AgrocomercioWEB.Reportes
             switch (cTipo)
             {
                 case ("INI"):
-                    HabilitarBtn(btnProcesar, true);
-                    HabilitarBtn(btnImprimir, false);
-                    HabilitarBtn(btnExcel, false);
-                    HabilitarBtn(btnPdf, false);
                     lblExito.Visible = false;
                     lblError.Visible = false;
 
@@ -110,18 +192,10 @@ namespace AgrocomercioWEB.Reportes
 
                     break;
                 case ("PRO"):
-                    HabilitarBtn(btnProcesar, false);
-                    HabilitarBtn(btnImprimir, true);
-                    HabilitarBtn(btnExcel, true);
-                    HabilitarBtn(btnPdf, true);
                     lblExito.Visible = true;
                     lblError.Visible = false;
                     break;
                 case ("ERR"):
-                    HabilitarBtn(btnProcesar, true);
-                    HabilitarBtn(btnImprimir, false);
-                    HabilitarBtn(btnExcel, false);
-                    HabilitarBtn(btnPdf, false);
                     lblExito.Visible = false;
                     lblError.Visible = true;
                     break;
@@ -132,31 +206,9 @@ namespace AgrocomercioWEB.Reportes
             
         }
 
-        protected void gridVentasxCobrar_Filtering(object sender, EventArgs e)
-        {
-            // filter for OrderDate
-            Column orderDateColumn = gridVentasxCobrar.Columns[1];
-
-            if (orderDateColumn.FilterCriteria.Option is CustomFilterOption)
-            {
-                CustomFilterOption filterOption = orderDateColumn.FilterCriteria.Option as CustomFilterOption;
-
-                
-            }
-
-        }
-
-        protected void btnExcel_Click(object sender, EventArgs e)
-        {
-            string FileName = gridVentasxCobrar.ExportToExcel();
-            Download(gridVentasxCobrar.FolderExports.Replace("~", "..") + FileName);
-            SetEstado("PRO");
-        }
-
-
         protected void btnPdf_Click(object sender, EventArgs e)
         {
-            gridVentasxCobrar.PageSize = -1;
+            /*gridVentasxCobrar.PageSize = -1;
             gridVentasxCobrar.DataBind();
             // Stream which will be used to render the data
             MemoryStream fileStream = new MemoryStream();
@@ -227,23 +279,34 @@ namespace AgrocomercioWEB.Reportes
             Response.ContentType = "application/pdf";
             Response.BinaryWrite(fileStream.ToArray());
             Response.End();
-            SetEstado("PRO");
+            SetEstado("PRO");*/
+        }
+
+        public void CreateGrid()
+        {
+            clsOperaciones colOperaciones = new clsOperaciones();
+            DataTable dtResultado;
+
+            dtResultado = colOperaciones.RepResumenCliente();
+
+            if (dtResultado.Rows.Count > 0)
+            {
+                SetEstado("PRO");
+
+                gridVentasxCobrar.DataSource = dtResultado;
+                gridVentasxCobrar.DataBind();
+
+                AgregarVariableSession("dtRepClientes", dtResultado);
+                AgregarVariableSession("nTipCam", txtTipCam.Text);
+            }
+            else
+                SetEstado("ERR");
+
+            
         }
 #endregion
 
-        protected void gridVentasxCobrar_ColumnsCreated(object sender, EventArgs e)
-        {
-            Grid grid = sender as Grid;
-
-            foreach (Column column in grid.Columns)
-            {
-                column.TemplateSettings.TemplateId = "Template1";
-                column.TemplateSettings.HeaderTemplateId = "Template1";
-            }
-        }
-
-
-        
+              
     }
 }
 

@@ -76,40 +76,13 @@ namespace AgrocomercioWEB.Reportes {
         protected global::System.Web.UI.WebControls.Panel pnBotones;
         
         /// <summary>
-        /// Control btnProcesar.
+        /// Control Button5.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnProcesar;
-        
-        /// <summary>
-        /// Control btnImprimir.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnImprimir;
-        
-        /// <summary>
-        /// Control btnExcel.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExcel;
-        
-        /// <summary>
-        /// Control btnPdf.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPdf;
+        protected global::System.Web.UI.WebControls.Button Button5;
         
         /// <summary>
         /// Control lblExito.
@@ -136,33 +109,6 @@ namespace AgrocomercioWEB.Reportes {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Obout.Grid.Grid gridVentasxCobrar;
-        
-        /// <summary>
-        /// Control Template1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::Obout.Grid.GridTemplate Template1;
-        
-        /// <summary>
-        /// Control ZonasFilter.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::Obout.Grid.GridTemplate ZonasFilter;
-        
-        /// <summary>
-        /// Control odsZonas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsZonas;
+        protected global::System.Web.UI.WebControls.GridView gridVentasxCobrar;
     }
 }
