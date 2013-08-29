@@ -26,6 +26,11 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 txtDescuento.Visible = false;
                 lblDescuento.Visible = false;
                 lblPorcentaje.Visible = false;
+                txtNombre.Enabled = false;
+                txtDireccion.Enabled = false;
+                txtNumDoc.Enabled = false;
+                txtTelefono.Enabled = false;
+                txtFecRegistro.Enabled = false;
             }
             if (!objUsuario.Roles.rolOpcionCrear.Value)
             {

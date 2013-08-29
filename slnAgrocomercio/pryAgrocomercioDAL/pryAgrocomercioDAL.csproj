@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
@@ -48,6 +49,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Agrocomercio.edmx</DependentUpon>
     </Compile>
+    <Compile Include="CReporteSaldos.cs" />
     <Compile Include="MaestrosDataSet.cs">
       <DependentUpon>MaestrosDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>

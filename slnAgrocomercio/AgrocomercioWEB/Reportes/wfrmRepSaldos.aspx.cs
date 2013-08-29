@@ -32,7 +32,7 @@ namespace AgrocomercioWEB.Reportes.rpt
 
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnImprimir.OnClientClick = "AbrirVentanaImprimeSaldo()";
+            //btnImprimir.OnClientClick = "AbrirVentanaImprimeSaldo()";
             
            
         }
@@ -40,6 +40,7 @@ namespace AgrocomercioWEB.Reportes.rpt
         protected void btnProcesar_Click(object sender, EventArgs e)
         {
             string cMensaje = "";
+            
             DataTable dtResultado = null;
             CReportes oReportes = new CReportes();
             DateTime dFecIni = DateTime.Today;
@@ -49,13 +50,33 @@ namespace AgrocomercioWEB.Reportes.rpt
             {
 
                 nPrvCod = int.Parse(ddlProveedor.SelectedValue);
+                Usuarios objUsuario = (Usuarios)LeerVariableSesion("oUsuario");
 
-                dtResultado = oReportes.fnListaSaldos(nPrvCod); 
+                if (objUsuario.RolCod == 1)
+                {
+                    dgvLista.Visible = true;
+                    dgvLista2.Visible = false;
+                    dtResultado = oReportes.fnListaSaldosDataTable(nPrvCod);
+                }
+                else
+                {
+                    dgvLista.Visible = false;
+                    dgvLista2.Visible = true;
+                    dtResultado = oReportes.fnListaSaldosRestringidaDataTable(nPrvCod);
+                }        
 
                 if (dtResultado.Rows.Count > 0)
                 {
-                    dgvLista.DataSource = dtResultado;
-                    dgvLista.DataBind();
+                    if (objUsuario.RolCod == 1)
+                    {
+                        dgvLista.DataSource = dtResultado;
+                        dgvLista.DataBind();
+                    }
+                    else
+                    {
+                        dgvLista2.DataSource = dtResultado;
+                        dgvLista2.DataBind();
+                    }
                     AgregarVariableSession("dtSaldos", dtResultado);
                     AgregarVariableSession("nPrvCod", nPrvCod);
 

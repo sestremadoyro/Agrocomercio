@@ -1,12 +1,27 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="wfrmRepSaldos.aspx.cs" 
 Inherits="AgrocomercioWEB.Reportes.rpt.wfrmRepSaldos" %>
+<%@ Import Namespace="pryAgrocomercioDAL" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 <script type="text/javascript">
 
+    function printGrid2() {
+        var div, imp;
+        
+        div = document.getElementById("divGridView"); //seleccionamos el objeto
+        //imp = window.open(" ", "Impresion de Reporte", 'toolbar=0,scrollbars=0,status=0'); //damos un titulo
+        imp = window.open(' ', '_blank', 'width=880px,height=600px,toolbar=0,scrollbars=0,status=0'); //damos un titulo
+        imp.document.write('<HTML>\n<HEAD>\n<link href="gridview.css" rel="stylesheet" type="text/css" />\n</HEAD>\n<BODY>\n'); //tambien podriamos agregarle un <link ...
+        imp.document.write(div.innerHTML + '\n</BODY>\n</HTML>'); //agregamos el objeto
+        imp.document.close();
+        imp.print();   //Abrimos la opcion de imprimir
+        imp.close(); //cerramos la ventana nueva
+
+    }
+    /*
         function AbrirVentanaImprimeSaldo() {
             window.open('ImpresionSaldos.aspx', '_blank', 'width=880px,height=600px,scrollbars=si,menubar=no,resizable=no,left=200px, top=70px');
         }
-
+        */
 </script>
     <style type="text/css">
         .style1
@@ -43,7 +58,7 @@ Inherits="AgrocomercioWEB.Reportes.rpt.wfrmRepSaldos" %>
                                             <tr>
                                                 <td colspan="1">
                                                     <h2 class="clsTituloInterior">
-                                                        reporte de Saldos</h2>
+                                                        Reporte de Saldos</h2>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -74,9 +89,12 @@ Inherits="AgrocomercioWEB.Reportes.rpt.wfrmRepSaldos" %>
                                             </tr>
                                             <tr>
                                                 <td colspan="1" class="style5">
-                                                    <asp:Panel ID="pnLista" runat="server" ScrollBars="Vertical">
+                                                    <asp:Panel ID="pnLista" runat="server" >
+                                                    <div id="divGridView" style="position: relative; width: 875px;  overflow:scroll;">
+
                                                         <asp:GridView ID="dgvLista" runat="server" AutoGenerateColumns="False" GridLines="None"
                                                             CssClass="" ShowHeaderWhenEmpty="True" Width="712px">
+                                                            <AlternatingRowStyle BackColor="#E5EBF1" />
                                                             <Columns>
                                                                 <asp:BoundField DataField="ArtCod" HeaderText="Código" ItemStyle-Width="100px" 
                                                                     SortExpression="ArtCod" >
@@ -103,8 +121,7 @@ Inherits="AgrocomercioWEB.Reportes.rpt.wfrmRepSaldos" %>
                                                             </Columns>
                                                             <EmptyDataTemplate>
                                                                 <i>
-                                                                    <div class="clsError1" id="lblError1" runat="server">
-                                                                        No se ha Registro Ninguna Nota</div>
+                                                                    <div class="clsError1" id="lblError1"> </div>
                                                                 </i>
                                                             </EmptyDataTemplate>
                                                             <HeaderStyle BackColor="#333333" ForeColor="White" />
@@ -112,6 +129,43 @@ Inherits="AgrocomercioWEB.Reportes.rpt.wfrmRepSaldos" %>
                                                             <RowStyle Width="500px" />
                                                             <SelectedRowStyle CssClass="selrow" />
                                                         </asp:GridView>
+                                                        
+                                                        <asp:GridView ID="dgvLista2" runat="server" AutoGenerateColumns="False" 
+                                                            GridLines="None" ShowHeaderWhenEmpty="True" Width="712px">
+                                                            <AlternatingRowStyle BackColor="#E5EBF1" />
+                                                            <Columns>
+                                                                <asp:BoundField DataField="ArtCod" HeaderText="Código" ItemStyle-Width="100px" 
+                                                                    SortExpression="ArtCod" >
+                                                                    <ItemStyle Width="100px" />
+                                                                </asp:BoundField>
+                                                                <asp:BoundField DataField="ArtDescripcion" HeaderText="Descripción" 
+                                                                    ReadOnly="True" ItemStyle-Width="350px"
+                                                                    SortExpression="ArtDescripcion" >
+                                                                    <ItemStyle Width="350px" />
+                                                                </asp:BoundField>
+                                                                <asp:BoundField DataField="StockFisico" HeaderText="Stock Físico" 
+                                                                    ReadOnly="True" ItemStyle-Width="150px"
+                                                                    SortExpression="StockFisico" >
+                                                                    <ItemStyle Width="150px" HorizontalAlign="Right" />
+                                                                </asp:BoundField>
+                                                                <asp:BoundField DataField="ArtFecVen" HeaderText="Fec.Vencimiento"  ItemStyle-Width="150px"
+                                                                    SortExpression="ArtFeVen" ReadOnly="True" DataFormatString="{0:d}" >
+                                                                    <ItemStyle Width="150px" HorizontalAlign="Right" />
+                                                                </asp:BoundField>
+                                                                
+                                                            </Columns>
+                                                            <EmptyDataTemplate>
+                                                                <i>
+                                                                    <div class="clsError1" id="lblError1"> </div>
+                                                                </i>
+                                                            </EmptyDataTemplate>
+                                                            <HeaderStyle BackColor="#333333" ForeColor="White" />
+                                                            <PagerStyle CssClass="pgr" />
+                                                            <RowStyle Width="500px" />
+                                                            <SelectedRowStyle CssClass="selrow" />
+                                                        </asp:GridView>
+
+                                                    </div>
                                                     </asp:Panel>
                                                     <asp:Panel ID="pnListDet" runat="server" ScrollBars="Vertical">
                                                     </asp:Panel>
@@ -136,9 +190,18 @@ Inherits="AgrocomercioWEB.Reportes.rpt.wfrmRepSaldos" %>
                                                             Height="41px" OnClick="btnProcesar_Click" Text="Procesar" ToolTip="Procesar" />
                                                     </td>
                                                     <td valign="top">
-                                                        <asp:Button ID="btnImprimir" runat="server" CssClass="clsBtnImprimir" 
-                                                            Height="38px" OnClientClick="AbrirVentanaImprimeSaldo()" 
-                                                            Text="Imprimir" ToolTip="Imprimir" />
+                                                        <%
+                                                            int RolUsuario = 0;
+                                                            Usuarios objUsuario = (Usuarios)this.LeerVariableSesion("oUsuario");
+                                                            if (objUsuario.Roles.rolCod==1)
+                                                                RolUsuario = 1;
+                                                            else
+                                                                RolUsuario = 2;
+                                                         %>
+                                                            <asp:Button ID="btnImprimir" runat="server" CssClass="clsBtnImprimir" 
+                                                                Height="38px" 
+                                                                Text="Imprimir" ToolTip="Imprimir"
+                                                                OnClientClick='printGrid2()'/>
                                                     </td>
                                                 </tr>
                                                 <tr>
