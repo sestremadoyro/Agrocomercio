@@ -48,6 +48,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Agrocomercio.edmx</DependentUpon>
     </Compile>
+    <Compile Include="CReporteSaldos.cs" />
     <Compile Include="MaestrosDataSet.cs">
       <DependentUpon>MaestrosDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>

@@ -40,6 +40,10 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 txtCostoPromedio.Visible = false;
                 lblCostoPromedio.Visible = false;
                 pnlListaPrecios.Visible = false;
+                txtFecVencimiento.Enabled = false;
+                txtPeso.Enabled = false;
+                txtDescripcion.Enabled = false;
+                txtStockIni.Enabled = false;
 
             }
             if (!objUsuario.Roles.rolOpcionCrear.Value)

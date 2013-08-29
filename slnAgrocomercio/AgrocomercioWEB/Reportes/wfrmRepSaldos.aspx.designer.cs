@@ -85,6 +85,15 @@ namespace AgrocomercioWEB.Reportes.rpt {
         protected global::System.Web.UI.WebControls.GridView dgvLista;
         
         /// <summary>
+        /// Control dgvLista2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvLista2;
+        
+        /// <summary>
         /// Control pnListDet.
         /// </summary>
         /// <remarks>

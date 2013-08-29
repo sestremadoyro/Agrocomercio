@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using pryAgrocomercioDAL.Reportes_DataSetTableAdapters;
 using pryAgrocomercioDAL;
 
@@ -30,6 +31,17 @@ namespace pryAgrocomercioBLL
             SaldosDataTable = SaldosAdapter.SaldosGetData(prvCodigo);
 
             return SaldosDataTable;
+        }
+
+        public DataTable fnListaSaldosDataTable(int prvCodigo)
+        {
+            CReporteSaldos objReporteSaldos = new CReporteSaldos();
+            return objReporteSaldos.fnListaSaldos(prvCodigo);
+        }
+        public DataTable fnListaSaldosRestringidaDataTable(int prvCodigo)
+        {
+            CReporteSaldos objReporteSaldos = new CReporteSaldos();
+            return objReporteSaldos.fnListaSaldosRestringida(prvCodigo);
         }
         #endregion
     }

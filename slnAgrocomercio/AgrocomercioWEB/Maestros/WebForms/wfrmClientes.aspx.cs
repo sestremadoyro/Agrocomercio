@@ -23,6 +23,13 @@ namespace AgrocomercioWEB.Maestros.WebForms
                 btnGuardar.Visible = false;
                 ddlTipoPersona.Enabled = false;
                 ddlTipoDoc.Enabled = false;
+                txtNombres.Enabled = false;
+                txtDireccion.Enabled = false;
+                txtTelefono.Enabled = false;
+                txtDocumento.Enabled = false;
+                txtFecRegistro.Enabled = false;
+                txtRepresentante.Enabled = false;
+
 
             }
             if (!objUsuario.Roles.rolOpcionCrear.Value)
@@ -141,7 +148,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             txtTelefono.Text = string.Empty;
             txtNombres.Text = string.Empty;
             txtRepresentante.Text = string.Empty;
-            txtFecRegistro.Text = DateTime.Today.ToString();
+            txtFecRegistro.Text = DateTime.Today.ToString("yyyy-MM-dd");
             txtDocumento.Text = string.Empty;
 
             LlenarListas();
@@ -203,7 +210,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             txtTelefono.Text = string.Empty;
             txtNombres.Text = string.Empty;
             txtRepresentante.Text = string.Empty;
-            txtFecRegistro.Text = DateTime.Today.ToShortDateString();
+            txtFecRegistro.Text = DateTime.Today.ToString("yyyy-MM-dd");
             txtDocumento.Text = string.Empty;
             chkActivo.Checked = true;
 
@@ -244,7 +251,7 @@ namespace AgrocomercioWEB.Maestros.WebForms
             txtTelefono.Text = string.Empty;
             txtNombres.Text = string.Empty;
             txtRepresentante.Text = string.Empty;
-            txtFecRegistro.Text = DateTime.Today.ToShortDateString();
+            txtFecRegistro.Text = DateTime.Today.ToString("yyyy-MM-dd");
             txtDocumento.Text = string.Empty;
 
             LlenarListas();

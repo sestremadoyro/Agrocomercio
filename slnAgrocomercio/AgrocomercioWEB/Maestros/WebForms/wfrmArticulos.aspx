@@ -141,9 +141,14 @@ Inherits="AgrocomercioWEB.Maestros.WebForms.wfrmArticulos" %>
             <tr>
             <td>
                 <asp:Panel id="pnlEditProductos" runat="server" Visible="false" BackColor="White"  CssClass="anchopanel" >
-                    <span class="clsSubTituloInterior" style="float:left; width:645px;">Datos del Producto</span>
+                    
                 
                  <table style="width: 645px; margin:0 auto;">
+                    <tr>
+                    <td colspan="2">
+                        <span class="clsSubTituloInterior" style="float:left; width:645px;">Datos del Producto</span>
+                    </td>
+                    </tr>
                     <tr>
                         <td class="clsFormEtiquetas">
                             <asp:Label ID="Label1" runat="server" Text="Código :" 
