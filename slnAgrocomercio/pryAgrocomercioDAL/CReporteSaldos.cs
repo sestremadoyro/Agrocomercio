@@ -13,7 +13,7 @@ namespace pryAgrocomercioDAL
         public DataTable fnListaSaldos(int prvCodigo)
         {
             string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["AgrocomercioConnectionString"].ConnectionString.ToString();
-            //string cadenaConexion = "";
+
             SqlConnection con = new SqlConnection(cadenaConexion);
             con.Open();
             string cadenaSelect = " SELECT        Proveedores.PrvCod, Proveedores.PrvRazon, Articulos.ArtCod, Articulos.ArtDescripcion, Articulos.ArtStock AS StockFisico, Articulos.ArtCostoProm, ";
@@ -36,7 +36,7 @@ namespace pryAgrocomercioDAL
         public DataTable fnListaSaldosRestringida(int prvCodigo)
         {
             string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["AgrocomercioConnectionString"].ConnectionString.ToString();
-            //string cadenaConexion = "";
+
             SqlConnection con = new SqlConnection(cadenaConexion);
             con.Open();
             string cadenaSelect = " SELECT        Proveedores.PrvCod, Proveedores.PrvRazon, Articulos.ArtCod, Articulos.ArtDescripcion, Articulos.ArtStock AS StockFisico, Articulos.ArtFecVen ";
